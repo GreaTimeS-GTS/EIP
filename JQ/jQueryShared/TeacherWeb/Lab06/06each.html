@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>06each.html</title>   
+</head>
+<body>
+    <h2>Drinks</h2>
+    <ul>
+        <li>Coffee</li>
+        <li>Juice</li>
+        <li>Tea</li>
+    </ul>
+    <select id="idSel" multiple>
+        <option value="1">台北市</option>
+        <option value="2">新竹市</option>
+        <option value="3">台中市</option>
+    </select>
+
+    <p id="demo"></p>
+    <hr>
+    <input type="button" id="btn1" value="selector.each()">
+    <input type="button" id="btn2" value="selector.each2()">
+
+    <script src="../js/jquery-3.5.1.min.js"></script>
+    <script>
+        $(function () {
+            $("#btn1").click(function () {
+                //console.log($("li"));
+                $("li").each(function (index, element) {
+                    //console.log(index);
+                    //console.log(element);
+                    //console.log(index + ":" + element);  //[object HTMLLIElement]  [datatype class]
+                    console.log($(this).text());
+                    txt = $(this).text();
+                    $("#demo").append("<li>" + txt + "</li>")
+                });
+            });
+
+            $("#btn2").click(function () {
+                let opts = $("#idSel>option:selected");
+                console.log(opts);
+                opts.each(function () {
+                    let i = $(this).index();
+                    let v = $(this).val();
+                    let t = $(this).text();
+                    console.log(i + "," + v + "," + t);
+                })
+            })
+
+        });
+    </script>
+</body>
+</html>

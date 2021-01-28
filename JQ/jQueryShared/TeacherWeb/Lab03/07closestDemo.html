@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>07closestDemo.html</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <table class="table table-bordered table-sm">
+            <tr>
+                <td><input type="checkbox"><label> 1 </label></td>
+                <td>Jack</td>
+                <td>0910123456</td>
+                <td>Jack@test.com</td>
+            </tr>
+            <tr>
+                <td><input type="checkbox"><label> 2 </label></td>
+                <td>Mary</td>
+                <td>0932123456</td>
+                <td>Mary@test.com</td>
+            </tr>
+            <tr>
+                <td><input type="checkbox"><label> 3 </label></td>
+                <td>Jimmy</td>
+                <td>0921123456</td>
+                <td>Jimmy@test.com</td>
+            </tr>
+            <tr>
+                <td><input type="checkbox" id="ch4"><label> 4 </label></td>
+                <td>David</td>
+                <td>0939123456</td>
+                <td>David@test.com</td>
+            </tr>
+        </table>
+    </div>
+
+    <script src="../js/jquery-3.5.1.min.js"></script>
+    <script>
+        $(function () {
+            //console.log($(":checkbox"))
+            $(":checkbox").click(function () {
+                //1.
+                //console.log(this);
+                //$(this).parent().parent().css("background-color", "lightblue");
+                //$(this).parents("tr").css("background-color", "lightblue");
+                //$(this).closest("tr").css("background-color", "lightblue");
+
+                //2.
+                //$("tr").css("background-color", "transparent");
+                //console.log($(":checked"));
+                //$(":checked").closest("tr").css("background-color", "lightblue");
+
+                //3.
+                console.log($(this).prop("checked"));
+                let chked = $(this).prop("checked");  //true,false
+
+                if (chked)
+                    $(this).closest("tr").css("background-color", "lightblue");
+                else
+                    $(this).closest("tr").css("background-color", "transparent");
+
+
+            });
+           
+        });
+    </script>
+</body>
+</html>

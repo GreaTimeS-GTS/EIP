@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html lang="UTF-8">
+<head>
+    <meta charset="UTF-8">
+    <title>07jQueryeach.html</title>
+</head>
+<body>
+    <div id="msg"></div>
+    <script src="../js/jquery-3.5.1.min.js"></script>
+   <script>
+       //let ary=["item1", "item2", "item3"];
+       // $.each(ary,function(index,value){
+       //     console.log(index+":"+value);
+       // });
+
+       //let cars = { brand: "audi", "max speed": 300 }
+       //$.each(cars, function (i, v) {
+       //    console.log(i + ":" + v);
+       //})
+    
+
+        var data = {"emps":[
+                      {"name":"Tom","workYears":3,"salary":35000},
+                      {"name":"Jack","workYears":5,"salary":40000},
+                      {"name":"Mary","workYears":7,"salary":45000}
+                   ]};
+
+       $.each(data, function (index, value) {
+           //console.log(value);
+           $.each(value, function (index,value) {
+               //console.log(value);
+               $.each(value,function (index, value) {
+                   console.log(index+":"+value)
+               })
+
+           })
+       })
+   </script> 
+</body>
+</html>

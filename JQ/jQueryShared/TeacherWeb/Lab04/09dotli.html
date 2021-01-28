@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>09dotli.html</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <style>
+        /*
+        relative:沒有設定任何屬性的情況下，會和Static的呈現方式一樣
+        (照著瀏覽器預設的配置自動排版在頁面上)。和Static不同的地方就在於，
+        可以透過 top、left、bottom 與 right 的數值來改變位置
+        
+        absolute:基準點會以屬性是Relative的父層為基準，
+        所以如果沒有Relative父層的情況下，會直接找到body為基準點
+        */
+        .wrapper{
+            background: #000;
+            position: relative;
+            width:800px;
+            height:300px;
+            overflow: hidden;
+            margin:0 auto; 
+            top:100px;
+        }
+        ul{
+            margin:0;
+            padding: 0;
+            position: absolute;
+        }
+        li{
+            margin:0;
+            padding: 0;
+            list-style: none;
+        }
+        .dot{
+            bottom:10px;
+            width:100%;
+            display: flex;
+            justify-content: center;
+            background-color:red;
+        }
+        .dot li{
+            border:1px solid #fff;
+            /*border-radius: 50%; */
+            margin: 0 5px;
+            width:24px;
+            height: 10px;
+        }
+        .dot li:hover{
+            background: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+            <ul class="dot">
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                </ul>             
+    </div>
+</body>
+</html>
