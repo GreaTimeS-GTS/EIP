@@ -1,0 +1,106 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>HomeWork</title>
+    <link href="https://fonts.googleapis.com/css2?family=Potta+One&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;            
+        }
+        body {
+        background-color:bisque;
+        }
+        .dvWrapper {
+        }
+        .dvHeader {
+            font-family: 'Potta One', cursive;
+            font-size: 70px;
+            color: white;
+            background-color: #3C3C3C;
+            border: solid #8E8E8E 3px;
+           border-radius:15px;
+            display: flex;
+
+        }
+        #imgTitle {
+            width: 80px;
+            height: 188px;
+       
+        }
+            #imgTitle img {
+                width: 100%;
+                height: 100%;
+               
+            }
+        #spTitle {
+            margin:50px auto;        
+        }
+        #imgTitleLittle {
+            width: 80px;
+            height: 188px;
+        }
+        .ulWrapper {
+            font-size: 30px;
+            margin: 0 auto;
+            overflow: hidden;
+            text-align: center;
+            padding: 20px;
+        }
+            .ulWrapper li {
+                list-style: none;
+                padding:120px;
+                display:inline;
+            }
+        .ifr {
+        width:100%;
+        height:800px;
+        }
+        .alink {
+        cursor:pointer;
+        }
+
+
+    </style>
+</head>
+<body>
+    <div class="dvWrapper">
+        <div class="dvHeader">
+            <div id="imgTitle">
+                <img src="images/海綿寶寶3.gif" />
+            </div>
+            <span id="spTitle">HomeWork</span>
+            <img id="imgTitleLittle" src="images/海綿寶寶4.gif" />
+        </div>
+        <div class="ulWrapper">
+            <ul>
+                <li><img src="images/海綿寶寶8.gif" /><span class="alink" id="LinkHome">首頁</span></li>
+                <li><img src="images/海綿寶寶5.gif" /><span class="alink" id="Linkstar">星星評分</span></li>
+                <li><img src="images/海綿寶寶6.gif" /><span class="alink" id="LinkCar">車子放大</span></li>
+                <li><img src="images/海綿寶寶7.gif" /><span class="alink" id="LinkAds">廣告輪播</span></li>
+            </ul>
+        </div>
+    </div>
+    <iframe class="ifr" src=""></iframe>
+    <script src="json/jquery-3.5.1.js"></script>
+    <script>
+        $(function () {
+            $(".ulWrapper a").css("text-decoration", "none");
+            $("#Linkstar").click(function () {
+                $(".ifr").attr("src","星星評分.html")
+            })
+            $("#LinkCar").click(function () {
+                $(".ifr").attr("src","車子放大.html")
+            })
+            $("#LinkAds").click(function () {
+                $(".ifr").attr("src","廣告輪播.html")
+            })
+            $("#LinkHome").click(function () {
+                $(".ifr").attr("src", "")
+            })
+        })
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title> 
+    <style>
+        #dOutlook {
+        margin:200px auto;
+        width:700px;
+        }
+        #spNote {
+        font-size:50px;        
+        }
+        body {
+        background-color:azure;
+        }
+        #score {
+        font-size:50px;
+        font-weight:bolder;
+        margin-left:70px;
+        }
+        fieldset {
+            border-radius: 20px;
+            height:600px;
+        }
+    </style>
+<script src="json/jquery-3.5.1.js"></script>
+</head>
+<body>
+
+    <fieldset>
+        <legend id="score">星星評分系統</legend>
+        <div id="dOutlook">
+            <img class="imgStar" src="images/star.gif" />
+            <img class="imgStar" src="images/star.gif" />
+            <img class="imgStar" src="images/star.gif" />
+            <img class="imgStar" src="images/star.gif" />
+            <img class="imgStar" src="images/star.gif" />
+            <div>
+                <span id="spNote"></span>
+            </div>
+        </div>
+    </fieldset>
+    <script>
+        $(function () {
+            mouseInAndOut();
+            mouseClick();
+            function mouseInAndOut() {
+                $(".imgStar").on("mouseover mouseout", function (event) {
+                    if (event.type == "mouseover") {
+                        $(this).attr("src", "images/chngstar.gif")
+                        if (this) {
+                            $(this).prevAll().attr("src", "images/chngstar.gif");
+                            let imgIndex = $(this).index() + 1;
+                            let score = "評分中... " + imgIndex + "分";
+                            $("#spNote").text(score);
+                        }
+                    } else if (event.type == "mouseout") {
+                        {
+                            $(this).attr("src", "images/star.gif")
+                            if (this) {
+                                $(this).prevAll().attr("src", "images/star.gif")
+                                $("#spNote").text("");
+                            }
+                        }
+                    }
+                });
+            }
+            function mouseClick() {
+                $(".imgStar").click(function () {
+
+                    $(this).prevAll().attr("src", "images/chngstar.gif");
+                    let imgIndex = $(this).index() + 1;
+                    let score = "評分完成！ 分數是... " + imgIndex + "分";
+                    $("#spNote").text(score);
+                    $(".imgStar").off("mouseover mouseout click")
+                })
+            }
+            $(".imgStar").on("dblclick", function () {
+                $(".imgStar").attr("src", "images/star.gif");
+                $("#spNote").text("");
+                mouseInAndOut();
+                mouseClick();
+            })
+        })
+    </script>
+</body>
+</html>

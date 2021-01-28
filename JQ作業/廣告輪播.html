@@ -1,0 +1,183 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>傑尼龜進化</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="json/jquery-3.5.1.js"></script>
+    <style>
+        body {
+            background-color: bisque;
+        }
+
+        #title {
+            background-color: beige;
+            font-size: 20px;
+        }
+
+        .classWrapper {
+            position: relative;
+            width: 630px;
+            height: 630px;
+            overflow: hidden;
+            margin: 0px auto;
+        }
+
+        ul {
+            margin: 0;
+            padding: 0;
+            position: absolute;
+        }
+
+        li {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        ul.ulImg {
+            width: 2520px;
+            left: 0px;
+            transition: all 0.5s;
+            display: flex;    
+        }
+
+            ul.ulImg.li {
+                width: 630px;
+                height: 500px;
+                overflow: hidden;
+                float: left;
+            }
+
+                ul.ulImg.li img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
+
+        .ulLittleImg {
+            bottom: 10px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+            .ulLittleImg li {
+            }
+                .ulLittleImg li img {
+                    margin: 0 5px;
+                    width: 60px;
+                    height: 60px;
+                    cursor: pointer;
+                }
+
+        .LRbtn {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            top: 0;
+            bottom: 0;
+            width: 30px;
+            color: #fff;
+            position: absolute;
+            font-size: 50px;
+            cursor:pointer;
+        }
+
+        #LeftSlide {
+            left: 0;
+        }
+
+        #RightSlide {
+            right: 0;
+        }
+
+        .LRbtn i {
+            color: black;
+            transition: .5s;
+        }
+
+        .LRbtn:hover i {
+            color: red;
+        }
+        #titleh1 {
+            display:inline-block;  
+            margin-left:550px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="title">
+        <h1 id="titleh1">神奇寶貝進化表-傑尼龜</h1>
+    </div>
+    <div class="classWrapper">
+        <ul class="ulImg">
+            <li><a href="https://tw.portal-pokemon.com/play/pokedex/007"><img src="images/傑尼龜.png" /></a></li>
+            <li><a href="https://tw.portal-pokemon.com/play/pokedex/008"><img src="images/卡咪龜.png" /></a></li>
+            <li><a href="https://tw.portal-pokemon.com/play/pokedex/009"><img src="images/水箭龜.png" /></a></li>
+            <li><a href="https://tw.portal-pokemon.com/play/pokedex/009_1"><img src="images/超級水箭龜.png" /></a></li>
+        </ul>
+        <ul class="ulLittleImg">
+            <li><a href="https://tw.portal-pokemon.com/play/pokedex/007"><img src="images/傑尼龜.png" /></a></li>
+            <li><a href="https://tw.portal-pokemon.com/play/pokedex/008"><img src="images/卡咪龜.png" /></a></li>
+            <li><a href="https://tw.portal-pokemon.com/play/pokedex/009"><img src="images/水箭龜.png" /></a></li>
+            <li><a href="https://tw.portal-pokemon.com/play/pokedex/009_1"><img src="images/超級水箭龜.png" /></a></li>
+        </ul>
+        <div id="LeftSlide" class="LRbtn">
+            <i class="fa fa-caret-left"></i>
+        </div>
+        <div id="RightSlide" class="LRbtn">
+            <i class="fa fa-caret-right"></i>
+        </div>
+
+    </div>
+    <script>
+        $(function () {
+            let timer;
+            let IndexNow = 0;
+            let ImgLength = $(".ulImg li").length;
+            let ImgLast = ImgLength - 1;
+            setTimer();
+            $(".ulLittleImg li").eq(0).css("background-color", "#FF9D6F");
+            $(".ulLittleImg li").mouseenter(function () {
+                IndexNow = $(".ulLittleImg li").index($(this));
+                fShow();
+            });
+
+            function fShow() {
+                $(".ulLittleImg li").eq(IndexNow).css("background-color", "#FF9D6F").siblings().css("background-color", "transparent");
+                let ImgMove = 0 - 630 * IndexNow;
+                $("ul.ulImg").css("left", ImgMove);
+            }
+            $("#LeftSlide").click(function () {
+                IndexNow--;
+                if (IndexNow < 0)
+                    IndexNow = ImgLast;
+                fshow();
+            })
+            $("#RightSlide").click(function () {
+                IndexNow++;
+                if (IndexNow > ImgLast)
+                    IndexNow = 0;
+                fShow();
+            })
+            function setTimer() {
+                timer = setInterval(function () {
+                    IndexNow++;
+                    if (IndexNow > ImgLast)
+                        IndexNow = 0;
+                    fShow();
+                }, 1500
+                );
+            }
+            $(".classWrapper").mouseenter(function () {
+                clearInterval(timer);
+            })
+            $(".classWrapper").mouseleave(function () {
+                setTimer();
+            })
+        });
+    </script>
+
+</body>
+</html>
