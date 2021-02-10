@@ -36,9 +36,5 @@ namespace EIP_System專題.Controllers
         {
             return PartialView();
         }
-        public ActionResult ss()
-        {
-            return View();
-        }
     }
 }

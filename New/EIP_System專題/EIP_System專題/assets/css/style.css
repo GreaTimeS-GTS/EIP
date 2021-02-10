@@ -29,11 +29,11 @@ limitations under the License.*/
 
 /* ------------------------------- */
 
- #wrapper {
+#wrapper {
     width: 100%;
-    margin-top: 0; 
-    padding-top:0;
-    background-color:#04B173; 
+    margin-top: 0;
+    padding-top: 0;
+    background-color: 	#3C3C3C;
 }
 
 #page-wrapper {
@@ -47,7 +47,7 @@ limitations under the License.*/
     
 
 .navbar-static-side ul li {
-    border-bottom:1px solid #84B899 !important;
+    border-bottom:1px solid gold !important;
 }
 
 /* Navigation */
@@ -130,7 +130,7 @@ limitations under the License.*/
 
 .nav-second-level li,
 .nav-third-level li {
-    border-bottom: none !important;
+    border-bottom: 1px solid gold !important;
 }
 
 .nav-second-level li a {
@@ -205,11 +205,11 @@ limitations under the License.*/
     list-style: none;
 }
 
-.chat li {
-    margin-bottom: 10px;
-    padding-bottom: 5px;
-    border-bottom: 1px dotted #B3A9A9;
-}
+    .chat li {
+        margin-bottom: 10px;
+        padding-bottom: 5px;
+        border-bottom: 1px solid gold !important;
+    }
 
 .chat li.left .chat-body {
     margin-left: 60px;
