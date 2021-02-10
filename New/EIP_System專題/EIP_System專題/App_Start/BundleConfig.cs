@@ -20,11 +20,12 @@ namespace EIP_System專題
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/bootstrap.js"));
+                      "~/Scripts/bootstrap.js", "~/assets/plugins/jquery-1.10.2.js", "~/assets/plugins/bootstrap/bootstrap.min.js","~/assets/plugins/metisMenu/jquery.metisMenu.js", "~/assets/plugins/pace/pace.js", "~/assets/scripts/siminta.js", "~/assets/plugins/morris/raphael-2.1.0.min.js", "~/assets/plugins/morris/morris.js", "~/assets/scripts/dashboard-demo.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/site.css", "~/assets/plugins/bootstrap/bootstrap.css", "~/assets/font-awesome/css/font-awesome.css", "~/assets/plugins/pace/pace-theme-big-counter.css", "~/assets/css/style.css", "~/assets/css/main-style.css", "~/assets/plugins/morris/morris-0.4.3.min.css"));
+            //bundles.Add(new StyleBundle("~/Content/Font/css").Include(""));
         }
     }
 }
