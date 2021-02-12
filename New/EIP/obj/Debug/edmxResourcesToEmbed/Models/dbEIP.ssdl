@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="dbEIPModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <!--產生期間發現錯誤:
+警告 6002: 資料表/檢視 'dbEIP.dbo.工作清單' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。-->
+  <EntityType Name="工作清單">
+    <Key>
+      <PropertyRef Name="EmployeeID" />
+      <PropertyRef Name="專案歸類" />
+      <PropertyRef Name="重要性" />
+      <PropertyRef Name="事項名稱" />
+      <PropertyRef Name="回報狀況" />
+      <PropertyRef Name="完成度" />
+      <PropertyRef Name="交辦人" />
+      <PropertyRef Name="完成日" />
+    </Key>
+    <Property Name="EmployeeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="專案歸類" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="重要性" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="事項名稱" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="回報狀況" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="完成度" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="交辦人" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="完成日" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="行事曆">
+    <Key>
+      <PropertyRef Name="EmployeeID" />
+    </Key>
+    <Property Name="EmployeeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="新增事項" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="工作日誌" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="日期" Type="nchar" MaxLength="10" Nullable="false" />
+  </EntityType>
+  <EntityType Name="佈告欄">
+    <Key>
+      <PropertyRef Name="EmployeeID" />
+    </Key>
+    <Property Name="EmployeeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="公布部門" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="發布日期" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="結束日" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="佈告欄內容" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="問卷" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="員工訓練" Type="nvarchar" MaxLength="50" />
+    <Property Name="公司介紹與展望" Type="nvarchar" MaxLength="50" />
+    <Property Name="討論園地" Type="nchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="表單類別">
+    <Key>
+      <PropertyRef Name="表單類別" />
+    </Key>
+    <Property Name="表單類別" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="表單選項" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="個人資料">
+    <Key>
+      <PropertyRef Name="EmployeeID" />
+    </Key>
+    <Property Name="EmployeeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmployeePW" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="受雇日期" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="中文姓名" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="英文姓名" Type="nvarchar" MaxLength="50" />
+    <Property Name="職稱" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="狀態" Type="nvarchar" MaxLength="50" />
+    <Property Name="部門" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="性別" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="出生年月日" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="信箱" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="電話" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="居住地" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="婚姻狀況" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="年資" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="薪資" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="特休" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="假別">
+    <Key>
+      <PropertyRef Name="假別ID" />
+    </Key>
+    <Property Name="假別ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="假別" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="請假細項">
+    <Key>
+      <PropertyRef Name="EmployeeID" />
+    </Key>
+    <Property Name="EmployeeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="部門" Type="nvarchar" MaxLength="50" />
+    <Property Name="請假類別" Type="nvarchar" MaxLength="50" />
+    <Property Name="請假班別" Type="nvarchar" MaxLength="50" />
+    <Property Name="請假時數" Type="nvarchar" MaxLength="50" />
+    <Property Name="開始日期" Type="nvarchar" MaxLength="50" />
+    <Property Name="結束日期" Type="nvarchar" MaxLength="50" />
+    <Property Name="申請時間" Type="nvarchar" MaxLength="50" />
+    <Property Name="代理人" Type="nvarchar" MaxLength="50" />
+    <Property Name="審核狀態" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityContainer Name="dbEIPModelStoreContainer">
+    <EntitySet Name="行事曆" EntityType="Self.行事曆" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="佈告欄" EntityType="Self.佈告欄" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="表單類別" EntityType="Self.表單類別" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="個人資料" EntityType="Self.個人資料" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="假別" EntityType="Self.假別" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="請假細項" EntityType="Self.請假細項" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="工作清單" EntityType="Self.工作清單" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [工作清單].[EmployeeID] AS [EmployeeID], 
+    [工作清單].[專案歸類] AS [專案歸類], 
+    [工作清單].[重要性] AS [重要性], 
+    [工作清單].[事項名稱] AS [事項名稱], 
+    [工作清單].[回報狀況] AS [回報狀況], 
+    [工作清單].[完成度] AS [完成度], 
+    [工作清單].[交辦人] AS [交辦人], 
+    [工作清單].[完成日] AS [完成日]
+    FROM [dbo].[工作清單] AS [工作清單]</DefiningQuery>
+    </EntitySet>
+  </EntityContainer>
+</Schema>

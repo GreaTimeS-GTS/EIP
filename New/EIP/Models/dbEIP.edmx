@@ -1,0 +1,354 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="dbEIPModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--產生期間發現錯誤:
+警告 6002: 資料表/檢視 'dbEIP.dbo.工作清單' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。-->
+        <EntityType Name="工作清單">
+          <Key>
+            <PropertyRef Name="EmployeeID" />
+            <PropertyRef Name="專案歸類" />
+            <PropertyRef Name="重要性" />
+            <PropertyRef Name="事項名稱" />
+            <PropertyRef Name="回報狀況" />
+            <PropertyRef Name="完成度" />
+            <PropertyRef Name="交辦人" />
+            <PropertyRef Name="完成日" />
+          </Key>
+          <Property Name="EmployeeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="專案歸類" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="重要性" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="事項名稱" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="回報狀況" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="完成度" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="交辦人" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="完成日" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="行事曆">
+          <Key>
+            <PropertyRef Name="EmployeeID" />
+          </Key>
+          <Property Name="EmployeeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="新增事項" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="工作日誌" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="日期" Type="nchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="佈告欄">
+          <Key>
+            <PropertyRef Name="EmployeeID" />
+          </Key>
+          <Property Name="EmployeeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="公布部門" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="發布日期" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="結束日" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="佈告欄內容" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="問卷" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="員工訓練" Type="nvarchar" MaxLength="50" />
+          <Property Name="公司介紹與展望" Type="nvarchar" MaxLength="50" />
+          <Property Name="討論園地" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="表單類別">
+          <Key>
+            <PropertyRef Name="表單類別" />
+          </Key>
+          <Property Name="表單類別" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="表單選項" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="個人資料">
+          <Key>
+            <PropertyRef Name="EmployeeID" />
+          </Key>
+          <Property Name="EmployeeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmployeePW" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="受雇日期" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="中文姓名" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="英文姓名" Type="nvarchar" MaxLength="50" />
+          <Property Name="職稱" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="狀態" Type="nvarchar" MaxLength="50" />
+          <Property Name="部門" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="性別" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="出生年月日" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="信箱" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="電話" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="居住地" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="婚姻狀況" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="年資" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="薪資" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="特休" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="假別">
+          <Key>
+            <PropertyRef Name="假別ID" />
+          </Key>
+          <Property Name="假別ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="假別" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="請假細項">
+          <Key>
+            <PropertyRef Name="EmployeeID" />
+          </Key>
+          <Property Name="EmployeeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="部門" Type="nvarchar" MaxLength="50" />
+          <Property Name="請假類別" Type="nvarchar" MaxLength="50" />
+          <Property Name="請假班別" Type="nvarchar" MaxLength="50" />
+          <Property Name="請假時數" Type="nvarchar" MaxLength="50" />
+          <Property Name="開始日期" Type="nvarchar" MaxLength="50" />
+          <Property Name="結束日期" Type="nvarchar" MaxLength="50" />
+          <Property Name="申請時間" Type="nvarchar" MaxLength="50" />
+          <Property Name="代理人" Type="nvarchar" MaxLength="50" />
+          <Property Name="審核狀態" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityContainer Name="dbEIPModelStoreContainer">
+          <EntitySet Name="行事曆" EntityType="Self.行事曆" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="佈告欄" EntityType="Self.佈告欄" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="表單類別" EntityType="Self.表單類別" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="個人資料" EntityType="Self.個人資料" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="假別" EntityType="Self.假別" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="請假細項" EntityType="Self.請假細項" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="工作清單" EntityType="Self.工作清單" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [工作清單].[EmployeeID] AS [EmployeeID], 
+    [工作清單].[專案歸類] AS [專案歸類], 
+    [工作清單].[重要性] AS [重要性], 
+    [工作清單].[事項名稱] AS [事項名稱], 
+    [工作清單].[回報狀況] AS [回報狀況], 
+    [工作清單].[完成度] AS [完成度], 
+    [工作清單].[交辦人] AS [交辦人], 
+    [工作清單].[完成日] AS [完成日]
+    FROM [dbo].[工作清單] AS [工作清單]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="dbEIPModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="dbEIPEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="行事曆" EntityType="dbEIPModel.行事曆" />
+          <EntitySet Name="佈告欄" EntityType="dbEIPModel.佈告欄" />
+          <EntitySet Name="表單類別" EntityType="dbEIPModel.表單類別" />
+          <EntitySet Name="個人資料" EntityType="dbEIPModel.個人資料" />
+          <EntitySet Name="假別" EntityType="dbEIPModel.假別" />
+          <EntitySet Name="請假細項" EntityType="dbEIPModel.請假細項" />
+          <EntitySet Name="工作清單" EntityType="dbEIPModel.工作清單" />
+        </EntityContainer>
+        <EntityType Name="行事曆">
+          <Key>
+            <PropertyRef Name="EmployeeID" />
+          </Key>
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="新增事項" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="工作日誌" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="日期" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <EntityType Name="佈告欄">
+          <Key>
+            <PropertyRef Name="EmployeeID" />
+          </Key>
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="公布部門" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="發布日期" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="結束日" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="佈告欄內容" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="問卷" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="員工訓練" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="公司介紹與展望" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="討論園地" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <EntityType Name="表單類別">
+          <Key>
+            <PropertyRef Name="表單類別1" />
+          </Key>
+          <Property Name="表單類別1" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="表單選項" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="個人資料">
+          <Key>
+            <PropertyRef Name="EmployeeID" />
+          </Key>
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmployeePW" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="受雇日期" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="中文姓名" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="英文姓名" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="職稱" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="狀態" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="部門" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="性別" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="出生年月日" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="信箱" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="電話" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="居住地" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="婚姻狀況" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="年資" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="薪資" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="特休" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="假別">
+          <Key>
+            <PropertyRef Name="假別ID" />
+          </Key>
+          <Property Name="假別ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="假別1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="請假細項">
+          <Key>
+            <PropertyRef Name="EmployeeID" />
+          </Key>
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="部門" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="請假類別" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="請假班別" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="請假時數" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="開始日期" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="結束日期" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="申請時間" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="代理人" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="審核狀態" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="工作清單">
+          <Key>
+            <PropertyRef Name="EmployeeID" />
+            <PropertyRef Name="專案歸類" />
+            <PropertyRef Name="重要性" />
+            <PropertyRef Name="事項名稱" />
+            <PropertyRef Name="回報狀況" />
+            <PropertyRef Name="完成度" />
+            <PropertyRef Name="交辦人" />
+            <PropertyRef Name="完成日" />
+          </Key>
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="專案歸類" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="重要性" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="事項名稱" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="回報狀況" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="完成度" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="交辦人" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="完成日" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="dbEIPModelStoreContainer" CdmEntityContainer="dbEIPEntities">
+          <EntitySetMapping Name="行事曆">
+            <EntityTypeMapping TypeName="dbEIPModel.行事曆">
+              <MappingFragment StoreEntitySet="行事曆">
+                <ScalarProperty Name="日期" ColumnName="日期" />
+                <ScalarProperty Name="工作日誌" ColumnName="工作日誌" />
+                <ScalarProperty Name="新增事項" ColumnName="新增事項" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="佈告欄">
+            <EntityTypeMapping TypeName="dbEIPModel.佈告欄">
+              <MappingFragment StoreEntitySet="佈告欄">
+                <ScalarProperty Name="討論園地" ColumnName="討論園地" />
+                <ScalarProperty Name="公司介紹與展望" ColumnName="公司介紹與展望" />
+                <ScalarProperty Name="員工訓練" ColumnName="員工訓練" />
+                <ScalarProperty Name="問卷" ColumnName="問卷" />
+                <ScalarProperty Name="佈告欄內容" ColumnName="佈告欄內容" />
+                <ScalarProperty Name="結束日" ColumnName="結束日" />
+                <ScalarProperty Name="發布日期" ColumnName="發布日期" />
+                <ScalarProperty Name="公布部門" ColumnName="公布部門" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="表單類別">
+            <EntityTypeMapping TypeName="dbEIPModel.表單類別">
+              <MappingFragment StoreEntitySet="表單類別">
+                <ScalarProperty Name="表單選項" ColumnName="表單選項" />
+                <ScalarProperty Name="表單類別1" ColumnName="表單類別" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="個人資料">
+            <EntityTypeMapping TypeName="dbEIPModel.個人資料">
+              <MappingFragment StoreEntitySet="個人資料">
+                <ScalarProperty Name="特休" ColumnName="特休" />
+                <ScalarProperty Name="薪資" ColumnName="薪資" />
+                <ScalarProperty Name="年資" ColumnName="年資" />
+                <ScalarProperty Name="婚姻狀況" ColumnName="婚姻狀況" />
+                <ScalarProperty Name="居住地" ColumnName="居住地" />
+                <ScalarProperty Name="電話" ColumnName="電話" />
+                <ScalarProperty Name="信箱" ColumnName="信箱" />
+                <ScalarProperty Name="出生年月日" ColumnName="出生年月日" />
+                <ScalarProperty Name="性別" ColumnName="性別" />
+                <ScalarProperty Name="部門" ColumnName="部門" />
+                <ScalarProperty Name="狀態" ColumnName="狀態" />
+                <ScalarProperty Name="職稱" ColumnName="職稱" />
+                <ScalarProperty Name="英文姓名" ColumnName="英文姓名" />
+                <ScalarProperty Name="中文姓名" ColumnName="中文姓名" />
+                <ScalarProperty Name="受雇日期" ColumnName="受雇日期" />
+                <ScalarProperty Name="EmployeePW" ColumnName="EmployeePW" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="假別">
+            <EntityTypeMapping TypeName="dbEIPModel.假別">
+              <MappingFragment StoreEntitySet="假別">
+                <ScalarProperty Name="假別1" ColumnName="假別" />
+                <ScalarProperty Name="假別ID" ColumnName="假別ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="請假細項">
+            <EntityTypeMapping TypeName="dbEIPModel.請假細項">
+              <MappingFragment StoreEntitySet="請假細項">
+                <ScalarProperty Name="審核狀態" ColumnName="審核狀態" />
+                <ScalarProperty Name="代理人" ColumnName="代理人" />
+                <ScalarProperty Name="申請時間" ColumnName="申請時間" />
+                <ScalarProperty Name="結束日期" ColumnName="結束日期" />
+                <ScalarProperty Name="開始日期" ColumnName="開始日期" />
+                <ScalarProperty Name="請假時數" ColumnName="請假時數" />
+                <ScalarProperty Name="請假班別" ColumnName="請假班別" />
+                <ScalarProperty Name="請假類別" ColumnName="請假類別" />
+                <ScalarProperty Name="部門" ColumnName="部門" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="工作清單">
+            <EntityTypeMapping TypeName="dbEIPModel.工作清單">
+              <MappingFragment StoreEntitySet="工作清單">
+                <ScalarProperty Name="完成日" ColumnName="完成日" />
+                <ScalarProperty Name="交辦人" ColumnName="交辦人" />
+                <ScalarProperty Name="完成度" ColumnName="完成度" />
+                <ScalarProperty Name="回報狀況" ColumnName="回報狀況" />
+                <ScalarProperty Name="事項名稱" ColumnName="事項名稱" />
+                <ScalarProperty Name="重要性" ColumnName="重要性" />
+                <ScalarProperty Name="專案歸類" ColumnName="專案歸類" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="無" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
