@@ -78,10 +78,9 @@ namespace EIP.Controllers
                 if (LoginVM.RememberMe == "on")
                 {
                     Response.Cookies["AutoLg"].Expires = DateTime.Now.AddDays(30);
-
                 }
             }
-            return RedirectToAction("About", "Home");
+            return RedirectToAction("Index", "Home");
         }
     }
 }
