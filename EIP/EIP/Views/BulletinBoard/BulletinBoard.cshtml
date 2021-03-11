@@ -24,7 +24,7 @@
         .佈告欄列表 th {
             padding: 10px 10px;
             text-align: center;
-            background-color: aqua;
+            background-color: #444444;
         }
 
         .佈告欄列表 td {
@@ -115,6 +115,8 @@
         width: 100px;
         font-size: 18px;
         font-weight: 900;
+        display: inline-block;
+        box-shadow: 3px 3px 9px black;
     }
 
     .打卡日曆 {
@@ -226,7 +228,7 @@
             </div>
             @*------------------------------佈告欄起始------------------------------*@
             <div class="外框">
-                <table class="table table-bordered table-hover text-nowrap 佈告欄列表">
+                <table class="table table-bordered table-hover text-nowrap table-striped 佈告欄列表">
                     <thead class="THeadAdd 文字">
                     </thead>
                     <tbody class="TBodyAdd 文字">
@@ -446,77 +448,145 @@
         var currentpage = page_num;
 
         function refresh() {
-            $.ajax({
-                url: "/BulletinBoard/BulletinBoardList", // 使用方法路徑
-                method: "get",
-                success: function (data) {
-                    $(".THeadAdd").html(`
+            if (decodeURI(document.cookie.split('Auth=')[1].split('&')[0]) != '主管') {
+                $.ajax({
+                    url: "/BulletinBoard/BulletinBoardList", // 使用方法路徑
+                    method: "get",
+                    success: function (data) {
+                        $(".THeadAdd").html(`
                                                                                             <tr>
                                                                                             <th>佈告欄編號</th>
                                                                                             <th>發佈人</th>
                                                                                             <th>標題</th>
-                                                                                            <th>內容</th>
                                                                                             <th>發佈日期</th>
                                                                                             <th>詳細</th>
+                                                                                            </tr>
+                                                                                            `)
+                        var a = "";  // 使用一個空字串
+                        $(data).each(function (index, item) {
+                            var datetime = parseInt(item.發布日期.replace(/\D/igm, ""));
+                            var datetime1 = new Date(datetime);
+
+                            if (datetime1.getHours() < 10) {
+                                x = "0" + datetime1.getHours();
+                            }
+                            else {
+                                x = datetime1.getHours();
+                            }
+
+                            if (datetime1.getMinutes() < 10) {
+                                y = "0" + datetime1.getMinutes();
+                            }
+                            else {
+                                y = datetime1.getMinutes();
+                            }
+                            a += ` <tr>
+                                                                                <td>${item.佈告欄ID}</td>
+                                                                                <td>${item.中文姓名}</td>
+                                                                                <td>${item.佈告欄標題}</td>
+                                                                                <td>${datetime1.getFullYear() + "/" + (datetime1.getMonth() + 1) + "/" + datetime1.getDate() + " " + x + ":" + y}</td>
+                                                                                <td><a class="btn btn-info empedit 詳細按鈕" data-id="${item.佈告欄ID}" data-toggle="modal" data-target="#ShowBulletinBoard" onclick="SearchThis()">詳細</a></td> 
+                                                                            </tr>`;
+                        })
+                        $(".TBodyAdd").html(a); // 取代原本內容
+
+                        $(".currentpage").html(`當前頁面：${page_num}`);
+                        TotalEMP = data[0].總比數;
+                        SliceTotal = Math.ceil(TotalEMP / 10);
+                        $(".arrowborn").empty();
+                        $(".arrowborn").append(` <li class="page-item pointer prevbtn" value="${page_num}">
+                                                                <a class="page-link ">Previous</a>
+                                                            </li>`);
+                        $(".arrowborn").append(
+                            ` <li class="page-item pointer firstbtn" value="${page_num}"><a class="page-link showbtn1">${page_num}</a></li>`
+                        );
+                        $(".arrowborn").append(
+                            ` <li class="page-item pointer sectbtn" value="${page_num + 1}"><a class="page-link showbtn2">${page_num + 1}</a></li>`
+                        );
+                        $(".arrowborn").append(
+                            ` <li class="page-item pointer thirdtbtn" value="${page_num + 2}"><a class="page-link showbtn3">${page_num + 2}</a></li>`
+                        );
+
+                        $(".arrowborn").append(` <li class="page-item pointer nextbtn" value="${page_num + 1}">
+                                                                <a class="page-link">Next</a>
+                                                            </li>`);
+                    }
+                })
+            }
+            else {
+                $.ajax({
+                    url: "/BulletinBoard/BulletinBoardList", // 使用方法路徑
+                    method: "get",
+                    success: function (data) {
+                        $(".THeadAdd").html(`
+                                                                                            <tr>
+                                                                                            <th>佈告欄編號</th>
+                                                                                            <th>發佈人</th>
+                                                                                            <th>標題</th>
+                                                                                            <th>發佈日期</th>
                                                                                             <th>編輯</th>
                                                                                             <th>刪除</th>
                                                                                             </tr>
                                                                                             `)
-                    var a = "";  // 使用一個空字串
-                    $(data).each(function (index, item) {
-                        var datetime = parseInt(item.發布日期.replace(/\D/igm, ""));
-                        var datetime1 = new Date(datetime);
+                        var a = "";  // 使用一個空字串
+                        $(data).each(function (index, item) {
+                            var datetime = parseInt(item.發布日期.replace(/\D/igm, ""));
+                            var datetime1 = new Date(datetime);
 
-                        if (datetime1.getHours() < 10) {
-                            x = "0" + datetime1.getHours();
-                        }
-                        else {
-                            x = datetime1.getHours();
-                        }
+                            if (datetime1.getHours() < 10) {
+                                x = "0" + datetime1.getHours();
+                            }
+                            else {
+                                x = datetime1.getHours();
+                            }
 
-                        if (datetime1.getMinutes() < 10) {
-                            y = "0" + datetime1.getMinutes();
-                        }
-                        else {
-                            y = datetime1.getMinutes();
-                        }
-                        a += ` <tr>
+                            if (datetime1.getMinutes() < 10) {
+                                y = "0" + datetime1.getMinutes();
+                            }
+                            else {
+                                y = datetime1.getMinutes();
+                            }
+                            a += ` <tr>
                                                                                 <td>${item.佈告欄ID}</td>
                                                                                 <td>${item.中文姓名}</td>
                                                                                 <td>${item.佈告欄標題}</td>
-                                                                                <td>${item.佈告欄內容}</td>
                                                                                 <td>${datetime1.getFullYear() + "/" + (datetime1.getMonth() + 1) + "/" + datetime1.getDate() + " " + x + ":" + y}</td>
-                                                                                <td><a class="btn btn-info empedit 詳細按鈕" data-id="${item.佈告欄ID}" data-toggle="modal" data-target="#ShowBulletinBoard" onclick="SearchThis()">詳細</a></td>
                                                                                 <td><a class="btn btn-warning empedit 詳細按鈕" data-id="${item.佈告欄ID}" data-toggle="modal" data-target="#EditBulletinBoard" onclick="startedit()">編輯</a></td>
                                                                                 <td><a class="btn btn-danger empedit 詳細按鈕" data-id="${item.佈告欄ID}" data-toggle="modal" onclick="DeleteBB()">刪除</a></td>
                                                                             </tr>`;
-                    })
-                    $(".TBodyAdd").html(a); // 取代原本內容
+                        })
+                        $(".TBodyAdd").html(a); // 取代原本內容
 
-                    $(".currentpage").html(`當前頁面：${page_num}`);
-                    TotalEMP = data[0].總比數;
-                    SliceTotal = Math.ceil(TotalEMP / 10);
-                    $(".arrowborn").empty();
-                    $(".arrowborn").append(` <li class="page-item pointer prevbtn" value="${page_num}">
+                        $(".currentpage").html(`當前頁面：${page_num}`);
+                        TotalEMP = data[0].總比數;
+                        SliceTotal = Math.ceil(TotalEMP / 10);
+                        $(".arrowborn").empty();
+                        $(".arrowborn").append(` <li class="page-item pointer prevbtn" value="${page_num}">
                                                                 <a class="page-link ">Previous</a>
                                                             </li>`);
-                    $(".arrowborn").append(
-                        ` <li class="page-item pointer firstbtn" value="${page_num}"><a class="page-link showbtn1">${page_num}</a></li>`
-                    );
-                    $(".arrowborn").append(
-                        ` <li class="page-item pointer sectbtn" value="${page_num + 1}"><a class="page-link showbtn2">${page_num + 1}</a></li>`
-                    );
-                    $(".arrowborn").append(
-                        ` <li class="page-item pointer thirdtbtn" value="${page_num + 2}"><a class="page-link showbtn3">${page_num + 2}</a></li>`
-                    );
+                        $(".arrowborn").append(
+                            ` <li class="page-item pointer firstbtn" value="${page_num}"><a class="page-link showbtn1">${page_num}</a></li>`
+                        );
+                        $(".arrowborn").append(
+                            ` <li class="page-item pointer sectbtn" value="${page_num + 1}"><a class="page-link showbtn2">${page_num + 1}</a></li>`
+                        );
+                        $(".arrowborn").append(
+                            ` <li class="page-item pointer thirdtbtn" value="${page_num + 2}"><a class="page-link showbtn3">${page_num + 2}</a></li>`
+                        );
 
-                    $(".arrowborn").append(` <li class="page-item pointer nextbtn" value="${page_num + 1}">
+                        $(".arrowborn").append(` <li class="page-item pointer nextbtn" value="${page_num + 1}">
                                                                 <a class="page-link">Next</a>
                                                             </li>`);
-                }
-            })
+                    }
+                })
+            }
         }
-            refresh();
+
+
+            
+
+
+        refresh();
 
         //----------------------分頁跳轉起始----------------------
         //動態bind事件的話要用on事先綁定父層

@@ -111,8 +111,6 @@ namespace EIP.Controllers
       
         public JsonResult HRShowEdit()
         {
-         
-
             var qqm = (from m in db.個人資料
                       orderby m.EmployeeID descending
                       select new 
