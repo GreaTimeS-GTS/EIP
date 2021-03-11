@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - 我的 ASP.NET 應用程式</title>
+    <title>@ViewBag.Title</title>
+    @*引用Fontawesome*@
+    <link href="~/Content/fontawesome-all.css" rel="stylesheet" />
+    @*引用SweetAlert*@
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous"></script>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <style>
+        body {
+            padding: 0;
+            background-color: #C4E1FF;
+        }
+
+        .LoginForm {
+            height: 100%;
+            width: 100%;
+            margin: auto;
+        }
+
+        .formbord {
+            border: 2px solid #00CACA;
+            border-radius: 15px 15px 15px 15px;
+            background-color: #2894FF;
+        }
+
+        .inputtext {
+            font-weight: bolder;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <nav class="navbar navbar-dark bg-dark">
+            <span class="navbar-brand mb-0 h1">NavBar</span>
+        </nav>
+        @RenderBody()
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("script", required: false)
+</body>
+</html>

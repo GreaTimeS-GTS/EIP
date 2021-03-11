@@ -1,0 +1,165 @@
+﻿@{
+    ViewBag.Title = "Askfor";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    h2 {
+        text-align: center;
+        font-weight: bold;
+        padding-bottom: 20px;
+        border-bottom: 1px solid silver;
+    }
+
+    .head {
+        margin-top: 50px;
+        border: 1px solid black;
+        border-radius: 10px;
+        padding: 25px;
+        background-color: white;
+        box-shadow: 0 1px 7px;
+    }
+
+    input, select {
+        max-width: 100vw;
+    }
+    .button {
+        box-shadow: 2px 5px 7px silver;
+    }
+</style>
+<div class="head">
+    <h2>請假(新增)</h2>
+    <form action="~/DDDDD/AskforList" method="post" target="_self">
+        <div class="d-flex flex-wrap justify-content-center pt-3">   @*d-flex + flex-wrap or row*@
+            <div class="mb-4 col-12 col-md-4">
+                <label>員工編號:</label>
+                <label></label>
+                <input type="text" id="EmployeeID"  class="w-100" />
+            </div>
+            <div class="mb-4 col-12 col-md-4">
+                <label>員工姓名:</label>
+                <label></label>
+                <input type="text" id="中文姓名"  class="w-100" />
+            </div>
+            <div class="mb-4 col-12 col-md-4">
+                <label>職稱:</label>
+                <label></label>
+                <input type="text" id="jobtitle" class="w-100" />
+            </div>
+        </div>
+        <div class="d-flex flex-wrap justify-content-center">
+            <div class="mb-4 col-12 col-md-4">
+                <label>信箱:</label>
+                <label></label>
+                <input type="text" id="Email" class="w-100" />
+            </div>
+            <div class="mb-4 col-12 col-md-4">
+                <label>部門:</label>
+                <label></label>
+                <input type="text" id="department" class="w-100" />
+            </div>
+            <div class="mb-4 col-12 col-md-4">
+                <label>請假班別:</label>
+                <label></label>
+                <input type="text" id="請假班別" class="w-100"/>
+            </div>
+        </div>
+        <div class="d-flex flex-wrap justify-content-center">
+            <div class="mb-4 col-12 col-md-4">
+                <label>開始日期:</label>
+                <input type="datetime-local" id="startday" class="w-100">
+            </div>
+            <div class="mb-4 col-12 col-md-4">
+                <label>結束日期:</label>
+                <input type="datetime-local" id="endday" class="w-100">
+            </div>
+            <div class="mb-4 col-12 col-md-4">
+                <label>申請日期:</label>
+                <input type="datetime-local" id="applicationday" class="w-100">
+            </div>
+        </div>
+        <div class="d-flex flex-wrap justify-content-center">
+            <div class="mb-4 col-12 col-md-4">
+                <label>請假時數:</label>
+                <label></label>
+                <input type="text" id="askfortime" class="w-100">
+            </div>
+            <div class="mb-4 col-12 col-md-4">
+                <label>代理人:</label>
+                <input type="text" id="agent" class="w-100">
+             </div>
+            <div class="mb-4 col-12 col-md-4">
+                <label>審核狀態:</label>
+                <input type="text" id="approvalStatus" class="w-100"/>
+            </div>
+        </div>    
+        <div class="d-flex flex-wrap justify-content-center align-items-center">
+            <div class="mb-4 col-12 col-md-4">
+                <label>請假類別:</label>
+                <select id="select1" class="w-100">
+                    <option value="0">請選擇</option>
+                    <option value="1">事假</option>
+                    <option value="2">病假</option>
+                    <option value="3">生理假</option>
+                    <option value="4">喪假</option>
+                    <option value="5">婚假</option>
+                    <option value="6">公假</option>
+                    <option value="7">產假</option>
+                    <option value="8">陪產假</option>
+                    <option value="9">防疫隔離假</option>
+                    <option value="10">特休</option>
+                    <option value="11">加班補修</option>
+                </select>
+            </div>
+            @*<div class="mb-4 col-12 col-md-4">
+                <label>申請表編號:</label>
+                <label></label>
+                <input type="text" id="申請表編號" class="w-100" />
+            </div>*@
+            <div class="col-12 col-md-4">
+                <input class="btn btn-primary w-100 button" type="submit" onclick="AddEmp()" />
+            </div>
+        </div>
+    </form>
+</div>
+@section script{
+    <script>
+        //=============================新增=======================================
+        function AddEmp() {
+            var r = confirm("確定要新增嗎?");
+            if (r == true) {
+                $.ajax({
+                    url: "/DDDDD/AskForAjax",
+                    type: "POST",
+                    data: {
+                        "EmployeeID": $("#申請表編號").val(),
+                        "EmployeeID": $("#EmployeeID").val(),
+                        "中文姓名": $("#中文姓名").val(),
+                        "職稱": $("#jobtitle").val(),
+                        "信箱": $("#Email").val(),
+                        "部門": $("#department").val(),
+                        "請假班別": $("#請假班別").val(),
+                        "假別ID": $("#select1").val(),
+                        "開始日期": $("#startday").val(),
+                        "結束日期": $("#endday").val(),
+                        "申請日期": $("#applicationday").val(),
+                        "請假時數": $("#askfortime").val(),
+                        "代理人": $("#agent").val(),
+                        "審核狀態": $("#approvalStatus").val()
+                    },
+                    success: function (result) {
+                        if (result == "ok") {
+                            alert("新增成功");
+                            //window.location.href = window.location.href + "/DDDDD/AskforList";
+                            //window.location.href = "/DDDDD/AskforList";
+                            //parent.window.location = window.location.href;
+                            window.location.assign("https://localhost:44382/DDDDD/AskforList");
+                        }
+                        else {
+                            alert("新增失敗");
+                        }
+                    }
+                })
+            }
+        }
+    </script>
+}

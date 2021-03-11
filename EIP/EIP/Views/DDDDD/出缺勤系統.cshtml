@@ -1,0 +1,754 @@
+﻿
+@*------------------------------搜尋框起始------------------------------*@
+<div class="mt-5 d-flex justify-content-center align-items-center">
+    <div>
+        <input type="search" name="searchbox" class="searchbox rounded-pill border-info pl-3 Regular shadow" placeholder="搜尋員工姓名..." />
+    </div>
+    <div class="ml-3">
+        <button class="btn btn-primary rounded-pill searchbtn Regular shadow"><i class="fa fa-search mr-2"></i>搜尋</button>
+    </div>
+</div>
+
+<div class="modal fade bd-example-modal-xl" id="searchinfo" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title FormTextShadow">員工資訊搜尋結果</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table class="w-100">
+                    <thead class="w-100 h-100">
+                        <tr>
+                            <th class="pl-2">員工編號</th>
+                            <th class="">信箱</th>
+                            <th class="">中文姓名</th>
+                            <th class="">性別</th>
+                            <th class="">聯絡電話</th>
+                            <th class="">部門</th>
+                            <th>編輯</th>
+                            <th>刪除</th>
+                        </tr>
+                    </thead>
+                    <tbody class="SearchShowTable w-100 h-100">
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+@*------------------------------搜尋框結束------------------------------*@
+
+
+
+@*------------------------------TAB分頁標籤起始------------------------------*@
+
+<nav class="mt-5 navtitle ">
+
+</nav>
+@*------------------------------TAB分頁標籤結束------------------------------*@
+
+@*------------------------------新增員工資訊起始------------------------------*@
+<div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade show active w-100 h-100 TotalWrap" id="nav-Add">
+        <div class="head">
+            <h2>請假</h2>
+            <form action="~/DDDDD/AskforList" method="post" target="_self">
+                <div>
+                    <label>員工編號:</label>
+                    <label></label>
+                    <input type="text" id="EmployeeID" />
+                </div>
+                <div>
+                    <label>員工姓名:</label>
+                    <label></label>
+                    <input type="text" id="中文姓名" />
+                </div>
+                <div>
+                    <label>職稱:</label>
+                    <label></label>
+                    <input type="text" id="jobtitle" />
+                </div>
+                <div>
+                    <label>信箱:</label>
+                    <label></label>
+                    <input type="text" id="Email" />
+                </div>
+                <div>
+                    <label>部門:</label>
+                    <label></label>
+                    <input type="text" id="department" />
+                </div>
+                <div>
+                    <label>請假班別:</label>
+                    <label></label>
+                    <input type="text" id="請假班別" />
+                </div>
+                <div>
+                    <label>請假類別:</label>
+                    <select id="select1">
+                        <option value="0">請選擇</option>
+                        <option value="1">事假</option>
+                        <option value="2">病假</option>
+                        <option value="3">生理假</option>
+                        <option value="4">喪假</option>
+                        <option value="5">婚假</option>
+                        <option value="6">公假</option>
+                        <option value="7">產假</option>
+                        <option value="8">陪產假</option>
+                        <option value="9">防疫隔離假</option>
+                        <option value="10">特休</option>
+                        <option value="11">加班補修</option>
+                    </select>
+                </div>
+                <div>
+                    <label>開始日期</label>
+                    <input type="datetime-local" id="startday">
+                </div>
+                <div>
+                    <label>結束日期</label>
+                    <input type="datetime-local" id="endday">
+                </div>
+                <div>
+                    <label>申請日期</label>
+                    <input type="datetime-local" id="applicationday">
+                </div>
+                <div>
+                    <label>請假時數</label>
+                    <input type="text" id="askfortime">
+                </div>
+                <div>
+                    <label>代理人</label>
+                    <input type="text" id="agent">
+                    <label>審核狀態</label>
+                    <label></label>
+                    <input type="text" id="approvalStatus" />
+                </div>
+                <input type="submit" onclick="AddEmp(),window.location.reload('/DDDDD/AskforList.cshtml')">
+            </form>
+        </div>
+
+        @*------------------------------新增員工資訊結束------------------------------*@
+
+
+
+
+    </div>
+    <div class="tab-pane fade" id="nav-Show">
+        <div class="overflow-auto">
+            @*------------------------------員工資訊總表起始------------------------------*@
+            <table class="table text-dark bg-white table-hover text-nowrap table-borderless TotalWrap">
+                
+                  
+                        <thead id="head">
+                        </thead>
+                        <tbody id="AskForListTbody">
+                        </tbody>
+                   
+                
+            </table>
+            @*------------------------------員工資訊總表結束------------------------------*@
+            @*------------------------------分頁按鈕起始------------------------------*@
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center arrowborn">
+                </ul>
+                <p class="currentpage"></p>
+            </nav>
+            @*------------------------------分頁按鈕結束------------------------------*@
+        </div>
+    </div>
+    @*------------------------------編輯個人資訊起始------------------------------*@
+    <div class="modal fade" id="EditProfile" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title FormTextShadow" id="exampleModalLabel">編輯員工資訊</h5>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form class="EditUserProfile"></form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary editsave" data-dismiss="modal">確認修改</button>
+                    <button type="button" class="btn btn-secondary ClearModal" data-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+@*------------------------------編輯個人資訊結束------------------------------*@
+
+@section script{
+    <script>
+        var count = 1;
+        var page_num = 1;
+        var TotalEMP = "";
+        var SliceTotal = "";
+        var currentpage = page_num;
+        //----------------------新增分頁按鈕起始----------------------
+        $.ajax({
+            url: "/Home/HRShowEdit",
+            method: "get",
+            success: function (data) {
+                EMPrefresh(data);
+                $(".currentpage").html(`當前頁面：${page_num}`);
+                TotalEMP = data[0].總比數;
+                $(".navtitle").append(
+                    `  <div class="nav nav-tabs font-weight-bolder d-flex" id="nav-tab">
+                                    <a class="col-xl-2 col-lg-3 col-md-4 col-sm-12 text-center nav-item nav-link active text-dark" id="nav-home-tab" data-toggle="tab" href="#nav-Add">新進同仁註冊</a>
+                                    <a class="col-xl-2 col-lg-3 col-md-4 col-sm-12 text-center nav-item nav-link text-dark" id="nav-profile-tab" data-toggle="tab" href="#nav-Show">顯示所有員工資訊</a>
+                                    <p class="col-xl-2 col-lg-3 col-md-4 col-sm-12 text-center text-dark pt-2 TotalEMP ml-auto bg-white px-2">員工總人數：${TotalEMP}</p>
+                                </div>`
+                );
+                SliceTotal = Math.ceil(TotalEMP / 10);
+                $(".arrowborn").append(` <li class="page-item pointer prevbtn" value="${page_num}">
+                                            <a class="page-link ">Previous</a>
+                                        </li>`);
+                $(".arrowborn").append(
+                    ` <li class="page-item pointer firstbtn" value="${page_num}"><a class="page-link showbtn1">${page_num}</a></li>`
+                );
+                $(".arrowborn").append(
+                    ` <li class="page-item pointer sectbtn" value="${page_num + 1}"><a class="page-link showbtn2">${page_num + 1}</a></li>`
+                );
+                $(".arrowborn").append(
+                    ` <li class="page-item pointer thirdtbtn" value="${page_num + 2}"><a class="page-link showbtn3">${page_num + 2}</a></li>`
+                );
+
+                $(".arrowborn").append(` <li class="page-item pointer nextbtn" value="${page_num + 1}">
+                                            <a class="page-link">Next</a>
+                                        </li>`);
+            }
+        })
+
+
+
+
+        //----------------------新增分頁按鈕結束----------------------
+        //----------------------分頁跳轉起始----------------------
+        //動態bind事件的話要用on事先綁定父層
+        $(".arrowborn").on('click', '.firstbtn', function () {
+            if (page_num == SliceTotal) {
+                $(".firstbtn").attr('value', currentpage = page_num - 2);
+
+            } else {
+
+                $(".firstbtn").attr('value', currentpage = page_num + 0);
+
+            }
+            //if (page == 1) {
+            //} else if (page == SliceTotal) {
+            //    $(".firstbtn").attr('value', page -= 2);
+            //} else {
+            //    $(".firstbtn").attr('value', page--);
+            //}
+            $(".firstbtn").off('click');
+        })
+        $(".arrowborn").on('click', '.sectbtn', function () {
+
+            if (page_num == SliceTotal) {
+                $(".sectbtn").attr('value', currentpage = page_num - 1);
+            } else {
+
+                $(".sectbtn").attr('value', currentpage = page_num + 1);
+            }
+
+            //if (page == 1) {
+            //} else if (page == SliceTotal) {
+            //    $(".sectbtn").attr('value', page--);
+            //} else {
+            //    $(".sectbtn").attr('value', page);
+            //}
+            $(".sectbtn").off('click');
+        })
+
+        $(".arrowborn").on('click', '.thirdtbtn', function () {
+
+
+            if (page_num == SliceTotal) {
+                $(".thirdtbtn").attr('value', currentpage = page_num + 0);
+            } else {
+
+                $(".thirdtbtn").attr('value', currentpage = page_num + 2);
+
+            }
+
+            //if (page == 1) {
+            //} else if (page == SliceTotal) {
+            //    $(".thirdtbtn").attr('value', page);
+            //} else {
+            //    $(".thirdtbtn").attr('value', page++);
+            //}
+            $(".thirdtbtn").off('click');
+        });
+
+        $(".arrowborn").on('click', '.nextbtn', function () {
+            if (page_num < SliceTotal - 2) {
+                $(".nextbtn").attr('value', page_num++)
+            }
+            //else if (page_num == SliceTotal){
+            //    $(".nextbtn").attr('value', currentpage)
+            //}
+            $(".nextbtn").off('click');
+        });
+
+
+        $(".arrowborn").on('click', '.prevbtn', function () {
+            if (page_num > 1) {
+                $(".prevbtn").attr('value', page_num--);
+            }
+            $(".prevbtn").off('click');
+        });
+
+
+
+
+        $(".arrowborn").on('click', '.page-item', function () {
+
+            //if (page_num == 1) {
+
+            if (page_num == SliceTotal) {
+                $(".showbtn1").html(page_num - 2);
+                $(".showbtn2").html(page_num - 1);
+                $(".showbtn3").html(page_num);
+            } else {
+                $(".showbtn1").html(page_num);
+                $(".showbtn2").html(page_num + 1);
+                $(".showbtn3").html(page_num + 2);
+            }
+            //}
+            //else if (page_num == SliceTotal) {
+            //    $(".showbtn1").html(page_num - 2);
+            //    $(".showbtn2").html(page_num - 1);
+            //    $(".showbtn3").html(page_num);
+
+            //} else {
+            //    $(".showbtn1").html(page_num - 1);
+            //    $(".showbtn2").html(page_num);
+            //    $(".showbtn3").html(page_num + 1);
+            //}
+            $(".currentpage").html(`當前頁面：${currentpage}`);
+            $.ajax({
+                url: "/Home/HRPage",
+                data: {
+                    "arrow": currentpage
+                },
+                success: function (data) {
+                    EMPrefresh(data);
+
+                }
+            })
+            $('.page-item').off('click');
+        });
+
+
+
+        //----------------------分頁跳轉結束----------------------
+
+        //----------------------新增員工生日datepicker格式化日期、範圍 起始位置----------------------
+        $(".addbirth").datepicker({
+            dateFormat: 'yy-mm-dd',
+            changeMonth: true,
+            changeYear: true,
+            yearRange: "1960:",
+        });
+        //----------------------新增員工生日datepicker格式化日期、範圍 結束位置----------------------
+        //----------------------新增員工雇用日期datepicker格式化日期、範圍 起始位置----------------------
+
+        $(".addhire").datepicker({
+            dateFormat: 'yy-mm-dd',
+            changeMonth: true,
+            changeYear: true,
+            yearRange: "1960:",
+
+        });
+        //----------------------新增員工雇用日期datepicker格式化日期、範圍 結束位置----------------------
+
+        //----------------------顯示員工總表"方法"刷新起始----------------------
+        function EMPrefresh(data) {
+            $("#tbodyadd").html("");
+            $(data).each(function (index, item) {
+                $("#tbodyadd").append(`<tr>
+                                <td>${item.EmployeeID}</td>
+                                <td>${item.信箱}</td>
+                                <td>${item.中文姓名}</td>
+                                <td>${item.性別}</td>
+                                <td>${item.電話}</td>
+                                <td>${item.部門}</td>
+                                <td><a class="btn btn-info empedit" data-id="${item.EmployeeID}" data-toggle="modal" data-target="#EditProfile" onclick="startedit()">編輯</a></td>
+                                <td><a class="btn btn-danger " data-id="${item.EmployeeID}" onclick="DeleteEMP()">刪除</a></td>
+                                </tr>`);
+            })
+        }
+        //----------------------顯示員工總表"方法"刷新結束----------------------
+        //----------------------顯示員工總表刷新起始----------------------
+
+        $.ajax({
+            url: "/Home/HRShowEdit",
+            method: "get",
+            success: function (data) {
+                $("#tbodyadd").html("");
+                EMPrefresh(data);
+            }
+        })
+        //----------------------顯示員工總表刷新結束----------------------
+        //----------------------編輯個人資訊起始----------------------
+        function startedit() {
+            $.ajax({
+                url: "/DDDDD/GetUpdateData",
+                data: {
+                    "id": $(event.currentTarget).data("id")
+                },
+                method: "Get",
+                success: function (data) {
+                    $(".EditUserProfile").html(`
+                        <div class="d-flex row flex-wrap space">     
+    <div>
+                            <input type="hidden"name="EmployeePW" class="" value="${data.EmployeePW}"/>
+                            <input type="hidden" name="EmployeeID" class="" value="${data.EmployeeID}"/>
+                            <input type="hidden"name="信箱" class="" value="${data.信箱}"/>  
+    <ul class="list-unstyled">          
+                        <li><label>中文姓名：</label><input name="中文姓名" class="Regular shadow"value="${data.中文姓名}"/></li>
+                <li class="mt-3">
+                        <li><label>英文姓名：</label><input name="英文姓名" class="Regular shadow"value="${data.英文姓名}"/></li>
+    </li>
+     <li class="mt-3">
+                            <label>性別：</label>
+                                <select hidden name="性別" class="Regular shadow">
+                                    <option >${data.性別}</option>         
+                                </select>
+
+                                <select disabled class="Regular shadow">
+                                    <option >${data.性別}</option>         
+                                </select>
+    </li>           
+          <li class="mt-3">
+                            <label>電話：</label><input name="電話" class="Regular shadow"value="${data.電話}"/>
+            </li>
+              <li class="mt-3">
+                            <label>出生年月日：</label><input name="出生年月日" class="Regular shadow"value="${data.出生年月日}"/>
+           </li>
+        <li class="mt-3">
+                                <label>婚姻狀況：</label>
+                                <select  name="婚姻狀況" class="Regular shadow">
+                                    <option hidden>${data.婚姻狀況}</option>
+                                    <option value="已婚">已婚</option>
+                                    <option value="未婚">未婚</option>
+                                </select>
+       </li>
+            <li class="mt-3">
+                           <label> 居住地：</label><input name="居住地"class="Regular shadow"value="${data.居住地}"/>
+           </li>
+                            </div>
+    </ul>
+                            <div">
+    <ul class="list-unstyled">
+           <li>
+                            受雇日期：<input name="受雇日期" hidden class="Regular shadow"value="${data.受雇日期}"/>
+                            <input  disabled class="Regular shadow"value="${data.受雇日期}"/>
+           </li>
+        <li class="mt-3">
+                            部門：<input name="部門" class="Regular shadow" value="${data.部門}"/>
+           </li>
+             <li class="mt-3">
+                                <label>職稱：</label>
+                                <select name="職稱" class="Regular shadow">
+                                    <option hidden>${data.職稱}</option>
+                                    <option value="主管">主管</option>
+                                    <option value="員工">員工</option>
+                                    <option value="人事">人事</option>
+                                </select>
+
+              </li>
+        <li class="mt-3">
+                                <label>權限：</label>
+                                <select name="權限" class="Regular shadow">
+                                    <option hidden>${data.權限}</option>
+                                    <option value="主管">主管</option>
+                                    <option value="員工">員工</option>
+                                    <option value="人事">人事</option>
+                                </select>
+           </li>
+             <li class="mt-4">
+                           年資：<input name="年資" class="Regular shadow" value="${data.年資}"/>
+         </li>
+           <li class="mt-4">
+                            特休：<input name="特休" class="Regular shadow" value="${data.特休}"/>
+           </li>
+            <li class="mt-4">
+                            薪資：<input name="薪資" class="Regular shadow" value="${data.薪資}"/>
+            </li>
+                           </ul>
+                            </div>`
+
+                    );
+                }
+            });
+        };
+
+
+
+
+
+
+
+
+
+
+
+        function AddEmp() {
+            var r = confirm("確定要新增嗎?");
+            if (r == true) {
+                $.ajax({
+                    url: "/DDDDD/AskForAjax",
+                    type: "POST",
+                    data: {
+                        "EmployeeID": $("#EmployeeID").val(),
+                        "中文姓名": $("#中文姓名").val(),
+                        "職稱": $("#jobtitle").val(),
+                        "信箱": $("#Email").val(),
+                        "部門": $("#department").val(),
+                        "請假班別": $("#請假班別").val(),
+                        "假別ID": $("#select1").val(),
+                        "開始日期": $("#startday").val(),
+                        "結束日期": $("#endday").val(),
+                        "申請日期": $("#applicationday").val(),
+                        "請假時數": $("#askfortime").val(),
+                        "代理人": $("#agent").val(),
+                        "審核狀態": $("#approvalStatus").val()
+                    },
+                    success: function (result) {
+                        if (result == "ok") {
+                            alert("新增成功");
+                            //window.location.href = window.location.href + "/DDDDD/AskforList";
+                            //window.location.href = "/DDDDD/AskforList";
+                            //parent.window.location = window.location.href;
+                            window.location.assign("https://localhost:44382/DDDDD/AskforList");
+                        }
+                        else {
+                            alert("新增失敗");
+                        }
+                    }
+                })
+            }
+        }
+        //----------------------編輯個人資訊結束----------------------
+        //----------------------個人資訊存檔按鈕起始----------------------
+        $(".editsave").click(function () {
+            var form = document.querySelector(".EditUserProfile");
+            var formData = new FormData(form);
+            $.ajax({
+                url: "/DDDDD/UpdateDataAjax",
+                method: "Post",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function () {
+                    swal("編輯成功！", "編輯員工資訊", "success");
+                    $.ajax({
+                        url: "/Home/HRShowEdit",
+                        method: "get",
+                        success: function (data) {
+                            $("#tbodyadd").html("");
+                            EMPrefresh(data);
+                        }
+                    })
+                }
+            });
+        })
+        //----------------------個人資訊存檔按鈕結束----------------------
+        //----------------------個人資訊新增按鈕起始----------------------
+
+        $(".AddEMP").click(function () {
+            $.ajax({
+                url: "/Home/HRAdd",
+                method: "post",
+                data: {
+                    "信箱": $(".addemail").val(),
+                    "EmployeeID": $(".addempid").val(),
+                    "EmployeePW": $(".addpw").val(),
+                    "中文姓名": $(".addch").val(),
+                    "英文姓名": $(".adden").val(),
+                    "性別": $(".addsex").val(),
+                    "電話": $(".addphone").val(),
+                    "出生年月日": $(".addbirth").val(),
+                    "婚姻狀況": $(".addmerry").val(),
+                    "居住地": $(".addlive").val(),
+                    "受雇日期": $(".addhire").val(),
+                    "部門": $(".addpart").val(),
+                    "職稱": $(".addjob").val(),
+                    "權限": $(".addpower").val(),
+                    "年資": $(".addyearpay").val(),
+                    "特休": $(".addspvaction").val(),
+                    "薪資": $(".addpayment").val(),
+                    "狀態": $(".addstatus").val()
+                },
+                success: function () {
+                    RefreshTotal();
+                    $(".resetform").click();
+                    swal("新增成功!", "員工資訊新增成功", "success");
+                    $.ajax({
+                        url: "/Home/HRShowEdit",
+                        method: "get",
+                        success: function (data) {
+                            $("#tbodyadd").html("");
+                            EMPrefresh(data);
+                        }
+                    })
+
+                }
+            })
+        })
+        //----------------------個人資訊新增按鈕結束----------------------
+        //----------------------個人資訊總表刪除按鈕起始----------------------
+        function DeleteEMP() {
+            $.ajax({
+                url: "/Home/HRDelete",
+                method: "get",
+                data: {
+                    "id": $(event.currentTarget).data("id")
+                },
+                success: function () {
+                    RefreshTotal();
+                    swal("刪除成功！", "刪除員工資訊", "success");
+                    $.ajax({
+                        url: "/Home/HRShowEdit",
+                        method: "get",
+                        success: function (data) {
+                            $("#tbodyadd").html("");
+                            EMPrefresh(data);
+                            $("#nav-profile-tab").click();
+                        }
+                    })
+                }
+            })
+        }
+        //----------------------個人資訊總表刪除按鈕結束----------------------
+        //----------------------人事搜尋按鈕開始----------------------
+        $(".searchbtn").click(function () {
+            if ($(".searchbox").val() == "") {
+                swal("查無會員資料", "請重新輸入", "error");
+            } else {
+                $.ajax({
+                    url: "/Home/HRSearch",
+                    data: {
+                        "name": $(".searchbox").val()
+                    },
+                    success: function (data) {
+                        if (data <= 1) {
+                            $(".SearchShowTable").html("");
+                            swal("查無會員資料", "請重新輸入", "error");
+                        }
+                        else {
+                            $("#searchinfo").modal('show');
+                            $(".SearchShowTable").html("");
+                            $(data).each(function (index, item) {
+                                $(".SearchShowTable").append(
+                                    `<tr>
+                                             <td class="pl-3">${item.EmployeeID}</td>
+                                             <td>${item.信箱}</td>
+                                             <td>${item.中文姓名}</td>
+                                             <td>${item.性別}</td>
+                                             <td>${item.電話}</td>
+                                             <td>${item.部門}</td>
+                                             <td><a class="btn btn-info empedit" data-id="${item.EmployeeID}" data-toggle="modal" data-target="#EditProfile" onclick="startedit()">編輯</a></td>
+                                             <td><a class="btn btn-danger " data-id="${item.EmployeeID}" onclick="DeleteEMP()">刪除</a></td>
+                                            </tr>`);
+                            })
+                        }
+                    }
+                })
+            }
+
+        });
+        //----------------------人事搜尋按鈕結束----------------------
+
+
+        //----------------------刷新員工總人數"方法"起始----------------------
+        function RefreshTotal() {
+            $.ajax({
+                url: "/Home/HRShowEdit",
+                method: "get",
+                success: function (data) {
+                    TotalEMP = data[0].總比數;
+                    $(".navtitle").html(
+                        `  <div class="nav nav-tabs font-weight-bolder" id="nav-tab">
+                                    <a class="nav-item nav-link active text-dark" id="nav-home-tab" data-toggle="tab" href="#nav-Add">新進同仁註冊</a>
+                                    <a class="nav-item nav-link text-dark" id="nav-profile-tab" data-toggle="tab" href="#nav-Show">顯示所有員工資訊</a>
+                                      <p class="text-dark pt-2 TotalEMP ml-auto bg-white px-2">員工總人數：${TotalEMP}</p>
+                                </div>`
+                    );
+
+                }
+            })
+        }
+
+         //----------------------刷新員工總人數"方法"結束----------------------
+
+        $(function () {
+            getAskForList();
+        })
+
+        function getAskForList() {
+            $.ajax({
+                url: "/DDDDD/AskforListAjax",
+                type: "GET",
+                success: function (memberlist) {
+                    $("#head").append(
+                        `<tr>
+                                            <th>員工編號</th>
+                                            <th>中文姓名</th>
+                                            <th>職稱</th>
+                                            <th>信箱</th>
+                                            <th>部門</th>
+                                            <th>請假班別</th>
+                                            <th>假別</th>
+                                            <th>開始日期</th>
+                                            <th>結束日期</th>
+                                            <th>申請日期</th>
+                                            <th>請假時數</th>
+                                            <th>代理人</th>
+                                            <th>審核狀態</th>
+                                            </tr>`
+                    );
+                    $(memberlist).each(function (index, item) {
+                        var testtime = parseInt(item.開始日期.replace(/\D/igm, ""));
+                        var testtime1 = new Date(testtime);
+                        var 結束日期 = parseInt(item.結束日期.replace(/\D/igm, ""));
+                        var testtime2 = new Date(結束日期);
+                        var 申請日期 = parseInt(item.申請日期.replace(/\D/igm, ""));
+                        var testtime3 = new Date(申請日期);
+                        $("#AskForListTbody").append(
+                            `<tr>
+                                            <td>${item.EmployeeID}</td>
+                                            <td>${item.中文姓名}</td>
+                                            <td>${item.職稱}</td>
+                                            <td>${item.信箱}</td>
+                                            <td>${item.部門}</td>
+                                            <td>${item.請假班別}</td>
+                                            <td>${item.假別1}</td>
+                                            <td>${testtime1.getFullYear() + "/" + (testtime1.getMonth() + 1) + "/" + testtime1.getDate() + " " + testtime1.getHours() + ":" + testtime1.getMinutes() + ":" + testtime1.getSeconds()}</td>
+                                            <td>${testtime2.getFullYear() + "/" + (testtime2.getMonth() + 1) + "/" + testtime2.getDate() + " " + testtime2.getHours() + ":" + testtime2.getMinutes() + ":" + testtime2.getSeconds()}</td>
+                                            <td>${testtime3.getFullYear() + "/" + (testtime3.getMonth() + 1) + "/" + testtime3.getDate() + " " + testtime3.getHours() + ":" + testtime3.getMinutes() + ":" + testtime3.getSeconds()}</td>
+                                            <td>${item.請假時數}</td>
+                                            <td>${item.代理人}</td>
+                                            <td>${item.審核狀態}</td>
+                                            <td><a class="btn btn-dark" href="/DDDDD/FindSingleData/${item.EmployeeID}"  >詳細</a></td></tr>`);
+                    })
+                },
+            });
+        };
+
+
+
+    </script>
+}
+
+

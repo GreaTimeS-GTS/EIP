@@ -1,0 +1,62 @@
+﻿@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/LoginLayout.cshtml";
+}
+
+
+
+<div class="container mt-5">
+    <div class="row justify-content-center align-items-center LoginForm">
+        <form class="FormLogin">
+         
+            <div class="px-4 py-2 formbord">
+                <div class="input-group mt-5">
+                    <label class="inputtext">帳號：</label>
+                    <span class="input-group-text"><i class="fa fa-user"></i></span>
+                    <input class="ACCtext" name="ACCtext" type="text" />
+                </div>
+                <div class="input-group mt-5">
+                    <label class="inputtext">密碼：</label>
+                    <span class="input-group-text"><i class="fas fa-key"></i></span>
+                    <input class="PWtext" name="PWtext" type="password" />
+                </div>
+                <div class="mt-4">
+                    <input type="checkbox" />
+                    <label class="RememberME">記住我</label>
+                </div>
+                <div class="form-group mt-5 ml-3">
+                    <input type="button" class="btn btn-secondary w-100 btnSend" value="登入" />
+                    <input type="reset" class="resetform" hidden />
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+@section script{
+   <script>
+       $(".btnSend").click(function () {
+           $.ajax({
+               url: "/Home/AccPwCheck",
+               data: {
+                   "信箱": $(".ACCtext").val(),
+                   "EmployeePW": $(".PWtext").val(),
+                   "記住我": $(".RememberME").val()
+               },
+               method: "get",           
+               success: function (data) {
+                   if (data.status != "") {
+                       setTimeout(function () { window.location.href = "/Home/Index"; }, 1000);
+                            swal("登入成功", "請稍後...", "success");
+                   } else {
+                      $(".resetform").click();       
+                       swal("登入失敗", "帳號或密碼錯誤,請重新登入...", "error");                   
+                   }
+                  
+               }
+           })
+           
+       })
+
+    </script>  
+    }

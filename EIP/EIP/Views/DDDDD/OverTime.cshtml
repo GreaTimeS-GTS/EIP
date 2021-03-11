@@ -1,0 +1,155 @@
+﻿@{
+    ViewBag.Title = "OverTimeOverTime";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    textarea {
+        resize: none;
+        width: 322.67px;
+    }
+
+    .head {
+        margin-top: 50px;
+        border: 1px solid black;
+        border-radius: 10px;
+        padding: 25px;
+        background-color: white;
+        box-shadow: 0 1px 7px;
+    }
+
+    h2 {
+        text-align: center;
+        font-weight: bold;
+        border-bottom: 1px solid silver;
+        padding-bottom: 20px;
+    }
+
+    input, textarea {
+        max-width: 500px;
+    }
+
+    .加班送出 {
+        box-shadow: 2px 5px 10px silver;
+    }
+</style>
+<div class="head">
+    <h2>加班單</h2>
+    <form>
+        <div class="d-flex flex-wrap justify-content-center pt-3">
+            @*<div class="mb-4 col-12 col-md-4">
+                <label>加班表編號:</label>
+                <input type="text" id="加班表編號" class="w-100">
+            </div>*@
+            <div class="mb-4 col-12 col-md-4">
+                <label>員工編號:</label>
+                <input type="text" class="w-100" id="EmployeeID">
+            </div>
+            <div class="mb-4 col-12 col-md-4">
+                <label>中文姓名:</label>
+                <input type="text" class="w-100" id="中文姓名">
+            </div>
+            <div class="mb-4 col-12 col-md-4">
+                <label>部門:</label>
+                <input type="text" class="w-100" id="department">
+            </div>
+        </div>
+        <div class="d-flex flex-wrap justify-content-center pt-3">
+            <div class="mb-4 col-12 col-md-4">
+                <label>開始日期:</label>
+                <input type="datetime-local" id="startday" class="w-100">
+            </div>
+            <div class="mb-4 col-12 col-md-4">
+                <label>結束日期:</label>
+                <input type="datetime-local" id="endday" class="w-100">
+            </div>
+            <div class="mb-4 col-12 col-md-4">
+                <label>加班時數:</label>
+                <input type="text" class="w-100" id="加班時數">
+            </div>
+        </div>
+        <div class="d-flex flex-wrap justify-content-center pt-3">
+            <div class="mb-4 col-12 col-md-4">
+                <label>已用/可用:</label>
+                <input type="text" class="w-100" id="已用可用">
+            </div>
+            <div class="mb-4 col-12 col-md-4">
+                <label>加班類別:</label>
+                <div class="mr-3" id="加班ID">
+                    <input type="radio" name="加班類別" value="1" />&ensp;延長加班
+                    <input type="radio" name="加班類別" value="2" />&ensp;例假日加班<br />
+                    <input type="radio" name="加班類別" value="3" />&ensp;休息日加班
+                    <input type="radio" name="加班類別" value="4" />&ensp;國定假日加班
+                </div>
+            </div>
+            <div class="mb-4 col-12 col-md-4">
+                <label>事由說明:</label><br />
+                <textarea id="事由說明" ></textarea>
+            </div>
+        </div>
+        <div class="d-flex flex-wrap justify-content-between pt-3 align-items-center">
+            <div class="mb-4 col-12 col-md-4">
+                <label>主管簽核:</label>
+                <input type="text" class="w-100" id="主管簽核">
+            </div>
+            <div class="col-12 col-md-4 form-group">
+                <a class="btn btn-primary w-100 加班送出" onclick="AddOverTime()">送出</a>
+            </div>
+        </div>
+    </form>
+</div>
+@section script{
+    <script>
+        $("#startday").blur(function () {
+            if ($("#startday").val() != '' && $("#endday").val() != '')
+            {
+                var hour = new Date($("#endday").val()).getHours() - new Date($("#startday").val()).getHours();
+                               
+                var day = new Date($("#endday").val()).getDate() - new Date($("#startday").val()).getDate();
+                $("#加班時數").val(`${(day * 24) + hour}`);
+            }
+        });
+
+        $("#endday").blur(function () {
+            var hour = new Date($("#endday").val()).getHours() - new Date($("#startday").val()).getHours();
+            
+            var day = new Date($("#endday").val()).getDate() - new Date($("#startday").val()).getDate();
+            $("#加班時數").val(`${(day * 24) + hour}`);
+        });
+
+
+        function AddOverTime() {
+            console.log(123);
+            console.log($("#加班時數").val());
+            console.log($("#加班ID").children(":checked").val());          
+            $.ajax({
+                url: "/DDDDD/OverTimeAjax",
+                type: "POST",
+                data: {
+                    "EmployeeID": $("#EmployeeID").val(),
+                    "中文姓名": $("#中文姓名").val(),
+                    "部門": $("#department").val(),
+                    "開始日期": $("#startday").val(),
+                    "結束日期": $("#endday").val(),
+                    "請假時數": $("#askfortime").val(),
+                    "加班時數": $("#加班時數").val(),
+                    "已用可用": $("#已用可用").val(),
+                    "加班ID": $("#加班ID").children(":checked").val(),
+                    "主管簽核": $("#主管簽核").val(),
+                    "事由說明": $("#事由說明").val()
+                },
+                    success: function (result) {
+                    if (result != null) {
+                        setTimeout(function () {
+                            window.location.href = "/DDDDD/OverTimeList";
+                        }, 2000);
+
+                        swal("成功", "新增成功", "success");
+                    }
+                }
+            })
+
+        }
+
+       
+    </script>
+}

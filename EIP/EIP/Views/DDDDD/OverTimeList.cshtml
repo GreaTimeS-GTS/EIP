@@ -1,0 +1,373 @@
+﻿@{
+    ViewBag.Title = "OverTimeList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>加班細項(總表)</h2>
+<a class="btn btn-info mb-3" href="/DDDDD/OverTime">新增加班單</a>
+<table class="table-hover w-100 table table-striped text-nowrap">
+    <thead id="head">
+    </thead>
+    <tbody id="OverTimeListTbody">
+    </tbody>
+</table>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                @*Start*@
+                <div class="head">
+                    <h2>加班單(修改)</h2>
+                    <form>
+                        <div>
+                            <div>
+                                <label>員工編號:</label>
+                                <input type="text" class="w-100" id="EmployeeID" disabled>
+                            </div>
+                            <div>
+                                <label>中文姓名:</label>
+                                <input type="text" class="w-100" id="中文姓名" disabled>
+                            </div>
+                            <div>
+                                <label>部&emsp;&emsp;門:</label>
+                                <input type="text" class="w-100" id="department" disabled>
+                            </div>
+                        </div>
+                        <div>
+                            <div>
+                                <label>開始日期:</label>
+                                <input type="datetime-local" id="startday" class="w-100">
+                            </div>
+                            <div>
+                                <label>結束日期:</label>
+                                <input type="datetime-local" id="endday" class="w-100">
+                            </div>
+                            <div>
+                                <label>加班時數:</label>
+                                <input type="text" class="w-100" id="加班時數" disabled>
+                            </div>
+                        </div>
+                        <div>
+                            <div>
+                                <label>已用/可用:</label>
+                                <input type="text" class="w-100" id="已用可用" disabled>
+                            </div>
+                            <div>
+                                <label>加班類別:</label>
+                                <div class="mr-3" id="加班ID">
+                                    <input type="radio" name="加班類別" value="1" />&ensp;延長加班
+                                    <input type="radio" name="加班類別" value="2" />&ensp;例假日加班<br />
+                                    <input type="radio" name="加班類別" value="3" />&ensp;休息日加班
+                                    <input type="radio" name="加班類別" value="4" />&ensp;國定假日加班
+                                </div>
+                            </div>
+                            <div>
+                                <label>事由說明:</label><br />
+                                <textarea id="事由說明" style="resize:none" class="w-100"></textarea>
+                            </div>
+                        </div>
+                        <div>
+                            <div>
+                                <label>主管簽核:</label>
+                                <input type="text" class="w-100" id="主管簽核" disabled>
+                            </div>
+                        </div>
+                    </form>
+                </div> @*End*@  
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" onclick="Update()">確認修改</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section script{
+    <script>
+
+        //======================================= 總表顯示 =======================================
+
+        let getID;
+
+        $(function () {
+            getOverTimeList();
+        })
+
+        function getOverTimeList() {
+            $.ajax({
+                url: "/DDDDD/OverTimeListAjax",
+                type: "GET",
+                success: function (overtimelist) {
+                    $("#head").append(
+                        `<tr>
+                                <th>員工編號</th>
+                                <th>中文姓名</th>
+                                <th>部門</th>
+                                <th>開始日期</th>
+                                <th>結束日期</th>
+                                <th>加班時數</th>
+                                <th>加班類別</th>
+                                <th>主管簽核</th>
+                                <th>詳細</th>
+                                <th>刪除</th>
+                                </tr>`
+                    );
+                    $(overtimelist).each(function (index, item) {
+                        var testtime = parseInt(item.開始日期.replace(/\D/igm, ""));
+                        var testtime1 = new Date(testtime);
+                        var 結束日期 = parseInt(item.結束日期.replace(/\D/igm, ""));
+                        var testtime2 = new Date(結束日期);
+
+                        if (testtime1.getHours() < 10) {
+                            h2 = "0" + testtime1.getHours();
+                        } else {
+                            h2 = testtime1.getHours();
+                        }
+                        if (testtime1.getMinutes() < 10) {
+                            var a2 = "0" + testtime1.getMinutes()
+                        } else {
+                            a2 = testtime1.getMinutes();
+                        }
+
+
+                        if (testtime2.getHours() < 10) {
+                            h3 = "0" + testtime2.getHours();
+                        } else {
+                            h3 = testtime2.getHours();
+                        }
+                        if (testtime2.getMinutes() < 10) {
+                            var a3 = "0" + testtime2.getMinutes()
+                        } else {
+                            a3 = testtime2.getMinutes();
+                        }
+                        $("#OverTimeListTbody").append(
+                            `<tr>
+                                <td>${item.EmployeeID}</td>
+                                <td>${item.中文姓名}</td>
+                                <td>${item.部門}</td>
+                                <td>${testtime1.getFullYear() + "/" + (testtime1.getMonth() + 1) + "/" + testtime1.getDate() + " " + h2 + ":" + a2}</td>
+                                <td>${testtime2.getFullYear() + "/" + (testtime2.getMonth() + 1) + "/" + testtime2.getDate() + " " + h3 + ":" + a3}</td>
+                                <td>${item.加班時數}</td>
+                                <td>${item.加班類別}</td>
+                                <td>${item.主管簽核}</td>
+                                <td><a class="btn btn-outline-primary button btnDetail" data-toggle="modal" data-id ="${item.加班表編號}" data-target="#exampleModalScrollable" onclick="UpdateGetData()"><span>詳細</span></a></td>
+                                <td><a class="btn btn-outline-danger button"  onclick="Odelete()" data-id="${item.加班表編號}"><span>刪除</span></a></td></tr>`
+
+                        );
+                    })
+                },
+            });
+        };
+        //======================================= 刪除 =======================================
+        function Odelete() {
+            if (true) {
+                $.ajax({
+                    url: "/DDDDD/DeleteOverTimeData",
+                    data: { "id": $(event.currentTarget).data("id") },
+                    success: function (result) {
+                        swal({
+                            title: "刪除?",
+                            text: "確定要刪除嗎?",
+                            icon: 'warning',
+                            buttons: true,
+                            dangerMode: true,
+                        }).then((confirm) => {
+                            if (confirm) {
+                                swal('刪除', '刪除成功！...', 'success');
+                                ReFresh();
+                            } else {
+                                swal('刪除', '刪除失敗!...', 'error');
+                            }
+                        })
+
+                    }
+                })
+            }
+        }
+        //======================================= 修改 =======================================
+        function Update() {
+            if (true) {
+                $.ajax({
+                    url: "/DDDDD/OverTimeUpdateAjax",
+                    type: "POST",
+                    data: {
+                        "加班表編號": getID,
+                        "EmployeeID": parseInt($("#EmployeeID").val()),
+                        "中文姓名": $("#中文姓名").val(),
+                        "部門": $("#department").val(),
+                        "開始日期": $("#startday").val(),
+                        "結束日期": $("#endday").val(),
+                        "加班時數": $("#加班時數").val(),
+                        "加班ID": $("#加班ID").val(),
+                        "已用可用": $("#已用可用").val(),
+                        "事由說明": $("#事由說明").val(),
+                        "主管簽核": $("#主管簽核").val(),
+                    },
+                    success: function (result) {
+                        if (result != 0) {
+                            $("#exampleModalScrollable").modal('hide');
+                            swal("成功", "修改成功", "success");
+                            ReFresh();
+                        }
+
+                    }
+                })
+            }
+        }
+        function UpdateGetData() {
+            getID = $(event.currentTarget).data("id");
+            $.ajax({
+                url: "/DDDDD/GetUpdateDataOverTime",
+                type: "GET",
+                data: { "id": $(event.currentTarget).data("id") },
+                success: function (getdata) {
+                    console.log($("#EmployeeID").val(getdata.EmployeeID));
+                    var testtime = parseInt(getdata.開始日期.replace(/\D/igm, ""));
+                    var testtime1 = new Date(testtime);
+                    var 結束日期 = parseInt(getdata.結束日期.replace(/\D/igm, ""));
+                    var testtime2 = new Date(結束日期);
+                    if ((testtime1.getMonth() + 1) < 10) //月
+                    {
+                        var a = "0" + (testtime1.getMonth() + 1);  //why var
+                    }
+                    else {
+                        a = (testtime1.getMonth() + 1);
+                    }
+                    if ((testtime2.getMonth() + 1) < 10) {
+                        var gg2 = "0" + (testtime2.getMonth() + 1);
+                    }
+                    else {
+                        gg2 = (testtime2.getMonth() + 1);
+                    }
+                    if (testtime1.getDate() < 10) //日
+                    {
+                        var rr1 = "0" + (testtime1.getDate());
+                    }
+                    else {
+                        rr1 = testtime1.getDate();
+                    }
+                    if (testtime2.getDate() < 10) {
+                        var aa2 = "0" + (testtime2.getDate());
+                    }
+                    else {
+                        aa2 = testtime2.getDate();
+                    }
+                    if (testtime1.getHours() < 10) //時
+                    {
+                        var cc1 = "0" + testtime1.getHours();
+                    }
+                    else {
+                        cc1 = testtime1.getHours();
+                    }
+                    if (testtime2.getHours() < 10) {
+                        var dd2 = "0" + testtime2.getHours();
+                    }
+                    else {
+                        dd2 = testtime2.getHours();
+                    }
+                    if (testtime1.getMinutes() < 10)  //分
+                    {
+                        var ff1 = "0" + testtime1.getMinutes();
+                    }
+                    else {
+                        ff1 = testtime1.getMinutes();
+                    }
+                    if (testtime1.getMinutes() < 10) {
+                        var mm2 = "0" + testtime1.getMinutes();
+                    }
+                    else {
+                        mm2 = testtime1.getMinutes();
+                    }
+                    if (testtime1.getMinutes() < 10) {
+                        var ll3 = "0" + testtime1.getMinutes();
+                    }
+                    else {
+                        ll3 = testtime1.getMinutes();
+                    }
+                    $("#加班表編號").val(getdata.加班表編號);
+                    $("#EmployeeID").val(getdata.EmployeeID);
+                    $("#中文姓名").val(getdata.中文姓名);
+                    $("#department").val(getdata.部門);
+                    $("#startday").val(testtime1.getFullYear() + "-" + a + "-" + rr1
+                        + "T" + cc1 + ":" + ff1 + ":00");
+                    $("#endday").val(testtime2.getFullYear() + "-" + gg2 + "-" + aa2
+                        + "T" + dd2 + ":" + mm2 + ":00");
+                    $("#加班ID").find(`input[value='${getdata.加班ID}']`).prop("checked", true); //找出input底下有value這個屬性並且值等於加班ID的標籤設定checked屬性
+                    $("#加班時數").val(getdata.加班時數);
+                    $("#已用可用").val(getdata.已用可用);
+                    $("#事由說明").val(getdata.事由說明);
+                    $("#主管簽核").val(getdata.主管簽核);
+                }
+            })
+        }
+
+        //======================================= 刷新 =======================================
+        function ReFresh() {
+            $.ajax({
+                url: "/DDDDD/OverTimeListAjax",
+                type: "GET",
+                success: function (overtimelist) {
+                    $("#head").html(
+                        `<tr>
+                            <th>員工編號</th>
+                            <th>中文姓名</th>
+                            <th>部門</th>
+                            <th>開始日期</th>
+                            <th>結束日期</th>
+                            <th>加班時數</th>
+                            <th>加班類別</th>
+                            <th>主管簽核</th>
+                            <th>詳細</th>
+                            <th>刪除</th>
+                            </tr>`
+                    );
+                    var a = " ";
+                    $(overtimelist).each(function (index, item) {
+                        var testtime = parseInt(item.開始日期.replace(/\D/igm, ""));
+                        var testtime1 = new Date(testtime);
+                        var 結束日期 = parseInt(item.結束日期.replace(/\D/igm, ""));
+                        var testtime2 = new Date(結束日期);
+
+                        if (testtime1.getHours() < 10) {
+                            h2 = "0" + testtime1.getHours();
+                        } else {
+                            h2 = testtime1.getHours();
+                        }
+                        if (testtime1.getMinutes() < 10) {
+                            var a2 = "0" + testtime1.getMinutes()
+                        } else {
+                            a2 = testtime1.getMinutes();
+                        }
+
+
+                        if (testtime2.getHours() < 10) {
+                            h3 = "0" + testtime2.getHours();
+                        } else {
+                            h3 = testtime2.getHours();
+                        }
+                        if (testtime2.getMinutes() < 10) {
+                            var a3 = "0" + testtime2.getMinutes()
+                        } else {
+                            a3 = testtime2.getMinutes();
+                        }
+
+                        a += `<tr>
+                        <td>${item.EmployeeID}</td>
+                        <td>${item.中文姓名}</td>
+                        <td>${item.部門}</td>
+                        <td>${testtime1.getFullYear() + "/" + (testtime1.getMonth() + 1) + "/" + testtime1.getDate() + " " + h2 + ":" + a2}</td>
+                        <td>${testtime2.getFullYear() + "/" + (testtime2.getMonth() + 1) + "/" + testtime2.getDate() + " " + h3 + ":" + a3}</td>
+                        <td>${item.加班時數}</td>
+                        <td>${item.加班類別}</td>
+                        <td>${item.主管簽核}</td>
+                        <td><a class="btn btn-outline-primary button btnDetail" data-toggle="modal" data-id ="${item.加班表編號}" data-target="#exampleModalScrollable" onclick="UpdateGetData()"><span>詳細</span></a></td>
+                        <td><a class="btn btn-outline-danger button"  onclick="Odelete()" data-id="${item.加班表編號}"><span>刪除</span></a></td></tr>`
+                        $("#OverTimeListTbody").html(a);
+                    })
+                },
+            });
+        };
+    </script>
+}

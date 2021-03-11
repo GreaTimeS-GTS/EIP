@@ -1,0 +1,294 @@
+﻿@*@model IEnumerable<EIP.Models.ViewModel.MeetingRoomViewModel>*@
+
+@{
+    ViewBag.Title = "MeetingRoomBookingSearch";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*------------------------------搜尋框起始------------------------------*@
+<div class="mt-5 d-flex justify-content-center align-items-center">
+    <div>
+        <input type="search" name="MeetingRoomsearchbox" class="searchbox rounded-pill border-info pl-3 Regular shadow" placeholder="搜尋會議室預約資料..." />
+    </div>
+    <div class="ml-3">
+        <button class="btn btn-primary rounded-pill searchbtn Regular shadow"><i class="fa fa-search mr-2"></i>搜尋</button>
+    </div>
+</div>
+@*searchid-Meetingsearchinfo*@ @*tab-index*@
+<div class="modal fade bd-example-modal-xl" id="Meetingsearchinfo" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title FormTextShadow">會議室預約搜尋結果</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table class="w-100" >
+                    <thead class="w-100 h-100">
+                        @*List*@
+                        <tr>
+                            <th class="pl-2">員工編號</th>
+                            <th class="">中文姓名</th>
+                            <th class="">使用日期</th>
+                            <th class="">使用時間</th>
+                            <th class="">結束時間</th>
+                            <th class="">會議室名稱</th>
+                            <th>編輯</th>
+                            <th>刪除</th>
+                        </tr>
+                    </thead>
+                    <tbody class="SearchShowTable w-100 h-100">
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+@*------------------------------搜尋框結束------------------------------*@
+
+
+@*------------------------------TAB分頁標籤起始------------------------------*@
+
+<nav class="mt-5 navtitle ">
+
+</nav>
+@*------------------------------TAB分頁標籤結束------------------------------*@
+
+@*------------------------------預約會議室起始------------------------------*@
+
+@*formid="AddEMPForm" ->"AddMRForm"*@
+
+<div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade show active w-100 h-100 TotalWrap" id="nav-Add">
+        <form id="AddMRForm" enctype="multipart/form-data">
+            <div class="d-flex justify-content-center flex-wrap">
+                <div class="mx-auto mt-3 col-12 col-sm-6 col-md-4 col-lg-2">
+                    <div class="form-group">
+                        <input type="hidden" class="addempid" />
+                        <label class="">員工編號 : </label>
+                        <input type="text" readonly class="addemail form-control shadow-sm" /> @*loading*@
+                    </div>
+                    <div class="form-group">
+                        <label>使用日期 : </label>
+                        <input type="text" class="addbook form-control shadow-sm" />
+                    </div>
+                    <div class="form-group">
+                        <label>會議室名稱：</label>
+                        <select class="addjob form-control shadow-sm">
+                            @*<option value="601" hidden>601 會議室</option>*@
+                            <option value="601">601會議室-4人</option>
+                            <option value="602">602會議室-6人</option>
+                            <option value="603">603會議室-10人</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="mx-auto mt-3 col-12 col-sm-6 col-md-4 col-lg-2">
+                    <div class="form-group">
+                        <label>中文姓名 : </label>
+                        <input type="text" readonly class="addpart form-control shadow-sm" />  @*loading*@
+                    </div>
+                    <div class="form-group">
+                        <label>使用時間：</label>
+                        @*<input type="text" class="addMTime form-control shadow-sm" />*@
+                    <select id="addSMTime" class="form-control shadow-sm">
+                        <option value="1">09:00</option>
+                        <option value="2">09:30</option>
+                        <option value="3">10:00</option>
+                        <option value="4">10:30</option>
+                        <option value="5">11:00</option>
+                        <option value="6">11:30</option>
+                        <option value="7">12:00</option>
+                        <option value="8">12:30</option>
+                        <option value="9">13:30</option>
+                        <option value="10">14:00</option>
+                        <option value="11">14:30</option>
+                        <option value="12">15:00</option>
+                        <option value="13">15:30</option>
+                        <option value="14">16:00</option>
+                        <option value="15">16:30</option>
+                        <option value="16">17:00</option>
+                        <option value="17">17:30</option>
+                        <option value="18">18:00</option>
+                    </select>
+                    </div>
+                    <div class="form-group">
+                        <label>結束時間：</label>
+                        @*<select class="addjob form-control shadow-sm">*@
+                        @*<input type="text" class="addch form-control shadow-sm" />*@
+                        <select id="addEMTime" class="form-control shadow-sm">
+                            <option value="1">09:00</option>
+                            <option value="2">09:30</option>
+                            <option value="3">10:00</option>
+                            <option value="4">10:30</option>
+                            <option value="5">11:00</option>
+                            <option value="6">11:30</option>
+                            <option value="7">12:00</option>
+                            <option value="8">12:30</option>
+                            <option value="9">13:30</option>
+                            <option value="10">14:00</option>
+                            <option value="11">14:30</option>
+                            <option value="12">15:00</option>
+                            <option value="13">15:30</option>
+                            <option value="14">16:00</option>
+                            <option value="15">16:30</option>
+                            <option value="16">17:00</option>
+                            <option value="17">17:30</option>
+                            <option value="18">18:00</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="mx-auto mt-3 col-12 col-sm-6 col-md-4 col-lg-2">
+                    <div class="mt-5">
+                        <div class="form-group">
+                            <input type="button" class="btn btn-primary w-100 AddEMP shadow-sm" value="確認送出" />
+                            <input type="reset" class="resetform" hidden />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        @*------------------------------預約會議室結束------------------------------*@
+    </div>
+</div>
+@*nav-Show*@
+<div class="tab-pane fade" id="nav-Show">
+    <div class="overflow-auto">
+        @*-------------------------------預約會議室總表起始------------------------------*@
+        <table class="table text-dark bg-white table-hover text-nowrap table-borderless TotalWrap">
+            <thead>
+                <tr>
+                    <th class="">員工編號</th>
+                    <th class="">中文姓名</th>
+                    <th class="">使用日期</th>
+                    <th class="">使用時間</th>
+                    <th class="">結束時間</th>
+                    <th class="">會議室名稱</th>
+                    <th>編輯</th>
+                    <th>刪除</th>
+                </tr>
+            </thead>
+            <tbody id="tbodyMadd">@*tbodyadd顯示員工總表"方法"刷新起始*@
+            </tbody>
+        </table>
+        @*------------------------------預約會議室總表結束------------------------------*@
+        @*------------------------------分頁按鈕起始------------------------------*@
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center arrowborn">
+            </ul>
+            <p class="currentpage"></p>
+        </nav>
+        @*------------------------------分頁按鈕結束------------------------------*@
+    </div>
+</div>
+
+
+@*------------------------------編輯資訊起始------------------------------*@
+<div class="modal fade" id="EditProfile" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title FormTextShadow" id="exampleModalLabel">編輯會議室預約</h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="EditUserProfile"></form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary editsave" data-dismiss="modal">確認修改</button>
+                <button type="button" class="btn btn-secondary ClearModal" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*------------------------------編輯資訊結束------------------------------*@
+
+@section script{
+    <script>
+        $(".addbook").datepicker({
+            dateFormat: 'yy-mm-dd',
+            changeMonth: true,
+            changeYear: true,
+            minDate: new Date(2021, 2, 1),
+            maxDate: new Date(2022, 3, 1),
+        });
+
+       
+        //var timebreak = ['09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', '18:00']
+        //for (x = 0; x < timebreak.length; x++)
+        //{
+           
+        //        var str = "";
+        //    str.textContent = timebreak[x];
+        //    documnet.getElementById("addMtime").innHtml = str.textContent
+
+        //    //var str = document.createAttribute("option");
+        //    //str.textContent = timebreak[x];
+        //    //document.getElementById("addMtime").appendChild(str);
+        //}
+    </script>
+}
+
+@*<p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.BookingId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BookingDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BookingTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MeetingRoomId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MeetingRoomName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BookingId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BookingDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BookingTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MeetingRoomId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MeetingRoomName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                </td>
+            </tr>
+        }
+
+    </table>*@
