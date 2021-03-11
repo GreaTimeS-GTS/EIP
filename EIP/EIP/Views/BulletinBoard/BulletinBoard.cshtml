@@ -127,11 +127,34 @@
     }
 
     .跳轉頁面框 {
-        margin-left: 200px;
+        margin-left: 180px;
     }
 
     .指定查詢視窗頭 {
         background-color: #00CACA;
+    }
+
+    .行事曆彈出視窗按鈕{
+        font-size:25px;
+        font-weight:900;
+    }
+
+    .行事曆事項名稱輸入框 {
+        max-width: 600px;
+        width: 436px;
+    }
+
+    .行事曆時間輸入框 {
+        max-width: 600px;
+        width: 436px;
+    }
+
+    .行事曆描述輸入框 {
+        max-width: 600px;
+        width: 436px;
+        max-height:600px;
+        height:300px;
+        resize:none;
     }
 </style>
 
@@ -213,15 +236,15 @@
             @*------------------------------佈告欄結束------------------------------*@
             @*------------------------------分頁按鈕起始------------------------------*@
             <nav aria-label="Page navigation example" class="col-12 d-flex">
-                <div class="col-4 pt-5">
+                <div class="col-4 mt-4">
                     <p class="currentpage"></p>
                 </div>
-                <div class="col-4 分頁按鈕外框 mt-5 ml-3">
+                <div class="col-4 分頁按鈕外框 ml-3 mt-3">
                     <ul class="pagination  arrowborn">
                     </ul>
                 </div>
-                <div class="col-4 mt-5 跳轉頁面框">
-                    <label>跳轉頁面至：<input type="text" class="pagesearch" maxlength="3" placeholder="1" /></label>
+                <div class="col-4 跳轉頁面框 mt-4">
+                    <label>跳轉頁面至：<input type="text" class="pagesearch w-25" maxlength="3" placeholder="1" /></label>
                 </div>
             </nav>
             @*------------------------------分頁按鈕結束------------------------------*@
@@ -236,20 +259,20 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
+                            <h4 class="modal-title 行事曆彈出視窗按鈕"><span id="eventTitle"></span></h4>
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title"><span id="eventTitle"></span></h4>
                         </div>
                         <div class="modal-body">
-                            <button id="btnDelete" class="btn btn-default btn-sm pull-right">
-                                <span class="glyphicon glyphicon-remove"></span> 刪除
-                            </button>
-                            <button id="btnEdit" class="btn btn-default btn-sm pull-right" style="margin-right:5px;">
-                                <span class="glyphicon glyphicon-pencil"></span> 修改
-                            </button>
                             <p id="pDetails"></p>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">關閉</button>
+                            <button id="btnDelete" class="btn btn-danger pull-right">
+                                <span class="glyphicon glyphicon-remove"></span> 刪除
+                            </button>
+                            <button id="btnEdit" class="btn btn-warning pull-right" style="margin-right:5px;">
+                                <span class="glyphicon glyphicon-pencil"></span> 修改
+                            </button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
                         </div>
                     </div>
                 </div>
@@ -261,46 +284,46 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
+                            <h4 class="modal-title 行事曆彈出視窗按鈕">新增事項</h4>
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">新增事項</h4>
                         </div>
                         <div class="modal-body">
                             <form class="col-md-12 form-horizontal">
                                 <input type="hidden" id="hdEventID" value="0" />
                                 <div class="form-group">
                                     <label>事項名稱</label>
-                                    <input type="text" id="txtSubject" class="form-control" />
+                                    <input type="text" id="txtSubject" class="form-control 行事曆事項名稱輸入框" />
                                 </div>
                                 <div class="form-group">
                                     <label>開始時間</label>
                                     <div class="input-group date" id="dtp1">
-                                        <input type="text" id="txtStart" class="form-control" />
+                                        <input type="text" id="txtStart" class="form-control 行事曆時間輸入框" />
                                         <span class="input-group-addon">
                                             <span class="glyphicon glyphicon-calendar"></span>
                                         </span>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="checkbox">
-                                        <label><input type="checkbox" id="chkIsFullDay" checked="checked" />全日</label>
                                     </div>
                                 </div>
                                 <div class="form-group" id="divEndDate" style="display:none">
                                     <label>結束時間</label>
                                     <div class="input-group date" id="dtp2">
-                                        <input type="text" id="txtEnd" class="form-control" />
+                                        <input type="text" id="txtEnd" class="form-control 行事曆時間輸入框" />
                                         <span class="input-group-addon">
                                             <span class="glyphicon glyphicon-calendar"></span>
                                         </span>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label>事項描述</label>
-                                    <textarea id="txtDescription" rows="3" class="form-control"></textarea>
+                                <div class="form-group ">
+                                    <div class="checkbox">
+                                        <label><input type="checkbox" id="chkIsFullDay" checked="checked" />   全日</label>
+                                    </div>
                                 </div>
                                 <div class="form-group">
+                                    <label>事項描述</label>
+                                    <textarea id="txtDescription" rows="3" class="form-control 行事曆描述輸入框"></textarea>
+                                </div>
+                                <div class="form-group 行事曆事項名稱輸入框">
                                     <label>主題顏色</label>
-                                    <select id="ddThemeColor" class="form-control">
+                                    <select id="ddThemeColor" class="form-control 行事曆事項名稱輸入框">
                                         <option value="">不使用</option>
                                         <option value="red">紅色</option>
                                         <option value="blue">藍色</option>
@@ -308,8 +331,8 @@
                                         <option value="green">綠色</option>
                                     </select>
                                 </div>
-                                <button type="button" id="btnSave" class="btn btn-success">儲存</button>
-                                <button type="button" class="btn btn-default" data-dismiss="modal">關閉</button>
+                                <button type="button" id="btnSave" class="btn btn-primary">儲存</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
                             </form>
                         </div>
                     </div>
@@ -414,219 +437,6 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
 
     <script>
-        $(document).ready(function () {
-            var events = [];
-            var selectedEvent = null;
-            FetchEventAndRenderCalendar();
-            function FetchEventAndRenderCalendar() {
-                events = [];
-                $.ajax({
-                    type: "GET",
-                    url: "/BulletinBoard/GetEvents",
-                    success: function (data) {
-                        $.each(data, function (i, v) {
-                            events.push({
-                                eventID: v.EventID,
-                                title: v.Subject,
-                                description: v.Description,
-                                start: moment(v.Start),
-                                end: v.End != null ? moment(v.End) : null,
-                                color: v.ThemeColor,
-                                allDay: v.IsFullDay
-                            });
-                        })
-
-                        GenerateCalender(events);
-                    },
-                    error: function (error) {
-                        alert('failed');
-                    }
-                })
-            }
-
-            function GenerateCalender(events) {
-                $('#calender').fullCalendar('destroy');
-                $('#calender').fullCalendar({
-                    defaultDate: new Date(),
-                    timeFormat: 'h(:mm)a',
-                    header: {
-                        left: 'prevYear,prev,next,nextYear today',
-                        center: 'title',
-                        right: 'month,basicWeek,agenda'
-                    },
-                    contentHeight: 850,   // 容器高 
-                    monthNames: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
-                    dayNames: ["週日", "週一", "週二", "週三", "週四", "週五", "週六"],
-                    dayNamesShort: ["週日", "週一", "週二", "週三", "週四", "週五", "週六"],
-                    today: ["今天"],
-                    buttonText: {
-                        today: '今天',
-                        month: '月',
-                        week: '週',
-                        agenda: '日'
-                    },
-                    eventLimit: true,
-                    eventColor: '#378006',
-                    events: events,
-                    eventClick: function (calEvent, jsEvent, view) {
-                        selectedEvent = calEvent;
-                        $('#myModal #eventTitle').text(calEvent.title);
-                        var $description = $('<div/>'); 
-                        $description.append($('<p/>').html('<b>Start:</b>' + calEvent.start.format("YYYY-MM-DD HH:mm a")));
-                        if (calEvent.end != null) {
-                            $description.append($('<p/>').html('<b>End:</b>' + calEvent.end.format("YYYY-MM-DD HH:mm a")));
-                        }
-                        $description.append($('<p/>').html('<b>Description:</b>' + calEvent.description));
-                        $('#myModal #pDetails').empty().html($description);
-
-                        $('#myModal').modal();
-                    },
-                    selectable: true,
-                    select: function (start, end) {
-                        selectedEvent = {
-                            eventID: 0,
-                            title: '',
-                            description: '',
-                            start: start,
-                            end: end,
-                            allDay: false,
-                            color: ''
-                        };
-                        openAddEditForm();
-                        $('#calender').fullCalendar('unselect');
-                    },
-                    editable: true,
-                    eventDrop: function (event) {
-                        var data = {
-                            EventID: event.eventID,
-                            Subject: event.title,
-                            Start: event.start.format("YYYY-MM-DD HH:mm a"),
-                            End: event.end != null ? event.end.format("YYYY-MM-DD HH:mm a") : null,
-                            Description: event.description,
-                            ThemeColor: event.color,
-                            IsFullDay: event.allDay
-                        };
-                        SaveEvent(data);
-                    }
-                })
-            }
-
-            $('#btnEdit').click(function () {
-                //Open modal dialog for edit event
-                openAddEditForm();
-            })
-            $('#btnDelete').click(function () {
-                if (selectedEvent != null && confirm('Are you sure?')) {
-                    $.ajax({
-                        type: "POST",
-                        url: '/BulletinBoard/DeleteEvent',
-                        data: { 'eventID': selectedEvent.eventID },
-                        success: function (data) {
-                            if (data.status) {
-                                //Refresh the calender
-                                FetchEventAndRenderCalendar();
-                                $('#myModal').modal('hide');
-                            }
-                        },
-                        error: function () {
-                            alert('Failed');
-                        }
-                    })
-                }
-            })
-
-            $('#dtp1,#dtp2').datetimepicker({
-                format: "YYYY-MM-DD HH:mm a"
-            });
-
-            $('#chkIsFullDay').change(function () {
-                if ($(this).is(':checked')) {
-                    $('#divEndDate').hide();
-                }
-                else {
-                    $('#divEndDate').show();
-                }
-            });
-
-            function openAddEditForm() {
-                if (selectedEvent != null) {
-                    $('#hdEventID').val(selectedEvent.eventID);
-                    $('#txtSubject').val(selectedEvent.title);
-                    $('#txtStart').val(selectedEvent.start.format("YYYY-MM-DD HH:mm a"));
-                    $('#chkIsFullDay').prop("checked", selectedEvent.allDay || false);
-                    $('#chkIsFullDay').change();
-                    $('#txtEnd').val(selectedEvent.end != null ? selectedEvent.end.format("YYYY-MM-DD HH:mm a") : '');
-                    $('#txtDescription').val(selectedEvent.description);
-                    $('#ddThemeColor').val(selectedEvent.color);
-                }
-                $('#myModal').modal('hide');
-                $('#myModalSave').modal();
-            }
-
-            $('#btnSave').click(function () {
-                //Validation/
-                if ($('#txtSubject').val().trim() == "") {
-                    alert('Subject required');
-                    return;
-                }
-                if ($('#txtStart').val().trim() == "") {
-                    alert('Start date required');
-                    return;
-                }
-                if ($('#chkIsFullDay').is(':checked') == false && $('#txtEnd').val().trim() == "") {
-                    alert('End date required');
-                    return;
-                }
-                else {
-                    var startDate = moment($('#txtStart').val(), "YYYY-MM-DD HH:mm a").toDate();
-                    var endDate = moment($('#txtEnd').val(), "YYYY-MM-DD HH:mm a").toDate();
-                    if (startDate > endDate) {
-                        alert('Invalid end date');
-                        return;
-                    }
-                }
-
-                var data = {
-                    EventID: $('#hdEventID').val(),
-                    Subject: $('#txtSubject').val().trim(),
-                    Start: $('#txtStart').val().trim(),
-                    End: $('#chkIsFullDay').is(':checked') ? null : $('#txtEnd').val().trim(),
-                    Description: $('#txtDescription').val(),
-                    ThemeColor: $('#ddThemeColor').val(),
-                    IsFullDay: $('#chkIsFullDay').is(':checked')
-                }
-                SaveEvent(data);
-                // call function for submit data to the server
-            })
-
-            function SaveEvent(data) {
-                $.ajax({
-                    type: "POST",
-                    url: '/BulletinBoard/SaveEvent',
-                    data: data,
-                    success: function (data) {
-                        if (data.status) {
-                            //Refresh the calender
-                            FetchEventAndRenderCalendar();
-                            $('#myModalSave').modal('hide');
-                        }
-                    },
-                    error: function () {
-                        alert('Failed');
-                    }
-                })
-            }
-        })
-
-
-
-
-
-
-
-
-
-        refresh();
 
         // 刷新
         var count = 1;
@@ -706,7 +516,7 @@
                 }
             })
         }
-
+            refresh();
 
         //----------------------分頁跳轉起始----------------------
         //動態bind事件的話要用on事先綁定父層
@@ -1196,7 +1006,208 @@
 
 
         ///-------Fullcalender---------
+            $(document).ready(function () {
+                var events = [];
+                var selectedEvent = null;
+                FetchEventAndRenderCalendar();
+                function FetchEventAndRenderCalendar() {
+                    events = [];
+                    $.ajax({
+                        type: "GET",
+                        url: "/BulletinBoard/GetEvents",
+                        success: function (data) {
+                            $.each(data, function (i, v) {
+                                events.push({
+                                    eventID: v.EventID,
+                                    title: v.Subject,
+                                    description: v.Description,
+                                    start: moment(v.Start),
+                                    end: v.End != null ? moment(v.End) : null,
+                                    color: v.ThemeColor,
+                                    allDay: v.IsFullDay
+                                });
+                            }),
+                                GenerateCalender(events);
+                        },
+                        error: function (error) {
+                            alert('failed');
+                        }
+                    })
+                }
 
+                function GenerateCalender(events) {
+                    $('#calender').fullCalendar('destroy');
+                    $('#calender').fullCalendar({
+                        defaultDate: new Date(),
+                        timeFormat: 'h(:mm)a',
+                        header: {
+                            left: 'prevYear,prev,next,nextYear today',
+                            center: 'title',
+                            right: 'month,basicWeek,agenda'
+                        },
+                        contentHeight: 850,   // 容器高 
+                        monthNames: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
+                        dayNames: ["週日", "週一", "週二", "週三", "週四", "週五", "週六"],
+                        dayNamesShort: ["週日", "週一", "週二", "週三", "週四", "週五", "週六"],
+                        today: ["今天"],
+                        buttonText: {
+                            today: '今天',
+                            month: '月',
+                            week: '週',
+                            agenda: '日'
+                        },
+                        eventLimit: true,
+                        eventColor: '#378006',
+                        events: events,
+                        eventClick: function (calEvent, jsEvent, view) {
+                            selectedEvent = calEvent;
+                            $('#myModal #eventTitle').text(calEvent.title);
+                            var $description = $('<div/>');
+                            $description.append($('<p/>').html('<b>開始時間 :</b>' + calEvent.start.format("YYYY-MM-DD HH:mm A")));
+                            if (calEvent.end != null) {
+                                $description.append($('<p/>').html('<b>結束時間 :</b>' + calEvent.end.format("YYYY-MM-DD HH:mm A")));
+                            }
+                            $description.append($('<p/>').html('<b class="mr-3">內容 :</b>' + calEvent.description));
+                            $('#myModal #pDetails').empty().html($description);
+
+                            $('#myModal').modal();
+                        },
+                        selectable: true,
+                        select: function (start, end) {
+                            selectedEvent = {
+                                eventID: 0,
+                                title: '',
+                                description: '',
+                                start: start,
+                                end: end,
+                                allDay: false,
+                                color: ''
+                            };
+                            openAddEditForm();
+                            $('#calender').fullCalendar('unselect');
+                        },
+                        editable: true,
+                        eventDrop: function (event) {
+                            var data = {
+                                EventID: event.eventID,
+                                Subject: event.title,
+                                Start: event.start.format('YYYY/MM/DD HH:mm A'),
+                                End: event.end != null ? event.end.format('YYYY/MM/DD HH:mm A') : null,
+                                Description: event.description,
+                                ThemeColor: event.color,
+                                IsFullDay: event.allDay
+                            };
+                            SaveEvent(data);
+                        }
+                    })
+                }
+
+                $('#btnEdit').click(function () {
+                    //Open modal dialog for edit event
+                    openAddEditForm();
+                })
+                $('#btnDelete').click(function () {
+                    if (selectedEvent != null && confirm('Are you sure?')) {
+                        $.ajax({
+                            type: "POST",
+                            url: '/BulletinBoard/DeleteEvent',
+                            data: { 'eventID': selectedEvent.eventID },
+                            success: function (data) {
+                                if (data.status) {
+                                    //Refresh the calender
+                                    FetchEventAndRenderCalendar();
+                                    $('#myModal').modal('hide');
+                                }
+                            },
+                            error: function () {
+                                alert('Failed');
+                            }
+                        })
+                    }
+                })
+
+                $('#dtp1,#dtp2').datetimepicker({
+                    format: 'YYYY/MM/DD HH:mm A'
+                });
+
+                $('#chkIsFullDay').change(function () {
+                    if ($(this).is(':checked')) {
+                        $('#divEndDate').hide();
+                    }
+                    else {
+                        $('#divEndDate').show();
+                    }
+                });
+
+                function openAddEditForm() {
+                    if (selectedEvent != null) {
+                        $('#hdEventID').val(selectedEvent.eventID);
+                        $('#txtSubject').val(selectedEvent.title);
+                        $('#txtStart').val(selectedEvent.start.format('YYYY/MM/DD HH:mm A'));
+                        $('#chkIsFullDay').prop("checked", selectedEvent.allDay || false);
+                        $('#chkIsFullDay').change();
+                        $('#txtEnd').val(selectedEvent.end != null ? selectedEvent.end.format('YYYY/MM/DD HH:mm A') : '');
+                        $('#txtDescription').val(selectedEvent.description);
+                        $('#ddThemeColor').val(selectedEvent.color);
+                    }
+                    $('#myModal').modal('hide');
+                    $('#myModalSave').modal();
+                }
+
+                $('#btnSave').click(function () {
+                    //Validation/
+                    if ($('#txtSubject').val().trim() == "") {
+                        alert('Subject required');
+                        return;
+                    }
+                    if ($('#txtStart').val().trim() == "") {
+                        alert('Start date required');
+                        return;
+                    }
+                    if ($('#chkIsFullDay').is(':checked') == false && $('#txtEnd').val().trim() == "") {
+                        alert('End date required');
+                        return;
+                    }
+                    else {
+                        var startDate = moment($('#txtStart').val(), "YYYY/MM/DD HH:mm A").toDate();
+                        var endDate = moment($('#txtEnd').val(), "YYYY/MM/DD HH:mm A").toDate();
+                        if (startDate > endDate) {
+                            alert('Invalid end date');
+                            return;
+                        }
+                    }
+
+                    var data = {
+                        EventID: $('#hdEventID').val(),
+                        Subject: $('#txtSubject').val().trim(),
+                        Start: $('#txtStart').val().trim(),
+                        End: $('#chkIsFullDay').is(':checked') ? null : $('#txtEnd').val().trim(),
+                        Description: $('#txtDescription').val(),
+                        ThemeColor: $('#ddThemeColor').val(),
+                        IsFullDay: $('#chkIsFullDay').is(':checked')
+                    }
+                    SaveEvent(data);
+                    // call function for submit data to the server
+                })
+
+                function SaveEvent(data) {
+                    $.ajax({
+                        type: "POST",
+                        url: '/BulletinBoard/SaveEvent',
+                        data: data,
+                        success: function (data) {
+                            if (data.status) {
+                                //Refresh the calender
+                                FetchEventAndRenderCalendar();
+                                $('#myModalSave').modal('hide');
+                            }
+                        },
+                        error: function () {
+                            alert('Failed');
+                        }
+                    })
+                }
+            })
 
     </script>
 }
