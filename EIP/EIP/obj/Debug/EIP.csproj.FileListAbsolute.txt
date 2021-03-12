@@ -621,10 +621,8 @@ D:\乾淨整合版\EIP\EIP\bin\roslyn\VBCSCompiler.exe
 D:\GitHubEIP\EIP\EIP\bin\EIP.dll.config
 D:\GitHubEIP\EIP\EIP\bin\EIP.dll
 D:\GitHubEIP\EIP\EIP\bin\EIP.pdb
-D:\GitHubEIP\EIP\EIP\bin\roslyn\csc.exe
 D:\GitHubEIP\EIP\EIP\bin\roslyn\csc.exe.config
 D:\GitHubEIP\EIP\EIP\bin\roslyn\csc.rsp
-D:\GitHubEIP\EIP\EIP\bin\roslyn\csi.exe
 D:\GitHubEIP\EIP\EIP\bin\roslyn\csi.exe.config
 D:\GitHubEIP\EIP\EIP\bin\roslyn\csi.rsp
 D:\GitHubEIP\EIP\EIP\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
@@ -664,10 +662,8 @@ D:\GitHubEIP\EIP\EIP\bin\roslyn\System.Xml.ReaderWriter.dll
 D:\GitHubEIP\EIP\EIP\bin\roslyn\System.Xml.XmlDocument.dll
 D:\GitHubEIP\EIP\EIP\bin\roslyn\System.Xml.XPath.dll
 D:\GitHubEIP\EIP\EIP\bin\roslyn\System.Xml.XPath.XDocument.dll
-D:\GitHubEIP\EIP\EIP\bin\roslyn\vbc.exe
 D:\GitHubEIP\EIP\EIP\bin\roslyn\vbc.exe.config
 D:\GitHubEIP\EIP\EIP\bin\roslyn\vbc.rsp
-D:\GitHubEIP\EIP\EIP\bin\roslyn\VBCSCompiler.exe
 D:\GitHubEIP\EIP\EIP\bin\roslyn\VBCSCompiler.exe.config
 D:\GitHubEIP\EIP\EIP\obj\Debug\EIP.csproj.CoreCompileInputs.cache
 D:\GitHubEIP\EIP\EIP\obj\Debug\EIP.csproj.CopyComplete
@@ -845,3 +841,11 @@ D:\GTSEIP\EIP\EIP\obj\Debug\EIP.pdb
 D:\GTSEIP\EIP\EIP\bin\PagedList.dll
 D:\GTSEIP\EIP\EIP\bin\PagedList.xml
 D:\GTSEIP\EIP\EIP\obj\Debug\EIP.csprojAssemblyReference.cache
+D:\GitHubEIP\EIP\EIP\bin\PagedList.dll
+D:\GitHubEIP\EIP\EIP\bin\PagedList.xml
+D:\GitHubEIP\EIP\EIP\bin\roslyn\csc.exe
+D:\GitHubEIP\EIP\EIP\bin\roslyn\csi.exe
+D:\GitHubEIP\EIP\EIP\bin\roslyn\System.Net.Http.dll
+D:\GitHubEIP\EIP\EIP\bin\roslyn\vbc.exe
+D:\GitHubEIP\EIP\EIP\bin\roslyn\VBCSCompiler.exe
+D:\GitHubEIP\EIP\EIP\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml

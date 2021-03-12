@@ -164,6 +164,21 @@
     <Compile Include="Models\MeetingRoomBooking.cs">
       <DependentUpon>dbEIP.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\pj團隊.cs">
+      <DependentUpon>dbEIP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\pj建立.cs">
+      <DependentUpon>dbEIP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\pj會議.cs">
+      <DependentUpon>dbEIP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\pj結案.cs">
+      <DependentUpon>dbEIP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\pj總表.cs">
+      <DependentUpon>dbEIP.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\projectTeam.cs">
       <DependentUpon>dbEIP.tt</DependentUpon>
     </Compile>
@@ -187,10 +202,16 @@
     <Compile Include="Models\假別.cs">
       <DependentUpon>dbEIP.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\出差細項.cs">
+      <DependentUpon>dbEIP.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\加班別.cs">
       <DependentUpon>dbEIP.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\加班細項.cs">
+      <DependentUpon>dbEIP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\打卡系統.cs">
       <DependentUpon>dbEIP.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\行事曆.cs">

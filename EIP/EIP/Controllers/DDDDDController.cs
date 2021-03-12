@@ -175,10 +175,8 @@ namespace EIP.Controllers
                 開始日期 = n.開始日期,
                 結束日期 = n.結束日期,
                 加班時數 = n.加班時數,
-                已用可用 = n.已用可用,
                 加班ID = n.加班ID,
                 事由說明 = n.事由說明,
-                主管簽核 = n.主管簽核
             };
             db.加班細項.Add(k);
             db.SaveChanges();
@@ -203,10 +201,8 @@ namespace EIP.Controllers
                 開始日期 = m.開始日期,
                 結束日期 = m.結束日期,
                 加班時數 = m.加班時數,
-                已用可用 = m.已用可用,
                 加班ID = m.加班ID,
                 事由說明 = m.事由說明,
-                主管簽核 = m.主管簽核,
                 加班類別 = m.加班別.加班類別
             });
             return Json(test, JsonRequestBehavior.AllowGet);
@@ -237,10 +233,8 @@ namespace EIP.Controllers
                 開始日期 = x.開始日期,
                 結束日期 = x.結束日期,
                 加班時數 = x.加班時數,
-                已用可用 = x.已用可用,
                 加班ID = x.加班ID,
                 事由說明 = x.事由說明,
-                主管簽核 = x.主管簽核,
                 加班類別 = x.加班別.加班類別
             }).FirstOrDefault(C => C.加班表編號 == id); //關聯屬性要用匿名或ViewModel
             return Json(overtimeupdate, JsonRequestBehavior.AllowGet);
