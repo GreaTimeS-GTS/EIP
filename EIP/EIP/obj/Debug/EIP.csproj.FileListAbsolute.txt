@@ -845,7 +845,6 @@ D:\GitHubEIP\EIP\EIP\bin\PagedList.dll
 D:\GitHubEIP\EIP\EIP\bin\PagedList.xml
 D:\GitHubEIP\EIP\EIP\bin\roslyn\csc.exe
 D:\GitHubEIP\EIP\EIP\bin\roslyn\csi.exe
-D:\GitHubEIP\EIP\EIP\bin\roslyn\System.Net.Http.dll
 D:\GitHubEIP\EIP\EIP\bin\roslyn\vbc.exe
 D:\GitHubEIP\EIP\EIP\bin\roslyn\VBCSCompiler.exe
 D:\GitHubEIP\EIP\EIP\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
