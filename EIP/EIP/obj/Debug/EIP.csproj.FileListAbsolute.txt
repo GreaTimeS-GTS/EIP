@@ -838,9 +838,10 @@ D:\GTSEIP\EIP\EIP\bin\roslyn\vbc.exe.config
 D:\GTSEIP\EIP\EIP\bin\roslyn\vbc.rsp
 D:\GTSEIP\EIP\EIP\bin\roslyn\VBCSCompiler.exe
 D:\GTSEIP\EIP\EIP\bin\roslyn\VBCSCompiler.exe.config
-D:\GTSEIP\EIP\EIP\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-D:\GTSEIP\EIP\EIP\obj\Debug\EIP.csprojAssemblyReference.cache
 D:\GTSEIP\EIP\EIP\obj\Debug\EIP.csproj.CoreCompileInputs.cache
 D:\GTSEIP\EIP\EIP\obj\Debug\EIP.csproj.CopyComplete
 D:\GTSEIP\EIP\EIP\obj\Debug\EIP.dll
 D:\GTSEIP\EIP\EIP\obj\Debug\EIP.pdb
+D:\GTSEIP\EIP\EIP\bin\PagedList.dll
+D:\GTSEIP\EIP\EIP\bin\PagedList.xml
+D:\GTSEIP\EIP\EIP\obj\Debug\EIP.csprojAssemblyReference.cache

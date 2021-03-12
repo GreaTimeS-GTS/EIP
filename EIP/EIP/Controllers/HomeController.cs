@@ -106,8 +106,10 @@ namespace EIP.Controllers
 
         public ActionResult HRShow()
         {
+
             return View();
         }
+   
       
         public JsonResult HRShowEdit()
         {
@@ -132,9 +134,9 @@ namespace EIP.Controllers
                           薪資 = m.薪資,
                           權限 = m.權限,
                           總比數= db.個人資料.Count()                         
-                      }).ToList();
+                      });
             
-            return Json(qqm.Take(10), JsonRequestBehavior.AllowGet);
+            return Json(qqm, JsonRequestBehavior.AllowGet);
 
         }
 
@@ -241,31 +243,6 @@ namespace EIP.Controllers
             return Json(mlvm.Take(10), JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult HRPage(int arrow) {
-
-            var qqm = from m in db.個人資料
-                      orderby m.EmployeeID descending
-                      select new 
-                      {
-                          EmployeePW = m.EmployeePW,
-                          中文姓名 = m.中文姓名,
-                          英文姓名 = m.英文姓名,
-                          性別 = m.性別,
-                          EmployeeID = m.EmployeeID,
-                          出生年月日 = m.出生年月日,
-                          受雇日期 = m.受雇日期,
-                          職稱 = m.職稱,
-                          部門 = m.部門,
-                          信箱 = m.信箱,
-                          電話 = m.電話,
-                          居住地 = m.居住地,
-                          婚姻狀況 = m.婚姻狀況,
-                          特休 = m.特休,
-                          薪資 = m.薪資,
-                          權限 = m.權限
-                      };
-            var mlvm = qqm.Skip((arrow - 1) * 10).Take(10);
-            return Json(mlvm, JsonRequestBehavior.AllowGet);
-        }
+   
     }
 }

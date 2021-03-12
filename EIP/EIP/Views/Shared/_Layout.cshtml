@@ -11,156 +11,158 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous"></script>
     @*引用城市選擇器*@
     <script src="~/Scripts/src/tw-city-selector.min.js"></script>
-
+    @*頁碼*@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.5/pagination.css" integrity="sha512-QmxybGIvkSI8+CGxkt5JAcGOKIzHDqBMs/hdemwisj4EeGLMXxCm9h8YgoCwIvndnuN1NdZxT4pdsesLXSaKaA==" crossorigin="anonymous" />
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
     <style>
-            body {
-                padding: 0;
-                background-color: #C4E1FF;
-                font-weight: bolder;
-            }
+        body {
+            padding: 0;
+            background-color: #C4E1FF;
+            font-weight: bolder;
+        }
 
-            .fade {
-                opacity: 1;
-            }
+        .fade {
+            opacity: 1;
+        }
 
-            .askforleave {
-                border: 2px solid black;
-                border-radius: 20px;
-                margin: auto;
-                width: 800px;
-            }
+        .askforleave {
+            border: 2px solid black;
+            border-radius: 20px;
+            margin: auto;
+            width: 800px;
+        }
 
-            .btnSend {
-                width: 280px;
-                font-size: 20px;
-                font-weight: bold;
-            }
+        .btnSend {
+            width: 280px;
+            font-size: 20px;
+            font-weight: bold;
+        }
 
-            .pointer {
-                cursor: pointer; /*如果想要用手指效果就+這個class*/
-            }
+        .pointer {
+            cursor: pointer; /*如果想要用手指效果就+這個class*/
+        }
 
-            /*以下是SweetAlert2的套件樣式*/
-            .searchbox {
-                outline: none;
-            }
+        /*以下是SweetAlert2的套件樣式*/
+        .searchbox {
+            outline: none;
+        }
 
-            .modalbody {
-                background-color: #F0F0F0;
-            }
+        .modalbody {
+            background-color: #F0F0F0;
+        }
 
-            .FormTextShadow {
-                text-shadow: 5px 5px 20px black;
-            }
+        .FormTextShadow {
+            text-shadow: 5px 5px 20px black;
+        }
 
-            .space {
-                justify-content: space-evenly;
-            }
+        .space {
+            justify-content: space-evenly;
+        }
 
-            #nav-Add {
-                background-color: white;
-                /*  box-shadow:0px 5px 15px ;*/
-            }
+        #nav-Add {
+            background-color: white;
+            /*  box-shadow:0px 5px 15px ;*/
+        }
 
-            .TotalEMP {
-                border-radius: 5px 5px 0 0;
-                margin-bottom: -1px;
-            }
+        .TotalEMP {
+            border-radius: 5px 5px 0 0;
+            margin-bottom: -1px;
+        }
 
-            .TotalWrap {
-                border-radius: 0 0 10px 10px;
-            }
+        .TotalWrap {
+            border-radius: 0 0 10px 10px;
+        }
 
-            /*Yuan*/
-            .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
-                background-color: lightyellow;
-            }
+        /*Yuan*/
+        .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+            background-color: lightyellow;
+        }
 
-            .table {
-                background-color: white;
-                padding: 5px;
-                box-shadow: 0 1px 7px;
-            }
+        .table {
+            background-color: white;
+            padding: 5px;
+            box-shadow: 0 1px 7px;
+        }
 
-            th {
-                /*        border: 1px solid white;*/
-                text-align: center;
-                background-color: #444444;
-                color: white;
-                font-size: 1.2em;
-            }
+        th {
+            /*        border: 1px solid white;*/
+            text-align: center;
+            background-color: #444444;
+            color: white;
+            font-size: 1.2em;
+        }
 
-            td {
-                line-height: 50px;
-                color: black;
-            }
+        td {
+            line-height: 50px;
+            color: black;
+        }
 
-            th, td {
-                text-align: center;
-                padding: 5px;
-            }
+        th, td {
+            text-align: center;
+            padding: 5px;
+        }
 
-            h2 {
-                text-align: center;
-                font-weight: bold;
-                margin-top: 25px;
-            }
-            /*偶數*/
-            /*tr:nth-child(even) {
+        h2 {
+            text-align: center;
+            font-weight: bold;
+            margin-top: 25px;
+        }
+        /*偶數*/
+        /*tr:nth-child(even) {
             background-color: aliceblue;
         }*/
-            /*奇數*/
-            /*tr:nth-child(odd) {
+        /*奇數*/
+        /*tr:nth-child(odd) {
             background-color: azure;
         }*/
 
 
-            /*詳細按鈕css*/
-            .button {
-                border-radius: 4px;
-                /*        border: none;*/
-                /*        color: #0066FF;*/
-                color: black;
-                font-weight: bold;
-                text-align: center;
-                font-size: 1.2em;
-                padding: 10px;
-                width: 100px;
-                transition: all 0.5s;
+        /*詳細按鈕css*/
+        .button {
+            border-radius: 4px;
+            /*        border: none;*/
+            /*        color: #0066FF;*/
+            color: black;
+            font-weight: bold;
+            text-align: center;
+            font-size: 1.2em;
+            padding: 10px;
+            width: 100px;
+            transition: all 0.5s;
+            cursor: pointer;
+            margin: 3px;
+        }
+
+            .button span {
                 cursor: pointer;
-                margin: 3px;
+                display: inline-block;
+                position: relative;
+                transition: 0.15s;
             }
 
-                .button span {
-                    cursor: pointer;
-                    display: inline-block;
-                    position: relative;
-                    transition: 0.15s;
+                .button span:after {
+                    content: '\00bb';
+                    position: absolute;
+                    opacity: 0;
+                    top: 0;
+                    right: -20px;
+                    transition: 0.001s;
                 }
 
-                    .button span:after {
-                        content: '\00bb';
-                        position: absolute;
-                        opacity: 0;
-                        top: 0;
-                        right: -20px;
-                        transition: 0.001s;
-                    }
+            .button:hover span {
+                padding-right: 25px;
+            }
 
-                .button:hover span {
-                    padding-right: 25px;
+                .button:hover span:after {
+                    opacity: 1;
+                    right: 0;
                 }
 
-                    .button:hover span:after {
-                        opacity: 1;
-                        right: 0;
-                    }
-        .TitleImg{
-            width:200px;
-            height:50px
+        .TitleImg {
+            width: 200px;
+            height: 50px
         }
     </style>
 </head>
@@ -298,8 +300,8 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+<script src="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.5/pagination.min.js" integrity="sha512-1zzZ0ynR2KXnFskJ1C2s+7TIEewmkB2y+5o/+ahF7mwNj9n3PnzARpqalvtjSbUETwx6yuxP5AJXZCpnjEJkQw==" crossorigin="anonymous"></script>
     @RenderSection("script", required: false)
-
     <script>
 
         if (document.cookie != '') {
@@ -316,26 +318,26 @@
                 method: "Get",
                 success: function (data) {
                     $(".addprofile").html(`
-                                                    <div class="d-flex justify-content-center">
-                                                    <div class="mr-1">
-                                                    <p class="">中文姓名：${data.中文姓名}</p>
-                                                    <p class="">英文姓名：${data.英文姓名}</p>
-                                                    <label>性別：</label>
-                                                <select disabled >
-                                                <option value="性別" selected >${data.性別}</option>
-                                                </select>
-                                                    <p class="">出生年月日：${data.出生年月日}</p>
-                                                    <p class="">婚姻狀況：${data.婚姻狀況}</p>
-                                                    <p class="">居住地：${data.居住地}</p>
-                                                    </div>
-                                                    <div class="ml-1">
-                                                    <p class="">電話：${data.電話}</p>
-                                                    <p class="">受雇日期：${data.受雇日期}</p>
-                                                    <p class="">部門：${data.部門}</p>
-                                                    <p class="">職稱：${data.職稱}</p>
-                                                    <p class="">特休：${data.特休}</p>
-                                                    <p class="">薪資：${data.薪資}</p>
-                                                    </div></div>`);
+                                                                <div class="d-flex justify-content-center">
+                                                                <div class="mr-1">
+                                                                <p class="">中文姓名：${data.中文姓名}</p>
+                                                                <p class="">英文姓名：${data.英文姓名}</p>
+                                                                <label>性別：</label>
+                                                            <select disabled >
+                                                            <option value="性別" selected >${data.性別}</option>
+                                                            </select>
+                                                                <p class="">出生年月日：${data.出生年月日}</p>
+                                                                <p class="">婚姻狀況：${data.婚姻狀況}</p>
+                                                                <p class="">居住地：${data.居住地}</p>
+                                                                </div>
+                                                                <div class="ml-1">
+                                                                <p class="">電話：${data.電話}</p>
+                                                                <p class="">受雇日期：${data.受雇日期}</p>
+                                                                <p class="">部門：${data.部門}</p>
+                                                                <p class="">職稱：${data.職稱}</p>
+                                                                <p class="">特休：${data.特休}</p>
+                                                                <p class="">薪資：${data.薪資}</p>
+                                                                </div></div>`);
                 }
             });
 
