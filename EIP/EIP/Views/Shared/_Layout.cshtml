@@ -22,8 +22,11 @@
             background-color: #C4E1FF;
             font-weight: bolder;
         }
+       .AlertBell {
+       margin-left:-200px;
+        }
 
-        .fade {
+        /*.fade {
             opacity: 1;
         }
 
@@ -218,7 +221,11 @@
                         <a class="dropdown-item" href="#">Something else here</a>
                     </div>
             </ul>
-            <span class="navbar-text"> <i class="far fa-bell fa-2x mr-4"></i></span>
+            @**@
+        <div class="nav-item dropdown text-secondary">
+                <i class="far fa-bell fa-2x mr-4 dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown"></i>
+            <div class="dropdown-menu AlertBell"></div>
+        </div>
             <span class="navbar-text"> <i class="fa fa-user fa-1x pointer NameClick" title="個人詳細資訊"></i></span>
             @* 測試 *@
             <span class="navbar-text"> <a class="nav-link CookieAuth"> </a></span>
@@ -300,7 +307,9 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-<script src="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.5/pagination.min.js" integrity="sha512-1zzZ0ynR2KXnFskJ1C2s+7TIEewmkB2y+5o/+ahF7mwNj9n3PnzARpqalvtjSbUETwx6yuxP5AJXZCpnjEJkQw==" crossorigin="anonymous"></script>
+    <script src="~/Scripts/jquery.signalR-2.4.1.min.js"></script>
+    <script src="~/signalr/hubs"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.5/pagination.min.js" integrity="sha512-1zzZ0ynR2KXnFskJ1C2s+7TIEewmkB2y+5o/+ahF7mwNj9n3PnzARpqalvtjSbUETwx6yuxP5AJXZCpnjEJkQw==" crossorigin="anonymous"></script>
     @RenderSection("script", required: false)
     <script>
 
@@ -318,26 +327,26 @@
                 method: "Get",
                 success: function (data) {
                     $(".addprofile").html(`
-                                                                <div class="d-flex justify-content-center">
-                                                                <div class="mr-1">
-                                                                <p class="">中文姓名：${data.中文姓名}</p>
-                                                                <p class="">英文姓名：${data.英文姓名}</p>
-                                                                <label>性別：</label>
-                                                            <select disabled >
-                                                            <option value="性別" selected >${data.性別}</option>
-                                                            </select>
-                                                                <p class="">出生年月日：${data.出生年月日}</p>
-                                                                <p class="">婚姻狀況：${data.婚姻狀況}</p>
-                                                                <p class="">居住地：${data.居住地}</p>
-                                                                </div>
-                                                                <div class="ml-1">
-                                                                <p class="">電話：${data.電話}</p>
-                                                                <p class="">受雇日期：${data.受雇日期}</p>
-                                                                <p class="">部門：${data.部門}</p>
-                                                                <p class="">職稱：${data.職稱}</p>
-                                                                <p class="">特休：${data.特休}</p>
-                                                                <p class="">薪資：${data.薪資}</p>
-                                                                </div></div>`);
+                                    <div class="d-flex justify-content-center">
+                                    <div class="mr-1">
+                                    <p class="">中文姓名：${data.中文姓名}</p>
+                                    <p class="">英文姓名：${data.英文姓名}</p>
+                                    <label>性別：</label>
+                                <select disabled >
+                                <option value="性別" selected >${data.性別}</option>
+                                </select>
+                                    <p class="">出生年月日：${data.出生年月日}</p>
+                                    <p class="">婚姻狀況：${data.婚姻狀況}</p>
+                                    <p class="">居住地：${data.居住地}</p>
+                                    </div>
+                                    <div class="ml-1">
+                                    <p class="">電話：${data.電話}</p>
+                                    <p class="">受雇日期：${data.受雇日期}</p>
+                                    <p class="">部門：${data.部門}</p>
+                                    <p class="">職稱：${data.職稱}</p>
+                                    <p class="">特休：${data.特休}</p>
+                                    <p class="">薪資：${data.薪資}</p>
+                                    </div></div>`);
                 }
             });
 
@@ -391,6 +400,17 @@
                 })
             }
         });
+   
+        const bell = $.connection.bell;   //呼叫hub
+        bell.client.message = function (name, message) {
+            $(".AlertBell").append(` <a class="dropdown-item text-success" href="/BulletinBoard/BulletinBoard">您的佈告欄有新的通知!</a>`);
+        }
+        bell.client.edit = function (name) {
+            $(".AlertBell").append(`<a class="dropdown-item text-warning" href="/BulletinBoard/BulletinBoard">您的佈告欄有新的通知!</a>`);
+        }
+        bell.client.delete = function (message) {
+            $(".AlertBell").append(`<a class="dropdown-item text-danger" href="/BulletinBoard/BulletinBoard">您的佈告欄有新的異動！${message}已被刪除！</a>`);
+        }
     </script>
 </body>
 </html>
