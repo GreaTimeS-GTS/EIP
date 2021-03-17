@@ -1,0 +1,114 @@
+﻿@model IEnumerable<EIP.Models.ViewModel.AskForViewModel>
+@{
+    ViewBag.Title = "AskforList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h2>AskforList</h2>
+
+<style>
+    .table {
+        width: 1000px;
+    }
+</style>
+<button type="button" class="btn btn-dark">@Html.ActionLink("新增會員", "Askfor", "Home")</button>
+<div class="table">
+    <table>
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(m => m.EmployeeID)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.信箱)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.部門)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.假別)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.請假時數)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.開始日期)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.開始時間)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.結束日期)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.結束時間)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.申請日期)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.申請時間)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.代理人)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.審核狀態)
+                </th>
+                <th>
+                    詳細
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (EIP.Models.AskForViewModel mb in Model)
+            {
+                <tr>
+                    <td>
+                        @mb.EmployeeID
+                    </td>
+                    <td>
+                        @mb.信箱
+                    </td>
+                    <td>
+                        @mb.部門
+                    </td>
+                    <td>
+                        @mb.假別
+                    </td>
+                    <td>
+                        @mb.請假時數
+                    </td>
+                    <td>
+                        @mb.開始日期
+                    </td>
+                    <td>
+                        @mb.開始時間
+                    </td>
+                    <td>
+                        @mb.結束日期
+                    </td>
+                    <td>
+                        @mb.結束時間
+                    </td>
+                    <td>
+                        @mb.申請日期
+                    </td>
+                    <td>
+                        @mb.申請時間
+                    </td>
+                    <td>
+                        @mb.代理人
+                    </td>
+                    <td>
+                        @mb.審核狀態
+                    </td>
+                    <td>
+                        @Html.ActionLink("詳細", "Index", "Home", new { id = mb.EmployeeID }, new { @class = "btn btn-info" })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

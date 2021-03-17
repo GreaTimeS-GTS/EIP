@@ -1,0 +1,216 @@
+﻿@model EIP.Models.ViewModel.AskForViewModel
+@{
+    ViewBag.Title = "Askfor";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="askforleave mt-5">
+    <h2 class="pt-2 text-center">新增資料(請假)</h2>
+    @using (Html.BeginForm("Askfor", "Home", FormMethod.Post))
+    {
+        <div class="pt-2 pl-5">
+            @Html.LabelFor(m => m.EmployeeID, "員工姓名:")
+            @Html.TextBoxFor(m => m.EmployeeID, new { @class = "d-inline ml-3 mb-3 form-control mt-3 w-28" })
+        </div>
+        <div class="pt-2 pl-5">
+            @Html.LabelFor(m => m.信箱, "信箱:")
+            @Html.TextBoxFor(m => m.信箱, new { @class = "d-inline ml-3 mb-3 form-control mt-3 w-28" })
+        </div>
+        <div class="pt-2 pl-5">
+            @Html.LabelFor(m => m.部門, "部門:")
+            @Html.TextBoxFor(m => m.部門, new { @class = "d-inline ml-3 mb-3 form-control mt-3 w-28" })
+        </div>
+        <div class="pt-2 pl-5">
+            @Html.LabelFor(m => m.假別ID, "請假類別:")
+            @Html.DropDownListFor(m => m.假別ID, (SelectList)ViewBag.getdate, "請選擇", new { @class = "" })
+            @*@Html.DropDownList("selector", (IEnumerable<SelectListItem>)ViewBag.SelectList, new { @style = "background-color:white" })*@
+        </div>
+        <div class="pt-2 pl-5">
+            @Html.LabelFor(m => m.請假時數, "請假時數:")
+            @*@Html.DropDownList("假別", null, "請選擇假別", new { @class = "" })*@
+            @Html.TextBoxFor(m => m.請假時數, new { @class = "d-inline ml-3 mb-3 form-control mt-3 w-28" })
+        </div>
+        <div class="pt-2 pl-5">
+            @Html.LabelFor(m => m.開始日期, "開始日期:")
+            <select id="年"></select> 年
+            <select id="月"></select> 月
+            <select id="日"></select> 日/
+            @*@Html.TextBoxFor(m => m.開始日期, new { @class = "d-inline ml-3 mb-3 form-control mt-3 w-28" })*@
+            @Html.LabelFor(m => m.開始時間, "開始時間:")
+            @Html.TextBoxFor(m => m.開始時間, new { @class = "d-inline ml-3 mb-3 form-control mt-3 w-28" })
+        </div>
+        <div class="pt-2 pl-5">
+            @Html.LabelFor(m => m.結束日期, "結束日期:")
+            <select id="年1"></select> 年
+            <select id="月1"></select> 月
+            <select id="日1"></select> 日/
+            @*@Html.TextBoxFor(m => m.結束日期, new { @class = "d-inline ml-3 mb-3 form-control mt-3 w-28" })*@
+
+            @*<div style="padding-top:20px;padding-left:50px;">*@
+            @Html.LabelFor(m => m.結束時間, "結束時間:")
+            @Html.TextBoxFor(m => m.結束時間, new { @class = "d-inline ml-3 mb-3 form-control mt-3 w-28" })
+            @*</div>*@
+        </div>
+        <div class="pt-2 pl-5">
+            @Html.LabelFor(m => m.申請日期, "申請日期:")
+            <select id="年2"></select> 年
+            <select id="月2"></select> 月
+            <select id="日2"></select> 日/
+            @*@Html.TextBoxFor(m => m.申請日期, new { @class = "d-inline ml-3 mb-3 form-control mt-3 w-28" })*@
+            @Html.LabelFor(m => m.申請時間, "申請時間:")
+            @Html.TextBoxFor(m => m.申請時間, new { @class = "d-inline ml-3 mb-3 form-control mt-3 w-28" })
+        </div>
+        <div class="pt-2 pl-5">
+            @Html.LabelFor(m => m.代理人, "代理人:")
+            @Html.TextBoxFor(m => m.代理人, new { @class = "d-inline ml-3 mb-3 form-control mt-3 w-28" })
+            @Html.LabelFor(m => m.審核狀態, "審核狀態:")
+            @*@Html.TextBoxFor(m => m.審核狀態, new { @class = "d-inline ml-3 mb-3 form-control mt-3 w-28" })*@
+        </div>
+
+        <div class="d-flex justify-content-center pb-3">
+            <input type="submit" value="送出" class="btn btn-dark btnSend" />
+        </div>
+    }
+</div>
+
+<script>
+    let 年選擇 = document.getElementById("年");
+    let 月選擇 = document.getElementById("月");
+    let 日選擇 = document.getElementById("日");
+    let 年選擇1 = document.getElementById("年1");
+    let 月選擇1 = document.getElementById("月1");
+    let 日選擇1 = document.getElementById("日1");
+    let 年選擇2 = document.getElementById("年2");
+    let 月選擇2 = document.getElementById("月2");
+    let 日選擇2 = document.getElementById("日2");
+
+
+    for (var i = 2010; i <= 2025; i++) {
+        let 年選項 = document.createElement("option");
+        年選項.value = i;
+        年選項.innerHTML = i;
+        年選擇.appendChild(年選項);
+        年選擇.addEventListener("change", f年月, false);
+    }
+    for (var i = 1; i <= 12; i++) {
+        let 月選項 = document.createElement("option");
+        月選項.value = i;
+        月選項.innerHTML = i;
+        月選擇.appendChild(月選項);
+        月選擇.addEventListener("change", f年月, false);
+
+    }
+
+    function f日() {
+        if (this) {
+            顯示位置.innerHTML = 您選擇的日期是`${年選擇.value} 年 ${月選擇.value} 月 ${日選擇.value} 日`;
+
+        }
+
+    }
+    function f年月() {
+        日選擇.innerHTML = "";
+        let dd = new Date(年選擇.value, 月選擇.value, 0).getDate();
+        for (var i = 1; i <= dd; i++) {
+            let 日選項 = document.createElement("option");
+            日選項.value = i;
+            日選項.innerHTML = i;
+            日選擇.appendChild(日選項);
+            日選擇.addEventListener("change", f日, false);
+
+        }
+
+    }
+
+
+
+
+
+
+
+
+
+
+    for (var a = 2010; a <= 2025; a++) {
+        let 年選項1 = document.createElement("option");
+        年選項1.value = a;
+        年選項1.innerHTML = a;
+        年選擇1.appendChild(年選項1);
+        年選擇1.addEventListener("change", f年月1, false);
+    }
+    for (var a = 1; a <= 12; a++) {
+        let 月選項1 = document.createElement("option");
+        月選項1.value = a;
+        月選項1.innerHTML = a;
+        月選擇1.appendChild(月選項1);
+        月選擇1.addEventListener("change", f年月1, false);
+
+    }
+
+    function f日1() {
+        if (this) {
+            顯示位置.innerHTML = 您選擇的日期是`${年選擇1.value} 年 ${月選擇1.value} 月 ${日選擇1.value} 日`;
+
+        }
+
+    }
+    function f年月1() {
+        日選擇1.innerHTML = "";
+        let aa = new Date(年選擇1.value, 月選擇1.value, 0).getDate();
+        for (var a = 1; a <= aa; a++) {
+            let 日選項1 = document.createElement("option");
+            日選項1.value = a;
+            日選項1.innerHTML = a;
+            日選擇1.appendChild(日選項1);
+            日選擇1.addEventListener("change", f日1, false);
+
+        }
+
+    }
+
+
+
+
+
+
+
+
+
+    for (var k = 2010; k <= 2025; k++) {
+        let 年選項2 = document.createElement("option");
+        年選項2.value = k;
+        年選項2.innerHTML = k;
+        年選擇2.appendChild(年選項2);
+        年選擇2.addEventListener("change", f年月2, false);
+    }
+    for (var k = 1; k <= 12; k++) {
+        let 月選項2 = document.createElement("option");
+        月選項2.value = k;
+        月選項2.innerHTML = k;
+        月選擇2.appendChild(月選項2);
+        月選擇2.addEventListener("change", f年月2, false);
+
+    }
+
+    function f日2() {
+        if (this) {
+            顯示位置.innerHTML = 您選擇的日期是`${年選擇2.value} 年 ${月選擇2.value} 月 ${日選擇2.value} 日`;
+
+        }
+
+    }
+    function f年月2() {
+        日選擇2.innerHTML = "";
+        let kk = new Date(年選擇2.value, 月選擇2.value, 0).getDate();
+        for (var k = 1; k <= kk; k++) {
+            let 日選項2 = document.createElement("option");
+            日選項2.value = k;
+            日選項2.innerHTML = k;
+            日選擇2.appendChild(日選項2);
+            日選擇2.addEventListener("change", f日2, false);
+
+        }
+
+    }
+</script>

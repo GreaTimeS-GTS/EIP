@@ -9,10 +9,10 @@ namespace EIP.Models
     {
         dbEIPEntities dbEIP = new dbEIPEntities();
 
-        public IEnumerable<工作清單> GetAllMember()
-        {
-            return dbEIP.工作清單;
-        }
+        //public IEnumerable<工作清單> GetAllMember()
+        //{
+        //    return dbEIP.工作清單;
+        //}
 
 
 

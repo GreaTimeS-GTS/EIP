@@ -1,0 +1,43 @@
+﻿@model EIP.Models.ViewModel.OverTimeViewModel
+@{
+    ViewBag.Title = "Overtime加班";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="mt-5 d-flex justify-content-center askforleave">
+    @*@using (Html.BeginForm("Overtime加班", "Home", FormMethod.Post))
+    {
+        <div class="w-100 d-flex justify-content-center">
+            @Html.LabelFor(m => m.已用可用, "已用/可用:")
+        </div>
+        <div class="w-100 d-flex justify-content-center">
+            @Html.LabelFor(m => m.開始時間, "開始時間:", new { @class = "mt-5" })
+            @Html.TextBoxFor(m => m.開始時間, new { @class = "d-inline ml-3 mb-3 form-control mt-3 w-15 mt-5" })
+        </div>
+        <div class="w-100 d-flex justify-content-center">
+            @Html.LabelFor(m => m.結束時間, "結束時間:", new { @class = "mt-5" })
+            @Html.TextBoxFor(m => m.結束時間, new { @class = "d-inline ml-3 mb-3 form-control mt-3 w-15 mt-5" })
+        </div>
+        <div class="w-100 d-flex justify-content-center">
+            @Html.LabelFor(m => m.總共時數, "總共時數:", new { @class = "mt-5" })
+            @Html.TextBoxFor(m => m.總共時數, new { @class = "d-inline ml-3 mb-3 form-control mt-3 w-15 mt-5" })
+        </div>
+
+        <div class="">
+            @Html.LabelFor(m => m.加班類別, "加班類別:", new { @class = "mr-5 mt-1" })
+            <div class="mr-5"><input id="Radio1" type="radio" value="1" />延長加班</div>
+            <div class="mr-5"><input id="Radio2" type="radio" value="2" />例假日加班</div>
+            <div class="mr-5"><input id="Radio3" type="radio" value="3" />休息日加班</div>
+            <div> <input id="Radio4" type="radio" value="4" />國定假日加班</div>
+        </div>
+
+        <div class="w-100 d-flex justify-content-center">
+            @Html.LabelFor(m => m.事由說明, "事由說明:", new { @class = "mt-5 mr-3" })
+            @Html.TextAreaFor(m => m.事由說明, 10, 5, new { placeholder = "描述", style = "resize:none", @class = "form-control mt-5" })
+        </div>
+        <div class="d-flex justify-content-center pb-3">
+            <input type="submit" value="送出" class="btn btn-dark btnSend" />
+        </div>
+    }*@
+</div>

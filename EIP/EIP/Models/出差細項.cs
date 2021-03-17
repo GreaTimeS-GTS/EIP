@@ -14,8 +14,8 @@ namespace EIP.Models
     
     public partial class 出差細項
     {
-        public int 出差表編號 { get; set; }
-        public int EmployeeID { get; set; }
+        public int 出差單編號 { get; set; }
+        public Nullable<int> EmployeeID { get; set; }
         public string 中文姓名 { get; set; }
         public string 部門 { get; set; }
         public string 出差類型 { get; set; }

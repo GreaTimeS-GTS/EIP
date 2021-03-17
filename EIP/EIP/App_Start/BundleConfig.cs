@@ -24,7 +24,6 @@ namespace EIP
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/PagedList.css",
                       "~/Content/site.css", "~/Content/jquery_ui/jquery_uii.css", "~/Content/jquery_ui/jquery-ui.structure.css", "~/Content/jquery_ui/jquery-ui.theme.css"));
         }
     }
