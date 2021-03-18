@@ -48,17 +48,36 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.4.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.4.1\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.SystemWeb, Version=2.4.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.SystemWeb.2.4.1\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=2.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Owin, Version=4.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.4.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=4.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.4.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=4.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.4.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -130,8 +149,11 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\BulletinBoardController.cs" />
     <Compile Include="Controllers\DDDDDController.cs" />
+    <Compile Include="Controllers\FullcalenderController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MeetingRoomController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -153,19 +175,43 @@
     <Compile Include="Models\eipProjectDetail.cs">
       <DependentUpon>dbEIP.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\BellHub\BellHub.cs" />
     <Compile Include="Models\MeetingRoom.cs">
       <DependentUpon>dbEIP.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\MeetingRoomBooking.cs">
       <DependentUpon>dbEIP.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ProjectModel.cs" />
+    <Compile Include="Models\pj團隊.cs">
+      <DependentUpon>dbEIP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\pj建立.cs">
+      <DependentUpon>dbEIP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\pj控管.cs">
+      <DependentUpon>dbEIP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\pj會議.cs">
+      <DependentUpon>dbEIP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\pj結案.cs">
+      <DependentUpon>dbEIP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\pj總表.cs">
+      <DependentUpon>dbEIP.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\projectTeam.cs">
       <DependentUpon>dbEIP.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ViewModel\AskForLeave.cs" />
+    <Compile Include="Models\ViewModel\AskForViewModel.cs" />
+    <Compile Include="Models\ViewModel\BulletinBoardViewModel.cs" />
     <Compile Include="Models\ViewModel\BusinessTripViewModel.cs" />
+    <Compile Include="Models\ViewModel\Fullcalender.cs" />
+    <Compile Include="Models\ViewModel\GenericRepository\EIPRepository.cs" />
+    <Compile Include="Models\ViewModel\GenericRepository\IRepository.cs" />
     <Compile Include="Models\ViewModel\LoginViewModel.cs" />
+    <Compile Include="Models\ViewModel\MeetingRoomViewModel.cs" />
     <Compile Include="Models\ViewModel\MemberViewModel.cs" />
     <Compile Include="Models\ViewModel\OverTimeViewModel.cs" />
     <Compile Include="Models\ViewModel\ProjectListViewModel.cs" />
@@ -187,6 +233,9 @@
     <Compile Include="Models\加班細項.cs">
       <DependentUpon>dbEIP.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\打卡系統.cs">
+      <DependentUpon>dbEIP.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\行事曆.cs">
       <DependentUpon>dbEIP.tt</DependentUpon>
     </Compile>
@@ -198,6 +247,7 @@
     </Compile>
     <Compile Include="obj\Debug\.NETFramework,Version=v4.7.2.AssemblyAttributes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="bin\Antlr3.Runtime.dll" />
@@ -302,6 +352,8 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="images\Title.png" />
+    <Content Include="images\TitleImg1.png" />
     <Content Include="images\ui-bg_glass_40_ffc73d_1x400.png" />
     <Content Include="images\ui-bg_glass_45_0078ae_1x400.png" />
     <Content Include="images\ui-bg_glass_55_f8da4e_1x400.png" />
@@ -340,8 +392,8 @@
     <Content Include="images\ui-icons_ffffff_256x240.png" />
     <Content Include="Models\dbEIP.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>dbEIP.edmx</DependentUpon>
       <LastGenOutput>dbEIP.Context.cs</LastGenOutput>
+      <DependentUpon>dbEIP.edmx</DependentUpon>
     </Content>
     <Content Include="Models\dbEIP.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -371,12 +423,23 @@
     <Content Include="Content\bootstrap-reboot.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
+    <Content Include="Scripts\jquery.signalR-2.4.1.js" />
+    <Content Include="Scripts\jquery.signalR-2.4.1.min.js" />
     <Content Include="Scripts\jquery_ui\jquery-ui.js" />
     <Content Include="Scripts\jquery_ui\jquery-ui.min.js" />
     <Content Include="Scripts\jquery_ui\jquery.js" />
+    <Content Include="Scripts\src\tw-city-selector.min.js" />
+    <Content Include="Views\Project\EmpIndex.cshtml" />
     <Content Include="webfonts\fa-brands-400.svg" />
     <Content Include="webfonts\fa-regular-400.svg" />
     <Content Include="webfonts\fa-solid-900.svg" />
+    <EntityDeploy Include="Models\dbEIP.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>dbEIP.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\dbEIP.edmx.diagram">
+      <DependentUpon>dbEIP.edmx</DependentUpon>
+    </Content>
     <Content Include="bin\EIP.dll.config" />
     <Content Include="bin\roslyn\csc.exe.config" />
     <Content Include="bin\roslyn\csc.rsp" />
@@ -388,13 +451,6 @@
     <Content Include="bin\roslyn\vbc.exe.config" />
     <Content Include="bin\roslyn\vbc.rsp" />
     <Content Include="bin\roslyn\VBCSCompiler.exe.config" />
-    <EntityDeploy Include="Models\dbEIP.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>dbEIP.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\dbEIP.edmx.diagram">
-      <DependentUpon>dbEIP.edmx</DependentUpon>
-    </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -515,18 +571,14 @@
     <Content Include="webfonts\fa-solid-900.woff2" />
     <Content Include="Views\Shared\LoginLayout.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
-    <Content Include="Views\Home\Askfor.cshtml" />
-    <Content Include="Views\Home\AskforList.cshtml" />
-    <Content Include="Views\Home\Overtime加班.cshtml" />
     <Content Include="Views\Home\HRShow.cshtml" />
-    <Content Include="Views\Project\CreateProject.cshtml" />
-    <Content Include="Views\Project\EmpIndex.cshtml" />
-    <Content Include="Views\Project\Index.cshtml" />
+    <Content Include="Views\BulletinBoard\BulletinBoard.cshtml" />
     <Content Include="Views\DDDDD\AskFor.cshtml" />
     <Content Include="Views\DDDDD\AskforList.cshtml" />
     <Content Include="Views\DDDDD\FindSingleData.cshtml" />
     <Content Include="Views\DDDDD\Index.cshtml" />
     <Content Include="Views\DDDDD\UpdateData.cshtml" />
+    <Content Include="Views\MeetingRoom\MeetingRoomBookingSearch.cshtml" />
     <Content Include="Views\DDDDD\OverTime.cshtml" />
     <Content Include="Views\DDDDD\OverTimeList.cshtml" />
     <Content Include="Views\DDDDD\BusinessTrip.cshtml" />

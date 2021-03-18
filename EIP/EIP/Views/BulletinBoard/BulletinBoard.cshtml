@@ -439,7 +439,6 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
 
     <script>
-
         // 刷新
         var count = 1;
         var page_num = 1;
@@ -748,11 +747,18 @@
                     },
                     method: "Get",
                     success: function (data) {
+                        let title = `${$(".addTitle").val()}`;
                         swal("新增成功!", "佈告欄已新增成功!", "success");
+                        $.connection.hub.start()
+                            .done(function () {                             
+                                bell.server.send(`${decodeURI(document.cookie.split('Name=')[1].split('&')[0])}`, title);   //傳值到hub                          
+                            });                         
                         $(".addTitle").val('');
                         $(".addContent").val('');
                         $(".addDate").val('');
                         refresh();
+                       
+
                     }
                 });
             }
@@ -916,7 +922,12 @@
                     "發布日期": $(".updateTime").val()
                 },
                 success: function (data) {
+                    let EditTitle = $(".updateTitle").val();
                     swal("修改成功!", "佈告欄已修改成功!", "success");
+                    $.connection.hub.start()
+                        .done(function () {
+                            bell.server.sendbulletinboardedit(`${EditTitle}`);   //傳值到hub                          
+                        });       
                     refresh();
                 }
             });
@@ -934,14 +945,21 @@
             }).then((isConfirm) => {
                 if (isConfirm) {
                     swal("刪除!", "佈告欄已刪除!...", 'success');
+                  
                     $.ajax({
                         url: "/BulletinBoard/BulletinBoardDelete",
                         method: "get",
                         data: {
                             "id": id
                         },
-                        success: function () {
+                        success: function (data) {
+                            let deletitle = data.佈告欄標題;
+                                $.connection.hub.start()
+                                    .done(function () {
+                                        bell.server.sendbulletinboarddelete(`${deletitle}`);   //傳值到hub                          
+                                    });       
                             refresh();
+
                         }
                     })
                 }

@@ -158,8 +158,8 @@
                                         <td>${item.部門}</td>
                                         <td>${testtime1.getFullYear() + "/" + (testtime1.getMonth() + 1) + "/" + testtime1.getDate() + " " + h2 + ":" + a2}</td>
                                         <td>${testtime2.getFullYear() + "/" + (testtime2.getMonth() + 1) + "/" + testtime2.getDate() + " " + h3 + ":" + a3}</td>
-                                        <td><a class="btn btn-outline-primary button btnDetail" data-toggle="modal" data-id ="${item.出差單編號}" data-target="#BusinessTrip" onclick="GetUpdataBusiness()"><span>詳細</span></a></td>
-                                        <td><a class="btn btn-outline-danger button"  onclick="businessdelete()" data-id="${item.出差單編號}"><span>刪除</span></a></td>
+                                        <td><a class="btn btn-outline-primary button btnDetail" data-toggle="modal" data-id ="${item.出差表編號}" data-target="#BusinessTrip" onclick="GetUpdataBusiness()"><span>詳細</span></a></td>
+                                        <td><a class="btn btn-outline-danger button"  onclick="businessdelete()" data-id="${item.出差表編號}"><span>刪除</span></a></td>
                                     </tr>`
                         )
                     }
@@ -206,7 +206,7 @@
                 url: "/DDDDD/UpdateBusinessTripAjax",
                 type: "POST",
                 data: {
-                    "出差單編號": SwagID,
+                    "出差表編號": SwagID,
                     "EmployeeID": $("#EmployeeID").val(),
                     "中文姓名": $("#中文姓名").val(),
                     "部門": $("#部門").val(),
@@ -234,6 +234,7 @@
         
         function GetUpdataBusiness() {
             SwagID = $(event.currentTarget).data("id");
+            console.log(SwagID);
             console.log(132);
             $.ajax({
                 url: "/DDDDD/GetUpdateBusinessTripAjax",
@@ -297,7 +298,7 @@
                     else {
                         mm2 = testtime1.getMinutes();
                     }
-                    $("#出差單編號").val(getdata.出差單編號);
+                    $("#出差表編號").val(getdata.出差表編號);
                     $("#EmployeeID").val(getdata.EmployeeID);
                     $("#中文姓名").val(getdata.中文姓名);
                     $("#部門").val(getdata.部門);

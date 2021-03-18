@@ -309,7 +309,7 @@ namespace EIP.Controllers
         {
             var btla = db.出差細項.Select(x => new
             {
-                x.出差單編號,
+                x.出差表編號,
                 x.EmployeeID,
                 x.中文姓名,
                 x.部門,
@@ -329,7 +329,7 @@ namespace EIP.Controllers
 
         public JsonResult DeleteBusinessTrip(int? id)
         {
-            var del = db.出差細項.FirstOrDefault(m => m.出差單編號 == id);
+            var del = db.出差細項.FirstOrDefault(m => m.出差表編號 == id);
             db.出差細項.Remove(del);
             db.SaveChanges();
             return Json(del, JsonRequestBehavior.AllowGet);
@@ -345,7 +345,7 @@ namespace EIP.Controllers
         {
             var getupdatabusiness = db.出差細項.Select(k => new
             {
-                k.出差單編號,
+                k.出差表編號,
                 k.EmployeeID,
                 k.中文姓名,
                 k.部門,
@@ -357,7 +357,7 @@ namespace EIP.Controllers
                 k.住宿需求,
                 k.預支費用,
                 k.備註
-            }).FirstOrDefault(C => C.出差單編號 == id); 
+            }).FirstOrDefault(C => C.出差表編號 == id); 
             return Json(getupdatabusiness, JsonRequestBehavior.AllowGet);
         }
         public JsonResult UpdateBusinessTripAjax(出差細項 updatebusiness)

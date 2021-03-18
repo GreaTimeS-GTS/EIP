@@ -4,14 +4,23 @@
     <EntitySet Name="eipProjectDetail" EntityType="dbEIPModel.eipProjectDetail" />
     <EntitySet Name="MeetingRoom" EntityType="dbEIPModel.MeetingRoom" />
     <EntitySet Name="MeetingRoomBooking" EntityType="dbEIPModel.MeetingRoomBooking" />
+    <EntitySet Name="pj建立" EntityType="dbEIPModel.pj建立" />
+    <EntitySet Name="pj控管" EntityType="dbEIPModel.pj控管" />
+    <EntitySet Name="pj結案" EntityType="dbEIPModel.pj結案" />
+    <EntitySet Name="pj會議" EntityType="dbEIPModel.pj會議" />
+    <EntitySet Name="pj團隊" EntityType="dbEIPModel.pj團隊" />
+    <EntitySet Name="pj總表" EntityType="dbEIPModel.pj總表" />
     <EntitySet Name="projectTeam" EntityType="dbEIPModel.projectTeam" />
     <EntitySet Name="出差細項" EntityType="dbEIPModel.出差細項" />
     <EntitySet Name="加班別" EntityType="dbEIPModel.加班別" />
     <EntitySet Name="加班細項" EntityType="dbEIPModel.加班細項" />
+    <EntitySet Name="打卡系統" EntityType="dbEIPModel.打卡系統" />
     <EntitySet Name="行事曆" EntityType="dbEIPModel.行事曆" />
     <EntitySet Name="佈告欄" EntityType="dbEIPModel.佈告欄" />
     <EntitySet Name="表單類別" EntityType="dbEIPModel.表單類別" />
     <EntitySet Name="個人資料" EntityType="dbEIPModel.個人資料" />
+    <EntitySet Name="假別" EntityType="dbEIPModel.假別" />
+    <EntitySet Name="請假細項" EntityType="dbEIPModel.請假細項" />
     <AssociationSet Name="FK_projectTeam_eipProjectDetail" Association="dbEIPModel.FK_projectTeam_eipProjectDetail">
       <End Role="eipProjectDetail" EntitySet="eipProjectDetail" />
       <End Role="projectTeam" EntitySet="projectTeam" />
@@ -24,8 +33,6 @@
       <End Role="加班別" EntitySet="加班別" />
       <End Role="加班細項" EntitySet="加班細項" />
     </AssociationSet>
-    <EntitySet Name="假別" EntityType="dbEIPModel.假別" />
-    <EntitySet Name="請假細項" EntityType="dbEIPModel.請假細項" />
     <AssociationSet Name="FK_請假細項_假別" Association="dbEIPModel.FK_請假細項_假別">
       <End Role="假別" EntitySet="假別" />
       <End Role="請假細項" EntitySet="請假細項" />
@@ -79,6 +86,74 @@
     <Property Name="MeetingSubject" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="MeetingAttentee" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
   </EntityType>
+  <EntityType Name="pj建立">
+    <Key>
+      <PropertyRef Name="pjCreateId" />
+    </Key>
+    <Property Name="pjCreateId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="pj簡介" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="pjBudget" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="pj成員數" Type="Int32" />
+    <Property Name="pj贊助商" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="pj初審狀態" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="pj初審意見" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="pj持續時間" Type="Int32" />
+  </EntityType>
+  <EntityType Name="pj控管">
+    <Key>
+      <PropertyRef Name="pjPlannedAndControl" />
+    </Key>
+    <Property Name="pjPlannedAndControl" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="pjStartDate" Type="DateTime" Precision="0" />
+    <Property Name="pjEndDate" Type="DateTime" Precision="0" />
+    <Property Name="pjGoal" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="pjIntput" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="pjActionItem" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="pjDuration" Type="Int32" />
+    <Property Name="pjTarget" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="pjFixedDuration" Type="Int32" />
+    <Property Name="pjEstimation" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="pjLag" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="pjObjective" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="pjHandOver" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="pjIssueLog" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="pjAuthorization" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="pjWorstCaseScenario" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="pjGoOrNogo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="pj結案">
+    <Key>
+      <PropertyRef Name="pjFinalReport" />
+    </Key>
+    <Property Name="pjFinalReport" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="pj會議">
+    <Key>
+      <PropertyRef Name="pjMeeting" />
+    </Key>
+    <Property Name="pjMeeting" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="pj團隊">
+    <Key>
+      <PropertyRef Name="pj" />
+    </Key>
+    <Property Name="pj" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="pj成員" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="pj工作項目" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="pjId" Type="Int32" />
+  </EntityType>
+  <EntityType Name="pj總表">
+    <Key>
+      <PropertyRef Name="pjId" />
+    </Key>
+    <Property Name="pjId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="pjName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="pjManager" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="pjCreateId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="pjPlannedAndControl" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="pjMeeting" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="pjFinalReport" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
   <EntityType Name="projectTeam">
     <Key>
       <PropertyRef Name="pjDailyReport" />
@@ -99,10 +174,10 @@
   </EntityType>
   <EntityType Name="出差細項">
     <Key>
-      <PropertyRef Name="出差單編號" />
+      <PropertyRef Name="出差表編號" />
     </Key>
-    <Property Name="出差單編號" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="EmployeeID" Type="Int32" />
+    <Property Name="出差表編號" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EmployeeID" Type="Int32" Nullable="false" />
     <Property Name="中文姓名" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="部門" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="出差類型" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -136,6 +211,18 @@
     <Property Name="加班時數" Type="Int32" />
     <Property Name="事由說明" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="加班別" Relationship="dbEIPModel.FK_加班細項_加班別" FromRole="加班細項" ToRole="加班別" />
+  </EntityType>
+  <EntityType Name="打卡系統">
+    <Key>
+      <PropertyRef Name="打卡ID" />
+    </Key>
+    <Property Name="打卡ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="上班打卡時間" Type="Time" Precision="7" />
+    <Property Name="下班打卡時間" Type="Time" Precision="7" />
+    <Property Name="打卡日期" Type="DateTime" Precision="0" />
+    <Property Name="員工編號" Type="Int32" />
+    <Property Name="中文姓名" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ThemeColor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="行事曆">
     <Key>
@@ -192,6 +279,36 @@
     <Property Name="權限" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="projectTeam" Relationship="dbEIPModel.FK_projectTeam_個人資料" FromRole="個人資料" ToRole="projectTeam" />
   </EntityType>
+  <EntityType Name="假別">
+    <Key>
+      <PropertyRef Name="假別ID" />
+    </Key>
+    <Property Name="假別ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="假別1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="請假細項" Relationship="dbEIPModel.FK_請假細項_假別" FromRole="假別" ToRole="請假細項" />
+  </EntityType>
+  <EntityType Name="請假細項">
+    <Key>
+      <PropertyRef Name="申請表編號" />
+    </Key>
+    <Property Name="申請表編號" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EmployeeID" Type="Int32" Nullable="false" />
+    <Property Name="信箱" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="部門" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="假別ID" Type="Int32" />
+    <Property Name="請假班別" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="請假時數" Type="Int32" />
+    <Property Name="開始日期" Type="DateTime" Precision="3" />
+    <Property Name="結束日期" Type="DateTime" Precision="3" />
+    <Property Name="申請日期" Type="DateTime" Precision="3" />
+    <Property Name="代理人" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="審核狀態" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="中文姓名" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="職稱" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="圖片" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="已用可用" Type="Int32" />
+    <NavigationProperty Name="假別" Relationship="dbEIPModel.FK_請假細項_假別" FromRole="請假細項" ToRole="假別" />
+  </EntityType>
   <Association Name="FK_projectTeam_eipProjectDetail">
     <End Type="dbEIPModel.eipProjectDetail" Role="eipProjectDetail" Multiplicity="0..1" />
     <End Type="dbEIPModel.projectTeam" Role="projectTeam" Multiplicity="*" />
@@ -228,36 +345,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityType Name="假別">
-    <Key>
-      <PropertyRef Name="假別ID" />
-    </Key>
-    <Property Name="假別ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="假別1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="請假細項" Relationship="dbEIPModel.FK_請假細項_假別" FromRole="假別" ToRole="請假細項" />
-  </EntityType>
-  <EntityType Name="請假細項">
-    <Key>
-      <PropertyRef Name="申請表編號" />
-    </Key>
-    <Property Name="申請表編號" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="EmployeeID" Type="Int32" Nullable="false" />
-    <Property Name="信箱" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="部門" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="假別ID" Type="Int32" />
-    <Property Name="請假班別" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="請假時數" Type="Int32" />
-    <Property Name="開始日期" Type="DateTime" Precision="3" />
-    <Property Name="結束日期" Type="DateTime" Precision="3" />
-    <Property Name="申請日期" Type="DateTime" Precision="3" />
-    <Property Name="代理人" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="審核狀態" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="中文姓名" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="職稱" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="圖片" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="已用可用" Type="Int32" />
-    <NavigationProperty Name="假別" Relationship="dbEIPModel.FK_請假細項_假別" FromRole="請假細項" ToRole="假別" />
-  </EntityType>
   <Association Name="FK_請假細項_假別">
     <End Type="dbEIPModel.假別" Role="假別" Multiplicity="0..1" />
     <End Type="dbEIPModel.請假細項" Role="請假細項" Multiplicity="*" />

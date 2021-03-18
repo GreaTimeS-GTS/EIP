@@ -47,6 +47,74 @@
     <Property Name="MeetingSubject" Type="nvarchar(max)" />
     <Property Name="MeetingAttentee" Type="nvarchar(max)" />
   </EntityType>
+  <EntityType Name="pj建立">
+    <Key>
+      <PropertyRef Name="pjCreateId" />
+    </Key>
+    <Property Name="pjCreateId" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="pj簡介" Type="nvarchar" MaxLength="50" />
+    <Property Name="pjBudget" Type="money" />
+    <Property Name="pj成員數" Type="int" />
+    <Property Name="pj贊助商" Type="nvarchar" MaxLength="50" />
+    <Property Name="pj初審狀態" Type="nvarchar" MaxLength="50" />
+    <Property Name="pj初審意見" Type="nvarchar" MaxLength="50" />
+    <Property Name="pj持續時間" Type="int" />
+  </EntityType>
+  <EntityType Name="pj控管">
+    <Key>
+      <PropertyRef Name="pjPlannedAndControl" />
+    </Key>
+    <Property Name="pjPlannedAndControl" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="pjStartDate" Type="date" />
+    <Property Name="pjEndDate" Type="date" />
+    <Property Name="pjGoal" Type="nvarchar" MaxLength="50" />
+    <Property Name="pjIntput" Type="nvarchar" MaxLength="50" />
+    <Property Name="pjActionItem" Type="nvarchar" MaxLength="50" />
+    <Property Name="pjDuration" Type="int" />
+    <Property Name="pjTarget" Type="nvarchar" MaxLength="50" />
+    <Property Name="pjFixedDuration" Type="int" />
+    <Property Name="pjEstimation" Type="money" />
+    <Property Name="pjLag" Type="nvarchar" MaxLength="50" />
+    <Property Name="pjObjective" Type="nvarchar" MaxLength="50" />
+    <Property Name="pjHandOver" Type="nvarchar" MaxLength="50" />
+    <Property Name="pjIssueLog" Type="nvarchar" MaxLength="50" />
+    <Property Name="pjAuthorization" Type="nvarchar" MaxLength="50" />
+    <Property Name="pjWorstCaseScenario" Type="nvarchar" MaxLength="50" />
+    <Property Name="pjGoOrNogo" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="pj結案">
+    <Key>
+      <PropertyRef Name="pjFinalReport" />
+    </Key>
+    <Property Name="pjFinalReport" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="pj會議">
+    <Key>
+      <PropertyRef Name="pjMeeting" />
+    </Key>
+    <Property Name="pjMeeting" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="pj團隊">
+    <Key>
+      <PropertyRef Name="pj" />
+    </Key>
+    <Property Name="pj" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="pj成員" Type="nvarchar" MaxLength="50" />
+    <Property Name="pj工作項目" Type="nvarchar" MaxLength="50" />
+    <Property Name="pjId" Type="int" />
+  </EntityType>
+  <EntityType Name="pj總表">
+    <Key>
+      <PropertyRef Name="pjId" />
+    </Key>
+    <Property Name="pjId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="pjName" Type="nvarchar" MaxLength="50" />
+    <Property Name="pjManager" Type="nvarchar" MaxLength="50" />
+    <Property Name="pjCreateId" Type="nvarchar" MaxLength="50" />
+    <Property Name="pjPlannedAndControl" Type="nvarchar" MaxLength="50" />
+    <Property Name="pjMeeting" Type="nvarchar" MaxLength="50" />
+    <Property Name="pjFinalReport" Type="nvarchar" MaxLength="50" />
+  </EntityType>
   <EntityType Name="projectTeam">
     <Key>
       <PropertyRef Name="pjDailyReport" />
@@ -65,10 +133,10 @@
   </EntityType>
   <EntityType Name="出差細項">
     <Key>
-      <PropertyRef Name="出差單編號" />
+      <PropertyRef Name="出差表編號" />
     </Key>
-    <Property Name="出差單編號" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="EmployeeID" Type="int" />
+    <Property Name="出差表編號" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmployeeID" Type="int" Nullable="false" />
     <Property Name="中文姓名" Type="nvarchar" MaxLength="50" />
     <Property Name="部門" Type="nvarchar" MaxLength="50" />
     <Property Name="出差類型" Type="nvarchar" MaxLength="50" />
@@ -100,6 +168,18 @@
     <Property Name="結束日期" Type="datetime" />
     <Property Name="加班時數" Type="int" />
     <Property Name="事由說明" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="打卡系統">
+    <Key>
+      <PropertyRef Name="打卡ID" />
+    </Key>
+    <Property Name="打卡ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="上班打卡時間" Type="time" Precision="7" />
+    <Property Name="下班打卡時間" Type="time" Precision="7" />
+    <Property Name="打卡日期" Type="date" />
+    <Property Name="員工編號" Type="int" />
+    <Property Name="中文姓名" Type="nvarchar" MaxLength="50" />
+    <Property Name="ThemeColor" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="行事曆">
     <Key>
@@ -235,10 +315,17 @@
     <EntitySet Name="eipProjectDetail" EntityType="Self.eipProjectDetail" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MeetingRoom" EntityType="Self.MeetingRoom" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MeetingRoomBooking" EntityType="Self.MeetingRoomBooking" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="pj建立" EntityType="Self.pj建立" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="pj控管" EntityType="Self.pj控管" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="pj結案" EntityType="Self.pj結案" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="pj會議" EntityType="Self.pj會議" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="pj團隊" EntityType="Self.pj團隊" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="pj總表" EntityType="Self.pj總表" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="projectTeam" EntityType="Self.projectTeam" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="出差細項" EntityType="Self.出差細項" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="加班別" EntityType="Self.加班別" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="加班細項" EntityType="Self.加班細項" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="打卡系統" EntityType="Self.打卡系統" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="行事曆" EntityType="Self.行事曆" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="佈告欄" EntityType="Self.佈告欄" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="表單類別" EntityType="Self.表單類別" Schema="dbo" store:Type="Tables" />
