@@ -47,7 +47,13 @@ namespace EIP.Controllers
             };
 
 
-            var mmb = db.個人資料.FirstOrDefault(m => m.信箱 == x.信箱 && m.EmployeePW == x.EmployeePW);
+            var mmb = db.個人資料.Select(m=> new { 
+                m.EmployeeID,
+                m.中文姓名,
+                m.職稱,
+                m.信箱,
+                m.EmployeePW,
+            }).FirstOrDefault(m => m.信箱 == x.信箱 && m.EmployeePW == x.EmployeePW);
             if (mmb == null)
             {
                 Response.Cookies["AutoLg"].Expires = DateTime.Now.AddDays(-1);
@@ -226,13 +232,13 @@ namespace EIP.Controllers
             return Json(mmb, JsonRequestBehavior.AllowGet);
             //return mlvm;
         }
-        public JsonResult HRDelete(int id) {
+        public string HRDelete(int id) {
             個人資料 mlvm = db.個人資料.Find(id);
             db.個人資料.Remove(mlvm);
             //mlvm.狀態 = "不在職";
             //db.Entry<個人資料>(mlvm).State = EntityState.Modified;
             db.SaveChanges();
-            return Json(mlvm, JsonRequestBehavior.AllowGet);
+            return "ok";
         }
         public JsonResult HRSearch(string name)
         {
