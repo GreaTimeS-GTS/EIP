@@ -1,0 +1,114 @@
+﻿@{
+    ViewBag.Title = "BusinessTrip";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+</style>
+
+<div class="head">
+    <form>
+        <h2 class="h2共用">出差單</h2>
+        <div class="d-flex flex-wrap justify-content-center">
+            <div class="mb-4 員工編號 col-12 col-md-3">
+                <label>員工編號:</label><br />
+                <input type="text" class="w-75" id="EmployeeID">
+            </div>
+            <div class="mb-4 申請人 col-12 col-md-3">
+                <label>申請人:</label><br />
+                <input type="text" class="w-75" id="中文姓名">
+            </div>
+            <div class="mb-4 部門 col-12 col-md-3">
+                <label>部&emsp;&emsp;門:</label><br />
+                <input type="text" class="w-75 " id="部門">
+            </div>
+            <div class="mb-4 col-12 col-md-3">
+                <label>出差類型:</label><br />
+                <select id="出差類型" class="w-75">
+                    <option value="請選擇">請選擇</option>
+                    <option value="國內">國內</option>
+                    <option value="國外">國外</option>
+                </select>
+            </div>
+        </div>
+        <div class="d-flex flex-wrap justify-content-center">
+            <div class="mb-4 出差地點 col-12 col-md-4">
+                <label>出差地點:</label><br />
+                <input type="text" class="w-75" id="出差地點">
+            </div>
+            <div class="mb-4 test 開始日期 col-12 col-md-4">
+                <label>開始日期:</label><br />
+                <input type="datetime-local" id="開始日期" class="w-75">
+            </div>
+            <div class="mb-4 test1 結束日期 col-12 col-md-4">
+                <label>結束日期:</label><br />
+                <input type="datetime-local" id="結束日期" class="w-75">
+            </div>
+        </div>
+        <div class="d-flex flex-wrap">
+            <div class="mb-4 col-12 col-md-3">
+                <label>交通需求:</label><br />
+                <select id="交通需求" class="w-75">
+                    <option value="請選擇">請選擇</option>
+                    <option value="火車票">火車票</option>
+                    <option value="高鐵票">高鐵票</option>
+                    <option value="飛機票">飛機票</option>
+                    <option value="自行安排">自行安排</option>
+                </select>
+            </div>
+            <div class="mb-4  col-12 col-md-3">
+                <label>住宿需求:</label><br />
+                <select id="住宿需求" class="w-75">
+                    <option value="請選擇">請選擇</option>
+                    <option value="國內住宿">國內住宿</option>
+                    <option value="國外住宿">國外住宿</option>
+                    <option value="自行安排">自行安排</option>
+                </select>
+            </div>
+            <div class="mb-4 預支費用 col-12 col-md-3">
+                <label>預支費用:</label><br />
+                <input type="number" class="w-75" id="預支費用" min="1000">
+            </div>
+            <div class="mb-3 col-12 col-md-3 mr-auto ">
+                <label>備註:</label><br />
+                <textarea id="備註" class="w-75"></textarea>
+            </div>
+        </div>
+        <div class="form-group d-flex justify-content-center">
+            <a class="btn btn-primary" onclick="AddBusinessTripAjax()">送出</a>
+        </div>
+    </form>
+</div>
+@section script{
+    <script>
+        console.log(123);
+        function AddBusinessTripAjax() {
+            console.log(123);
+            $.ajax({
+                url: "/DDDDD/BusinessTripAjax",
+                type: "POST",
+                data: {
+                    "EmployeeID": $("#EmployeeID").val(),
+                    "中文姓名": $("#中文姓名").val(),
+                    "部門": $("#部門").val(),
+                    "出差類型": $("#出差類型").val(),
+                    "出差地點": $("#出差地點").val(),
+                    "開始日期": $("#開始日期").val(),
+                    "結束日期": $("#結束日期").val(),
+                    "交通需求": $("#交通需求").val(),
+                    "住宿需求": $("#住宿需求").val(),
+                    "預支費用": $("#預支費用").val(),
+                    "備註": $("#備註").val(),
+                },
+                success: function (result) {
+                    if (result != null) {
+                        setTimeout(function () {
+                            window.location.href = "/DDDDD/BusinessTripList";
+                        }, 2000);
+                        swal("成功", "新增成功", "success");
+                    }
+                }
+            })
+        }
+    </script>
+}

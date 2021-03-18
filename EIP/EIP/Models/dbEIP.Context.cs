@@ -18,7 +18,6 @@ namespace EIP.Models
         public dbEIPEntities()
             : base("name=dbEIPEntities")
         {
-            this.Configuration.LazyLoadingEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -30,6 +29,7 @@ namespace EIP.Models
         public virtual DbSet<MeetingRoom> MeetingRoom { get; set; }
         public virtual DbSet<MeetingRoomBooking> MeetingRoomBooking { get; set; }
         public virtual DbSet<pj建立> pj建立 { get; set; }
+        public virtual DbSet<pj控管> pj控管 { get; set; }
         public virtual DbSet<pj結案> pj結案 { get; set; }
         public virtual DbSet<pj會議> pj會議 { get; set; }
         public virtual DbSet<pj團隊> pj團隊 { get; set; }

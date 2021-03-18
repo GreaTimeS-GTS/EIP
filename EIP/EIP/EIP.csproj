@@ -154,7 +154,6 @@
     <Compile Include="Controllers\FullcalenderController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MeetingRoomController.cs" />
-    <Compile Include="Controllers\ProjectController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -189,6 +188,9 @@
     <Compile Include="Models\pj建立.cs">
       <DependentUpon>dbEIP.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\pj控管.cs">
+      <DependentUpon>dbEIP.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\pj會議.cs">
       <DependentUpon>dbEIP.tt</DependentUpon>
     </Compile>
@@ -204,6 +206,7 @@
     <Compile Include="Models\ViewModel\AskForLeave.cs" />
     <Compile Include="Models\ViewModel\AskForViewModel.cs" />
     <Compile Include="Models\ViewModel\BulletinBoardViewModel.cs" />
+    <Compile Include="Models\ViewModel\BusinessTripViewModel.cs" />
     <Compile Include="Models\ViewModel\Fullcalender.cs" />
     <Compile Include="Models\ViewModel\GenericRepository\EIPRepository.cs" />
     <Compile Include="Models\ViewModel\GenericRepository\IRepository.cs" />
@@ -575,10 +578,11 @@
     <Content Include="Views\DDDDD\FindSingleData.cshtml" />
     <Content Include="Views\DDDDD\Index.cshtml" />
     <Content Include="Views\DDDDD\UpdateData.cshtml" />
-    <Content Include="Views\DDDDD\出缺勤系統.cshtml" />
     <Content Include="Views\MeetingRoom\MeetingRoomBookingSearch.cshtml" />
     <Content Include="Views\DDDDD\OverTime.cshtml" />
     <Content Include="Views\DDDDD\OverTimeList.cshtml" />
+    <Content Include="Views\DDDDD\BusinessTrip.cshtml" />
+    <Content Include="Views\DDDDD\BusinessTripList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

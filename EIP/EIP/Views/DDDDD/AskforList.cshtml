@@ -5,79 +5,9 @@
 
 <h2>請假細項(總表)</h2>
 
-<style>
-    .table {
-        background-color: white;
-        padding: 5px;
-        box-shadow: 0 1px 7px;
-    }
 
-    th {
-        background-color: #444444;
-        color: white;
-        font-size: 1.2em;
-    }
+<a class="btn btn-primary mb-3" href="/DDDDD/Askfor">新增假單</a>
 
-    th, td {
-        text-align: center;
-        padding: 5px;
-    }
-
-    h2 {
-        text-align: center;
-        font-weight: bold;
-        margin-top: 25px;
-    }
-    /*偶數*/
-    /*tr:nth-child(even) {
-        background-color: aliceblue;
-    }*/
-    /*奇數*/
-    /*tr:nth-child(odd) {
-        background-color: azure;
-    }*/
-
-
-    /*詳細按鈕css*/
-    .button {
-        border-radius: 4px;
-        border: none;
-        color: white;
-        text-align: center;
-        font-size: 14px;
-        padding: 10px;
-        width: 100px;
-        transition: all 0.5s;
-        cursor: pointer;
-        margin: 3px;
-    }
-
-        .button span {
-            cursor: pointer;
-            display: inline-block;
-            position: relative;
-            transition: 0.5s;
-        }
-
-            .button span:after {
-                content: '\00bb';
-                position: absolute;
-                opacity: 0;
-                top: 0;
-                right: -20px;
-                transition: 0.5s;
-            }
-
-        .button:hover span {
-            padding-right: 25px;
-        }
-
-            .button:hover span:after {
-                opacity: 1;
-                right: 0;
-            }
-</style>
-<a class="btn btn-info" href="/DDDDD/Askfor">新增假單</a>
     <table class="table-hover w-100 table table-striped text-nowrap">
         <thead id="head">
         </thead>
@@ -95,14 +25,9 @@
                     <h2 class="mb-5">請假(修改)</h2>
                     <form>
                         <div>
-                            <label>申請表編號:</label>
-                            <label></label>
-                            <input type="text" id="申請表編號" disabled />
-                        </div>
-                        <div>
                             <label>員工編號:</label>
                             <label></label>
-                            <input type="text" id="EmployeeID" disabled />
+                            <input type="text"  id="EmployeeID" disabled />
                         </div>
                         <div>
                             <label>員工姓名:</label>
@@ -175,8 +100,8 @@
                 </div>
             </div> @*End*@
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" onclick="Update()">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" onclick="Update()">確認修改</button>
             </div>
         </div>
     </div>
@@ -198,7 +123,7 @@
                 type: "GET",
                 success: function (memberlist) {
                     $("#head").append(
-                        `<tr>                   
+                        `<tr>
                                                 <th>員工編號</th>
                                                 <th>中文姓名</th>
                                                 <th>職稱</th>
@@ -213,7 +138,6 @@
                                                 <th>刪除</th>
                                                 </tr>`
                     );
-
                     $(memberlist).each(function (index, item) {
                         var testtime = parseInt(item.開始日期.replace(/\D/igm, ""));
                         var testtime1 = new Date(testtime);
@@ -244,8 +168,8 @@
                                                 <td>${item.請假時數}</td>
                                                 <td>${item.代理人}</td>
                                                 <td>${item.審核狀態}</td>
-                                                <td><a class="btn btn-primary button btnDetail" data-toggle="modal" data-id ="${item.EmployeeID}" data-target="#exampleModalScrollable" onclick="UpdateGetData()"><span>詳細</span></a></td>
-                                                <td><a class="btn btn-danger button"  onclick="Fdelete()" data-id="${item.EmployeeID}"><span>刪除</span></a></td></tr>` 
+                                                <td><a class="btn btn-outline-primary button btnDetail" data-toggle="modal" data-id ="${item.申請表編號}" data-target="#exampleModalScrollable" onclick="UpdateGetData()"><span>詳細</span></a></td>
+                                                <td><a class="btn btn-outline-danger button"  onclick="Fdelete()" data-id="${item.申請表編號}"><span>刪除</span></a></td></tr>` 
                         );
                     })
                 },
@@ -256,13 +180,16 @@
        
 
         //======================================= 修改 =======================================
+
+        var getID;
+
         function Update() {
             if (true) {
                 $.ajax({
                     url: "/DDDDD/UpdateDataAjax",
                     type: "POST",
                     data: {
-                        "申請表編號": $("#申請表編號").val(),
+                        "申請表編號": getID,
                         "EmployeeID": $("#EmployeeID").val(),
                         "中文姓名": $("#中文姓名").val(),
                         "職稱": $("#jobtitle").val(),
@@ -282,20 +209,21 @@
                             $("#exampleModalScrollable").modal('hide');
                             swal("成功", "修改成功", "success"); 
                             ReFresh();
-                        }
-                 
+                        }                 
                     }
                 })
             }
         }
 
         function UpdateGetData() {
-            //console.log($(event.currentTarget).data("id"));
+            console.log($(event.currentTarget).data("id"));
+            getID = $(event.currentTarget).data("id");
             $.ajax({
                 url: "/DDDDD/GetUpdateData",
                 type: "GET",
                 data: { "id": $(event.currentTarget).data("id") },
                 success: function (getdata) {
+                    console.log(getdata);
                     var testtime = parseInt(getdata.開始日期.replace(/\D/igm, ""));
                     var testtime1 = new Date(testtime);
                     var 結束日期 = parseInt(getdata.結束日期.replace(/\D/igm, ""));
@@ -435,7 +363,6 @@
                 success: function (memberlist) {
                     $("#head").html(
                         `<tr>
-                                                <th>申請表編號</th>
                                                 <th>員工編號</th>
                                                 <th>中文姓名</th>
                                                 <th>職稱</th>
@@ -470,9 +397,8 @@
                             a3 = testtime3.getMinutes();
                         }
                         
-                                                                        
-                        a += `<tr>
-                                                <td>${item.申請表編號}</td>
+                        
+                           a += `<tr>
                                                 <td>${item.EmployeeID}</td>
                                                 <td>${item.中文姓名}</td>
                                                 <td>${item.職稱}</td>
