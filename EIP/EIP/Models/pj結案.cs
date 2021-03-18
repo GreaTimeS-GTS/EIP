@@ -14,6 +14,15 @@ namespace EIP.Models
     
     public partial class pj結案
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public pj結案()
+        {
+            this.pj總表 = new HashSet<pj總表>();
+        }
+    
         public string pjFinalReport { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<pj總表> pj總表 { get; set; }
     }
 }

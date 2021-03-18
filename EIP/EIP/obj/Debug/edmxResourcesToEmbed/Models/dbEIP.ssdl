@@ -60,27 +60,28 @@
     <Property Name="pj初審意見" Type="nvarchar" MaxLength="50" />
     <Property Name="pj持續時間" Type="int" />
   </EntityType>
-  <!--產生期間發現錯誤:
-警告 6013: 資料表/檢視 'dbEIP.dbo.pj控管' 未定義主索引鍵，也無法推斷有效的主索引鍵。此資料表/檢視已被排除。如果要使用此實體，您必須檢閱您的結構描述，加入正確的索引鍵，並將它取消註解。
-        <EntityType Name="pj控管">
-          <Property Name="pjPlannedAndControl" Type="nvarchar" MaxLength="50" />
-          <Property Name="pjStartDate" Type="date" />
-          <Property Name="pjEndDate" Type="date" />
-          <Property Name="pjGoal" Type="nvarchar" MaxLength="50" />
-          <Property Name="pjIntput" Type="nvarchar" MaxLength="50" />
-          <Property Name="pjActionItem" Type="nvarchar" MaxLength="50" />
-          <Property Name="pjDuration" Type="int" />
-          <Property Name="pjTarget" Type="nvarchar" MaxLength="50" />
-          <Property Name="pjFixedDuration" Type="int" />
-          <Property Name="pjEstimation" Type="money" />
-          <Property Name="pjLag" Type="nvarchar" MaxLength="50" />
-          <Property Name="pjObjective" Type="nvarchar" MaxLength="50" />
-          <Property Name="pjHandOver" Type="nvarchar" MaxLength="50" />
-          <Property Name="pjIssueLog" Type="nvarchar" MaxLength="50" />
-          <Property Name="pjAuthorization" Type="nvarchar" MaxLength="50" />
-          <Property Name="pjWorstCaseScenario" Type="nvarchar" MaxLength="50" />
-          <Property Name="pjGoOrNogo" Type="nvarchar" MaxLength="50" />
-        </EntityType>-->
+  <EntityType Name="pj控管">
+    <Key>
+      <PropertyRef Name="pjPlannedAndControl" />
+    </Key>
+    <Property Name="pjPlannedAndControl" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="pjStartDate" Type="date" />
+    <Property Name="pjEndDate" Type="date" />
+    <Property Name="pjGoal" Type="nvarchar" MaxLength="50" />
+    <Property Name="pjIntput" Type="nvarchar" MaxLength="50" />
+    <Property Name="pjActionItem" Type="nvarchar" MaxLength="50" />
+    <Property Name="pjDuration" Type="int" />
+    <Property Name="pjTarget" Type="nvarchar" MaxLength="50" />
+    <Property Name="pjFixedDuration" Type="int" />
+    <Property Name="pjEstimation" Type="money" />
+    <Property Name="pjLag" Type="nvarchar" MaxLength="50" />
+    <Property Name="pjObjective" Type="nvarchar" MaxLength="50" />
+    <Property Name="pjHandOver" Type="nvarchar" MaxLength="50" />
+    <Property Name="pjIssueLog" Type="nvarchar" MaxLength="50" />
+    <Property Name="pjAuthorization" Type="nvarchar" MaxLength="50" />
+    <Property Name="pjWorstCaseScenario" Type="nvarchar" MaxLength="50" />
+    <Property Name="pjGoOrNogo" Type="nvarchar" MaxLength="50" />
+  </EntityType>
   <EntityType Name="pj結案">
     <Key>
       <PropertyRef Name="pjFinalReport" />
@@ -260,6 +261,54 @@
     <Property Name="中文姓名" Type="nvarchar" MaxLength="50" />
     <Property Name="職稱" Type="nvarchar" MaxLength="50" />
   </EntityType>
+  <Association Name="FK_pj總表_pj建立">
+    <End Role="pj建立" Type="Self.pj建立" Multiplicity="0..1" />
+    <End Role="pj總表" Type="Self.pj總表" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="pj建立">
+        <PropertyRef Name="pjCreateId" />
+      </Principal>
+      <Dependent Role="pj總表">
+        <PropertyRef Name="pjCreateId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_pj總表_pj控管">
+    <End Role="pj控管" Type="Self.pj控管" Multiplicity="0..1" />
+    <End Role="pj總表" Type="Self.pj總表" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="pj控管">
+        <PropertyRef Name="pjPlannedAndControl" />
+      </Principal>
+      <Dependent Role="pj總表">
+        <PropertyRef Name="pjPlannedAndControl" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_pj總表_pj結案">
+    <End Role="pj結案" Type="Self.pj結案" Multiplicity="0..1" />
+    <End Role="pj總表" Type="Self.pj總表" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="pj結案">
+        <PropertyRef Name="pjFinalReport" />
+      </Principal>
+      <Dependent Role="pj總表">
+        <PropertyRef Name="pjFinalReport" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_pj總表_pj會議">
+    <End Role="pj會議" Type="Self.pj會議" Multiplicity="0..1" />
+    <End Role="pj總表" Type="Self.pj總表" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="pj會議">
+        <PropertyRef Name="pjMeeting" />
+      </Principal>
+      <Dependent Role="pj總表">
+        <PropertyRef Name="pjMeeting" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_projectTeam_eipProjectDetail">
     <End Role="eipProjectDetail" Type="Self.eipProjectDetail" Multiplicity="0..1" />
     <End Role="projectTeam" Type="Self.projectTeam" Multiplicity="*" />
@@ -313,6 +362,7 @@
     <EntitySet Name="MeetingRoom" EntityType="Self.MeetingRoom" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MeetingRoomBooking" EntityType="Self.MeetingRoomBooking" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="pj建立" EntityType="Self.pj建立" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="pj控管" EntityType="Self.pj控管" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="pj結案" EntityType="Self.pj結案" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="pj會議" EntityType="Self.pj會議" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="pj團隊" EntityType="Self.pj團隊" Schema="dbo" store:Type="Tables" />
@@ -328,6 +378,22 @@
     <EntitySet Name="個人資料" EntityType="Self.個人資料" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="假別" EntityType="Self.假別" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="請假細項" EntityType="Self.請假細項" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_pj總表_pj建立" Association="Self.FK_pj總表_pj建立">
+      <End Role="pj建立" EntitySet="pj建立" />
+      <End Role="pj總表" EntitySet="pj總表" />
+    </AssociationSet>
+    <AssociationSet Name="FK_pj總表_pj控管" Association="Self.FK_pj總表_pj控管">
+      <End Role="pj控管" EntitySet="pj控管" />
+      <End Role="pj總表" EntitySet="pj總表" />
+    </AssociationSet>
+    <AssociationSet Name="FK_pj總表_pj結案" Association="Self.FK_pj總表_pj結案">
+      <End Role="pj結案" EntitySet="pj結案" />
+      <End Role="pj總表" EntitySet="pj總表" />
+    </AssociationSet>
+    <AssociationSet Name="FK_pj總表_pj會議" Association="Self.FK_pj總表_pj會議">
+      <End Role="pj會議" EntitySet="pj會議" />
+      <End Role="pj總表" EntitySet="pj總表" />
+    </AssociationSet>
     <AssociationSet Name="FK_projectTeam_eipProjectDetail" Association="Self.FK_projectTeam_eipProjectDetail">
       <End Role="eipProjectDetail" EntitySet="eipProjectDetail" />
       <End Role="projectTeam" EntitySet="projectTeam" />

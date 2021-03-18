@@ -1,0 +1,51 @@
+﻿
+<table class="table">
+    <thead class="titleAppend">       
+    </thead>
+    <tbody class="contentAppend">        
+    </tbody>
+</table>
+<div class="a123"></div>
+@section script{
+    <script>
+        $.ajax({
+            url: "/projectControl/getMainData",
+            method: "get",
+            success: function (data) {
+                $(".titleAppend").html(`
+                       <tr>
+                                <th scope="col">Project Name</th>
+                                <th scope="col">Project Manager</th>
+                                <th scope="col">Project Introduction</th>
+                                <th scope="col">Project Detail</th>
+                                <th scope="col">Project Program</th>
+                       </tr>
+                 `);
+
+                $(data).each(function (index, item) {
+                    $(".contentAppend").append(`
+                       <tr>
+                                <td>${item.pjName}</td>
+                                <td>${item.pjManager}</td>
+                                <td>${item.pj簡介}</td>
+                                <td> <button type="submit" class="btn btn-primary">read more</button></td>
+                                <td> <button type="submit" class="btn btn-primary" data-id="${item.pjId}" onclick="pjPlan()">make schedule</button></td>
+                         </tr>
+                  `);
+                })
+            }
+        })
+
+        function pjPlan() {
+            $.ajax({
+                url: "/projectControl/getMainData1",
+                method: "get",
+                data: { "id":$(event.currentTarget).data("id")},
+                success: function (data) {          
+                    window.location.href = `/projectControl/dailyReport?id=${ data.pjId }` ;            
+                }
+            })
+        }
+    </script>
+
+}

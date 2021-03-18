@@ -1,0 +1,68 @@
+﻿
+
+<form class="mt-5">
+    <div class="form-row ">
+        <div class="col-md-6 mb-3">
+            <label for="pjMain-Name">Name</label>
+            <input type="text" readonly class="form-control append-pjMain-Name" id="pjMain-Name" aria-describedby="123">
+            <small id="123" class="form-text text-muted"></small>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label for="pjMain-Manager">Manager</label>
+            <input type="text" class="form-control append-pjMain-Manager" id="pjMain-Manager" readonly name="pjMain-Manager">
+        </div>
+    </div>        
+</form>
+
+<form name="">
+    <div class="form-group ">
+        <label for="pjStartDate" class="col-sm-2 col-form-label">StartDate</label>
+            <input type="date" class="form-control" id="pjStartDate"> 
+    </div>
+    <div class="form-group ">
+        <label for="pjEndDate" class="col-sm-2 col-form-label">EndDate</label>   
+            <input type="date" class="form-control" id="pjEndDate"> 
+    </div>
+    <div class="form-group ">
+        <label for="pjGoal" class="col-sm-2 col-form-label">Goal</label>    
+            <textarea rows="2" type="text" class="form-control" id="pjGoal" style="resize: none;"></textarea>
+    </div>
+    <div class="form-group">
+        <label for="pjIntput" class="col-sm-2 col-form-label">Intput</label>
+            <textarea rows="6" type="text" class="form-control" id="pjIntput" style="resize: none;"></textarea>
+    </div>
+
+    <button type="button" class="btn btn-primary sendFormData">Submit</button>
+</form>
+
+
+
+
+@section script{
+    <script>
+        //解析url, 取?之後id的參數
+        var getUrlString = location.href;
+        var url = new URL(getUrlString);
+        var id = url.searchParams.get('id');
+        //console.log(id);
+        $.ajax({
+            url: "/projectControl/getMainData1",
+            method: "get",
+            data: { "id": id },
+            success: function (data) {
+                //console.log(data);
+
+                $(".append-pjMain-Name").val(`${data.pjName}`);
+                $(".append-pjMain-Manager").val(`${data.pjManager}`);
+            }
+        })
+
+        $('.sendFormData').click(function sendFormData() {
+            var textarea = $('#pjIntput').val();
+            console.log(textarea);
+        })
+     
+
+
+    </script>
+}
