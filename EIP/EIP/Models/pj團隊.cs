@@ -15,8 +15,22 @@ namespace EIP.Models
     public partial class pj團隊
     {
         public int pj { get; set; }
-        public string pj成員 { get; set; }
-        public string pj工作項目 { get; set; }
+        public string pj成員7 { get; set; }
+        public string pj工作項目7 { get; set; }
         public Nullable<int> pjId { get; set; }
+        public string pj建議 { get; set; }
+        public string pj審核 { get; set; }
+        public string pj成員1 { get; set; }
+        public string pj工作項目1 { get; set; }
+        public string pj成員2 { get; set; }
+        public string pj工作項目2 { get; set; }
+        public string pj成員3 { get; set; }
+        public string pj工作項目3 { get; set; }
+        public string pj成員4 { get; set; }
+        public string pj工作項目4 { get; set; }
+        public string pj成員5 { get; set; }
+        public string pj工作項目5 { get; set; }
+        public string pj成員6 { get; set; }
+        public string pj工作項目6 { get; set; }
     }
 }

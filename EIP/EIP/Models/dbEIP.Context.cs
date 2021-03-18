@@ -25,7 +25,6 @@ namespace EIP.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<eipProjectDetail> eipProjectDetail { get; set; }
         public virtual DbSet<MeetingRoom> MeetingRoom { get; set; }
         public virtual DbSet<MeetingRoomBooking> MeetingRoomBooking { get; set; }
         public virtual DbSet<pj建立> pj建立 { get; set; }
@@ -34,7 +33,6 @@ namespace EIP.Models
         public virtual DbSet<pj會議> pj會議 { get; set; }
         public virtual DbSet<pj團隊> pj團隊 { get; set; }
         public virtual DbSet<pj總表> pj總表 { get; set; }
-        public virtual DbSet<projectTeam> projectTeam { get; set; }
         public virtual DbSet<出差細項> 出差細項 { get; set; }
         public virtual DbSet<加班別> 加班別 { get; set; }
         public virtual DbSet<加班細項> 加班細項 { get; set; }

@@ -14,6 +14,12 @@ namespace EIP.Models
     
     public partial class pj建立
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public pj建立()
+        {
+            this.pj總表 = new HashSet<pj總表>();
+        }
+    
         public string pjCreateId { get; set; }
         public string pj簡介 { get; set; }
         public Nullable<decimal> pjBudget { get; set; }
@@ -22,5 +28,8 @@ namespace EIP.Models
         public string pj初審狀態 { get; set; }
         public string pj初審意見 { get; set; }
         public Nullable<int> pj持續時間 { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<pj總表> pj總表 { get; set; }
     }
 }
