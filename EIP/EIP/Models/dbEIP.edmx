@@ -264,6 +264,8 @@
           <Property Name="審核狀態" Type="nvarchar" MaxLength="50" />
           <Property Name="中文姓名" Type="nvarchar" MaxLength="50" />
           <Property Name="職稱" Type="nvarchar" MaxLength="50" />
+          <Property Name="圖片" Type="nvarchar(max)" />
+          <Property Name="已用可用" Type="int" />
         </EntityType>
         <Association Name="FK_projectTeam_eipProjectDetail">
           <End Role="eipProjectDetail" Type="Self.eipProjectDetail" Multiplicity="0..1" />
@@ -636,6 +638,8 @@
           <Property Name="審核狀態" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="中文姓名" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="職稱" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="圖片" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="已用可用" Type="Int32" />
           <NavigationProperty Name="假別" Relationship="dbEIPModel.FK_請假細項_假別" FromRole="請假細項" ToRole="假別" />
         </EntityType>
         <Association Name="FK_projectTeam_eipProjectDetail">
@@ -933,6 +937,8 @@
           <EntitySetMapping Name="請假細項">
             <EntityTypeMapping TypeName="dbEIPModel.請假細項">
               <MappingFragment StoreEntitySet="請假細項">
+                <ScalarProperty Name="已用可用" ColumnName="已用可用" />
+                <ScalarProperty Name="圖片" ColumnName="圖片" />
                 <ScalarProperty Name="職稱" ColumnName="職稱" />
                 <ScalarProperty Name="中文姓名" ColumnName="中文姓名" />
                 <ScalarProperty Name="審核狀態" ColumnName="審核狀態" />

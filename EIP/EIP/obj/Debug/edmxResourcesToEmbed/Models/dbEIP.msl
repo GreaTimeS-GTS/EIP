@@ -242,6 +242,8 @@
     <EntitySetMapping Name="請假細項">
       <EntityTypeMapping TypeName="dbEIPModel.請假細項">
         <MappingFragment StoreEntitySet="請假細項">
+          <ScalarProperty Name="已用可用" ColumnName="已用可用" />
+          <ScalarProperty Name="圖片" ColumnName="圖片" />
           <ScalarProperty Name="職稱" ColumnName="職稱" />
           <ScalarProperty Name="中文姓名" ColumnName="中文姓名" />
           <ScalarProperty Name="審核狀態" ColumnName="審核狀態" />

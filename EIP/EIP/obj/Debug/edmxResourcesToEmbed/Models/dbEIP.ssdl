@@ -259,6 +259,8 @@
     <Property Name="審核狀態" Type="nvarchar" MaxLength="50" />
     <Property Name="中文姓名" Type="nvarchar" MaxLength="50" />
     <Property Name="職稱" Type="nvarchar" MaxLength="50" />
+    <Property Name="圖片" Type="nvarchar(max)" />
+    <Property Name="已用可用" Type="int" />
   </EntityType>
   <Association Name="FK_projectTeam_eipProjectDetail">
     <End Role="eipProjectDetail" Type="Self.eipProjectDetail" Multiplicity="0..1" />

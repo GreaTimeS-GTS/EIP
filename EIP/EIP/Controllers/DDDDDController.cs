@@ -3,6 +3,7 @@ using EIP.Models.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -18,31 +19,38 @@ namespace EIP.Controllers
             return View();
         }
 
+        public string PhotoAjax(請假細項 inputdata, HttpPostedFileBase upPhoto)
+        {
+            string filePath = "";
+            if (upPhoto != null)
+            {
+                filePath = DateTime.Now.ToString("yyyyMMddhhmmss") + upPhoto.FileName;
+                upPhoto.SaveAs(Server.MapPath("~/images/") + filePath);
+            }
+
+            inputdata.圖片 = filePath;
+
+            db.請假細項.Add(inputdata);
+            db.SaveChanges();
+            return "Success";
+        }
+
         //=============================新增=============================//
         public ActionResult AskFor()
         {
             return View();
         }
-
-        public string AskForAjax(請假細項 k)  //
+        public string AskForAjax(請假細項 k, HttpPostedFileBase upPhoto)  //
         {
-            請假細項 a = new 請假細項()
+            string filePath = "";
+            if (upPhoto != null)
             {
-                EmployeeID = k.EmployeeID,
-                信箱 = k.信箱,
-                部門 = k.部門,
-                假別ID = k.假別ID,
-                請假時數 = (int)k.請假時數,
-                開始日期 = k.開始日期,
-                結束日期 = k.結束日期,
-                申請日期 = k.申請日期,
-                中文姓名 = k.中文姓名,
-                職稱 = k.職稱,
-                請假班別 = k.請假班別,
-                代理人 = k.代理人,
-                審核狀態 = k.審核狀態,
-            };
-            db.請假細項.Add(a);
+                filePath = DateTime.Now.ToString("yyyyMMddhhmmss") + upPhoto.FileName;
+                upPhoto.SaveAs(Server.MapPath("~/images/") + filePath);
+            }
+            k.圖片 = filePath;
+
+            db.請假細項.Add(k);
             db.SaveChanges();
             return "ok";
         }
@@ -192,7 +200,7 @@ namespace EIP.Controllers
         }
         public JsonResult OverTimeListAjax()
         {
-            var test = db.加班細項.Select(m => new 
+            var test = db.加班細項.Select(m => new
             {
                 加班表編號 = m.加班表編號,
                 EmployeeID = m.EmployeeID,
@@ -207,6 +215,9 @@ namespace EIP.Controllers
             });
             return Json(test, JsonRequestBehavior.AllowGet);
         }
+
+        //=============================刪除=============================//
+
         public JsonResult DeleteOverTimeData(int id)
         {
             var deletedata = db.加班細項.FirstOrDefault(m => m.加班表編號 == id);
@@ -274,5 +285,87 @@ namespace EIP.Controllers
             db.SaveChanges();
             return Json(ovtvm, JsonRequestBehavior.AllowGet);
         }
+
+        //=============================出差=============================//
+
+        public ActionResult BusinessTrip()  //新增
+        {
+            return View();
+        }
+        public JsonResult BusinessTripAjax(出差細項 y)
+        {
+            db.出差細項.Add(y);
+            db.SaveChanges();
+            return Json(y, JsonRequestBehavior.AllowGet);
+        }
+
+        //=============================出差總表=============================//
+
+        public ActionResult BusinessTripList()
+        {
+            return View();
+        }
+        public JsonResult BusinessTripListAjax()
+        {
+            var btla = db.出差細項.Select(x => new
+            {
+                x.出差表編號,
+                x.EmployeeID,
+                x.中文姓名,
+                x.部門,
+                x.出差類型,
+                x.出差地點,
+                x.開始日期,
+                x.結束日期,
+                x.交通需求,
+                x.住宿需求,
+                x.預支費用,
+                x.備註
+            });
+            return Json(btla, JsonRequestBehavior.AllowGet);
+        }
+
+        //=============================刪除=============================//
+
+        public JsonResult DeleteBusinessTrip(int? id)
+        {
+            var del = db.出差細項.FirstOrDefault(m => m.出差表編號 == id);
+            db.出差細項.Remove(del);
+            db.SaveChanges();
+            return Json(del, JsonRequestBehavior.AllowGet);
+        }
+
+        //=============================修改=============================//
+
+        public ActionResult UpdateBusinessTrip()
+        {
+            return View();
+        }
+        public JsonResult GetUpdateBusinessTripAjax(int? id)
+        {
+            var getupdatabusiness = db.出差細項.Select(k => new
+            {
+                k.出差表編號,
+                k.EmployeeID,
+                k.中文姓名,
+                k.部門,
+                k.出差類型,
+                k.出差地點,
+                k.開始日期,
+                k.結束日期,
+                k.交通需求,
+                k.住宿需求,
+                k.預支費用,
+                k.備註
+            }).FirstOrDefault(C => C.出差表編號 == id); 
+            return Json(getupdatabusiness, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult UpdateBusinessTripAjax(出差細項 updatebusiness)
+        {
+            db.Entry<出差細項>(updatebusiness).State = EntityState.Modified;  //自動比對主索引鍵並覆蓋
+            db.SaveChanges();
+            return Json(updatebusiness, JsonRequestBehavior.AllowGet);
+        }
     }
+
 }
