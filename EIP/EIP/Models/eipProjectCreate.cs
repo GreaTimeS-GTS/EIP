@@ -12,8 +12,13 @@ namespace EIP.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class pj結案
+    public partial class eipProjectCreate
     {
-        public string pjFinalReport { get; set; }
+        public int pj_ { get; set; }
+        public string pjId { get; set; }
+        public string pjTeam { get; set; }
+    
+        public virtual eipProjectDetail eipProjectDetail { get; set; }
+        public virtual projectTeam projectTeam { get; set; }
     }
 }

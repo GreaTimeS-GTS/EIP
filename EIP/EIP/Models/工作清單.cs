@@ -12,8 +12,15 @@ namespace EIP.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class pj結案
+    public partial class 工作清單
     {
-        public string pjFinalReport { get; set; }
+        public int EmployeeID { get; set; }
+        public string 專案歸類 { get; set; }
+        public string 重要性 { get; set; }
+        public string 事項名稱 { get; set; }
+        public string 回報狀況 { get; set; }
+        public string 完成度 { get; set; }
+        public string 交辦人 { get; set; }
+        public string 完成日 { get; set; }
     }
 }

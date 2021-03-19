@@ -14,15 +14,6 @@ namespace EIP.Models
     
     public partial class pj會議
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public pj會議()
-        {
-            this.pj總表 = new HashSet<pj總表>();
-        }
-    
         public string pjMeeting { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<pj總表> pj總表 { get; set; }
     }
 }

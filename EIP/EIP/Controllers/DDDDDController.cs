@@ -109,12 +109,12 @@ namespace EIP.Controllers
         //    return Json(mm, JsonRequestBehavior.AllowGet);
         //}
         //=============================刪除=============================//
-        public string DeleteData(int id)
+        public JsonResult DeleteData(int id)
         {
             var deleteuser = db.請假細項.FirstOrDefault(m => m.EmployeeID == id);
             db.請假細項.Remove(deleteuser);
             db.SaveChanges();
-            return "ok";
+            return Json(deleteuser, JsonRequestBehavior.AllowGet);
         }
         //=============================修改=============================//
         public ActionResult UpdateData()

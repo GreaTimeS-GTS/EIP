@@ -12,32 +12,17 @@ namespace EIP.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class 個人資料
+    public partial class empInfo
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public 個人資料()
+        public empInfo()
         {
             this.projectTeam = new HashSet<projectTeam>();
         }
     
-        public int EmployeeID { get; set; }
-        public string EmployeePW { get; set; }
-        public string 受雇日期 { get; set; }
-        public string 中文姓名 { get; set; }
-        public string 英文姓名 { get; set; }
-        public string 職稱 { get; set; }
-        public string 狀態 { get; set; }
-        public string 部門 { get; set; }
-        public string 性別 { get; set; }
-        public string 出生年月日 { get; set; }
-        public string 信箱 { get; set; }
-        public string 電話 { get; set; }
-        public string 居住地 { get; set; }
-        public string 婚姻狀況 { get; set; }
-        public string 年資 { get; set; }
-        public string 薪資 { get; set; }
-        public string 特休 { get; set; }
-        public string 權限 { get; set; }
+        public int employeeID { get; set; }
+        public string employeenName { get; set; }
+        public Nullable<int> employee權限 { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<projectTeam> projectTeam { get; set; }

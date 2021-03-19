@@ -47,7 +47,7 @@ namespace EIP.Models.ViewModel
         [DisplayName("特休")]
         public string 特休 { get; set; }
         [DisplayName("權限")]
-        public string 權限 { get; set; }
+        public int 權限 { get; set; }
         public bool RememberMe { get; set; }
     }
 }

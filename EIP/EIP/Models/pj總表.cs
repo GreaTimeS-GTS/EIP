@@ -21,10 +21,5 @@ namespace EIP.Models
         public string pjPlannedAndControl { get; set; }
         public string pjMeeting { get; set; }
         public string pjFinalReport { get; set; }
-    
-        public virtual pj建立 pj建立 { get; set; }
-        public virtual pj控管 pj控管 { get; set; }
-        public virtual pj結案 pj結案 { get; set; }
-        public virtual pj會議 pj會議 { get; set; }
     }
 }

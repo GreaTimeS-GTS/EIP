@@ -22,8 +22,6 @@ namespace EIP.Models.ViewModel
         public string 中文姓名 { get; set; }
         public string 職稱 { get; set; }
         public string 假別1 { get; set; }
-        public string 圖片 { get; set; }
-        public Nullable<int> 已用可用 { get; set; }
-        public HttpPostedFileBase upPhoto { get; set; }
+
     }
 }

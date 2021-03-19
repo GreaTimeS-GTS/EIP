@@ -65,11 +65,10 @@
           <Property Name="pj初審意見" Type="nvarchar" MaxLength="50" />
           <Property Name="pj持續時間" Type="int" />
         </EntityType>
+        <!--產生期間發現錯誤:
+警告 6013: 資料表/檢視 'dbEIP.dbo.pj控管' 未定義主索引鍵，也無法推斷有效的主索引鍵。此資料表/檢視已被排除。如果要使用此實體，您必須檢閱您的結構描述，加入正確的索引鍵，並將它取消註解。
         <EntityType Name="pj控管">
-          <Key>
-            <PropertyRef Name="pjPlannedAndControl" />
-          </Key>
-          <Property Name="pjPlannedAndControl" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="pjPlannedAndControl" Type="nvarchar" MaxLength="50" />
           <Property Name="pjStartDate" Type="date" />
           <Property Name="pjEndDate" Type="date" />
           <Property Name="pjGoal" Type="nvarchar" MaxLength="50" />
@@ -86,7 +85,7 @@
           <Property Name="pjAuthorization" Type="nvarchar" MaxLength="50" />
           <Property Name="pjWorstCaseScenario" Type="nvarchar" MaxLength="50" />
           <Property Name="pjGoOrNogo" Type="nvarchar" MaxLength="50" />
-        </EntityType>
+        </EntityType>-->
         <EntityType Name="pj結案">
           <Key>
             <PropertyRef Name="pjFinalReport" />
@@ -140,7 +139,7 @@
           <Key>
             <PropertyRef Name="出差表編號" />
           </Key>
-          <Property Name="出差表編號" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="出差表編號" Type="int" Nullable="false" />
           <Property Name="EmployeeID" Type="int" Nullable="false" />
           <Property Name="中文姓名" Type="nvarchar" MaxLength="50" />
           <Property Name="部門" Type="nvarchar" MaxLength="50" />
@@ -321,7 +320,6 @@
           <EntitySet Name="MeetingRoom" EntityType="Self.MeetingRoom" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MeetingRoomBooking" EntityType="Self.MeetingRoomBooking" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="pj建立" EntityType="Self.pj建立" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="pj控管" EntityType="Self.pj控管" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="pj結案" EntityType="Self.pj結案" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="pj會議" EntityType="Self.pj會議" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="pj團隊" EntityType="Self.pj團隊" Schema="dbo" store:Type="Tables" />
@@ -358,12 +356,11 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="dbEIPModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityContainer Name="dbEIPEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="dbEIPEntities" annotation:LazyLoadingEnabled="false">
           <EntitySet Name="eipProjectDetail" EntityType="dbEIPModel.eipProjectDetail" />
           <EntitySet Name="MeetingRoom" EntityType="dbEIPModel.MeetingRoom" />
           <EntitySet Name="MeetingRoomBooking" EntityType="dbEIPModel.MeetingRoomBooking" />
           <EntitySet Name="pj建立" EntityType="dbEIPModel.pj建立" />
-          <EntitySet Name="pj控管" EntityType="dbEIPModel.pj控管" />
           <EntitySet Name="pj結案" EntityType="dbEIPModel.pj結案" />
           <EntitySet Name="pj會議" EntityType="dbEIPModel.pj會議" />
           <EntitySet Name="pj團隊" EntityType="dbEIPModel.pj團隊" />
@@ -457,28 +454,6 @@
           <Property Name="pj初審意見" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="pj持續時間" Type="Int32" />
         </EntityType>
-        <EntityType Name="pj控管">
-          <Key>
-            <PropertyRef Name="pjPlannedAndControl" />
-          </Key>
-          <Property Name="pjPlannedAndControl" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="pjStartDate" Type="DateTime" Precision="0" />
-          <Property Name="pjEndDate" Type="DateTime" Precision="0" />
-          <Property Name="pjGoal" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="pjIntput" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="pjActionItem" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="pjDuration" Type="Int32" />
-          <Property Name="pjTarget" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="pjFixedDuration" Type="Int32" />
-          <Property Name="pjEstimation" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="pjLag" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="pjObjective" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="pjHandOver" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="pjIssueLog" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="pjAuthorization" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="pjWorstCaseScenario" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="pjGoOrNogo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-        </EntityType>
         <EntityType Name="pj結案">
           <Key>
             <PropertyRef Name="pjFinalReport" />
@@ -534,7 +509,7 @@
           <Key>
             <PropertyRef Name="出差表編號" />
           </Key>
-          <Property Name="出差表編號" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="出差表編號" Type="Int32" Nullable="false" />
           <Property Name="EmployeeID" Type="Int32" Nullable="false" />
           <Property Name="中文姓名" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="部門" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -782,29 +757,6 @@
                 <ScalarProperty Name="pjBudget" ColumnName="pjBudget" />
                 <ScalarProperty Name="pj簡介" ColumnName="pj簡介" />
                 <ScalarProperty Name="pjCreateId" ColumnName="pjCreateId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="pj控管">
-            <EntityTypeMapping TypeName="dbEIPModel.pj控管">
-              <MappingFragment StoreEntitySet="pj控管">
-                <ScalarProperty Name="pjGoOrNogo" ColumnName="pjGoOrNogo" />
-                <ScalarProperty Name="pjWorstCaseScenario" ColumnName="pjWorstCaseScenario" />
-                <ScalarProperty Name="pjAuthorization" ColumnName="pjAuthorization" />
-                <ScalarProperty Name="pjIssueLog" ColumnName="pjIssueLog" />
-                <ScalarProperty Name="pjHandOver" ColumnName="pjHandOver" />
-                <ScalarProperty Name="pjObjective" ColumnName="pjObjective" />
-                <ScalarProperty Name="pjLag" ColumnName="pjLag" />
-                <ScalarProperty Name="pjEstimation" ColumnName="pjEstimation" />
-                <ScalarProperty Name="pjFixedDuration" ColumnName="pjFixedDuration" />
-                <ScalarProperty Name="pjTarget" ColumnName="pjTarget" />
-                <ScalarProperty Name="pjDuration" ColumnName="pjDuration" />
-                <ScalarProperty Name="pjActionItem" ColumnName="pjActionItem" />
-                <ScalarProperty Name="pjIntput" ColumnName="pjIntput" />
-                <ScalarProperty Name="pjGoal" ColumnName="pjGoal" />
-                <ScalarProperty Name="pjEndDate" ColumnName="pjEndDate" />
-                <ScalarProperty Name="pjStartDate" ColumnName="pjStartDate" />
-                <ScalarProperty Name="pjPlannedAndControl" ColumnName="pjPlannedAndControl" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
