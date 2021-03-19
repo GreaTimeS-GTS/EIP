@@ -591,7 +591,7 @@
         //動態bind事件的話要用on事先綁定父層
 
         $(".arrowborn").on('click', '.firstbtn', function () {
-            $(".currentpage").html(`當前頁面：${$(this).attr("value")}`);
+              $(".currentpage").html(`當前頁面：${$(this).attr("value")}`);
 
             if (page_num == SliceTotal) {
                 $(".firstbtn").attr('value', currentpage = page_num - 2);
