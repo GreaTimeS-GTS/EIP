@@ -62,18 +62,17 @@
     <div class="tab-content" id="nav-tabContent">
         <div class="tab-pane fade  show active TotalWrap" id="nav-Add">
 
-            <form class="ui form px-5 pb-3 pt-5" id="AddEMPForm">
-                <h4 class="ui dividing header">新進員工註冊</h4>
+            <form class="ui form px-5 pb-3 pt-5 font-weight-bolder" id="AddEMPForm">
                 <input type="hidden" class="addempid" />
                 <div class="field">
                     <div class="two fields">
                         <div class="eight wide field">
-                            <label class="">員工帳號／信箱：</label>
-                            <input type="text" class="addemail w-100" placeholder="E-mail" />
+                            <label class="formlbl">員工帳號／信箱：</label>
+                            <input type="text" class="addemail w-100 formlbl" placeholder="E-mail" />
                         </div>
                         <div class="eight wide field">
-                            <label class="">員工密碼：</label>
-                            <input type="text" class="addpw" placeholder="Password" />
+                            <label class="formlbl">員工密碼：</label>
+                            <input type="text" class="addpw formlbl" placeholder="Password"/>
                         </div>
                     </div>
                 </div>
@@ -81,37 +80,36 @@
                 <div class="field">
                     <div class="three fields">
                         <div class="five wide field">
-                            <label>中文姓名：</label>
-                            <input type="text" class="addch" placeholder="Chinese-Name" />
+                            <label class="formlbl">中文姓名：</label>
+                            <input type="text" class="addch formlbl" placeholder="Chinese-Name" />
                         </div>
                         <div class="five wide field">
-                            <label>英文姓名：</label>
-                            <input type="text" class="adden" placeholder="English-Name" />
+                            <label class="formlbl">英文姓名：</label>
+                            <input type="text" class="adden formlbl" placeholder="English-Name" />
                         </div>
                         <div class="six wide field">
-                            <label>電話：</label>
-                            <input type="text" class="addphone" placeholder="Phone" />
+                            <label class="formlbl">電話：</label>
+                            <input type="text" class="addphone formlbl" placeholder="Phone" />
                         </div>
                     </div>
                 </div>
-
                 <div class="field">
                     <div class="three fields">
                         <div class="five wide field">
-                            <label>性別：</label>
-                            <select class="addsex">
+                            <label class="formlbl">性別：</label>
+                            <select class="addsex formlbl">
                                 <option value="性別" disabled selected>性別</option>
                                 <option value="男">男</option>
                                 <option value="女">女</option>
                             </select>
                         </div>
                         <div class="five wide field">
-                            <label>出生年月日：</label>
-                            <input type="text" class="addbirth"placeholder="Birth" />
+                            <label class="formlbl">出生年月日：</label>
+                            <input type="text" class="addbirth formlbl"placeholder="Birth" />
                         </div>
                         <div class="six wide field">
-                            <label>婚姻狀況：</label>
-                            <select class="addmerry">
+                            <label class="formlbl">婚姻狀況：</label>
+                            <select class="addmerry formlbl">
                                 <option value="婚姻狀況" disabled selected>婚姻狀況</option>
                                 <option value="已婚">已婚</option>
                                 <option value="未婚">未婚</option>
@@ -120,27 +118,27 @@
                     </div>
                 </div>
                 <div class="field">
-                    <label>居住地：</label>
-                    <input type="text" class="addlive" hidden />
+                    <label class="formlbl">居住地：</label>
+                    <input type="text" class="addlive formlbl" hidden />
 
                     <div class="CitySelect d-flex">
                         <div class="mt-2 mb-3">
-                            <select class="county"></select>
+                            <select class="county formlbl"></select>
                         </div>
                         <div class="ml-3 mt-2 mb-3">
-                            <select class="district"></select>
+                            <select class="district formlbl"></select>
                         </div>
                         <div class="ml-3 mt-2 mb-3">
-                            <input type="text" readonly class="zipcode">
+                            <input type="text" readonly class="zipcode formlbl">
                         </div>
                     </div>
-                    <input type="text" class="live" placeholder="Address">
+                    <input type="text" class="live formlbl" placeholder="Address">
                 </div>
                 <div class="field">
                     <div class="four fields">
                         <div class="four wide field">
-                            <label>部門：</label>
-                            <select class="addpart">
+                            <label class="formlbl">部門：</label>
+                            <select class="addpart formlbl">
                                 <option value="部門" disabled selected>部門</option>
                                 <option value="財務部">財務部</option>
                                 <option value="總務部">總務部</option>
@@ -149,8 +147,8 @@
                             </select>
                         </div>
                         <div class="four wide field">
-                            <label>職稱：</label>
-                            <select class="addjob">
+                            <label class="formlbl">職稱：</label>
+                            <select class="addjob formlbl">
                                 <option value="職稱" disabled selected>職稱</option>
                                 <option value="總經理">總經理</option>
                                 <option value="主管">主管</option>
@@ -159,12 +157,12 @@
                             </select>
                         </div>
                         <div class="four wide field">
-                            <label>受雇日期：</label>
-                            <input type="datetime-local" class="addhire" />
+                            <label class="formlbl">受雇日期：</label>
+                            <input type="text" class="addhire formlbl" placeholder="Date" />
                         </div>
                         <div class="four wide field">
-                            <label>在職狀態：</label>
-                            <select class="addstatus form-control shadow-sm">
+                            <label class="formlbl">在職狀態：</label>
+                            <select class="addstatus form-control shadow-sm formlbl">
                                 <option value="在職狀況" disabled selected>在職狀況</option>
                                 <option value="在職">在職</option>
                                 <option value="離職">離職</option>
@@ -177,12 +175,12 @@
                 <div class="field">
                     <div class="two fields">
                         <div class="field">
-                            <label>薪資：</label>
-                            <input type="text" class="addpayment form-control shadow-sm" placeholder="$"/>
+                            <label class="formlbl">薪資：</label>
+                            <input type="text" class="addpayment  formlbl" placeholder="$"/>
                         </div>
                         <div class="field">
-                            <label>特休：</label>
-                            <input type="text" class="addspvaction form-control shadow-sm"placeholder="days"/>
+                            <label class="formlbl">特休：</label>
+                            <input type="text" class="addspvaction formlbl"placeholder="days"/>
                         </div>
                     </div>
                 </div>
