@@ -19,17 +19,19 @@
     @Scripts.Render("~/bundles/modernizr")
 
     <style>
-            body {
-                padding: 0;
-                background-color: #C4E1FF;
-                font-weight: bolder;
-            }
+        body {
+            padding: 0;
+            background-color: #C4E1FF;
+            font-weight: bolder;
+        }
 
             .AlertBell {
                 margin-left: -200px;
             }
-
-            /*.fade {
+        select {
+        max-width:100%;
+        }
+        /*.fade {
                 opacity: 1;
             }
 
@@ -48,12 +50,11 @@
 
             .pointer {
                 cursor: pointer;*/ /*如果想要用手指效果就+這個class*/
-            /*}*/
-
-            /*以下是SweetAlert2的套件樣式*/
-            .searchbox {
-                outline: none;
-            }
+        /*}*/
+        /*以下是SweetAlert2的套件樣式*/
+        .searchbox {
+            outline: none;
+        }
 
             .modalbody {
                 background-color: #F0F0F0;
@@ -95,7 +96,7 @@
             }
 
             input, textarea {
-                max-width: 500px;
+                max-width: 100%;
             }
 
 
@@ -287,7 +288,7 @@
             </span>
         </div>
     </nav>
-    <div class="container body-content">
+    <div class="container body-content" style="max-width:1600px;">
         @RenderBody()
         @*======================================Yuanu加班進入Model======================================*@
 
@@ -535,54 +536,54 @@
                                               <div>
             <div>
                 <label>中文姓名:</label>
-                <input type="text" class="w-100" value="${data.中文姓名}">
+                <input type="text" class="w-100" value="${data.中文姓名}"disabled>
             </div>
             <div>
-                <label>英文姓名:</label>
-                <input type="text" class="w-100" value="${data.英文姓名}">
+                <label class="mt-2">英文姓名:</label>
+                <input type="text" class="w-100" value="${data.英文姓名}"disabled>
             </div>
             <div>
-                <label>性別：</label>
-                <select disabled>
+                <label class="mt-2">性別：</label>
+                <select disabled class="ml-2 mt-2">
                     <option value="性別" selected>${data.性別}</option>
                 </select>
             </div>
             <div>
                 <div>
-                    <label>出生年月日:</label>
-                    <input type="" id="birth" class="w-100" value="${data.出生年月日}">
+                    <label class="mt-2">出生年月日:</label>
+                    <input type="" id="birth" class="w-100" value="${data.出生年月日}"disabled>
                 </div>
                 <div>
-                    <label>婚姻狀況:</label>
-                    <input type="text" class="w-100" value="${data.婚姻狀況}">
+                    <label class="mt-2">婚姻狀況:</label>
+                    <input type="text" class="w-100" value="${data.婚姻狀況}"disabled>
                 </div>
                 <div>
-                    <label>居住地:</label>
-                    <input type="text" class="w-100" value="${data.居住地}">
+                    <label class="mt-2">居住地:</label>
+                    <input type="text" class="w-100" value="${data.居住地}"disabled>
                 </div>
                 <div>
-                    <label>電話：</label>
-                    <input type="text" class="w-100" value="${data.電話}">
+                    <label class="mt-2">電話：</label>
+                    <input type="text" class="w-100" value="${data.電話}"disabled>
                 </div>
                 <div>
-                    <label>受雇日期:</label>
-                    <input type="text" class="w-100" value="${data.受雇日期}" disabled>
+                    <label class="mt-2">受雇日期:</label>
+                    <input type="text" class="w-100" value="${data.受雇日期}"disabled>
                 </div>
                 <div>
-                    <label>部門:</label>
-                    <input type="text" class="w-100" value="${data.部門}">
+                    <label class="mt-2">部門:</label>
+                    <input type="text" class="w-100" value="${data.部門}" disabled>
                 </div>
                 <div>
-                    <label>職稱:</label>
-                    <input type="text" class="w-100" value="${data.職稱}">
+                    <label class="mt-2">職稱:</label>
+                    <input type="text" class="w-100" value="${data.職稱}"disabled>
                 </div>
                 <div>
-                    <label>特休:</label>
-                    <input type="text" class="w-100" value="${data.特休}">
+                    <label class="mt-2">特休:</label>
+                    <input type="text" class="w-100" value="${data.特休}"disabled>
                 </div>
                 <div>
-                    <label>薪資:</label>
-                    <input type="text" class="w-100" value="${data.薪資}">
+                    <label class="mt-2">薪資:</label>
+                    <input type="text" class="w-100" value="${data.薪資}"disabled>
                 </div>
             </div>
         </div>`);

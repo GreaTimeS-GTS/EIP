@@ -53,186 +53,201 @@
 
 @*------------------------------TAB分頁標籤起始------------------------------*@
 
-<nav class="mt-5 navtitle ">
+<nav class="mt-5 navtitle">
 
 </nav>
 @*------------------------------TAB分頁標籤結束------------------------------*@
 
 @*------------------------------新增員工資訊起始------------------------------*@
-<div class="tab-content" id="nav-tabContent">
-    <div class="tab-pane fade  show active w-100 h-100 TotalWrap" id="nav-Add">
-        <form id="AddEMPForm" enctype="multipart/form-data">
-            <div class="d-flex justify-content-center flex-wrap">
-                <div class="mx-auto mt-3 col-12 col-sm-12 col-md-6 col-lg-2">
-                    <div class="form-group">
-                        <input type="hidden" class="addempid" />
-                        <label class="">員工帳號／信箱：</label>
-                        <input type="text" class="addemail form-control shadow-sm" />
-                    </div>
-                    <div class="form-group">
-                        <label class="">員工密碼</label>
-                        <input type="text" class="addpw form-control shadow-sm" />
-                    </div>
-                    <div class="form-group">
-                        <label>受雇日期：</label>
-                        <input type="text" class="addhire form-control shadow-sm" />
-                    </div>
-                    <div class="form-group">
-                        <label>中文姓名：</label>
-                        <input type="text" class="addch form-control shadow-sm" />
-                    </div>
-                    <div class="form-group">
-                        <label>英文姓名：</label>
-                        <input type="text" class="adden form-control shadow-sm" />
-                    </div>
+    <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade  show active TotalWrap" id="nav-Add">
 
-                </div>
-                <div class="mx-auto mt-3 col-12 col-sm-12 col-md-6 col-lg-2">
-                    <div class="form-group">
-                        <label>出生年月日：</label>
-                        <input type="text" class="addbirth form-control shadow-sm" />
-                    </div>
-                    <div class="form-group">
-                        <label>部門：</label>
-                        <input type="text" class="addpart form-control shadow-sm" />
-                    </div>
-                    <div class="form-group">
-                        <label>職稱：</label>
-                        <select class="addjob form-control shadow-sm">
-                            <option value="職稱" disabled selected>職稱</option>
-                            <option value="主管">主管</option>
-                            <option value="員工">員工</option>
-                            <option value="人事">人事</option>
-                        </select>
-                    </div>
-
-
-                    <div class="form-group">
-                        <label>電話：</label>
-                        <input type="text" class="addphone form-control shadow-sm" />
-                    </div>
-                    <div class="form-group">
-                        <label>居住地：</label>
-                        <input type="text" class="addlive" hidden />
-
-                        <div class="CitySelect d-flex">
-                            <div>
-                                <select class="county"></select>
-                            </div>
-                            <div>
-                                <select class="district"></select>
-                            </div>
-                            <div>
-                                <input type="text" readonly class="zipcode">
-                            </div>
+            <form class="ui form px-5 pb-3 pt-5" id="AddEMPForm">
+                <h4 class="ui dividing header">新進員工註冊</h4>
+                <input type="hidden" class="addempid" />
+                <div class="field">
+                    <div class="two fields">
+                        <div class="eight wide field">
+                            <label class="">員工帳號／信箱：</label>
+                            <input type="text" class="addemail w-100" placeholder="E-mail" />
                         </div>
-                        <input type="text" class="live">
-                    </div>
-
-
-                </div>
-                <div class="mx-auto mt-3  col-12 col-sm-12 col-md-6 col-lg-2">
-                    <div class="form-group">
-                        <label>性別：</label>
-                        <select class="addsex form-control shadow-sm">
-                            <option value="性別" disabled selected>性別</option>
-                            <option value="男">男</option>
-                            <option value="女">女</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>婚姻狀況：</label>
-                        <select class="addmerry form-control shadow-sm">
-                            <option value="婚姻狀況" disabled selected>婚姻狀況</option>
-                            <option value="已婚">已婚</option>
-                            <option value="未婚">未婚</option>
-                        </select>
-
-                    </div>
-                    <div class="form-group">
-                        <label>薪資：</label>
-                        <input type="text" class="addpayment form-control shadow-sm" />
-                    </div>
-                    <div class="form-group">
-                        <label>特休：</label>
-                        <input type="text" class="addspvaction form-control shadow-sm" />
-                    </div>
-
-                    <div class="form-group">
-                        <label>在職狀態：</label>
-                        <select class="addstatus form-control shadow-sm">
-                            <option value="在職狀況" disabled selected>在職狀況</option>
-                            <option value="在職">在職</option>
-                            <option value="離職">離職</option>
-                            <option value="未到職">未到職</option>
-                            <option value="留職停薪">留職停薪</option>
-                        </select>
-                    </div>
-                    <div class="mt-5">
-                        <div class="form-group">
-                            <input type="button" class="btn btn-primary w-100 AddEMP shadow-sm " value="確認送出" />
-                            <input type="reset" class="resetform" hidden />
+                        <div class="eight wide field">
+                            <label class="">員工密碼：</label>
+                            <input type="text" class="addpw" placeholder="Password" />
                         </div>
                     </div>
                 </div>
+
+                <div class="field">
+                    <div class="three fields">
+                        <div class="five wide field">
+                            <label>中文姓名：</label>
+                            <input type="text" class="addch" placeholder="Chinese-Name" />
+                        </div>
+                        <div class="five wide field">
+                            <label>英文姓名：</label>
+                            <input type="text" class="adden" placeholder="English-Name" />
+                        </div>
+                        <div class="six wide field">
+                            <label>電話：</label>
+                            <input type="text" class="addphone" placeholder="Phone" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <div class="three fields">
+                        <div class="five wide field">
+                            <label>性別：</label>
+                            <select class="addsex">
+                                <option value="性別" disabled selected>性別</option>
+                                <option value="男">男</option>
+                                <option value="女">女</option>
+                            </select>
+                        </div>
+                        <div class="five wide field">
+                            <label>出生年月日：</label>
+                            <input type="text" class="addbirth"placeholder="Birth" />
+                        </div>
+                        <div class="six wide field">
+                            <label>婚姻狀況：</label>
+                            <select class="addmerry">
+                                <option value="婚姻狀況" disabled selected>婚姻狀況</option>
+                                <option value="已婚">已婚</option>
+                                <option value="未婚">未婚</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="field">
+                    <label>居住地：</label>
+                    <input type="text" class="addlive" hidden />
+
+                    <div class="CitySelect d-flex">
+                        <div class="mt-2 mb-3">
+                            <select class="county"></select>
+                        </div>
+                        <div class="ml-3 mt-2 mb-3">
+                            <select class="district"></select>
+                        </div>
+                        <div class="ml-3 mt-2 mb-3">
+                            <input type="text" readonly class="zipcode">
+                        </div>
+                    </div>
+                    <input type="text" class="live" placeholder="Address">
+                </div>
+                <div class="field">
+                    <div class="four fields">
+                        <div class="four wide field">
+                            <label>部門：</label>
+                            <select class="addpart">
+                                <option value="部門" disabled selected>部門</option>
+                                <option value="財務部">財務部</option>
+                                <option value="總務部">總務部</option>
+                                <option value="人事部">人事部</option>
+                                <option value="業務部">業務部</option>
+                            </select>
+                        </div>
+                        <div class="four wide field">
+                            <label>職稱：</label>
+                            <select class="addjob">
+                                <option value="職稱" disabled selected>職稱</option>
+                                <option value="總經理">總經理</option>
+                                <option value="主管">主管</option>
+                                <option value="員工">員工</option>
+                                <option value="人事">人事</option>
+                            </select>
+                        </div>
+                        <div class="four wide field">
+                            <label>受雇日期：</label>
+                            <input type="datetime-local" class="addhire" />
+                        </div>
+                        <div class="four wide field">
+                            <label>在職狀態：</label>
+                            <select class="addstatus form-control shadow-sm">
+                                <option value="在職狀況" disabled selected>在職狀況</option>
+                                <option value="在職">在職</option>
+                                <option value="離職">離職</option>
+                                <option value="未到職">未到職</option>
+                                <option value="留職停薪">留職停薪</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="two fields">
+                        <div class="field">
+                            <label>薪資：</label>
+                            <input type="text" class="addpayment form-control shadow-sm" placeholder="$"/>
+                        </div>
+                        <div class="field">
+                            <label>特休：</label>
+                            <input type="text" class="addspvaction form-control shadow-sm"placeholder="days"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="field d-flex justify-content-center">
+                    <div class="AddEMP w-25 ui primary button">
+                        <i class="icon user"></i>
+                        確認送出
+                    </div>
+                    <input type="reset" class="resetform" hidden />
+                </div>
+            </form>
+
+
+            @*------------------------------新增員工資訊結束------------------------------*@
+        </div>
+        <div class="tab-pane fade" id="nav-Show">
+            <div class="overflow-auto">
+                @*------------------------------員工資訊總表起始------------------------------*@
+                <table class="table text-dark fade show bg-white table-hover text-nowrap table-borderless TotalWrap">
+                    <thead>
+                        <tr>
+                            <th class="">員工編號</th>
+                            <th class="">信箱</th>
+                            <th class="">中文姓名</th>
+                            <th class="">性別</th>
+                            <th class="">聯絡電話</th>
+                            <th class="">部門</th>
+                            <th>編輯</th>
+                            <th>刪除</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbodyadd">
+                    </tbody>
+                </table>
+                @*------------------------------員工資訊總表結束------------------------------*@
+                @*------------------------------分頁按鈕起始------------------------------*@
+
+                <div class="d-flex justify-content-center">
+                    <div id="PageNumber"></div>
+                </div>
+                @*------------------------------分頁按鈕結束------------------------------*@
             </div>
+        </div>
+        @*------------------------------編輯個人資訊起始------------------------------*@
+        <div class="modal fade" id="EditProfile" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title FormTextShadow" id="exampleModalLabel">編輯員工資訊</h5>
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form class="EditUserProfile"></form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary editsave" data-dismiss="modal">確認修改</button>
+                        <button type="button" class="btn btn-secondary ClearModal" data-dismiss="modal">Close</button>
+                    </div>
 
-        </form>
-
-        @*------------------------------新增員工資訊結束------------------------------*@
-
-    </div>
-    <div class="tab-pane fade" id="nav-Show">
-        <div class="overflow-auto">
-            @*------------------------------員工資訊總表起始------------------------------*@
-            <table class="table text-dark fade show bg-white table-hover text-nowrap table-borderless TotalWrap">
-                <thead>
-                    <tr>
-                        <th class="">員工編號</th>
-                        <th class="">信箱</th>
-                        <th class="">中文姓名</th>
-                        <th class="">性別</th>
-                        <th class="">聯絡電話</th>
-                        <th class="">部門</th>
-                        <th>編輯</th>
-                        <th>刪除</th>
-                    </tr>
-                </thead>
-                <tbody id="tbodyadd">
-                </tbody>
-            </table>
-            @*------------------------------員工資訊總表結束------------------------------*@
-            @*------------------------------分頁按鈕起始------------------------------*@
-
-            <div class="d-flex justify-content-center">
-                <div id="PageNumber"></div>
-
+                </div>
             </div>
-            @*------------------------------分頁按鈕結束------------------------------*@
         </div>
     </div>
-    @*------------------------------編輯個人資訊起始------------------------------*@
-    <div class="modal fade" id="EditProfile" tabindex="-1" role="dialog">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title FormTextShadow" id="exampleModalLabel">編輯員工資訊</h5>
-                    <button type="button" class="close" data-dismiss="modal">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form class="EditUserProfile"></form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary editsave" data-dismiss="modal">確認修改</button>
-                    <button type="button" class="btn btn-secondary ClearModal" data-dismiss="modal">Close</button>
-                </div>
-
-            </div>
-        </div>
-    </div>
-</div>
 @*------------------------------編輯個人資訊結束------------------------------*@
 
 @section script{
@@ -604,7 +619,7 @@
                 success: function (data) {
                     TotalEMP = data[0].總比數;
                     $(".navtitle").html(
-                        `  <div class="nav nav-tabs font-weight-bolder d-flex" id="nav-tab">
+                        `  <div class="nav nav-tabs font-weight-bolder d-flex w-100 " id="nav-tab">
                                                                         <a class="col-xl-2 col-lg-3 col-md-4 col-sm-12 text-center nav-item nav-link active text-dark" id="nav-home-tab" data-toggle="tab" href="#nav-Add">新進同仁註冊</a>
                                                                         <a class="col-xl-2 col-lg-3 col-md-4 col-sm-12 text-center nav-item nav-link  text-dark" id="nav-profile-tab" data-toggle="tab" href="#nav-Show">顯示所有員工資訊</a>
                                                                         <p class="col-xl-2 col-lg-3 col-md-4 col-sm-12 text-center text-dark pt-2 TotalEMP ml-auto bg-white px-2">員工總人數：${TotalEMP}</p>
