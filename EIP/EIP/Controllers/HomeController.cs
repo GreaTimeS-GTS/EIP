@@ -144,9 +144,9 @@ namespace EIP.Controllers
         public JsonResult HREditt(int id)
         {
             個人資料 EditProfile = db.個人資料.Find(id);
-            var MVM = new 
+            var MVM = new
             {
-               
+
                 EmployeePW = EditProfile.EmployeePW,
                 中文姓名 = EditProfile.中文姓名,
                 英文姓名 = EditProfile.英文姓名,
@@ -162,8 +162,8 @@ namespace EIP.Controllers
                 婚姻狀況 = EditProfile.婚姻狀況,
                 特休 = EditProfile.特休,
                 薪資 = EditProfile.薪資,
-                權限 = EditProfile.權限,
-              
+                權限 = EditProfile.權限,       
+                狀態 =EditProfile.狀態,
             };
             return Json(MVM, JsonRequestBehavior.AllowGet);
         }
@@ -189,7 +189,8 @@ namespace EIP.Controllers
                 婚姻狀況 = mlvm.婚姻狀況,
                 特休 = mlvm.特休,
                 薪資 = mlvm.薪資,
-                權限 = mlvm.權限
+                權限 = mlvm.權限,
+                狀態 = mlvm.狀態
             };
             db.Entry<個人資料>(mmb).State = EntityState.Modified;
             db.SaveChanges();

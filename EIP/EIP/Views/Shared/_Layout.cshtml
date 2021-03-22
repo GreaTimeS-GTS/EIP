@@ -24,10 +24,9 @@
             background-color: #E0E0E0;
             font-weight: bolder;
         }
-
-            .AlertBell {
-                margin-left: -200px;
-            }
+         .AlertBell {
+            margin-left: -200px;
+        }
         select {
         max-width:100%;
         }
@@ -208,8 +207,9 @@
             }
         .TitleImg {
         width:200px;
-        height:50px;
+        height:60px;
         }
+        /*互動式視窗置中*/
         #UserProfile {
             height: auto;
             top: auto;
@@ -218,15 +218,24 @@
             right: auto;
             width:400px;
         }
+        /*互動式視窗置中*/
+        #searchinfo {
+            height: auto;
+            top: auto;
+            left: auto;
+            bottom: auto;
+            right: auto;
+            width: 400px;
+        }
         .formlbl {
-        font-size:16px !important;
+            font-size: 16px !important;
         }
         </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="@Url.Action("Index","Home")">
-            <img class="TitleImg" src="~/images/TitleImg1.png" />
+            <img class="TitleImg" src="~/images/Logo.png" />
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -450,6 +459,7 @@
                 </div>
             </div>
         </div>
+
         <div class="ui modal"id="UserProfile">
             <i class="close icon"></i>
             <div class="header">

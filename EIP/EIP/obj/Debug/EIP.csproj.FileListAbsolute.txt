@@ -725,7 +725,6 @@ D:\EIP系統Github\EIP\EIP\bin\roslyn\csc.exe
 D:\EIP系統Github\EIP\EIP\bin\roslyn\csi.exe
 D:\EIP系統Github\EIP\EIP\bin\roslyn\vbc.exe
 D:\EIP系統Github\EIP\EIP\bin\roslyn\VBCSCompiler.exe
-D:\GitHubEIP\EIP\EIP\obj\Debug\EIP.csprojAssemblyReference.cache
 D:\456\EIP\EIP\bin\EIP.dll.config
 D:\456\EIP\EIP\bin\EIP.dll
 D:\456\EIP\EIP\bin\EIP.pdb
@@ -847,7 +846,6 @@ D:\GitHubEIP\EIP\EIP\bin\roslyn\csc.exe
 D:\GitHubEIP\EIP\EIP\bin\roslyn\csi.exe
 D:\GitHubEIP\EIP\EIP\bin\roslyn\vbc.exe
 D:\GitHubEIP\EIP\EIP\bin\roslyn\VBCSCompiler.exe
-D:\GitHubEIP\EIP\EIP\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 D:\GTSEIP\EIP\EIP\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 D:\GTSEIP\EIP\EIP\bin\Microsoft.AspNet.SignalR.Core.dll
 D:\GTSEIP\EIP\EIP\bin\Microsoft.AspNet.SignalR.SystemWeb.dll
@@ -944,3 +942,21 @@ D:\醉心整合版\NEW\EIP\EIP\obj\Debug\EIP.csproj.CoreCompileInputs.cache
 D:\醉心整合版\NEW\EIP\EIP\obj\Debug\EIP.csproj.CopyComplete
 D:\醉心整合版\NEW\EIP\EIP\obj\Debug\EIP.dll
 D:\醉心整合版\NEW\EIP\EIP\obj\Debug\EIP.pdb
+D:\GitHubEIP\EIP\EIP\bin\Microsoft.AspNet.SignalR.Core.dll
+D:\GitHubEIP\EIP\EIP\bin\Microsoft.AspNet.SignalR.SystemWeb.dll
+D:\GitHubEIP\EIP\EIP\bin\Microsoft.Owin.dll
+D:\GitHubEIP\EIP\EIP\bin\Microsoft.Owin.Host.SystemWeb.dll
+D:\GitHubEIP\EIP\EIP\bin\Microsoft.Owin.Security.dll
+D:\GitHubEIP\EIP\EIP\bin\Owin.dll
+D:\GitHubEIP\EIP\EIP\bin\Microsoft.AspNet.SignalR.Core.pdb
+D:\GitHubEIP\EIP\EIP\bin\Microsoft.AspNet.SignalR.Core.xml
+D:\GitHubEIP\EIP\EIP\bin\Microsoft.AspNet.SignalR.SystemWeb.pdb
+D:\GitHubEIP\EIP\EIP\bin\Microsoft.AspNet.SignalR.SystemWeb.xml
+D:\GitHubEIP\EIP\EIP\bin\Microsoft.Owin.xml
+D:\GitHubEIP\EIP\EIP\bin\Microsoft.Owin.Host.SystemWeb.xml
+D:\GitHubEIP\EIP\EIP\bin\Microsoft.Owin.Security.xml
+D:\GitHubEIP\EIP\EIP\bin\zh-Hant\Microsoft.AspNet.SignalR.Core.resources.dll
+D:\GitHubEIP\EIP\EIP\bin\zh-Hant\Microsoft.AspNet.SignalR.SystemWeb.resources.dll
+D:\GitHubEIP\EIP\EIP\bin\zh-Hant\Microsoft.Owin.resources.dll
+D:\GitHubEIP\EIP\EIP\bin\zh-Hant\Microsoft.Owin.Host.SystemWeb.resources.dll
+D:\GitHubEIP\EIP\EIP\bin\zh-Hant\Microsoft.Owin.Security.resources.dll
