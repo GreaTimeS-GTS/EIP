@@ -846,7 +846,6 @@ D:\GitHubEIP\EIP\EIP\bin\roslyn\csc.exe
 D:\GitHubEIP\EIP\EIP\bin\roslyn\csi.exe
 D:\GitHubEIP\EIP\EIP\bin\roslyn\vbc.exe
 D:\GitHubEIP\EIP\EIP\bin\roslyn\VBCSCompiler.exe
-D:\GTSEIP\EIP\EIP\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 D:\GTSEIP\EIP\EIP\bin\Microsoft.AspNet.SignalR.Core.dll
 D:\GTSEIP\EIP\EIP\bin\Microsoft.AspNet.SignalR.SystemWeb.dll
 D:\GTSEIP\EIP\EIP\bin\Microsoft.Owin.dll

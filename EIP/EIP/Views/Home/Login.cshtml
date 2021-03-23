@@ -7,29 +7,32 @@
 
 <div class="container mt-5">
     <div class="row justify-content-center align-items-center LoginForm">
-        <form class="FormLogin px-4 py-4 formbord">
+        <form class="FormLogin px-4 py-4 formbord ui form">
             <div>
-                <div>
-                    <label class="inputtext">帳號：</label>
+                <div class="field ui massive label d-flex justify-content-center">
+                    <i class="user outline icon"></i>員工登入系統
+                </div>
+                <div class="field">
+                    <label class="inputtext ">帳號：</label>
                     <div class="ui left icon input">
                         <input type="text" placeholder="E-mail..." class="ACCtext" name="ACCtext">
                         <i class="user icon"></i>
                     </div>
                 </div>
-                <div>
-                    <label class="inputtext">密碼：</label>
+                <div class="field">
+                    <label class="inputtext mt-5">密碼：</label>
                     <div class="ui left icon input">
                         <input class="PWtext" name="PWtext" type="password" placeholder="Password..." />
                         <i class="key icon"></i>
                     </div>
                 </div>
-                <div class="mt-4">
-                    <input type="checkbox" class="mr-2" />
+                <div class="mt-5">
+                    <input type="checkbox" class="mt-1 mr-1" />
                     <label class="RememberME font-weight-bolder">記住我</label>
                 </div>
 
                 <div class="form-group mt-2">
-                    <button class="ui black button w-100 btnSend">
+                    <button class="ui black button w-100 btnSend mt-2">
                         <i class="icon sign-in"></i>
                         登入
                     </button>
