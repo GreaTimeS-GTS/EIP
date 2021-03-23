@@ -67,10 +67,10 @@ namespace EIP.Controllers
             return Json(mmb, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult LogOut()
+        public string LogOut()
         {
             Response.Cookies["AutoLg"].Expires = DateTime.Now.AddDays(-1);
-            return RedirectToAction("Login", "Home");
+            return "登出成功!";
         }
         [HttpGet]
         public JsonResult MyProfile()

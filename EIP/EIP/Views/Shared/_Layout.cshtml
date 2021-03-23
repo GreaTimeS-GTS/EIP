@@ -295,9 +295,11 @@
             @* 測試 *@
             <span class="navbar-text"> <a class="nav-link CookieAuth"> </a></span>
             <span class="navbar-text"> <a class="nav-link mr-3 CookieName"></a></span>
-            <span class="navbar-text">
-                <a class="pb-1 Logout" data-toggle="tooltip" data-placement="bottom" title="點擊登出系統！" href="@Url.Action("LogOut","Home")"> <i class="fas fa-sign-out-alt"></i></a>
-            </span>
+
+            <button class="ui black button Logout">
+                <i class="icon sign-out"></i>
+                登出
+            </button>
         </div>
     </nav>
     <div class="container body-content" style="max-width:1600px;">
@@ -538,6 +540,30 @@
         } else {
             window.location.href = "/Home/Login";
         }
+
+        $(".Logout").click(function () {
+            swal({
+                title: '登出',
+                text: '確定要現在登出嗎？',
+                icon: 'warning',
+                buttons: true,
+                dangerMode: true,
+            }).then((isConfirm) => {
+                if (isConfirm) {
+                    swal("登出！", "登出成功!...", 'success');
+                    setTimeout(function () {
+                        $.ajax({
+                            url: "/Home/LogOut",
+                            method: "get",
+                            success: function (data) {
+                                window.location.href = "/Home/Login";
+                            }
+                        })
+                    }, 1000);
+                        }
+                    })
+        });
+
 
         $(".NameClick").click(function () {
             $("#UserProfile").modal('show');
