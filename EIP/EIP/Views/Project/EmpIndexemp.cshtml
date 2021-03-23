@@ -1,0 +1,851 @@
+﻿
+
+@{
+    ViewBag.Title = "Index";
+
+}
+
+
+
+
+
+
+<nav class="mt-5">
+    <div class="nav nav-tabs font-weight-bolder" id="nav-tab">
+        <a class="nav-item nav-link active  text-dark" id="nav-home-tab" data-toggle="tab" href="#nav-S1">專案列表</a>
+        <a class="nav-item nav-link text-dark" id="nav-profile-tab" data-toggle="tab" href="#nav-cpj">專案建立</a>
+        <a class="nav-item nav-link text-dark" id="nav-profile-tab" data-toggle="tab" href="#nav-S2">初審專案</a>
+        <a class="nav-item nav-link text-dark" id="nav-profile-tab" data-toggle="tab" href="#nav-S3">複審專案</a>
+        <a class="nav-item nav-link text-dark" id="nav-profile-tab" data-toggle="tab" href="#nav-S4">專案進度回報</a>
+        <a class="nav-item nav-link text-dark" id="nav-profile-tab" data-toggle="tab" href="#nav-S5">終審專案</a>
+
+    </div>
+</nav>
+
+<div class="tab-content" id="nav-tabContent">
+
+    <div class="tab-pane fade active show" id="nav-S1">
+        <div class="overflow-auto">
+            <table class="table table-dark table-hover mt-3 text-nowrap">
+                <thead>
+
+                    <tr>
+                        <th class="">專案編號</th>
+                        <th class="">專案名稱</th>
+                        <th class="">負責人</th>
+                        <th class="">專案建立日期</th>
+
+
+                        <th>詳細</th>
+
+
+                    </tr>
+
+                </thead>
+                <tbody class="tbody總表">
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+
+
+    <div class="tab-pane fade  w-100 h-100" id="nav-cpj">
+        <form id="AddEMPForm" enctype="multipart/form-data">
+            <div class="d-flex justify-content-center flex-wrap">
+                <div class="mx-auto mt-3 col col-12 col-sm-6 col-md-4 col-lg-2">
+                    <div class="form-group">
+                        <input type="hidden" class="addpjid" />
+                        <label>專案名稱：</label>
+                        <input type="text" class="addname form-control " />
+                    </div>
+                    <div class="form-group">
+                        <label>專案團隊：</label>
+                        <input type="text" class="addteam form-control " />
+
+
+                    </div>
+
+
+                    <div class="form-group">
+                        <label>負責人：</label>
+                        <input type="text" class="addma form-control" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>專案建立日期：</label>
+                        <input type="text" class="adddate form-control" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>預算：</label>
+                        <input type="text" class="addpv form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>專案內容：</label>
+                        <textarea class="addcontent form-control" rows="5" cols="200"></textarea>
+                    </div>
+
+                </div>
+
+                <div class="mt-5">
+                    <div class="form-group">
+                        <input type="button" class="btn btn-primary w-100 AddEMP" value="確認送出" />
+
+                    </div>
+                </div>
+            </div>
+
+
+        </form>
+
+
+    </div>
+
+
+
+    <div class="tab-pane fade " id="nav-S2">
+        <div class="overflow-auto">
+                <h2 class="mt-3">未審核</h2>
+            <table class="table table-dark table-hover mt-3 text-nowrap">
+                <thead>
+
+                    <tr>
+                        <th class="">專案編號</th>
+                        <th class="">專案名稱</th>
+                        <th class="">負責人</th>
+                        <th class="">專案建立日期</th>
+
+                        <th>詳細</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody class="tbody初審">
+                </tbody>
+
+            </table>
+                <h2 class="mt-3">已審核</h2>
+            <table class="table table-dark table-hover mt-3 text-nowrap">
+
+
+                <thead>
+
+                    <tr>
+                        <th class="">專案編號</th>
+                        <th class="">專案名稱</th>
+                        <th class="">負責人</th>
+                        <th class="">專案建立日期</th>
+
+                        <th>詳細</th>
+                        
+                    </tr>
+
+                </thead>
+
+                <tbody class="tbody初審ok">
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+
+    <div class="modal fade" id="viewProfile" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">專案資訊</h5>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form class="EditUserProfile"></form>
+                </div>
+                <div class="modal-footer">
+                    @*<button type="button" class="btn btn-primary editsave" data-dismiss="modal">確認修改</button>*@
+                    <button type="button" class="btn btn-secondary ClearModal" data-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="EditProfile" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">專案送審</h5>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form class="EditUserProfile"></form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary editsave" data-dismiss="modal">確認修改</button>
+                    <button type="button" class="btn btn-secondary ClearModal" data-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="tab-pane fade" id="nav-S3">
+        <div class="overflow-auto">
+                <h2 class="mt-3">未審核</h2>
+            <table class="table table-dark table-hover mt-3 text-nowrap">
+                <thead>
+
+                    <tr>
+                        <th class="">專案編號</th>
+                        <th class="">專案名稱</th>
+                        <th class="">負責人</th>
+                        <th class="">專案建立日期</th>
+
+                        <th>詳細</th>
+
+                    </tr>
+
+                </thead>
+                <tbody class="tbody初審ok">
+                </tbody>
+            </table>
+                <h2 class="mt-3">已審核</h2>
+            <table class="table table-dark table-hover mt-3 text-nowrap">
+                <thead>
+
+                    <tr>
+                        <th class="">專案編號</th>
+                        <th class="">專案名稱</th>
+                        <th class="">負責人</th>
+                        <th class="">專案建立日期</th>
+
+                        <th>詳細</th>
+
+                    </tr>
+
+                </thead>
+                <tbody class="tbody複審">
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+
+
+    @*<div class="tab-pane fade " id="nav-S4">
+            <div class="overflow-auto">
+                <table class="table table-dark table-hover mt-3 text-nowrap">
+                    <thead>
+
+                        <tr>
+                            <th class="">專案編號</th>
+                            <th class="">專案名稱</th>
+                            <th class="">負責人</th>
+                            <th class="">專案建立日期</th>
+
+                            <th class="">專案團隊</th>
+
+                            <th>詳細</th>
+                            <th>進度回報</th>
+                        </tr>
+
+                    </thead>
+                    <tbody class="tbody進度回報">
+                    </tbody>
+                </table>
+            </div>
+        </div>*@
+
+
+    <div class="tab-pane fade " id="nav-S5">
+        <div class="overflow-auto">
+            <table class="table table-dark table-hover mt-3 text-nowrap">
+                <thead>
+
+                    <tr>
+
+                        <th class="">專案編號</th>
+                        <th class="">專案名稱</th>
+                        <th class="">負責人</th>
+                        <th class="">專案建立日期</th>
+
+                        <th class="">專案團隊</th>
+
+                        <th>詳細</th>
+
+
+                    </tr>
+
+                </thead>
+                <tbody class="tbody終審">
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+
+@section script{
+    <script>
+        var PJPid;
+        $.ajax({
+            url: "/Project/PJShowEdit",
+            method: "get",
+            success: function (data) {
+                $(data).each(function (index, item) {
+
+                    $(".tbody總表").append(`<tr>
+                                                        <td>${item.專案編號}</td><td>${item.專案名稱}</td>
+                                                        <td>${item.負責人}</td>
+                                                        <td>${item.專案建立日期}</td>
+
+                                                    <td><a class="btn btn-info empedit" data-id="${item.專案編號}" data-toggle="modal" data-target="#viewProfile" onclick="startedit()">詳細</a></td>
+
+
+                                        </tr>`);
+                })
+
+            }
+        })
+
+        $.ajax({
+            url: "/Project/PJShowEditlv0",
+            method: "get",
+            success: function (data) {
+                $(data).each(function (index, item) {
+
+                    $(".tbody初審").append(`
+
+                                                        <tr>
+                                                        <td>${item.專案編號}</td><td>${item.專案名稱}</td>
+                                                        <td>${item.負責人}</td>
+                                                        <td>${item.專案建立日期}</td>
+
+                                                    <td><a class="btn btn-info empedit" data-id="${item.專案編號}" data-toggle="modal" data-target="#viewProfile" onclick="startedit2()">詳細</a></td>
+                                        </tr>`);
+
+
+
+
+
+
+
+                })
+
+            }
+        })
+
+
+        $.ajax({
+            url: "/Project/PJShowEditlv1",
+            method: "get",
+            success: function (data) {
+                $(data).each(function (index, item) {
+
+                    $(".tbody初審ok").append(`
+
+                                                        <tr>
+                                                        <td>${item.專案編號}</td><td>${item.專案名稱}</td>
+                                                        <td>${item.負責人}</td>
+                                                        <td>${item.專案建立日期}</td>
+
+                                                    <td><a class="btn btn-info empedit" data-id="${item.專案編號}" data-toggle="modal" data-target="#EditProfile" onclick="startedit2()">詳細</a></td>
+                                        </tr>`);
+
+
+
+
+
+
+
+                })
+
+            }
+        })
+
+
+
+
+        $.ajax({
+            url: "/Project/PJShowEditlv2",
+            method: "get",
+            success: function (data) {
+                $(data).each(function (index, item) {
+
+                    $(".tbody複審").append(`<tr>
+                                                        <td>${item.專案編號}</td><td>${item.專案名稱}</td>
+                                                        <td>${item.負責人}</td>
+
+
+                                                    <td><a class="btn btn-info empedit" data-id="${item.專案編號}" data-toggle="modal" data-target="#EditProfile" onclick="startedit2()">詳細</a></td>
+
+
+                                        </tr>`);
+                })
+
+
+            }
+        })
+
+        $.ajax({
+            url: "/Project/PJShowEdit",
+            method: "get",
+            success: function (data) {
+                $(data).each(function (index, item) {
+
+                    $(".tbody進度回報").append(`<tr>
+                                                        <td>${item.專案編號}</td><td>${item.專案名稱}</td>
+                                                        <td>${item.負責人}</td> <td>${item.專案建立日期}</td>
+                                                        <td>${item.專案團隊}</td>
+
+                                                    <td><a class="btn btn-info empedit" data-id="${item.專案編號}" data-toggle="modal" data-target="#EditProfile" onclick="startedit()">詳細</a></td>
+                                                    <td><a class="btn btn-info empedit" data-id="${item.專案編號}" data-toggle="modal" data-target="#EditProfile" onclick="startedit()">進度回報</a></td>
+
+                                        </tr>`);
+                })
+                // <td>${item.專案內容}</td>
+                //<td>${item.專案人數}</td>
+
+            }
+        })
+
+
+
+
+        $.ajax({
+            url: "/Project/PJShowEditlv2",
+            method: "get",
+            success: function (data) {
+                $(data).each(function (index, item) {
+
+                    $(".tbody終審").append(`<tr>
+                                                        <td>${item.專案編號}</td><td>${item.專案名稱}</td>
+                                                        <td>${item.負責人}</td>
+                                                        <td>${item.專案建立日期}</td><td>${item.專案團隊}</td>
+
+                                                    <td><a class="btn btn-info empedit" data-id="${item.專案編號}" data-toggle="modal" data-target="#EditProfile" onclick="startedit()">詳細</a></td>
+
+                                        </tr>`);
+                })
+                // <td>${item.專案內容}</td>
+                //<td>${item.專案人數}</td>
+
+            }
+        })
+
+
+
+        function startedit() {
+            $.ajax({
+                url: "/Project/PJEditDetail",
+                data: {
+                    "id": $(event.currentTarget).data("id")
+                },
+                method: "Get",
+                success: function (data) {
+                    $(".EditUserProfile").html(`
+                                                    <div class="d-flex justify-content-center">
+                                                    <div class="mr-1">
+
+                                                        <input type="hidden" class="datapid" value="${data.專案編號}"/>
+                                                        專案名稱：<input disabled class="form-control datapna" value="${data.專案名稱}"/>
+                                                        專案團隊：<input disabled class="form-control datateam" value="${data.專案團隊}"/>
+
+                                                        負責人：<input disabled class="form-control datama" value="${data.負責人}"/>
+                                                        專案建立日期:<input disabled class="form-control datacdate"value="${data.專案建立日期}"/>
+                                                        廠商投標金額:<input disabled class="form-control datacmon"value="${data.廠商投標金額}"/>
+                                                        預算:<input disabled type="hidden" class="form-control datapv"value="${data.預算}"/>
+                                                        專案內容:<textarea disabled class="form-control datacont"value="${data.專案內容}"></textarea>
+                                                        <input type="hidden" class="form-control dataaon1"value="${data.初審審核結果}"/>
+                                                        <input type="hidden" class="form-control dataad1"value="${data.初審審核意見}"/>
+                                                        <input type="hidden" class="form-control dataac"value="${data.實際成本}"/>
+                                                        <input type="hidden" class="form-control datalv"value="${data.審核階段}"/>
+
+                                                        <input type="hidden" class="form-control datajblist"value="${data.專案工作項目}"/>
+                                                        <input type="hidden" class="form-control dataev"value="${data.淨利}"/>
+                                                        <input type="hidden" class="form-control dataad3"value="${data.終審審核意見}"/>
+                                                        <input  type="hidden" class="form-control dataaon3"value="${data.終審審核結果}"/>
+                                                        <input type="hidden" class="form-control dataad2"value="${data.複審審核意見}"/>
+                                                        <input type="hidden" class="form-control dataaon2"value="${data.複審審核結果}"/>
+
+                                                        </div>
+
+                                                        </div>`);
+                }
+
+            });
+        };
+
+
+        $(".editsave").click(function () {
+            //console.log($(".datach").val());
+            $.ajax({
+                url: "/Project/PJEditDetail",
+                method: "Post",
+                data: {
+
+                    "專案編號": $(".datapid").val(),
+                    "專案團隊": $(".datateam").val(),
+
+                    "專案名稱": $(".datapna").val(),
+                    "負責人": $(".datama").val(),
+                    "專案建立日期": $(".datacdate").val(),
+                    "預算": $(".datapv").val(),
+                    "初審審核結果": $(".dataaon1").val(),
+                    "初審審核意見": $(".dataad1").val(),
+                    "實際成本": $(".dataac").val(),
+                    "審核階段": $(".datalv").val(),
+                    "專案內容": $(".datacont").val(),
+
+                    "專案工作項目": $(".datajblist").val(),
+                    "廠商投標金額": $(".datacmon").val(),
+                    "淨利": $(".dataev").val(),
+                    "終審審核意見": $(".dataad3").val(),
+                    "終審審核結果": $(".dataaon3").val(),
+                    "複審審核結果": $(".dataaon2").val(),
+                    "複審審核意見":$(".dataad2").val()
+                    //formData
+
+                },
+                success: function () {
+                    $.ajax({
+                        url: "/Project/PJShowEdit",
+                        method: "get",
+                        success: function (data) {
+                            $("#tbody總表").html("");
+                            $(data).each(function (index, item) {
+                                $("#tbody總表").append(`<tr><td>${item.專案編號}</td><td>${item.專案名稱}</td>
+                                                        <td>${item.負責人}</td><td>${item.專案建立日期}</td>
+                                                    <td><a class="btn btn-info empedit" data-id="${item.專案編號}" data-toggle="modal" data-target="#EditProfile" onclick="startedit()">編輯</a></td>
+                                                     <td><a class="btn btn-danger " data-id="${item.專案編號}" onclick="DeleteEMP()">刪除</a></td>
+                                        </tr>`);
+                            })
+
+                        }
+                    })
+                }
+
+            });
+        })
+
+        //初審
+        //disabled 格子無法修改
+
+        function startcheck1() {
+            $.ajax({
+                url: "/Project/PJEditDetail",
+                data: {
+                    "id": $(event.currentTarget).data("id")
+                },
+                method: "Get",
+                success: function (data) {
+                    $(".EditUserProfile").html(`
+                                                    <div class="d-flex justify-content-center">
+                                                    <div class="mr-1">
+
+                                                       <input type="hidden" class="datapid" value="${data.專案編號}"/>
+                                                        專案名稱：<input disabled="disabled" class="form-control datapna" value="${data.專案名稱}"/>
+    專案團隊：<input disabled class="form-control datateam" value="${data.專案團隊}"/>
+                                                        負責人：<input disabled="disabled" class="form-control datama" value="${data.負責人}"/>
+                                                        專案建立日期:<input disabled="disabled" class="form-control datacdate"value="${data.專案建立日期}"/>
+                                                        廠商投標金額:<input disabled="disabled" class="form-control datacmon"value="${data.廠商投標金額}"/>
+                                                        預算:<input disabled="disabled" class="form-control datapv"value="${data.預算}"/>
+                                                        專案內容:<textarea disabled="disabled" class="form-control datacont"value="${data.專案內容}"></textarea>
+                                                        初審審核意見:<textarea  class="form-control dataad1"value="${data.初審審核意見}"></textarea>
+
+                                                        <select>
+                            <option class="dataaon1 form-control" value="${data.初審審核結果}" disabled selected>初審審核結果</option>
+                            <option value="1">通過</option>
+                            <option value="0">退回</option>
+
+                        </select>
+
+
+
+                                                        <input type="hidden" class="form-control dataac"value="${data.實際成本}"/>
+                                                        <input type="hidden" class="form-control datalv"value="${data.審核階段}"/>
+
+
+                                                        <input type="hidden" class="form-control datajblist"value="${data.專案工作項目}"/>
+
+                                                        <input type="hidden" class="form-control dataev"value="${data.淨利}"/>
+                                                        <input type="hidden" class="form-control dataad3"value="${data.終審審核意見}"/>
+                                                        <input  type="hidden" class="form-control dataaon3"value="${data.終審審核結果}"/>
+                                                        <input type="hidden" class="form-control dataad2"value="${data.複審審核意見}"/>
+                                                        <input type="hidden" class="form-control dataaon2"value="${data.複審審核結果}"/>
+
+                                                        </div>
+
+                                                        </div>`);
+                }
+
+            });
+        };
+
+
+
+
+
+
+
+       //初審
+
+        //複審
+
+        function startcheck2() {
+            $.ajax({
+                url: "/Project/PJEditDetail",
+                data: {
+                    "id": $(event.currentTarget).data("id")
+                },
+                method: "Get",
+                success: function (data) {
+                    $(".EditUserProfile").html(`
+                                                    <div class="d-flex justify-content-center">
+                                                    <div class="mr-1">
+
+                                                       <input type="hidden" class="datapid" value="${data.專案編號}"/>
+                                                        專案名稱：<input disabled="disabled" class="form-control datapna" value="${data.專案名稱}"/>
+    專案團隊：<input disabled class="form-control datateam" value="${data.專案團隊}"/>
+                                                        負責人：<input disabled="disabled" class="form-control datama" value="${data.負責人}"/>
+                                                        專案建立日期:<input disabled="disabled" class="form-control datacdate"value="${data.專案建立日期}"/>
+                                                       <input type="hidden" class="form-control datacmon"value="${data.廠商投標金額}"/>
+                                                       <input type="hidden" class="form-control datapv"value="${data.預算}"/>
+                                                       專案內容: <textarea disabled="disabled" type="hidden" class="form-control datacont"value="${data.專案內容}"></textarea>
+                                                       <input type="hidden" class="form-control dataad1" value="${data.初審審核意見}"/>
+
+
+                            <input class="dataaon1  form-control"type="hidden" value="${data.初審審核結果}" disabled/>
+
+
+
+
+
+                                                        <input type="hidden" class="form-control dataac"value="${data.實際成本}"/>
+                                                        <input type="hidden" class="form-control datalv"value="${data.審核階段}"/>
+
+
+                                                        專案工作項目:<textarea disabled="disabled" class="form-control datajblist"value="${data.專案工作項目}"></textarea>
+
+                                                        <input type="hidden" class="form-control dataev"value="${data.淨利}"/>
+                                                        <input type="hidden" class="form-control dataad3"value="${data.終審審核意見}"/>
+                                                        <input  type="hidden" class="form-control dataaon3"value="${data.終審審核結果}"/>
+
+
+                                                        複審審核意見:<textarea  class="form-control dataad2"value="${data.複審審核意見}"></textarea>
+                                                        <select >
+                                                        <option class="dataaon1 form-control" value="${data.複審審核結果}" disabled selected>複審審核結果</option>
+                                                        <option value="通過">通過</option>
+                                                        <option value="退回">退回</option>
+
+                                                        </select>
+
+                                                        </div>
+
+                                                        </div>`);
+                }
+
+            });
+        };
+
+
+
+
+
+
+
+
+
+
+        //複審
+
+        //複審送審編輯
+
+        function startedit2() {
+            $.ajax({
+                url: "/Project/PJEditDetail",
+                data: {
+                    "id": $(event.currentTarget).data("id")
+                },
+                method: "Get",
+                success: function (data) {
+                    $(".EditUserProfile").html(`
+                                                    <div class="d-flex justify-content-center">
+                                                    <div class="mr-1">
+
+                                                       <input type="hidden" class="datapid" value="${data.專案編號}"/>
+                                                        專案名稱：<input disabled="disabled" class="form-control datapna" value="${data.專案名稱}"/>
+    專案團隊：<input disabled class="form-control datateam" value="${data.專案團隊}"/>
+                                                        負責人：<input disabled="disabled" class="form-control datama" value="${data.負責人}"/>
+                                                        專案建立日期:<input disabled="disabled" class="form-control datacdate"value="${data.專案建立日期}"/>
+                                                       <input type="hidden" class="form-control datacmon"value="${data.廠商投標金額}"/>
+                                                       <input type="hidden" class="form-control datapv"value="${data.預算}"/>
+                                                       專案內容: <textarea disabled="disabled" type="hidden" class="form-control datacont"value="${data.專案內容}"></textarea>
+                                                       <input type="hidden" class="form-control dataad1" value="${data.初審審核意見}"/>
+
+
+                            <input class="dataaon1  form-control"type="hidden" value="${data.初審審核結果}" disabled/>
+
+
+
+
+
+                                                        <input type="hidden" class="form-control dataac"value="${data.實際成本}"/>
+                                                        <input type="hidden" class="form-control datalv"value="${data.審核階段}"/>
+
+
+                                                        專案工作項目:<textarea class="form-control datajblist"value="${data.專案工作項目}"></textarea>
+
+                                                        <input type="hidden" class="form-control dataev"value="${data.淨利}"/>
+                                                        <input type="hidden" class="form-control dataad3"value="${data.終審審核意見}"/>
+                                                        <input  type="hidden" class="form-control dataaon3"value="${data.終審審核結果}"/>
+
+
+                                                        <input type="hidden" class="form-control dataad2"value="${data.複審審核意見}"/>
+                                                        <input type="hidden" class="dataaon1  form-control" value="${data.複審審核結果}" />
+
+
+                                                        </select>
+
+                                                        </div>
+
+                                                        </div>`);
+                }
+
+            });
+        };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        $(".AddEMP").click(function () {
+            $.ajax({
+                url: "/Project/PJAddDetail",
+                method: "post",
+                data: {
+                    "專案編號": $(".addpjid").val(),
+                    "專案名稱": $(".addname").val(),
+                    "專案團隊": $(".addteam").val(),
+                    "負責人": $(".addma").val(),
+                    "專案建立日期": $(".adddate").val(),
+                    "預算": $(".addpv").val(),
+                    "初審審核結果": $(".addaon1").val(),
+                    "初審審核意見": $(".addad1").val(),
+                    "實際成本": $(".addac").val(),
+                    "審核階段": $(".addlv").val(),
+                    "專案內容": $(".addcontent").val(),
+
+                    "專案工作項目": $(".addjblist").val(),
+                    "廠商投標金額": $(".addcmon").val(),
+                    "淨利": $(".addev").val(),
+                    "終審審核意見": $(".addad3").val(),
+                    "終審審核結果": $(".addaon3").val(),
+                    "複審審核結果": $(".addaon2").val(),
+                    "複審審核意見": $(".addad2").val()
+
+                },
+                success: function () {
+                    swal("新增成功!", "專案新增成功", "success");
+                    $.ajax({
+                        url: "/Project/PJShowEdit",
+                        method: "get",
+                        success: function (data) {
+                            $("#tbody總表").html("");
+                            $(data).each(function (index, item) {
+                                $("#tbody總表").append(`<tr><td>${item.專案編號}</td><td>${item.信箱}</td><td>${item.中文姓名}</td><td>${item.英文姓名}</td><td>${item.性別}</td><td>${item.電話}</td><td>${item.出生年月日}</td><td>${item.婚姻狀況}</td>
+                     <td>${item.專案名稱}</td>
+                     <td>${item.專案建立日期}</td>
+
+                <td><a class="btn btn-info empedit" data-id="${item.專案編號}" data-toggle="modal" data-target="#EditProfile" onclick="startedit()">編輯</a></td>
+          <td><a class="btn btn-danger " data-id="${item.專案編號}" onclick="DeleteEMP()">刪除</a></td>
+                    </tr>`);
+                            })
+
+                        }
+                    })
+
+                }
+            })
+        })
+                                //let adddata = "";
+                                //$(".a").click(function () {
+                                //    let a = $("#AddEMPForm").children().children("input[type='text']");
+                                //    for (var i = 0; i < a.length; i++) {
+                                //        //console.log(a[i].value);
+                                //        if (i + 1 == a.length) {
+                                //            adddata += a[i].value;
+                                //            continue;
+                                //        }
+
+                                //        //adddata += a[i].value + ",";
+                                //    }
+
+                                //    $.ajax({
+                                //         url: "/Home/HRAdd",
+                                //        type: "POST",
+                                //        data: adddata,
+                                //        success: function (data) {
+                                //            window.alert(data.toString());
+                                //        },
+
+                                //    });
+                                //})
+                                //function DeleteEMP() {
+                                //    $.ajax({
+                                //        url: "/Home/HRDelete",
+                                //        method: "get",
+                                //        data: {
+                                //            "id": $(event.currentTarget).data("id")
+                                //        },
+                                //        success: function () {
+                                //            window.alert("員工資訊刪除成功!");
+                                //            $.ajax({
+                                //                url: "/Home/HRShowEdit",
+                                //                method: "get",
+                                //                success: function (data) {
+                                //                    $("#tbodyadd").html("");
+                                //                    $(data).each(function (index, item) {
+                                //                        $("#tbodyadd").append(`<tr><td>${item.EmployeeID}</td><td>${item.信箱}</td><td>${item.中文姓名}</td><td>${item.英文姓名}</td><td>${item.性別}</td><td>${item.電話}</td><td>${item.出生年月日}</td><td>${item.婚姻狀況}</td>
+                                //                         <td>${item.居住地}</td>
+                                //                         <td>${item.受雇日期}</td>
+                                //                         <td>${item.部門}</td>
+                                //                         <td>${item.權限}</td>
+                                //                        <td>${item.薪資}</td>
+                                //                        <td>${item.特休}</td>
+                                //                         <td>${item.年資}</td>
+                                //                    <td><a class="btn btn-info empedit" data-id="${item.EmployeeID}" data-toggle="modal" data-target="#EditProfile" onclick="startedit()">編輯</a></td>
+                                //              <td><a class="btn btn-danger " data-id="${item.EmployeeID}" onclick="DeleteEMP()">刪除</a></td>
+                                //                        </tr>`);
+                                //                    })
+
+                                //                }
+                                //            })
+
+                                //        }
+                                //    })
+                                //}
+
+    </script>
+}
+
+

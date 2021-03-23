@@ -1,0 +1,277 @@
+﻿
+<div class=" mt-5">
+
+
+    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+
+        @*------navbar-pills------*@
+
+        <li class="nav-item">
+            <a class="nav-link" id="pills-myPj-tab" data-toggle="pill" href="#pills-myPj" role="tab" aria-controls="pills-myPj" aria-selected="false">我的專案</a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" id="pills-pjMyReport-tab" data-toggle="pill" href="#pills-pjMyReport" role="tab" aria-controls="pills-pjMyReport" aria-selected="false">回報紀錄</a>
+        </li>
+
+
+        <li class="nav-item">
+            <a class="nav-link" id="pills-pjMeeting-tab" data-toggle="pill" href="#pills-pjMeeting" role="tab" aria-controls="pills-pjMeeting" aria-selected="false">專案會議記錄</a>
+        </li>
+
+
+    </ul>
+
+
+    @*------navbar-pills-content------*@
+<div class="tab-content" id="pills-tabContent">
+
+
+
+
+
+    @*------1------*@
+    <div class="tab-pane fade" id="pills-myPj" role="tabpanel" aria-labelledby="pills-myPj-tab">
+        我的專案
+
+        <table class="table table-hover">
+            <thead class="pjDailyReportTitle">
+                @*ajax自動生成*@
+            </thead>
+            <tbody class="pjDailyReport">
+                @*ajax自動生成*@
+            </tbody>
+        </table>
+
+    </div>
+
+
+    @*------2------*@
+<div class="tab-pane fade" id="pills-pjMyReport" role="tabpanel" aria-labelledby="pills-pjMyReport-tab">
+    回報記錄
+
+    @*搜尋按鈕*@
+
+    <div class="input-group mb-3">
+        <input type="text" class="form-control searchKeywords" placeholder="Enter Keywords" aria-label="Recipient's username" aria-describedby="button-addon2">
+        <div class="input-group-append">
+            <button class="btn btn-outline-secondary searchBtn" type="button" id="button-addon2">Search</button>
+        </div>
+    </div>
+
+
+
+
+    <table class="table table-hover">
+        <thead class="pjRecordTitle">
+            @*ajax自動生成*@
+        </thead>
+        <tbody class="pjRecord">
+            @*ajax自動生成*@
+        </tbody>
+    </table>
+
+</div>
+
+
+
+    @*------3------*@
+    <div class="tab-pane fade" id="pills-pjMeeting" role="tabpanel" aria-labelledby="pills-pjMeeting-tab">
+        專案會議記錄
+    </div>
+
+
+
+
+    @*------彈出視窗------*@
+
+
+    <div class="modal fade" id="pjdailyReport" tabindex="-1" role="dialog" aria-labelledby="pjdailyReportTitle" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="pjdailyReportTitle">工作回報</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body pjDailyReportfile">
+                    @*內容*@
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary formClose" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary saveChange">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+@section script{
+    <script>
+
+
+        $.ajax({
+            url: "/theProject/pjFindRecord",
+            method: "get",
+            success: function (data) {
+                $(".pjRecordTitle").html(`
+                       <tr>
+                                <th scope="col">團隊名稱</th>
+                                <th scope="col">工作項目</th>
+                                <th scope="col">開始時間</th>
+                                <th scope="col">結束時間</th>
+                                <th scope="col">工作內容</th>
+                                <th scope="col">工作總時數</th>
+                                <th scope="col">填表日期</th>
+                       </tr>
+                 `);
+
+                $(data).each(function (index, item) {
+                    $(".pjRecord").append(`
+                       <tr>
+                                <td>${item.pjTeam}</td>
+                                <td>${item.pjJob}</td>
+                                <td>${item.pj開始時間}</td>
+                                <td>${item.pj結束時間}</td>
+                                <td>${item.pj工作內容}</td>
+                                <td>${item.pj工作時間}</td>
+                                <td>${item.pj填表日期}</td>                                                            
+                               
+                         </tr>
+                  `);
+                })
+            }
+        })
+
+
+
+
+
+
+
+
+        $.ajax({
+            url: "/theProject/pjListFindData",
+            method:"get",
+            success: function (data) {
+              
+                    $(".pjDailyReportTitle").html(`
+                       <tr>
+                                <th scope="col">專案編號</th>
+                                <th scope="col">專案名稱</th>
+                                <th scope="col">負責人</th>
+                                <th scope="col">專案內容</th>
+                                
+
+                                <th scope="col">每日報告</th>
+                       </tr>
+                 `);
+                            
+                $(data).each(function (index, item) {        
+                    $(".pjDailyReport").append(`
+                       <tr>
+                                <td>${item.pjid}</td>
+                                <td>${item.pjName}</td>
+                                <td>${item.pjManager}</td>
+                                <td>${item.pjContent}</td>
+                                
+
+                                <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#pjdailyReport" data-id="${item.pjid}" onclick="pjDailyReport()">進度表</button></td>
+                         </tr>
+                  `);
+                })     
+            }
+        })
+
+        function pjDailyReport() {
+            $.ajax({
+                url: "/theProject/pjDailyReport",
+                method: "Post",
+                data: {
+                    "id": $(event.currentTarget).data("id")
+                },
+                success: function (data) {
+                    $(".pjDailyReportfile").html(`
+                       <form>
+ <div class="form-group">
+    
+    <input type="hidden" class="form-control" id="pjDailyRepor" placeholder="" value="${data.pjDailyReport}">
+  </div>
+  <div class="form-group">
+    <label for="pjTeam">Team</label>
+    <input type="text" class="form-control" id="pjTeam" placeholder="" value="${data.pjTeam}">
+  </div>
+ <div class="form-group">
+    <label for="pjId">project ID</label>
+    <input type="text" class="form-control" id="pjId" placeholder="" value="${data.pjId}">
+  </div>
+  <div class="form-group">
+    <label for="employeeID">employeeID</label>
+    <input type="text" class="form-control" id="employeeID" placeholder="" value="${data.employeeID}">
+  </div>
+  <div class="form-group">
+    <label for="pjJob">Job</label>
+    <input type="text" class="form-control" id="pjJob" placeholder="" value="${data.pjJob}">
+  </div>
+  <div class="form-group">
+    <label for="pj人數">Members</label>
+    <input type="text" class="form-control" id="pj人數" placeholder="" value="${data.pj人數}">
+  </div>
+  <div class="form-group">
+    <label for="pj開始時間">Daily Start</label>
+    <input type="text" class="form-control" id="pj開始時間" placeholder="" value="">
+  </div>
+  <div class="form-group">
+    <label for="pj結束時間">Daily End</label>
+    <input type="text" class="form-control" id="pj結束時間" placeholder="" value="">
+  </div>
+  <div class="form-group">
+    <label for="pj工作內容">Job Content</label>
+    <input type="text" class="form-control" id="pj工作內容" placeholder="" value="">
+  </div>
+  <div class="form-group">
+    <label for="pj工作時間">Daily Working Hours</label>
+    <input type="text" class="form-control" id="pj工作時間" placeholder="" value="">
+  </div>
+ <div class="form-group">
+    <label for="pj填表日期">File Date</label>
+    <input type="text" class="form-control" id="pj填表日期" placeholder="" value="現在時間" readonly>
+  </div>
+     </form>
+
+                    `);
+                }
+            })
+        }
+
+        $(".saveChange").click(function () {
+
+            $.ajax({
+                url: "/theProject/PJEditTeam",
+                method: "Post",
+                data: {
+                    "pjDailyReport": $("#pjDailyReport").val(),
+                    "pjTeam": $("#pjTeam").val(),
+                    "pjId": $("#pjId").val(),
+                    "employeeID": $("#employeeID").val(),
+                    "pjJob": $("#pjJob").val(),
+                    "pj人數": $("#pj人數").val(),
+                    "pj開始時間": $("#pj開始時間").val(),
+                    "pj結束時間": $("#pj結束時間").val(),
+                    "pj工作內容": $("#pj工作內容").val(),
+                    "pj工作時間": $("#pj工作時間").val(),
+                    "pj填表日期": $("#pj填表日期").val()
+                },
+                success: function () {
+                    $(".formClose").click();
+                }
+
+            })
+
+
+        })
+
+    </script>
+    }
