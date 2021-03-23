@@ -19,22 +19,30 @@ namespace EIP.Controllers
             return View();
         }
 
-        public string PhotoAjax(請假細項 inputdata, HttpPostedFileBase upPhoto)
+        //public string PhotoAjax(請假細項 inputdata, HttpPostedFileBase upPhoto)
+        //{
+        //    string filePath = "";
+        //    if (upPhoto != null)
+        //    {
+        //        filePath = Server.MapPath("~/images/") + DateTime.Now.ToString("yyyyMMddhhmmss") + upPhoto.FileName;
+        //        upPhoto.SaveAs(filePath);
+        //    }
+
+        //    inputdata.圖片 = filePath;
+
+        //    db.請假細項.Add(inputdata);
+        //    db.SaveChanges();
+        //    return "Success";
+        //}
+        public JsonResult ShowPhotoAjax(int? id)
         {
-            string filePath = "";
-            if (upPhoto != null)
+            var photoshow = db.請假細項.Select(m => new
             {
-                filePath = DateTime.Now.ToString("yyyyMMddhhmmss") + upPhoto.FileName;
-                upPhoto.SaveAs(Server.MapPath("~/images/") + filePath);
-            }
-
-            inputdata.圖片 = filePath;
-
-            db.請假細項.Add(inputdata);
-            db.SaveChanges();
-            return "Success";
+                m.申請表編號,
+                m.圖片
+            }).FirstOrDefault(k => k.申請表編號 == id);
+            return Json(photoshow, JsonRequestBehavior.AllowGet);
         }
-
         //=============================新增=============================//
         public ActionResult AskFor()
         {
@@ -45,8 +53,8 @@ namespace EIP.Controllers
             string filePath = "";
             if (upPhoto != null)
             {
-                filePath = DateTime.Now.ToString("yyyyMMddhhmmss") + upPhoto.FileName;
-                upPhoto.SaveAs(Server.MapPath("~/images/") + filePath);
+                filePath = "/images/" + DateTime.Now.ToString("yyyyMMddhhmmss") + upPhoto.FileName;
+                upPhoto.SaveAs(Server.MapPath("~") + filePath); //Server MathPath把本地端的路徑補齊 ~專案根目錄
             }
             k.圖片 = filePath;
 
@@ -82,6 +90,9 @@ namespace EIP.Controllers
                             });
             return Json(leaveform, JsonRequestBehavior.AllowGet);
         }
+
+
+
         //=============================單筆詳細=============================//
         //public ActionResult FindSingleData()
         //{
@@ -109,12 +120,12 @@ namespace EIP.Controllers
         //    return Json(mm, JsonRequestBehavior.AllowGet);
         //}
         //=============================刪除=============================//
-        public JsonResult DeleteData(int id)
+        public string DeleteData(int id)
         {
             var deleteuser = db.請假細項.FirstOrDefault(m => m.EmployeeID == id);
             db.請假細項.Remove(deleteuser);
             db.SaveChanges();
-            return Json(deleteuser, JsonRequestBehavior.AllowGet);
+            return "OK";
         }
         //=============================修改=============================//
         public ActionResult UpdateData()
@@ -161,7 +172,7 @@ namespace EIP.Controllers
             //    代理人 = mb.代理人,
             //    審核狀態 = mb.審核狀態,
             //};
-            db.Entry<請假細項>(mb).State = EntityState.Modified;  //why
+            db.Entry<請假細項>(mb).State = EntityState.Modified;  
             db.SaveChanges();
             return Json(mb, JsonRequestBehavior.AllowGet);
         }
@@ -218,12 +229,12 @@ namespace EIP.Controllers
 
         //=============================刪除=============================//
 
-        public JsonResult DeleteOverTimeData(int id)
+        public string DeleteOverTimeData(int id)
         {
             var deletedata = db.加班細項.FirstOrDefault(m => m.加班表編號 == id);
             db.加班細項.Remove(deletedata);
             db.SaveChanges();
-            return Json(deletedata, JsonRequestBehavior.AllowGet);
+            return "OK";
         }
 
         //=============================修改=============================//
@@ -294,7 +305,7 @@ namespace EIP.Controllers
         }
         public JsonResult BusinessTripAjax(出差細項 y)
         {
-            db.出差細項.Add(y);
+            db.出差細項.Add(y); 
             db.SaveChanges();
             return Json(y, JsonRequestBehavior.AllowGet);
         }
@@ -327,12 +338,12 @@ namespace EIP.Controllers
 
         //=============================刪除=============================//
 
-        public JsonResult DeleteBusinessTrip(int? id)
+        public string DeleteBusinessTrip(int? id)
         {
             var del = db.出差細項.FirstOrDefault(m => m.出差表編號 == id);
             db.出差細項.Remove(del);
             db.SaveChanges();
-            return Json(del, JsonRequestBehavior.AllowGet);
+            return "ok";
         }
 
         //=============================修改=============================//

@@ -7,7 +7,7 @@ namespace EIP.Models.ViewModel
 {
     public class BusinessTripViewModel
     {
-        public int 出差單編號 { get; set; }
+        public int 出差表編號 { get; set; }
         public Nullable<int> EmployeeID { get; set; }
         public string 中文姓名 { get; set; }
         public string 部門 { get; set; }

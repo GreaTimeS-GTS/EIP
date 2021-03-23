@@ -87,7 +87,7 @@
             <div class="mb-4 col-12 col-md-4">
                 <label>請假時數:</label>
                 <label></label>
-                <input type="text" id="askfortime" class="w-100" name="請假時數">
+                <input type="text" id="askfortime" class="w-100 請假時數" name="請假時數">
             </div>
             <div class="mb-4 col-12 col-md-4">
                 <label>代理人:</label>
@@ -132,11 +132,40 @@
 </div>
 @section script{
     <script>
-
+        let start;
+        let end;
         //=============================新增=======================================
+
+
+        $("#endday, #startday").blur(function () {
+            if ($("#startday").val() != '' && $("#endday").val() != '') {
+                start = new Date($("#startday").val());
+                end = new Date($("#endday").val());
+                var offset = new Date($("#endday").val()).getTime() - new Date($("#startday").val()).getTime();
+                var swag = Math.floor(Math.abs(offset / 1000 / 60 / 60 / 24 - 1));
+                console.log(swag);
+                let x = Math.floor(swag);
+                let 開始小時數 = 17 - start.getHours();
+                let 結束小時數 = end.getHours() - 9;
+                if (x + 1 < 0) {
+                    window.alert("請輸入正確日期");
+                }
+                else if (start.getDate() === end.getDate()) {
+                    $(".請假時數").val(`${end.getHours() - start.getHours()} `)
+                }
+                else {
+                    $(".請假時數").val(`${開始小時數 + swag * 9 + 結束小時數} `)
+                }
+            }
+        });
+
+
+
+
+
+
+
         function AddEmp() {
-            console.log(123);
-            console.log($('#select1').val());
             var formData = new FormData(document.form1);
             formData.append('upPhoto', $("#upload").get(0).files[0]);
             $.ajax({

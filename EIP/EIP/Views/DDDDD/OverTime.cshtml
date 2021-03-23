@@ -104,27 +104,7 @@
 
     @section script{
         <script>
-            $("#startday").blur(function () {
-                if ($("#startday").val() != '' && $("#endday").val() != '') {
-                    var hour = new Date($("#endday").val()).getHours() - new Date($("#startday").val()).getHours();
-                    var day = new Date($("#endday").val()).getDate() - new Date($("#startday").val()).getDate();
-                    $("#加班時數").val(`${(day * 24) + hour} `);
-                }
-            });
 
-            $("#endday").blur(function () {
-                var hour = new Date($("#endday").val()).getHours() - new Date($("#startday").val()).getHours();
-                var day = new Date($("#endday").val()).getDate() - new Date($("#startday").val()).getDate();
-                let x = (day * 24) + hour;
-                //let start = $("#startday").val();
-                //let end = $("#endday").val();
-                if (x < 0) {
-                    window.alert("請輸入正確日期");
-                }
-                else {
-                    $("#加班時數").val(`${(day * 24) + hour} `)
-                }
-            });
 
 
             function AddOverTime() {
