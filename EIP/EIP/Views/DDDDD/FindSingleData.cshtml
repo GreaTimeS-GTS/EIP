@@ -1,0 +1,159 @@
+﻿
+@{
+    ViewBag.Title = "FindSingleData";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>FindSingleData</h2>
+<div class="table">
+    <table>
+        <thead id="findsingletitle"></thead>
+        <tbody id="findsinglebody"></tbody>
+    </table>
+</div>
+@section script{
+    <script>
+        //=============================秀出單筆=======================================
+        $(function () {
+            getsinglefunction();
+
+        })
+
+        function getsinglefunction() {
+            let fid = window.location.href.split("/");
+            console.log(window.location.href.split("/"));
+            $.ajax({
+                url: "/DDDDD/FindSingleDataAjax",
+                type: "post",
+                data: { "id": fid[fid.length - 1] },
+                success: function (data) {
+                    var testtime = parseInt(data.開始日期.replace(/\D/igm, ""));
+                    var testtime1 = new Date(testtime);
+                    var 結束日期 = parseInt(data.結束日期.replace(/\D/igm, ""));
+                    var testtime2 = new Date(結束日期);
+                    var 申請日期 = parseInt(data.申請日期.replace(/\D/igm, ""));
+                    var testtime3 = new Date(申請日期);
+                    if (testtime1.getHours() < 10) {
+                        h1 = "0" + testtime1.getHours();
+                    } else {
+                        h1 = testtime1.getHours();
+                    }
+                    if (testtime2.getHours() < 10) {
+                        h2 = "0" + testtime2.getHours();
+                    } else {
+                        h2 = testtime2.getHours();
+                    }
+                    if (testtime3.getHours() < 10) {
+                        h3 = "0" + testtime3.getHours();
+                    } else {
+                        h3 = testtime3.getHours();
+                    }
+                    if (testtime1.getMinutes() < 10) {
+                        var a1 = "0" + testtime1.getMinutes()
+                    } else {
+                        a1 = testtime1.getMinutes();
+                    }
+                    if (testtime2.getMinutes() < 10) {
+                        var a2 = "0" + testtime2.getMinutes()
+                    } else {
+                        a2 = testtime2.getMinutes();
+                    }
+                    if (testtime3.getMinutes() < 10) {
+                        var a3 = "0" + testtime3.getMinutes()
+                    } else {
+                        a3 = testtime3.getMinutes();
+                    }
+                    $("#findsingletitle").append(
+                        `<tr>
+                                                                <th>員工編號</th>
+                                                                <th>中文姓名</th>
+                                                                <th>職稱</th>
+                                                                <th>信箱</th>
+                                                                <th>部門</th>
+                                                                <th>請假班別</th>
+                                                                <th>假別</th>
+                                                                <th>開始日期</th>
+                                                                <th>結束日期</th>
+                                                                <th>申請日期</th>
+                                                                <th>請假時數</th>
+                                                                <th>代理人</th>
+                                                                <th>審核狀態</th>
+                                                                </tr>`
+                    );
+                    $("#findsinglebody").append(
+                        `<tr>
+                                                                <td>${data.EmployeeID}</td>
+                                                                <td>${data.中文姓名}</td>
+                                                                <td>${data.職稱}</td>
+                                                                <td>${data.信箱}</td>
+                                                                <td>${data.部門}</td>
+                                                                <td>${data.請假班別}</td>
+                                                                <td>${data.假別}</td>
+                                                                <td>${testtime1.getFullYear() + "/" + (testtime1.getMonth() + 1) + "/" + testtime1.getDate() + " " + h1 + ":" + a1 + ":" + "00"}</td>
+                                                                <td>${testtime2.getFullYear() + "/" + (testtime2.getMonth() + 1) + "/" + testtime2.getDate() + " " + h2 + ":" + a2 + ":" + "00"}</td>
+                                                                <td>${testtime3.getFullYear() + "/" + (testtime3.getMonth() + 1) + "/" + testtime3.getDate() + " " + h3 + ":" + a3 + ":" + "00"}</td>
+                                                                <td>${data.請假時數}</td>
+                                                                <td>${data.代理人}</td>
+                                                                <td>${data.審核狀態}</td>
+                                                                <td><a class="btn btn-dark" href="/DDDDD/UpdateData/${data.EmployeeID}">編輯</a></td>
+                                                                <td><a class="btn btn-dark EmployeeID"  onclick="Fdelete()" data-id="${data.EmployeeID}">刪除</a></td>
+                                                            </tr>`
+                    );
+                }
+            });
+        };
+
+        //=============================修改=======================================
+        function Update() {
+            var t = confirm("確定要修改嗎?");
+            if (t == true) {
+                $.ajax({
+                    url: "/DDDDD/UpdateDataAjax",
+                    type: "POST",
+                    data: {
+                        "EmployeeID": $("#EmployeeID").val(),
+                        "中文姓名": $("#中文姓名").val(),
+                        "職稱": $("#職稱").val(),
+                        "信箱": $("#Email").val(),
+                        "部門": $("#department").val(),
+                        "請假班別": $("#請假班別").val(),
+                        "假別ID": $("#select1").val(),
+                        "開始日期": $("#startday").val(),
+                        "結束日期": $("#endday").val(),
+                        "申請日期": $("#applicationday").val(),
+                        "請假時數": $("#askfortime").val(),
+                        "代理人": $("#agent").val(),
+                        "審核狀態": $("#approvalStatus").val()
+                    },
+                    success: function (data) {
+                        if (result != 0) {
+                            alert("修改成功");
+                        }
+                        else {
+                            alert("修改失敗");
+                        }
+                    }
+                })
+            }
+        }
+
+        //=============================刪除=======================================
+        function Fdelete() {
+            var r = confirm("確定要刪除嗎?");
+            if (r == true) {
+                $.ajax({
+                    url: "/DDDDD/DeleteData",
+                    data: { "id": $(event.currentTarget).data("id") },
+                    success: function (result) {
+                        if (result != 0) {
+                            alert("刪除成功");
+                        }
+                        else {
+                            alert("刪除失敗");
+                        }
+                    }
+                })
+            }
+        }
+    </script>
+}

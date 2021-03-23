@@ -1,0 +1,247 @@
+﻿@{
+    ViewBag.Title = "UpdateData";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .head {
+        border: 1px solid black;
+        border-radius: 20px;
+        text-align: center;
+    }
+</style>
+<div class="head">
+    <h2>請假(修改)</h2>
+    <form action="~/DDDDD/AskforList" target="_self">
+        <div>
+            <label>員工編號:</label>
+            <label></label>
+            <input type="text" id="EmployeeID" disabled />
+        </div>
+        <div>
+            <label></label>
+            <label></label>
+            員工姓名:<input type="text" id="中文姓名" disabled  />
+        </div>
+        <div>
+            <label>職稱:</label>
+            <label></label>
+            <input type="text" id="jobtitle" disabled />
+        </div>
+        <div>
+            <label>信箱:</label>
+            <label></label>
+            <input type="text" id="Email" disabled />
+        </div>
+        <div>
+            <label>部門:</label>
+            <label></label>
+            <input type="text" id="department" disabled />
+        </div>
+        <div>
+            <label>請假班別:</label>
+            <label></label>
+            <input type="text" id="請假班別" />
+        </div>
+        <div>
+            <label>請假類別:</label>
+            <select id="select1">
+                <option value="0">請選擇</option>
+                <option value="1">事假</option>
+                <option value="2">病假</option>
+                <option value="3">生理假</option>
+                <option value="4">喪假</option>
+                <option value="5">婚假</option>
+                <option value="6">公假</option>
+                <option value="7">產假</option>
+                <option value="8">陪產假</option>
+                <option value="9">防疫隔離假</option>
+                <option value="10">特休</option>
+                <option value="11">加班補修</option>
+            </select>
+        </div>
+        <div>
+            <label>開始日期</label>
+            <input type="datetime-local" id="startday">
+        </div>
+        <div>
+            <label>結束日期</label>
+            <input type="datetime-local" id="endday">
+        </div>
+        <div>
+            <label>申請日期</label>
+            <input type="datetime-local" id="applicationday">
+        </div>
+        <div>
+            <label>請假時數</label>
+            <input type="text" id="askfortime">
+        </div>
+        <div>
+            <label>代理人</label>
+            <input type="text" id="agent">
+            <label>審核狀態</label>
+            <label></label>
+            <input type="text" id="approvalStatus" />
+        </div>
+        <input type="submit" onclick="Update()"/>
+    </form>
+</div>
+@section script{
+    <script>
+
+        UpdateGetData();
+
+
+        function Update() {
+            var t = confirm("確定要修改嗎?");
+            if (t == true) {
+                $.ajax({
+                    url: "/DDDDD/UpdateDataAjax",
+                    type: "POST",
+                    data: {
+                        "EmployeeID": $("#EmployeeID").val(),
+                        "中文姓名": $("#中文姓名").val(),
+                        "職稱": $("#jobtitle").val(),
+                        "信箱": $("#Email").val(),
+                        "部門": $("#department").val(),
+                        "請假班別": $("#請假班別").val(),
+                        "假別ID": $("#select1").val(),
+                        "開始日期": $("#startday").val(),
+                        "結束日期": $("#endday").val(),
+                        "申請日期": $("#applicationday").val(),
+                        "請假時數": $("#askfortime").val(),
+                        "代理人": $("#agent").val(),
+                        "審核狀態": $("#approvalStatus").val()
+                    },
+                    success: function (data) {
+                        if (result != 0) {
+                            alert("修改成功");
+                        }
+                        else {
+                            alert("修改失敗");
+                        }
+                    }
+                })
+            }
+        }
+
+        function UpdateGetData() {
+            let fid = window.location.href.split("/");
+            $.ajax({
+                url: "/DDDDD/GetUpdateData",
+                type: "GET",
+                data: { "id": fid[fid.length - 1] },
+                success: function (getdata) {
+                    var testtime = parseInt(getdata.開始日期.replace(/\D/igm, ""));
+                    var testtime1 = new Date(testtime);
+                    var 結束日期 = parseInt(getdata.結束日期.replace(/\D/igm, ""));
+                    var testtime2 = new Date(結束日期);
+                    var 申請日期 = parseInt(getdata.申請日期.replace(/\D/igm, ""));
+                    var testtime3 = new Date(申請日期);
+                    console.log(testtime1);
+                    if ((testtime1.getMonth() + 1) < 10) //月
+                    {
+                        var a = "0" + (testtime1.getMonth() + 1);  //why var
+                    }
+                    else
+                    {
+                        a = (testtime1.getMonth() + 1);
+                    }
+                    if ((testtime2.getMonth() + 1) < 10) {
+                        var gg2 = "0" + (testtime2.getMonth() + 1); 
+                    }
+                    else
+                    {
+                        gg2 = (testtime2.getMonth() + 1);
+                    }
+                    if ((testtime3.getMonth() + 1) < 10) {
+                        var kk3 = "0" + (testtime3.getMonth() + 1); 
+                    }
+                    else
+                    {
+                        kk3 = (testtime3.getMonth() + 1);
+                    }
+                    if (testtime1.getDate() < 10) //日
+                    {
+                        var rr1 = "0" + (testtime1.getDate());
+                    }
+                    else
+                    {
+                        rr1 = testtime1.getDate();
+                    }
+                    if (testtime2.getDate() < 10) {
+                        var aa2 = "0" + (testtime2.getDate());
+                    }
+                    else {
+                        aa2 = testtime2.getDate();
+                    }
+                    if (testtime3.getDate() < 10) {
+                        var bb3 = "0" + (testtime3.getDate());
+                    }
+                    else {
+                        bb3 = testtime3.getDate();
+                    }
+                    if (testtime1.getHours() < 10) //時
+                    {
+                        var cc1 = "0" + testtime1.getHours();
+                    }
+                    else
+                    {
+                        cc1 = testtime1.getHours();
+                    }
+                    if (testtime2.getHours() < 10)
+                    {
+                        var dd2 = "0" + testtime2.getHours();
+                    }
+                    else
+                    {
+                        dd2 = testtime2.getHours();
+                    }
+                    if (testtime3.getHours() < 10)
+                    {
+                        var ee3 = "0" + (testtime3.getHours());
+                    }
+                    else {
+                        ee3 = testtime3.getHours();
+                    }
+                    if (testtime1.getMinutes() < 10)  //分
+                    {
+                        var ff1 = "0" + testtime1.getMinutes();
+                    }
+                    else
+                    {
+                        ff1 = testtime1.getMinutes();
+                    }
+                    if (testtime1.getMinutes() < 10) {
+                        var mm2 = "0" + testtime1.getMinutes();
+                    }
+                    else {
+                        mm2 = testtime1.getMinutes();
+                    }
+                    if (testtime1.getMinutes() < 10) {
+                        var ll3 = "0" + testtime1.getMinutes();
+                    }
+                    else {
+                        ll3 = testtime1.getMinutes();
+                    }
+                    $("#EmployeeID").val(getdata.EmployeeID);
+                    $("#中文姓名").val(getdata.中文姓名);
+                    $("#jobtitle").val(getdata.職稱);
+                    $("#Email").val(getdata.信箱);
+                    $("#department").val(getdata.部門);
+                    $("#請假班別").val(getdata.請假班別);
+                    $("#select1").val(getdata.假別ID);
+                    $("#startday").val(testtime1.getFullYear() + "-" + a + "-" + rr1
+                        + "T" + cc1 + ":" + ff1 + ":00");
+                    $("#endday").val(testtime2.getFullYear() + "-" + gg2 + "-" + aa2
+                        + "T" + dd2 + ":" + mm2 + ":00");
+                    $("#applicationday").val(testtime3.getFullYear() + "-" + kk3 + "-" + bb3
+                        + "T" + ee3 + ":" + ll3 + ":00");
+                    $("#askfortime").val(getdata.請假時數);
+                    $("#agent").val(getdata.代理人);
+                    $("#approvalStatus").val(getdata.審核狀態);
+                    console.log(testtime1);
+                }
+            })
+        }
+    </script>
+}
