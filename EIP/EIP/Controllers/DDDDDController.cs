@@ -40,7 +40,7 @@ namespace EIP.Controllers
         {
             return View();
         }
-        public string AskForAjax(請假細項 k, HttpPostedFileBase upPhoto)  //
+        public string AskForAjax1(請假細項 k, HttpPostedFileBase upPhoto)  //
         {
             string filePath = "";
             if (upPhoto != null)
