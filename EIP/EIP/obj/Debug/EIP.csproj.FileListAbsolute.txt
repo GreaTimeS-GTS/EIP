@@ -839,13 +839,10 @@ D:\GTSEIP\EIP\EIP\obj\Debug\EIP.csproj.CopyComplete
 D:\GTSEIP\EIP\EIP\obj\Debug\EIP.dll
 D:\GTSEIP\EIP\EIP\obj\Debug\EIP.pdb
 D:\GTSEIP\EIP\EIP\obj\Debug\EIP.csprojAssemblyReference.cache
-D:\GitHubEIP\EIP\EIP\bin\PagedList.dll
-D:\GitHubEIP\EIP\EIP\bin\PagedList.xml
 D:\GitHubEIP\EIP\EIP\bin\roslyn\csc.exe
 D:\GitHubEIP\EIP\EIP\bin\roslyn\csi.exe
 D:\GitHubEIP\EIP\EIP\bin\roslyn\vbc.exe
 D:\GitHubEIP\EIP\EIP\bin\roslyn\VBCSCompiler.exe
-D:\GitHubEIP\EIP\EIP\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 C:\Users\User\Documents\EIP\EIP\EIP\bin\EIP.dll.config
 C:\Users\User\Documents\EIP\EIP\EIP\bin\EIP.dll
 C:\Users\User\Documents\EIP\EIP\EIP\bin\EIP.pdb

@@ -76,7 +76,7 @@ namespace EIP.Controllers
         public JsonResult MyProfile()
         {
             個人資料 UserProfile = db.個人資料.Find(Convert.ToInt32(Request.Cookies["AutoLg"]["id"]));
-            var mvm = new 
+            var mvm = new
             {
                 中文姓名 = UserProfile.中文姓名,
                 英文姓名 = UserProfile.英文姓名,
@@ -92,7 +92,8 @@ namespace EIP.Controllers
                 婚姻狀況 = UserProfile.婚姻狀況,
                 特休 = UserProfile.特休,
                 薪資 = UserProfile.薪資,
-                權限 = UserProfile.權限
+                權限 = UserProfile.權限,
+                狀態 = UserProfile.狀態,
             };
             return Json(mvm, JsonRequestBehavior.AllowGet);
         }
