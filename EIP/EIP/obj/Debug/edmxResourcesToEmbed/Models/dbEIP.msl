@@ -265,6 +265,24 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="通知">
+      <EntityTypeMapping TypeName="dbEIPModel.通知">
+        <MappingFragment StoreEntitySet="通知">
+          <ScalarProperty Name="讀取狀態" ColumnName="讀取狀態" />
+          <ScalarProperty Name="通知內容" ColumnName="通知內容" />
+          <ScalarProperty Name="通知類別id" ColumnName="通知類別id" />
+          <ScalarProperty Name="通知流水號" ColumnName="通知流水號" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="通知類別">
+      <EntityTypeMapping TypeName="dbEIPModel.通知類別">
+        <MappingFragment StoreEntitySet="通知類別">
+          <ScalarProperty Name="通知類別1" ColumnName="通知類別" />
+          <ScalarProperty Name="通知類別id" ColumnName="通知類別id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="請假細項">
       <EntityTypeMapping TypeName="dbEIPModel.請假細項">
         <MappingFragment StoreEntitySet="請假細項">

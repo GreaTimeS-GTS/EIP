@@ -12,13 +12,13 @@ namespace EIP.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class eipProjectCreate
+    public partial class 通知
     {
-        public int pj_ { get; set; }
-        public string pjId { get; set; }
-        public string pjTeam { get; set; }
+        public int 通知流水號 { get; set; }
+        public Nullable<int> 通知類別id { get; set; }
+        public string 通知內容 { get; set; }
+        public string 讀取狀態 { get; set; }
     
-        public virtual eipProjectDetail eipProjectDetail { get; set; }
-        public virtual projectTeam projectTeam { get; set; }
+        public virtual 通知類別 通知類別 { get; set; }
     }
 }

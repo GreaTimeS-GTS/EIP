@@ -28,8 +28,8 @@ namespace EIP.Models
         public string 審核狀態 { get; set; }
         public string 中文姓名 { get; set; }
         public string 職稱 { get; set; }
-        public string 圖片 { get; set; }
         public Nullable<int> 已用可用 { get; set; }
+        public string 圖片 { get; set; }
     
         public virtual 假別 假別 { get; set; }
     }
