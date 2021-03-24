@@ -20,6 +20,8 @@
     <EntitySet Name="表單類別" EntityType="dbEIPModel.表單類別" />
     <EntitySet Name="個人資料" EntityType="dbEIPModel.個人資料" />
     <EntitySet Name="假別" EntityType="dbEIPModel.假別" />
+    <EntitySet Name="通知" EntityType="dbEIPModel.通知" />
+    <EntitySet Name="通知類別" EntityType="dbEIPModel.通知類別" />
     <EntitySet Name="請假細項" EntityType="dbEIPModel.請假細項" />
     <AssociationSet Name="FK_pj總表_pj建立" Association="dbEIPModel.FK_pj總表_pj建立">
       <End Role="pj建立" EntitySet="pj建立" />
@@ -52,6 +54,10 @@
     <AssociationSet Name="FK_請假細項_假別" Association="dbEIPModel.FK_請假細項_假別">
       <End Role="假別" EntitySet="假別" />
       <End Role="請假細項" EntitySet="請假細項" />
+    </AssociationSet>
+    <AssociationSet Name="FK_通知_通知類別" Association="dbEIPModel.FK_通知_通知類別">
+      <End Role="通知類別" EntitySet="通知類別" />
+      <End Role="通知" EntitySet="通知" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="MeetingRoom">
@@ -314,6 +320,24 @@
     <Property Name="假別1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="請假細項" Relationship="dbEIPModel.FK_請假細項_假別" FromRole="假別" ToRole="請假細項" />
   </EntityType>
+  <EntityType Name="通知">
+    <Key>
+      <PropertyRef Name="通知流水號" />
+    </Key>
+    <Property Name="通知流水號" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="通知類別id" Type="Int32" />
+    <Property Name="通知內容" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="讀取狀態" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="通知類別" Relationship="dbEIPModel.FK_通知_通知類別" FromRole="通知" ToRole="通知類別" />
+  </EntityType>
+  <EntityType Name="通知類別">
+    <Key>
+      <PropertyRef Name="通知類別id" />
+    </Key>
+    <Property Name="通知類別id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="通知類別1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="通知" Relationship="dbEIPModel.FK_通知_通知類別" FromRole="通知類別" ToRole="通知" />
+  </EntityType>
   <EntityType Name="請假細項">
     <Key>
       <PropertyRef Name="申請表編號" />
@@ -429,6 +453,18 @@
       </Principal>
       <Dependent Role="請假細項">
         <PropertyRef Name="假別ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_通知_通知類別">
+    <End Type="dbEIPModel.通知類別" Role="通知類別" Multiplicity="0..1" />
+    <End Type="dbEIPModel.通知" Role="通知" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="通知類別">
+        <PropertyRef Name="通知類別id" />
+      </Principal>
+      <Dependent Role="通知">
+        <PropertyRef Name="通知類別id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

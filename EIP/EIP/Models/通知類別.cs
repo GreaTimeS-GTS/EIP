@@ -12,19 +12,18 @@ namespace EIP.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class empInfo
+    public partial class 通知類別
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public empInfo()
+        public 通知類別()
         {
-            this.projectTeam = new HashSet<projectTeam>();
+            this.通知 = new HashSet<通知>();
         }
     
-        public int employeeID { get; set; }
-        public string employeenName { get; set; }
-        public Nullable<int> employee權限 { get; set; }
+        public int 通知類別id { get; set; }
+        public string 通知類別1 { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<projectTeam> projectTeam { get; set; }
+        public virtual ICollection<通知> 通知 { get; set; }
     }
 }
