@@ -18,7 +18,6 @@ namespace EIP.Models
         public dbEIPEntities()
             : base("name=dbEIPEntities")
         {
-            this.Configuration.LazyLoadingEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

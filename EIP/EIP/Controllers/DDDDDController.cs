@@ -18,22 +18,30 @@ namespace EIP.Controllers
         {
             return View();
         }
-
-        public string PhotoAjax(請假細項 inputdata, HttpPostedFileBase upPhoto)
+        public JsonResult GetPhoto(int? id)
         {
-            string filePath = "";
-            if (upPhoto != null)
+            var myPhoto = db.請假細項.Select(m => new
             {
-                filePath = DateTime.Now.ToString("yyyyMMddhhmmss") + upPhoto.FileName;
-                upPhoto.SaveAs(Server.MapPath("~/images/") + filePath);
-            }
-
-            inputdata.圖片 = filePath;
-
-            db.請假細項.Add(inputdata);
-            db.SaveChanges();
-            return "Success";
+                m.申請表編號,
+                m.圖片
+            }).FirstOrDefault(m => m.申請表編號 == id);
+            return Json(myPhoto, JsonRequestBehavior.AllowGet);
         }
+        //public string PhotoAjax(請假細項 inputdata, HttpPostedFileBase upPhoto)
+        //{
+        //    string filePath = "";
+        //    if (upPhoto != null)
+        //    {
+        //         filePath = "/images/" + DateTime.Now.ToString("yyyyMMddhhmmss") + upPhoto.FileName;
+        //        upPhoto.SaveAs(Server.MapPath("~") + filePath);
+        //    }
+
+        //    inputdata.圖片 = filePath;
+
+        //    db.請假細項.Add(inputdata);
+        //    db.SaveChanges();
+        //    return "Success";
+        //}
 
         //=============================新增=============================//
         public ActionResult AskFor()
@@ -45,8 +53,8 @@ namespace EIP.Controllers
             string filePath = "";
             if (upPhoto != null)
             {
-                filePath = DateTime.Now.ToString("yyyyMMddhhmmss") + upPhoto.FileName;
-                upPhoto.SaveAs(Server.MapPath("~/images/") + filePath);
+                filePath = "/images/" + DateTime.Now.ToString("yyyyMMddhhmmss") + upPhoto.FileName;
+                upPhoto.SaveAs(Server.MapPath("~") + filePath);
             }
             k.圖片 = filePath;
 
@@ -61,7 +69,7 @@ namespace EIP.Controllers
         }
         public JsonResult AskForListAjax()
         {
-            var leaveform = db.請假細項.ToList().
+            var leaveform = db.請假細項.
                             Select(m => new
                             {
                                 申請表編號 = m.申請表編號,
@@ -111,7 +119,7 @@ namespace EIP.Controllers
         //=============================刪除=============================//
         public JsonResult DeleteData(int id)
         {
-            var deleteuser = db.請假細項.FirstOrDefault(m => m.EmployeeID == id);
+            var deleteuser = db.請假細項.FirstOrDefault(m => m.申請表編號 == id);
             db.請假細項.Remove(deleteuser);
             db.SaveChanges();
             return Json(deleteuser, JsonRequestBehavior.AllowGet);
@@ -139,6 +147,7 @@ namespace EIP.Controllers
                 請假班別 = x.請假班別,
                 代理人 = x.代理人,
                 審核狀態 = x.審核狀態,
+                圖片= x.圖片,
             }).FirstOrDefault(C => C.申請表編號 == id);
             return Json(mm, JsonRequestBehavior.AllowGet);
         }

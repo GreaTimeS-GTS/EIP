@@ -8,26 +8,30 @@
 
 <a class="btn btn-primary mb-3" href="/DDDDD/Askfor">新增假單</a>
 
-    <table class="table-hover w-100 table table-striped text-nowrap">
-        <thead id="head">
-        </thead>
-        <tbody id="AskForListTbody">
-        </tbody>
-    </table>
+<table class="table-hover w-100 table table-striped text-nowrap">
+    <thead id="head">
+    </thead>
+    <tbody id="AskForListTbody">
+    </tbody>
+</table>
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content">
-           
-            <div class="modal-body"> @*Start*@
+
+            <div class="modal-body">
+                @*Start*@
                 <div class="head">
                     <h2 class="mb-5">請假(修改)</h2>
                     <form>
                         <div>
+                            <label>申請表編號:</label>
+                        </div>
+                        <div>
                             <label>員工編號:</label>
                             <label></label>
-                            <input type="text"  id="EmployeeID" disabled />
+                            <input type="text" id="EmployeeID" disabled />
                         </div>
                         <div>
                             <label>員工姓名:</label>
@@ -96,6 +100,12 @@
                             <label></label>
                             <input type="text" id="approvalStatus" disabled />
                         </div>
+                        <div class="mt-3" >
+                            <img class="showPhoto" src="" style="width:400px;" />
+                        </div>
+                        @*<button type="button" id="秀圖片" name="秀圖片" class="btn btn-secondary mt-3" data-toggle="modal" data-target="#秀出圖片" onclick="GetPhotoAjax()">
+                            選擇圖片
+                        </button>*@
                     </form>
                 </div>
             </div> @*End*@
@@ -107,6 +117,28 @@
     </div>
 </div>
 
+
+<!-- Button trigger modal -->
+<!-- Modal -->
+<div class="modal fade" id="秀出圖片" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="秀圖片">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
 @section script{
     <script>
 
@@ -117,6 +149,24 @@
             getAskForList();
         })
 
+        let getPhotoID;
+
+        function GetPhotoAjax() {
+            getPhotoID = $(event.currentTarget).data("id");
+            //console.log(data);
+            console.log(123);
+            $.ajax({
+                url: "/DDDDD/GetPhoto",
+                type: "GET",
+                data: { "id": $(event.currentTarget).data("id") },
+                success: function (data) {
+            console.log($(event.currentTarget).data("id"));
+                    $("#秀圖片").append(`<img src="${data.圖片}">`)
+                }
+            });
+        }
+
+
         function getAskForList() {
             $.ajax({
                 url: "/DDDDD/AskforListAjax",
@@ -124,19 +174,19 @@
                 success: function (memberlist) {
                     $("#head").append(
                         `<tr>
-                                                <th>員工編號</th>
-                                                <th>中文姓名</th>
-                                                <th>職稱</th>
-                                                <th>部門</th>
-                                                <th>請假班別</th>
-                                                <th>假別</th>
-                                                <th>申請日期</th>
-                                                <th>請假時數</th>
-                                                <th>代理人</th>
-                                                <th>審核狀態</th>
-                                                <th>詳細</th>
-                                                <th>刪除</th>
-                                                </tr>`
+                                                    <th>員工編號</th>
+                                                    <th>中文姓名</th>
+                                                    <th>職稱</th>
+                                                    <th>部門</th>
+                                                    <th>請假班別</th>
+                                                    <th>假別</th>
+                                                    <th>申請日期</th>
+                                                    <th>請假時數</th>
+                                                    <th>代理人</th>
+                                                    <th>審核狀態</th>
+                                                    <th>詳細</th>
+                                                    <th>刪除</th>
+                                                    </tr>`
                     );
                     $(memberlist).each(function (index, item) {
                         var testtime = parseInt(item.開始日期.replace(/\D/igm, ""));
@@ -158,18 +208,18 @@
                         }
                         $("#AskForListTbody").append(
                             `<tr>
-                                                <td>${item.EmployeeID}</td>
-                                                <td>${item.中文姓名}</td>
-                                                <td>${item.職稱}</td>
-                                                <td>${item.部門}</td>
-                                                <td>${item.請假班別}</td>
-                                                <td>${item.假別1}</td>
-                                                <td>${testtime3.getFullYear() + "/" + (testtime3.getMonth() + 1) + "/" + testtime3.getDate() + " " + h3 + ":" + a3 }</td>
-                                                <td>${item.請假時數}</td>
-                                                <td>${item.代理人}</td>
-                                                <td>${item.審核狀態}</td>
-                                                <td><a class="btn btn-outline-primary button btnDetail" data-toggle="modal" data-id ="${item.申請表編號}" data-target="#exampleModalScrollable" onclick="UpdateGetData()"><span>詳細</span></a></td>
-                                                <td><a class="btn btn-outline-danger button"  onclick="Fdelete()" data-id="${item.申請表編號}"><span>刪除</span></a></td></tr>` 
+                                                    <td>${item.EmployeeID}</td>
+                                                    <td>${item.中文姓名}</td>
+                                                    <td>${item.職稱}</td>
+                                                    <td>${item.部門}</td>
+                                                    <td>${item.請假班別}</td>
+                                                    <td>${item.假別1}</td>
+                                                    <td>${testtime3.getFullYear() + "/" + (testtime3.getMonth() + 1) + "/" + testtime3.getDate() + " " + h3 + ":" + a3}</td>
+                                                    <td>${item.請假時數}</td>
+                                                    <td>${item.代理人}</td>
+                                                    <td>${item.審核狀態}</td>
+                                                    <td><a class="btn btn-outline-primary button btnDetail" data-toggle="modal" data-id ="${item.申請表編號}" data-target="#exampleModalScrollable" onclick="UpdateGetData()"><span>詳細</span></a></td>
+                                                    <td><a class="btn btn-outline-danger button"  onclick="Fdelete()" data-id="${item.申請表編號}"><span>刪除</span></a></td></tr>`
                         );
                     })
                 },
@@ -177,7 +227,7 @@
         };
 
 
-       
+
 
         //======================================= 修改 =======================================
 
@@ -202,27 +252,28 @@
                         "申請日期": $("#applicationday").val(),
                         "請假時數": $("#askfortime").val(),
                         "代理人": $("#agent").val(),
-                        "審核狀態": $("#approvalStatus").val()
+                        "審核狀態": $("#approvalStatus").val(),
                     },
                     success: function (result) {
                         if (result != 0) {
                             $("#exampleModalScrollable").modal('hide');
-                            swal("成功", "修改成功", "success"); 
+                            swal("成功", "修改成功", "success");
                             ReFresh();
-                        }                 
+                        }
                     }
                 })
             }
         }
 
         function UpdateGetData() {
-            console.log($(event.currentTarget).data("id"));
+            //console.log($(event.currentTarget).data("id"));
             getID = $(event.currentTarget).data("id");
             $.ajax({
                 url: "/DDDDD/GetUpdateData",
                 type: "GET",
                 data: { "id": $(event.currentTarget).data("id") },
                 success: function (getdata) {
+                    console.log(getdata.圖片);
                     console.log(getdata);
                     var testtime = parseInt(getdata.開始日期.replace(/\D/igm, ""));
                     var testtime1 = new Date(testtime);
@@ -324,12 +375,14 @@
                     $("#askfortime").val(getdata.請假時數);
                     $("#agent").val(getdata.代理人);
                     $("#approvalStatus").val(getdata.審核狀態);
-                    console.log(testtime1);
+                    $(".showPhoto").attr("src", getdata.圖片);
+
                 }
             })
         }
         //======================================= 刪除 =======================================
         function Fdelete() {
+            console.log($(event.currentTarget).data("id"));
             if (true) {
                 $.ajax({
                     url: "/DDDDD/DeleteData",
@@ -349,7 +402,7 @@
                                 swal('刪除', '刪除失敗!...', 'error');
                             }
                         })
-                        
+
                     }
                 })
             }
@@ -363,19 +416,19 @@
                 success: function (memberlist) {
                     $("#head").html(
                         `<tr>
-                                                <th>員工編號</th>
-                                                <th>中文姓名</th>
-                                                <th>職稱</th>
-                                                <th>部門</th>
-                                                <th>請假班別</th>
-                                                <th>假別</th>
-                                                <th>申請日期</th>
-                                                <th>請假時數</th>
-                                                <th>代理人</th>
-                                                <th>審核狀態</th>
-                                                <th>詳細</th>
-                                                <th>刪除</th>
-                                                </tr>`
+                                                    <th>員工編號</th>
+                                                    <th>中文姓名</th>
+                                                    <th>職稱</th>
+                                                    <th>部門</th>
+                                                    <th>請假班別</th>
+                                                    <th>假別</th>
+                                                    <th>申請日期</th>
+                                                    <th>請假時數</th>
+                                                    <th>代理人</th>
+                                                    <th>審核狀態</th>
+                                                    <th>詳細</th>
+                                                    <th>刪除</th>
+                                                    </tr>`
                     );
                     var a = " ";
                     $(memberlist).each(function (index, item) {
@@ -396,21 +449,21 @@
                         } else {
                             a3 = testtime3.getMinutes();
                         }
-                        
-                        
-                           a += `<tr>
-                                                <td>${item.EmployeeID}</td>
-                                                <td>${item.中文姓名}</td>
-                                                <td>${item.職稱}</td>
-                                                <td>${item.部門}</td>
-                                                <td>${item.請假班別}</td>
-                                                <td>${item.假別1}</td>
-                                                <td>${testtime3.getFullYear() + "/" + (testtime3.getMonth() + 1) + "/" + testtime3.getDate() + " " + h3 + ":" + a3}</td>
-                                                <td>${item.請假時數}</td>
-                                                <td>${item.代理人}</td>
-                                                <td>${item.審核狀態}</td>
-                                                <td><a class="btn btn-dark button btnDetail" data-toggle="modal" data-id ="${item.EmployeeID}" data-target="#exampleModalScrollable" onclick="UpdateGetData()"><span>詳細</span></a></td>
-                                                <td><a class="btn btn-danger button"  onclick="Fdelete()" data-id="${item.EmployeeID}"><span>刪除</span></a></td></tr>`
+
+
+                        a += `<tr>
+                                                    <td>${item.EmployeeID}</td>
+                                                    <td>${item.中文姓名}</td>
+                                                    <td>${item.職稱}</td>
+                                                    <td>${item.部門}</td>
+                                                    <td>${item.請假班別}</td>
+                                                    <td>${item.假別1}</td>
+                                                    <td>${testtime3.getFullYear() + "/" + (testtime3.getMonth() + 1) + "/" + testtime3.getDate() + " " + h3 + ":" + a3}</td>
+                                                    <td>${item.請假時數}</td>
+                                                    <td>${item.代理人}</td>
+                                                    <td>${item.審核狀態}</td>
+                                                    <td><a class="btn btn-dark button btnDetail" data-toggle="modal" data-id ="${item.EmployeeID}" data-target="#exampleModalScrollable" onclick="UpdateGetData()"><span>詳細</span></a></td>
+                                                    <td><a class="btn btn-danger button"  onclick="Fdelete()" data-id="${item.EmployeeID}"><span>刪除</span></a></td></tr>`
                         $("#AskForListTbody").html(a);
                     })
                 },
