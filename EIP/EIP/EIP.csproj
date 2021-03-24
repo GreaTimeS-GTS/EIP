@@ -138,7 +138,6 @@
     <Compile Include="Controllers\MeetingRoomController.cs" />
     <Compile Include="Controllers\pjTestController.cs" />
     <Compile Include="Controllers\projectControlController.cs" />
-    <Compile Include="Controllers\ProjectController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -156,9 +155,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>dbEIP.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Models\eipProjectDetail.cs">
-      <DependentUpon>dbEIP.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\MeetingRoom.cs">
       <DependentUpon>dbEIP.tt</DependentUpon>
@@ -178,13 +174,16 @@
     <Compile Include="Models\pj會議.cs">
       <DependentUpon>dbEIP.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\pj會議記錄.cs">
+      <DependentUpon>dbEIP.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\pj結案.cs">
       <DependentUpon>dbEIP.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\pj總表.cs">
       <DependentUpon>dbEIP.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\projectTeam.cs">
+    <Compile Include="Models\pj進度表.cs">
       <DependentUpon>dbEIP.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ViewModel\AskForLeave.cs" />
@@ -409,7 +408,6 @@
     <Content Include="Scripts\jquery_ui\jquery-ui.min.js" />
     <Content Include="Scripts\jquery_ui\jquery.js" />
     <Content Include="Scripts\src\tw-city-selector.min.js" />
-    <Content Include="Views\Project\EmpIndex.cshtml" />
     <Content Include="webfonts\fa-brands-400.svg" />
     <Content Include="webfonts\fa-regular-400.svg" />
     <Content Include="webfonts\fa-solid-900.svg" />

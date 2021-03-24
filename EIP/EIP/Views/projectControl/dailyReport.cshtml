@@ -1,17 +1,16 @@
 ﻿
 
 <form class="mt-5">
-    <div class="form-row ">
-        <div class="col-md-6 mb-3">
-            <label for="pjMain-Name">Name</label>
-            <input type="text" readonly class="form-control append-pjMain-Name" id="pjMain-Name" aria-describedby="123">
-            <small id="123" class="form-text text-muted"></small>
-        </div>
-        <div class="col-md-6 mb-3">
-            <label for="pjMain-Manager">Manager</label>
-            <input type="text" class="form-control append-pjMain-Manager" id="pjMain-Manager" readonly name="pjMain-Manager">
-        </div>
-    </div>        
+    <div class="form-group ">
+        <label for="pjMain-Name">Name</label>
+        <input type="text" readonly class="form-control append-pjMain-Name" id="pjMain-Name" aria-describedby="123">
+        <small id="123" class="form-text text-muted"></small>
+    </div>
+    <div class="form-group ">
+        <label for="pjMain-Manager">Manager</label>
+        <input type="text" class="form-control append-pjMain-Manager" id="pjMain-Manager" readonly name="pjMain-Manager">
+    </div>
+
 </form>
 
 <form name="">
@@ -31,6 +30,7 @@
         <label for="pjIntput" class="col-sm-2 col-form-label">Intput</label>
             <textarea rows="6" type="text" class="form-control" id="pjIntput" style="resize: none;"></textarea>
     </div>
+    <div class="form-group append-pjMember"></div>
 
     <button type="button" class="btn btn-primary sendFormData">Submit</button>
 </form>
@@ -51,9 +51,22 @@
             data: { "id": id },
             success: function (data) {
                 //console.log(data);
-
+                //console.log(`${data.pj成員數}`);
+                const pj成員數 = `${data.pj成員數}`;
+                console.log(pj成員數);
                 $(".append-pjMain-Name").val(`${data.pjName}`);
                 $(".append-pjMain-Manager").val(`${data.pjManager}`);
+
+                for (var i = 0; i < pj成員數; i++) {
+                    $('.append-pjMember').append(`
+                        <div class="form-row mt-2">
+                            <div><label>Member</label><input type="text" class="form-control"/></div>
+                            <div><label>Target</label><input type="text" class="form-control"/></div>
+                            <div><label>Fixed Duration</label><input type="text" class="form-control"/></div>
+                        </div>
+                    `)
+
+                }
             }
         })
 

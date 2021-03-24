@@ -1,27 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="dbEIPModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-  <EntityType Name="eipProjectDetail">
-    <Key>
-      <PropertyRef Name="pjId" />
-    </Key>
-    <Property Name="pjId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="pjName" Type="nvarchar" MaxLength="50" />
-    <Property Name="pjManager" Type="nvarchar" MaxLength="50" />
-    <Property Name="pjDate" Type="nvarchar" MaxLength="50" />
-    <Property Name="pjContent專案內容" Type="nvarchar" MaxLength="50" />
-    <Property Name="pjPV預算" Type="nvarchar" MaxLength="50" />
-    <Property Name="pjAC實際成本" Type="nvarchar" MaxLength="50" />
-    <Property Name="pjEV淨利" Type="nvarchar" MaxLength="50" />
-    <Property Name="pjReviewAcceptOrNot1" Type="int" />
-    <Property Name="pjReviewAcceptOrNot2" Type="int" />
-    <Property Name="pjReviewAcceptOrNot3" Type="int" />
-    <Property Name="pjReviewLevel" Type="int" />
-    <Property Name="pjReviewAdvise1" Type="nvarchar" MaxLength="50" />
-    <Property Name="pjReviewAdvise2" Type="nvarchar" MaxLength="50" />
-    <Property Name="pjReviewAdvise3" Type="nvarchar" MaxLength="50" />
-    <Property Name="pj廠商投標金額" Type="money" />
-    <Property Name="pj項目" Type="nvarchar" MaxLength="50" />
-  </EntityType>
   <EntityType Name="MeetingRoom">
     <Key>
       <PropertyRef Name="MeetingRoomId" />
@@ -46,6 +24,8 @@
     <Property Name="MeetingRemark" Type="nvarchar(max)" />
     <Property Name="MeetingSubject" Type="nvarchar(max)" />
     <Property Name="MeetingAttentee" Type="nvarchar(max)" />
+    <Property Name="IsAllDay" Type="int" />
+    <Property Name="Status" Type="int" />
   </EntityType>
   <EntityType Name="pj建立">
     <Key>
@@ -55,10 +35,10 @@
     <Property Name="pj簡介" Type="nvarchar" MaxLength="50" />
     <Property Name="pjBudget" Type="money" />
     <Property Name="pj成員數" Type="int" />
-    <Property Name="pj贊助商" Type="nvarchar" MaxLength="50" />
-    <Property Name="pj初審狀態" Type="nvarchar" MaxLength="50" />
+    <Property Name="pj客戶" Type="nvarchar" MaxLength="50" />
+    <Property Name="pj審核狀態" Type="nvarchar" MaxLength="50" />
     <Property Name="pj初審意見" Type="nvarchar" MaxLength="50" />
-    <Property Name="pj持續時間" Type="int" />
+    <Property Name="pj複審意見" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="pj控管">
     <Key>
@@ -69,7 +49,35 @@
     <Property Name="pjEndDate" Type="date" />
     <Property Name="pjGoal" Type="nvarchar" MaxLength="50" />
     <Property Name="pjIntput" Type="nvarchar" MaxLength="50" />
+    <Property Name="pjIssueLog" Type="nvarchar" MaxLength="50" />
+    <Property Name="pjAuthorization" Type="nvarchar" MaxLength="50" />
+    <Property Name="pjWorstCaseScenario" Type="nvarchar" MaxLength="50" />
+    <Property Name="pjGoOrNogo" Type="nvarchar" MaxLength="50" />
+    <Property Name="pjScheduleId" Type="int" />
+  </EntityType>
+  <EntityType Name="pj結案">
+    <Key>
+      <PropertyRef Name="pjFinalReport" />
+    </Key>
+    <Property Name="pjFinalReport" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="pjFinalManager" Type="nvarchar" MaxLength="50" />
+    <Property Name="pjFinalDuration" Type="int" />
+    <Property Name="pjFinal成員數" Type="int" />
+    <Property Name="pjFinal客戶" Type="nvarchar" MaxLength="50" />
+    <Property Name="pjDone" Type="nvarchar" MaxLength="50" />
+    <Property Name="pjEarn" Type="money" />
+    <Property Name="pjFinalCost" Type="money" />
+    <Property Name="pjFinal簽核" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="pj進度表">
+    <Key>
+      <PropertyRef Name="pjScheduleId" />
+    </Key>
+    <Property Name="pjScheduleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="pjMemberId" Type="int" />
+    <Property Name="pjMemberName" Type="nvarchar" MaxLength="50" />
     <Property Name="pjActionItem" Type="nvarchar" MaxLength="50" />
+    <Property Name="pjPhase" Type="nvarchar" MaxLength="50" />
     <Property Name="pjDuration" Type="int" />
     <Property Name="pjTarget" Type="nvarchar" MaxLength="50" />
     <Property Name="pjFixedDuration" Type="int" />
@@ -77,31 +85,42 @@
     <Property Name="pjLag" Type="nvarchar" MaxLength="50" />
     <Property Name="pjObjective" Type="nvarchar" MaxLength="50" />
     <Property Name="pjHandOver" Type="nvarchar" MaxLength="50" />
-    <Property Name="pjIssueLog" Type="nvarchar" MaxLength="50" />
-    <Property Name="pjAuthorization" Type="nvarchar" MaxLength="50" />
-    <Property Name="pjWorstCaseScenario" Type="nvarchar" MaxLength="50" />
-    <Property Name="pjGoOrNogo" Type="nvarchar" MaxLength="50" />
-  </EntityType>
-  <EntityType Name="pj結案">
-    <Key>
-      <PropertyRef Name="pjFinalReport" />
-    </Key>
-    <Property Name="pjFinalReport" Type="nvarchar" MaxLength="50" Nullable="false" />
   </EntityType>
   <EntityType Name="pj會議">
     <Key>
       <PropertyRef Name="pjMeeting" />
     </Key>
     <Property Name="pjMeeting" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="pjMeetingId" Type="int" />
+  </EntityType>
+  <EntityType Name="pj會議記錄">
+    <Key>
+      <PropertyRef Name="pjMeetingId" />
+    </Key>
+    <Property Name="pjMeetingId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="pjMeetingDate" Type="date" />
+    <Property Name="pjMeetingContent" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="pj團隊">
     <Key>
       <PropertyRef Name="pj" />
     </Key>
     <Property Name="pj" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="pj成員" Type="nvarchar" MaxLength="50" />
-    <Property Name="pj工作項目" Type="nvarchar" MaxLength="50" />
+    <Property Name="pj成員7" Type="nvarchar" MaxLength="50" />
+    <Property Name="pj工作項目7" Type="nvarchar" MaxLength="50" />
     <Property Name="pjId" Type="int" />
+    <Property Name="pj成員6" Type="nvarchar" MaxLength="50" />
+    <Property Name="pj工作項目6" Type="nvarchar" MaxLength="50" />
+    <Property Name="pj成員5" Type="nvarchar" MaxLength="50" />
+    <Property Name="pj工作項目5" Type="nvarchar" MaxLength="50" />
+    <Property Name="pj成員4" Type="nvarchar" MaxLength="50" />
+    <Property Name="pj工作項目4" Type="nvarchar" MaxLength="50" />
+    <Property Name="pj成員3" Type="nvarchar" MaxLength="50" />
+    <Property Name="pj工作項目3" Type="nvarchar" MaxLength="50" />
+    <Property Name="pj成員2" Type="nvarchar" MaxLength="50" />
+    <Property Name="pj工作項目2" Type="nvarchar" MaxLength="50" />
+    <Property Name="pj成員1" Type="nvarchar" MaxLength="50" />
+    <Property Name="pj工作項目1" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="pj總表">
     <Key>
@@ -114,22 +133,6 @@
     <Property Name="pjPlannedAndControl" Type="nvarchar" MaxLength="50" />
     <Property Name="pjMeeting" Type="nvarchar" MaxLength="50" />
     <Property Name="pjFinalReport" Type="nvarchar" MaxLength="50" />
-  </EntityType>
-  <EntityType Name="projectTeam">
-    <Key>
-      <PropertyRef Name="pjDailyReport" />
-    </Key>
-    <Property Name="pjDailyReport" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="pjTeam" Type="nvarchar" MaxLength="50" />
-    <Property Name="pjId" Type="int" />
-    <Property Name="employeeID" Type="int" />
-    <Property Name="pjJob" Type="nvarchar" MaxLength="20" />
-    <Property Name="pj人數" Type="int" />
-    <Property Name="pj開始時間" Type="int" />
-    <Property Name="pj結束時間" Type="int" />
-    <Property Name="pj工作內容" Type="nvarchar" MaxLength="50" />
-    <Property Name="pj工作時間" Type="int" />
-    <Property Name="pj填表日期" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="出差細項">
     <Key>
@@ -174,8 +177,8 @@
       <PropertyRef Name="打卡ID" />
     </Key>
     <Property Name="打卡ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="上班打卡時間" Type="time" Precision="7" />
-    <Property Name="下班打卡時間" Type="time" Precision="7" />
+    <Property Name="上班打卡時間" Type="datetime" />
+    <Property Name="下班打卡時間" Type="datetime" />
     <Property Name="打卡日期" Type="date" />
     <Property Name="員工編號" Type="int" />
     <Property Name="中文姓名" Type="nvarchar" MaxLength="50" />
@@ -260,7 +263,33 @@
     <Property Name="審核狀態" Type="nvarchar" MaxLength="50" />
     <Property Name="中文姓名" Type="nvarchar" MaxLength="50" />
     <Property Name="職稱" Type="nvarchar" MaxLength="50" />
+    <Property Name="已用可用" Type="int" />
+    <Property Name="圖片" Type="nvarchar(max)" />
   </EntityType>
+  <Association Name="FK_pj控管_pj進度表">
+    <End Role="pj進度表" Type="Self.pj進度表" Multiplicity="0..1" />
+    <End Role="pj控管" Type="Self.pj控管" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="pj進度表">
+        <PropertyRef Name="pjScheduleId" />
+      </Principal>
+      <Dependent Role="pj控管">
+        <PropertyRef Name="pjScheduleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_pj會議_pj會議記錄">
+    <End Role="pj會議記錄" Type="Self.pj會議記錄" Multiplicity="0..1" />
+    <End Role="pj會議" Type="Self.pj會議" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="pj會議記錄">
+        <PropertyRef Name="pjMeetingId" />
+      </Principal>
+      <Dependent Role="pj會議">
+        <PropertyRef Name="pjMeetingId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_pj總表_pj建立">
     <End Role="pj建立" Type="Self.pj建立" Multiplicity="0..1" />
     <End Role="pj總表" Type="Self.pj總表" Multiplicity="*" />
@@ -309,30 +338,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_projectTeam_eipProjectDetail">
-    <End Role="eipProjectDetail" Type="Self.eipProjectDetail" Multiplicity="0..1" />
-    <End Role="projectTeam" Type="Self.projectTeam" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="eipProjectDetail">
-        <PropertyRef Name="pjId" />
-      </Principal>
-      <Dependent Role="projectTeam">
-        <PropertyRef Name="pjId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_projectTeam_個人資料">
-    <End Role="個人資料" Type="Self.個人資料" Multiplicity="0..1" />
-    <End Role="projectTeam" Type="Self.projectTeam" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="個人資料">
-        <PropertyRef Name="EmployeeID" />
-      </Principal>
-      <Dependent Role="projectTeam">
-        <PropertyRef Name="employeeID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_加班細項_加班別">
     <End Role="加班別" Type="Self.加班別" Multiplicity="0..1" />
     <End Role="加班細項" Type="Self.加班細項" Multiplicity="*" />
@@ -358,16 +363,16 @@
     </ReferentialConstraint>
   </Association>
   <EntityContainer Name="dbEIPModelStoreContainer">
-    <EntitySet Name="eipProjectDetail" EntityType="Self.eipProjectDetail" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MeetingRoom" EntityType="Self.MeetingRoom" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MeetingRoomBooking" EntityType="Self.MeetingRoomBooking" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="pj建立" EntityType="Self.pj建立" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="pj控管" EntityType="Self.pj控管" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="pj結案" EntityType="Self.pj結案" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="pj進度表" EntityType="Self.pj進度表" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="pj會議" EntityType="Self.pj會議" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="pj會議記錄" EntityType="Self.pj會議記錄" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="pj團隊" EntityType="Self.pj團隊" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="pj總表" EntityType="Self.pj總表" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="projectTeam" EntityType="Self.projectTeam" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="出差細項" EntityType="Self.出差細項" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="加班別" EntityType="Self.加班別" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="加班細項" EntityType="Self.加班細項" Schema="dbo" store:Type="Tables" />
@@ -378,6 +383,14 @@
     <EntitySet Name="個人資料" EntityType="Self.個人資料" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="假別" EntityType="Self.假別" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="請假細項" EntityType="Self.請假細項" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_pj控管_pj進度表" Association="Self.FK_pj控管_pj進度表">
+      <End Role="pj進度表" EntitySet="pj進度表" />
+      <End Role="pj控管" EntitySet="pj控管" />
+    </AssociationSet>
+    <AssociationSet Name="FK_pj會議_pj會議記錄" Association="Self.FK_pj會議_pj會議記錄">
+      <End Role="pj會議記錄" EntitySet="pj會議記錄" />
+      <End Role="pj會議" EntitySet="pj會議" />
+    </AssociationSet>
     <AssociationSet Name="FK_pj總表_pj建立" Association="Self.FK_pj總表_pj建立">
       <End Role="pj建立" EntitySet="pj建立" />
       <End Role="pj總表" EntitySet="pj總表" />
@@ -393,14 +406,6 @@
     <AssociationSet Name="FK_pj總表_pj會議" Association="Self.FK_pj總表_pj會議">
       <End Role="pj會議" EntitySet="pj會議" />
       <End Role="pj總表" EntitySet="pj總表" />
-    </AssociationSet>
-    <AssociationSet Name="FK_projectTeam_eipProjectDetail" Association="Self.FK_projectTeam_eipProjectDetail">
-      <End Role="eipProjectDetail" EntitySet="eipProjectDetail" />
-      <End Role="projectTeam" EntitySet="projectTeam" />
-    </AssociationSet>
-    <AssociationSet Name="FK_projectTeam_個人資料" Association="Self.FK_projectTeam_個人資料">
-      <End Role="個人資料" EntitySet="個人資料" />
-      <End Role="projectTeam" EntitySet="projectTeam" />
     </AssociationSet>
     <AssociationSet Name="FK_加班細項_加班別" Association="Self.FK_加班細項_加班別">
       <End Role="加班別" EntitySet="加班別" />

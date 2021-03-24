@@ -30,6 +30,7 @@ namespace EIP.Controllers
                 pjName = m.pjName,
                 pjManager = m.pjManager,
                 pj簡介 = m.pj建立.pj簡介,
+                pj成員數 = m.pj建立.pj成員數,
             });
             return Json(pjMainData, JsonRequestBehavior.AllowGet);
         }
@@ -55,13 +56,14 @@ namespace EIP.Controllers
         //找一筆專案資料from總表
         public JsonResult getMainData1(int id)
         {
-            var pjMainData1 = db.pj總表.FirstOrDefault(m => m.pjId == id);         
-           
-            var qPjData = new {
+            var pjMainData1 = db.pj總表.FirstOrDefault(m => m.pjId == id);
+            var k = db.pj建立.FirstOrDefault(n => n.pjCreateId == pjMainData1.pjCreateId);
+            var qPjData = new
+            {
                 pjId = pjMainData1.pjId,
                 pjName = pjMainData1.pjName,
                 pjManager = pjMainData1.pjManager,
-         
+                pj成員數 = k.pj成員數,
             };
             return Json(qPjData, JsonRequestBehavior.AllowGet);
         }

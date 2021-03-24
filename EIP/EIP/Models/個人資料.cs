@@ -14,12 +14,6 @@ namespace EIP.Models
     
     public partial class 個人資料
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public 個人資料()
-        {
-            this.projectTeam = new HashSet<projectTeam>();
-        }
-    
         public int EmployeeID { get; set; }
         public string EmployeePW { get; set; }
         public string 受雇日期 { get; set; }
@@ -38,8 +32,5 @@ namespace EIP.Models
         public string 薪資 { get; set; }
         public string 特休 { get; set; }
         public string 權限 { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<projectTeam> projectTeam { get; set; }
     }
 }
