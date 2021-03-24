@@ -59,9 +59,6 @@
                 background-color: #F0F0F0;
             }
 
-            .FormTextShadow {
-             /*   text-shadow: 5px 5px 20px black;*/
-            }
 
             .space {
                 justify-content: space-evenly;
@@ -233,6 +230,18 @@
         .formlbl {
             font-size: 16px !important;
         }
+        .nohover {
+        pointer-events:none;
+        }
+        .AlerBellOut {
+            top: 10%;
+            position: fixed;
+            right: 2%;
+            background-color: #FCFCFC;
+            border:1px solid white;
+            border-radius:50% 50% 50% 50%;
+            padding:1% 1%;
+        }
         </style>
 </head>
 <body>
@@ -290,19 +299,26 @@
                     </div>
             </ul>
             @**@
-            <div class="nav-item dropdown text-secondary">
-                <i class="far fa-bell fa-2x mr-4 dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown"></i>
+            <div class="dropdown text-secondary AlerBellOut">
+                <i class="big teal bell outline icon" id="dropdownMenuButton" data-toggle="dropdown"></i>
                 <div class="dropdown-menu AlertBell"></div>
             </div>
-            <span class="navbar-text"> <i class="fa fa-user fa-1x pointer NameClick" title="個人詳細資訊"></i></span>
-            @* 測試 *@
-            <span class="navbar-text"> <a class="nav-link CookieAuth"> </a></span>
-            <span class="navbar-text"> <a class="nav-link mr-3 CookieName"></a></span>
-
-            <button class="ui black button Logout">
-                <i class="icon sign-out"></i>
-                登出
-            </button>
+            <div class="w-25">
+                <div class="ui buttons w-100">
+                    <button class="ui labeled icon button nohover" title="權限" >
+                        <i class="left user icon"></i>
+                        <p class="CookieAuth"></p>
+                    </button>
+                        <button class="ui labeled icon button NameClick" title="員工姓名">
+                            <i class="address card icon"></i>
+                            <p class="CookieName"></p>
+                        </button>
+                    <button class="ui right labeled icon button Logout" title="登出">
+                        登出
+                        <i class="icon sign-out"></i>
+                    </button>
+                </div>
+            </div>
         </div>
     </nav>
     <div class="container body-content" style="max-width:1600px;">
@@ -465,20 +481,20 @@
             </div>
         </div>
 
-        <div class="ui modal" id="UserProfile">
+        <div class="ui small modal" id="UserProfile">
             <i class="close icon"></i>
             <div class="header">
                 員工資訊
             </div>
             <div class="content">
-                <form class="addprofile FormTextShadow"></form>
+                <form class="ui form addprofile "></form>
             </div>
             <div class="actions d-flex justify-content-between">
                 <div>
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#Editpw">修改密碼</button>
                 </div>
                 <div>
-                    <button type="button" class="btn btn-secondary cancel ">Close</button>
+                    <button type="button" class="btn btn-secondary cancel">Close</button>
                 </div>
             </div>
         </div>
@@ -488,25 +504,25 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title FormTextShadow" id="exampleModalLabel">員工資訊</h5>
+                        <h5 class="modal-title " id="exampleModalLabel">員工資訊</h5>
                         <button type="button" class="close" data-dismiss="modal">
                         </button>
                     </div>
                     <div class="modal-body modalbody">
                         <div class="d-flex my-4">
                             <div>
-                                <label class="FormTextShadow">輸入欲修改密碼：</label>
+                                <label class="">輸入欲修改密碼：</label>
                             </div>
                             <div>
-                                <input type="password" class="FormTextShadow editpw1 ml-5" />
+                                <input type="password" class=" editpw1 ml-5" />
                             </div>
                         </div>
                         <div class="d-flex mb-4">
                             <div>
-                                <label class="FormTextShadow mr-2">重複輸入欲修改密碼：</label>
+                                <label class=" mr-2">重複輸入欲修改密碼：</label>
                             </div>
                             <div>
-                                <input type="password" class="FormTextShadow editpw2 ml-2" />
+                                <input type="password" class=" editpw2 ml-2" />
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -514,7 +530,7 @@
                                 <button type="button" class="btn btn-primary editpwsave">確認修改</button>
                             </div>
                             <div>
-                                <button type="button" class="btn btn-secondary ClearModal" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-secondary ClearModal editpwcancel" data-dismiss="modal">Close</button>
                             </div>
                         </div>
                     </div>
@@ -536,7 +552,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.5/pagination.min.js" integrity="sha512-1zzZ0ynR2KXnFskJ1C2s+7TIEewmkB2y+5o/+ahF7mwNj9n3PnzARpqalvtjSbUETwx6yuxP5AJXZCpnjEJkQw==" crossorigin="anonymous"></script>
     @RenderSection("script", required: false)
     <script>
-
+        
         if (document.cookie != '') {
             $('.CookieAuth').html(decodeURI(document.cookie.split('Auth=')[1].split('&')[0]));
             $('.CookieName').html(decodeURI(document.cookie.split('Name=')[1].split('&')[0]));
@@ -575,60 +591,114 @@
                 method: "Get",
                 success: function (data) {
                     $(".addprofile").html(`
-                                                                  <div>
-                                <div>
-                                    <label>中文姓名:</label>
-                                    <input type="text" class="w-100" value="${data.中文姓名}"disabled>
-                                </div>
-                                <div>
-                                    <label class="mt-2">英文姓名:</label>
-                                    <input type="text" class="w-100" value="${data.英文姓名}"disabled>
-                                </div>
-                                <div>
-                                    <label class="mt-2">性別：</label>
-                                    <select disabled class="ml-2 mt-2">
-                                        <option value="性別" selected>${data.性別}</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <div>
-                                        <label class="mt-2">出生年月日:</label>
-                                        <input type="" id="birth" class="w-100" value="${data.出生年月日}"disabled>
-                                    </div>
-                                    <div>
-                                        <label class="mt-2">婚姻狀況:</label>
-                                        <input type="text" class="w-100" value="${data.婚姻狀況}"disabled>
-                                    </div>
-                                    <div>
-                                        <label class="mt-2">居住地:</label>
-                                        <input type="text" class="w-100" value="${data.居住地}"disabled>
-                                    </div>
-                                    <div>
-                                        <label class="mt-2">電話：</label>
-                                        <input type="text" class="w-100" value="${data.電話}"disabled>
-                                    </div>
-                                    <div>
-                                        <label class="mt-2">受雇日期:</label>
-                                        <input type="text" class="w-100" value="${data.受雇日期}"disabled>
-                                    </div>
-                                    <div>
-                                        <label class="mt-2">部門:</label>
-                                        <input type="text" class="w-100" value="${data.部門}" disabled>
-                                    </div>
-                                    <div>
-                                        <label class="mt-2">職稱:</label>
-                                        <input type="text" class="w-100" value="${data.職稱}"disabled>
-                                    </div>
-                                    <div>
-                                        <label class="mt-2">特休:</label>
-                                        <input type="text" class="w-100" value="${data.特休}"disabled>
-                                    </div>
-                                    <div>
-                                        <label class="mt-2">薪資:</label>
-                                        <input type="text" class="w-100" value="${data.薪資}"disabled>
-                                    </div>
-                                </div>
-                            </div>`);
+                                                                      <div>
+            <input type="hidden" name="EmployeePW" value="${data.EmployeePW}" />
+            <input type="hidden" name="EmployeeID" value="${data.EmployeeID}" />
+            <input type="hidden" name="信箱" value="${data.信箱}" />
+        </div>
+        <div class="field">
+            <div class="two fields">
+                <div class="eight wide field">
+                    <label class="formlbl">中文姓名：</label>
+                    <input name="中文姓名" type="text" class="w-100" value="${data.中文姓名}" disabled />
+                </div>
+                <div class="eight wide field">
+                    <label class="formlbl">英文姓名：</label>
+                    <input name="英文姓名" type="text" class="w-100" value="${data.英文姓名}" disabled />
+                </div>
+            </div>
+        </div>
+        <div class="field">
+            <div class="two fields">
+                <div class="five wide field">
+                    <label class="formlbl">性別：</label>
+                    <input type="text" name="性別" value="${data.性別}" hidden />
+                    <select disabled class="ml-2 mt-2">
+                        <option value="性別" selected>${data.性別}</option>
+                    </select>
+                </div>
+                <div class="thirteen wide field">
+                    <label class="formlbl">出生年月日：</label>
+                    <input type="text" name="出生年月日" class="w-100" value="${data.出生年月日}" hidden />
+                    <input type="date" class="w-100" value="${data.出生年月日}" disabled />
+                </div>
+            </div>
+        </div>
+        <div class="field">
+            <label class="formlbl">居住地:</label>
+            <input name="居住地" value="${data.居住地}" disabled />
+        </div>
+
+        <div class="field">
+            <div class="two fields">
+                <div class="twelve wide field">
+                    <label class="formlbl">電話：</label>
+                    <input type="text" name="電話" class="w-100" value="${data.電話}" disabled />
+                </div>
+                <div class="six wide field">
+                    <label class="formlbl">婚姻狀況：</label>
+                    <select name="婚姻狀況" disabled>
+                        <option hidden>${data.婚姻狀況}</option>
+                        <option value="已婚">已婚</option>
+                        <option value="未婚">未婚</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="field">
+            <div class="two fields">
+                <div class="nine wide field">
+                    <label class="formlbl">部門：</label>
+                    <select name="部門" disabled>
+                        <option hidden>${data.部門}</option>
+                        <option value="財部部">財部部</option>
+                        <option value="總務部">總務部</option>
+                        <option value="人事部">人事部</option>
+                        <option value="業務部">業務部</option>
+                    </select>
+                </div>
+                <div class="nine wide field">
+                    <label class="formlbl">職稱：</label>
+                    <select name="職稱" disabled>
+                        <option hidden>${data.職稱}</option>
+                        <option value="主管">主管</option>
+                        <option value="員工">員工</option>
+                        <option value="人事">人事</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="field">
+            <div class="two fields">
+                <div class="nine wide field">
+                    <label class="formlbl">受雇日期：</label>
+                    <input type="text" name="受雇日期" class="w-100" value="${data.受雇日期}" hidden />
+                    <input type="text" class="w-100" value="${data.受雇日期}" disabled />
+                </div>
+                <div class="nine wide field">
+                    <label class="formlbl">在職狀態：</label>
+                    <select name="狀態" disabled>
+                        <option hidden>${data.狀態}</option>
+                        <option value="在職">在職</option>
+                        <option value="離職">離職</option>
+                        <option value="未到職">未到職</option>
+                        <option value="留職停薪">留職停薪</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="field">
+            <div class="two fields">
+                <div class="field">
+                    <label class="formlbl">薪資：</label>
+                    <input name="薪資" class="Regular shadow" value="${data.薪資}" disabled />
+                </div>
+                <div class="field">
+                    <label class="formlbl">特休：</label>
+                    <input name="特休" class="Regular shadow" value="${data.特休}" disabled />
+                </div>
+            </div>
+        </div>`);
                 }
             });
 
@@ -643,13 +713,11 @@
             $(".hr").attr('hidden', true);
         }
 
-
-
-        $("#Editpw").click(function () {
-            $("#UserProfile").modal('show');
+        $(".editpwcancel").click(function () {
             $(".editpw1").val('');
             $(".editpw2").val('');
         });
+
 
         $(".editpwsave").click(function () {
             var newpwd = $(".editpw2").val();
@@ -676,6 +744,8 @@
                     method: "Get",
                     success: function () {
                         swal("成功", "修改密碼成功...", "success");
+                        $(".editpw1").val('');
+                        $(".editpw2").val('');
                         $("#UserProfile").modal('hide');
                         $("#Editpw").modal('hide');
                     }
@@ -683,16 +753,22 @@
             }
         });
 
+        var baid = 0;
+        var beid = 0;
+        //設定一個 佈告欄新增id 讓他自動++ 判定 大於多少 刪除 上面的 div 
+        //設定一個佈告欄修改id 讓他自動++ 判定 大於多少 刪除 上面的 div 讓他和編輯的div加總維持在一定的數量
+
         const bell = $.connection.bell;   //呼叫hub
         bell.client.message = function (name, message) {
-            $(".AlertBell").append(` <a class="dropdown-item text-success" href="/BulletinBoard/BulletinBoard">您的佈告欄有新的通知!</a>`);
+            $(".AlertBell").append(` <div class="ui label"><i class="bullhorn icon"></i><a class="dropdown-item text-success font-weight-bold" b-aid="${baid++}" href="/BulletinBoard/BulletinBoard">您的佈告欄有新的通知!</a></div>`);
         }
         bell.client.edit = function (name) {
-            $(".AlertBell").append(`<a class="dropdown-item text-warning" href="/BulletinBoard/BulletinBoard">您的佈告欄有新的通知!</a>`);
+            $(".AlertBell").append(`<div class="ui label"><i class="bullhorn icon"></i><a class="dropdown-item text-warning font-weight-bold"  b-eid="${beid++}"href="/BulletinBoard/BulletinBoard">您的佈告欄有新的通知!</a></div>`);
         }
         bell.client.delete = function (message) {
-            $(".AlertBell").append(`<a class="dropdown-item text-danger" href="/BulletinBoard/BulletinBoard">您的佈告欄有新的異動！${message}已被刪除！</a>`);
+            $(".AlertBell").append(`<div class="ui label"><i class="bullhorn icon"></i><a class="dropdown-item text-danger font-weight-bold" href="/BulletinBoard/BulletinBoard">您的佈告欄有新的異動！${message}已被刪除！</a></div>`);
         }
+
         function ChangePage() {
             $('#overtimemodel').modal('show');
             window.location.href = '/DDDDD/OverTime';
