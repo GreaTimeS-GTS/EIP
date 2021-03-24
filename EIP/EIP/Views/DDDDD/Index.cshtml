@@ -1,0 +1,110 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+<style>
+    .head{
+        border:1px solid black;
+        border-radius:20px;
+        text-align:center;
+    }
+</style>
+
+<ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#firstTab">View All</a></li>
+    <li><a data-toggle="tab" href="#secondTab">Add New</a></li>
+</ul>
+<div class="tab-content">
+    <div id="firstTab" class="tab-pane fade" in active">tab 1</div>
+    <div id="secondTab" class="tab-pane fade" in active">tab 2 content</div>
+</div>
+<div class="head">
+    <h2>請假</h2>
+    <form>
+        <div>
+            <label>員工編號:</label>
+        </div>
+        <div>
+            <label>信箱:</label>
+        </div>
+        <div>
+            <label>部門:</label>
+        </div>
+        <div>
+            <label>請假類別:</label>
+            <select id="select1">
+                <option value="0">請選擇</option>
+                <option value="1">事假</option>
+                <option value="2">病假</option>
+                <option value="3">生理假</option>
+                <option value="4">喪假</option>
+                <option value="5">婚假</option>
+                <option value="6">公假</option>
+                <option value="7">產假</option>
+                <option value="8">陪產假</option>
+                <option value="9">防疫隔離假</option>
+                <option value="10">特休</option>
+                <option value="11">加班補修</option>
+            </select>
+        </div>
+        <div>
+            <label>開始日期</label>
+            <input type="date"
+                   value="2020-04-20"
+                   min="2020-04-01"
+                   max="2022-04-30"
+                   step="5">
+            <label>開始時間</label>
+            <input type="time"
+                   value="06:00"
+                   min="02:00"
+                   max="22:00"
+                   step="5">
+        </div>
+        <div>
+            <label>結束日期</label>
+            <input type="date"
+                   value="2020-04-20"
+                   min="2020-04-01"
+                   max="2022-04-30"
+                   step="5">
+            <label>結束時間</label>
+            <input type="time"
+                   value="06:00"
+                   min="02:00"
+                   max="22:00"
+                   step="5">
+        </div>
+        <div>
+            <label>申請日期</label>
+            <input type="date"
+                   value="2020-04-20"
+                   min="2020-04-01"
+                   max="2022-04-30"
+                   step="5">
+            <label>申請時間</label>
+            <input type="time"
+                   value="06:00"
+                   min="02:00"
+                   max="22:00"
+                   step="5">
+        </div>
+        <div>
+            <label>請假時數</label>
+            <input type="number"
+                   step="10"
+                   min="0"
+                   max="1000">
+        </div>
+        <div>
+            <label>代理人</label>
+            <input type="text">
+            <label>審核狀態</label>
+        </div>
+        <input type="submit">
+    </form>
+</div>
+@section script{
+    <script>
+
+    </script>
+}
