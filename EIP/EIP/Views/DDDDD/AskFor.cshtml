@@ -153,7 +153,7 @@
             var formData = new FormData(document.form2);
             formData.append('upPhoto', $("#upload").get(0).files[0]);
             $.ajax({
-                url: "/DDDDD/AskForAjax1",
+                url: "/DDDDD/AskForAjax",
                 type: "POST",
                 contentType: false,
                 processData: false,
@@ -161,7 +161,7 @@
                     success: function (result) {
                         if (result == "ok") {
                             setTimeout(function () {
-                                //window.location.href = "/DDDDD/AskforList";
+                                window.location.href = "/DDDDD/AskforList";
                             }, 2000);
                             swal("成功", "新增成功", "success");
                         }

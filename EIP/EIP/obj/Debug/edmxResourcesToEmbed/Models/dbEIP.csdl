@@ -5,6 +5,7 @@
     <EntitySet Name="MeetingRoom" EntityType="dbEIPModel.MeetingRoom" />
     <EntitySet Name="MeetingRoomBooking" EntityType="dbEIPModel.MeetingRoomBooking" />
     <EntitySet Name="pj建立" EntityType="dbEIPModel.pj建立" />
+    <EntitySet Name="pj控管" EntityType="dbEIPModel.pj控管" />
     <EntitySet Name="pj結案" EntityType="dbEIPModel.pj結案" />
     <EntitySet Name="pj會議" EntityType="dbEIPModel.pj會議" />
     <EntitySet Name="pj團隊" EntityType="dbEIPModel.pj團隊" />
@@ -98,6 +99,28 @@
     <Property Name="pj初審意見" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="pj持續時間" Type="Int32" />
   </EntityType>
+  <EntityType Name="pj控管">
+    <Key>
+      <PropertyRef Name="pjPlannedAndControl" />
+    </Key>
+    <Property Name="pjPlannedAndControl" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="pjStartDate" Type="DateTime" Precision="0" />
+    <Property Name="pjEndDate" Type="DateTime" Precision="0" />
+    <Property Name="pjGoal" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="pjIntput" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="pjActionItem" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="pjDuration" Type="Int32" />
+    <Property Name="pjTarget" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="pjFixedDuration" Type="Int32" />
+    <Property Name="pjEstimation" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="pjLag" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="pjObjective" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="pjHandOver" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="pjIssueLog" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="pjAuthorization" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="pjWorstCaseScenario" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="pjGoOrNogo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
   <EntityType Name="pj結案">
     <Key>
       <PropertyRef Name="pjFinalReport" />
@@ -153,7 +176,7 @@
     <Key>
       <PropertyRef Name="出差表編號" />
     </Key>
-    <Property Name="出差表編號" Type="Int32" Nullable="false" />
+    <Property Name="出差表編號" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="EmployeeID" Type="Int32" Nullable="false" />
     <Property Name="中文姓名" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="部門" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />

@@ -19,6 +19,15 @@ namespace EIP.Controllers
             return View();
         }
 
+        public JsonResult GetPhoto(int id)
+        {
+            var myPhoto = db.請假細項.Select(m => new
+            {
+                m.申請表編號,
+                m.圖片
+            }).FirstOrDefault(m => m.申請表編號 == id);
+            return Json("", JsonRequestBehavior.AllowGet);
+        }
         public string PhotoAjax(請假細項 inputdata, HttpPostedFileBase upPhoto)
         {
             string filePath = "";
@@ -40,7 +49,7 @@ namespace EIP.Controllers
         {
             return View();
         }
-        public string AskForAjax1(請假細項 k, HttpPostedFileBase upPhoto)  //
+        public string AskForAjax(請假細項 k, HttpPostedFileBase upPhoto)  //
         {
             string filePath = "";
             if (upPhoto != null)
@@ -61,7 +70,7 @@ namespace EIP.Controllers
         }
         public JsonResult AskForListAjax()
         {
-            var leaveform = db.請假細項.ToList().
+            var leaveform = db.請假細項.
                             Select(m => new
                             {
                                 申請表編號 = m.申請表編號,
@@ -109,12 +118,12 @@ namespace EIP.Controllers
         //    return Json(mm, JsonRequestBehavior.AllowGet);
         //}
         //=============================刪除=============================//
-        public JsonResult DeleteData(int id)
+        public string DeleteData(int id)
         {
-            var deleteuser = db.請假細項.FirstOrDefault(m => m.EmployeeID == id);
+            var deleteuser = db.請假細項.FirstOrDefault(m => m.申請表編號 == id);
             db.請假細項.Remove(deleteuser);
             db.SaveChanges();
-            return Json(deleteuser, JsonRequestBehavior.AllowGet);
+            return "ok";
         }
         //=============================修改=============================//
         public ActionResult UpdateData()
