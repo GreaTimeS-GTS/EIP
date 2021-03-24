@@ -19,21 +19,21 @@ namespace EIP.Controllers
             return View();
         }
 
-        public string PhotoAjax(請假細項 inputdata, HttpPostedFileBase upPhoto)
-        {
-            string filePath = "";
-            if (upPhoto != null)
-            {
-                filePath = DateTime.Now.ToString("yyyyMMddhhmmss") + upPhoto.FileName;
-                upPhoto.SaveAs(Server.MapPath("~/images/") + filePath);
-            }
+        //public string PhotoAjax(請假細項 inputdata, HttpPostedFileBase upPhoto)
+        //{
+        //    string filePath = "";
+        //    if (upPhoto != null)
+        //    {
+        //        filePath = DateTime.Now.ToString("yyyyMMddhhmmss") + upPhoto.FileName;
+        //        upPhoto.SaveAs(Server.MapPath("~/images/") + filePath);
+        //    }
 
-            inputdata.圖片 = filePath;
+        //    inputdata.圖片 = filePath;
 
-            db.請假細項.Add(inputdata);
-            db.SaveChanges();
-            return "Success";
-        }
+        //    db.請假細項.Add(inputdata);
+        //    db.SaveChanges();
+        //    return "Success";
+        //}
 
         //=============================新增=============================//
         public ActionResult AskFor()
@@ -45,8 +45,8 @@ namespace EIP.Controllers
             string filePath = "";
             if (upPhoto != null)
             {
-                filePath = DateTime.Now.ToString("yyyyMMddhhmmss") + upPhoto.FileName;
-                upPhoto.SaveAs(Server.MapPath("~/images/") + filePath);
+                filePath = "/images/"+ DateTime.Now.ToString("yyyyMMddhhmmss") + upPhoto.FileName;
+                upPhoto.SaveAs(Server.MapPath("~") + filePath);
             }
             k.圖片 = filePath;
 
@@ -61,8 +61,7 @@ namespace EIP.Controllers
         }
         public JsonResult AskForListAjax()
         {
-            var leaveform = db.請假細項.ToList().
-                            Select(m => new
+            var leaveform = db.請假細項.Select(m => new
                             {
                                 申請表編號 = m.申請表編號,
                                 EmployeeID = m.EmployeeID,
@@ -139,6 +138,7 @@ namespace EIP.Controllers
                 請假班別 = x.請假班別,
                 代理人 = x.代理人,
                 審核狀態 = x.審核狀態,
+                x.圖片,
             }).FirstOrDefault(C => C.申請表編號 == id);
             return Json(mm, JsonRequestBehavior.AllowGet);
         }

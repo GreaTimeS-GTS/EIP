@@ -96,6 +96,9 @@
                             <label></label>
                             <input type="text" id="approvalStatus" disabled />
                         </div>
+                        <div class="mt-3">
+                            <img src="" class="showPic" style="width:400px;"/>
+                        </div>
                     </form>
                 </div>
             </div> @*End*@
@@ -223,6 +226,8 @@
                 type: "GET",
                 data: { "id": $(event.currentTarget).data("id") },
                 success: function (getdata) {
+
+                    console.log(getdata.圖片);
                     console.log(getdata);
                     var testtime = parseInt(getdata.開始日期.replace(/\D/igm, ""));
                     var testtime1 = new Date(testtime);
@@ -324,7 +329,8 @@
                     $("#askfortime").val(getdata.請假時數);
                     $("#agent").val(getdata.代理人);
                     $("#approvalStatus").val(getdata.審核狀態);
-                    console.log(testtime1);
+                    $(".showPic").attr("src",getdata.圖片);
+                  
                 }
             })
         }
