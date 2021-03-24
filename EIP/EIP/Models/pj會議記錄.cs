@@ -12,19 +12,19 @@ namespace EIP.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class pj會議
+    public partial class pj會議記錄
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public pj會議()
+        public pj會議記錄()
         {
-            this.pj總表 = new HashSet<pj總表>();
+            this.pj會議 = new HashSet<pj會議>();
         }
     
-        public string pjMeeting { get; set; }
-        public Nullable<int> pjMeetingId { get; set; }
+        public int pjMeetingId { get; set; }
+        public Nullable<System.DateTime> pjMeetingDate { get; set; }
+        public string pjMeetingContent { get; set; }
     
-        public virtual pj會議記錄 pj會議記錄 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<pj總表> pj總表 { get; set; }
+        public virtual ICollection<pj會議> pj會議 { get; set; }
     }
 }

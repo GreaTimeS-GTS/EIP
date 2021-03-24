@@ -15,8 +15,8 @@ namespace EIP.Models
     public partial class 打卡系統
     {
         public int 打卡ID { get; set; }
-        public Nullable<System.TimeSpan> 上班打卡時間 { get; set; }
-        public Nullable<System.TimeSpan> 下班打卡時間 { get; set; }
+        public Nullable<System.DateTime> 上班打卡時間 { get; set; }
+        public Nullable<System.DateTime> 下班打卡時間 { get; set; }
         public Nullable<System.DateTime> 打卡日期 { get; set; }
         public Nullable<int> 員工編號 { get; set; }
         public string 中文姓名 { get; set; }
