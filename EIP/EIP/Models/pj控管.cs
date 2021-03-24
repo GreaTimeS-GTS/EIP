@@ -14,22 +14,25 @@ namespace EIP.Models
     
     public partial class pj控管
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public pj控管()
+        {
+            this.pj總表 = new HashSet<pj總表>();
+        }
+    
         public string pjPlannedAndControl { get; set; }
         public Nullable<System.DateTime> pjStartDate { get; set; }
         public Nullable<System.DateTime> pjEndDate { get; set; }
         public string pjGoal { get; set; }
         public string pjIntput { get; set; }
-        public string pjActionItem { get; set; }
-        public Nullable<int> pjDuration { get; set; }
-        public string pjTarget { get; set; }
-        public Nullable<int> pjFixedDuration { get; set; }
-        public Nullable<decimal> pjEstimation { get; set; }
-        public string pjLag { get; set; }
-        public string pjObjective { get; set; }
-        public string pjHandOver { get; set; }
         public string pjIssueLog { get; set; }
         public string pjAuthorization { get; set; }
         public string pjWorstCaseScenario { get; set; }
         public string pjGoOrNogo { get; set; }
+        public Nullable<int> pjScheduleId { get; set; }
+    
+        public virtual pj進度表 pj進度表 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<pj總表> pj總表 { get; set; }
     }
 }

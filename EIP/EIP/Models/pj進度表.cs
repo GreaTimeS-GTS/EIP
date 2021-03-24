@@ -12,19 +12,28 @@ namespace EIP.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class pj會議
+    public partial class pj進度表
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public pj會議()
+        public pj進度表()
         {
-            this.pj總表 = new HashSet<pj總表>();
+            this.pj控管 = new HashSet<pj控管>();
         }
     
-        public string pjMeeting { get; set; }
-        public Nullable<int> pjMeetingId { get; set; }
+        public int pjScheduleId { get; set; }
+        public Nullable<int> pjMemberId { get; set; }
+        public string pjMemberName { get; set; }
+        public string pjActionItem { get; set; }
+        public string pjPhase { get; set; }
+        public Nullable<int> pjDuration { get; set; }
+        public string pjTarget { get; set; }
+        public Nullable<int> pjFixedDuration { get; set; }
+        public Nullable<decimal> pjEstimation { get; set; }
+        public string pjLag { get; set; }
+        public string pjObjective { get; set; }
+        public string pjHandOver { get; set; }
     
-        public virtual pj會議記錄 pj會議記錄 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<pj總表> pj總表 { get; set; }
+        public virtual ICollection<pj控管> pj控管 { get; set; }
     }
 }

@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - 我的 ASP.NET 應用程式</title>
+    <title>@ViewBag.Title</title>
     @*引用Fontawesome*@
     <link href="~/Content/fontawesome-all.css" rel="stylesheet" />
     @*引用SweetAlert*@
@@ -462,7 +462,7 @@
             </div>
         </div>
 
-        <div class="ui modal"id="UserProfile">
+        <div class="ui modal" id="UserProfile">
             <i class="close icon"></i>
             <div class="header">
                 員工資訊
@@ -470,16 +470,16 @@
             <div class="content">
                 <form class="addprofile FormTextShadow"></form>
             </div>
-            <div class="actions d-flex justify-content-between">   
-                    <div>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#Editpw">修改密碼</button>
-                    </div>
-                    <div>
-                        <button type="button" class="btn btn-secondary cancel ">Close</button>
-                    </div>
+            <div class="actions d-flex justify-content-between">
+                <div>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#Editpw">修改密碼</button>
+                </div>
+                <div>
+                    <button type="button" class="btn btn-secondary cancel ">Close</button>
+                </div>
             </div>
         </div>
-      
+
         @*修改密碼*@
         <div class="modal fade" id="Editpw" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
@@ -527,7 +527,7 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-    <script src="~/Scripts/jquery.signalR-2.4.1.min.js"></script>
+    <script src="~/Scripts/jquery.signalR-2.4.1.js"></script>
     <script src="~/signalr/hubs"></script>
     <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.5/pagination.min.js" integrity="sha512-1zzZ0ynR2KXnFskJ1C2s+7TIEewmkB2y+5o/+ahF7mwNj9n3PnzARpqalvtjSbUETwx6yuxP5AJXZCpnjEJkQw==" crossorigin="anonymous"></script>
@@ -560,8 +560,8 @@
                             }
                         })
                     }, 1000);
-                        }
-                    })
+                }
+            })
         });
 
 
@@ -572,60 +572,60 @@
                 method: "Get",
                 success: function (data) {
                     $(".addprofile").html(`
-                                              <div>
-            <div>
-                <label>中文姓名:</label>
-                <input type="text" class="w-100" value="${data.中文姓名}"disabled>
-            </div>
-            <div>
-                <label class="mt-2">英文姓名:</label>
-                <input type="text" class="w-100" value="${data.英文姓名}"disabled>
-            </div>
-            <div>
-                <label class="mt-2">性別：</label>
-                <select disabled class="ml-2 mt-2">
-                    <option value="性別" selected>${data.性別}</option>
-                </select>
-            </div>
-            <div>
-                <div>
-                    <label class="mt-2">出生年月日:</label>
-                    <input type="" id="birth" class="w-100" value="${data.出生年月日}"disabled>
-                </div>
-                <div>
-                    <label class="mt-2">婚姻狀況:</label>
-                    <input type="text" class="w-100" value="${data.婚姻狀況}"disabled>
-                </div>
-                <div>
-                    <label class="mt-2">居住地:</label>
-                    <input type="text" class="w-100" value="${data.居住地}"disabled>
-                </div>
-                <div>
-                    <label class="mt-2">電話：</label>
-                    <input type="text" class="w-100" value="${data.電話}"disabled>
-                </div>
-                <div>
-                    <label class="mt-2">受雇日期:</label>
-                    <input type="text" class="w-100" value="${data.受雇日期}"disabled>
-                </div>
-                <div>
-                    <label class="mt-2">部門:</label>
-                    <input type="text" class="w-100" value="${data.部門}" disabled>
-                </div>
-                <div>
-                    <label class="mt-2">職稱:</label>
-                    <input type="text" class="w-100" value="${data.職稱}"disabled>
-                </div>
-                <div>
-                    <label class="mt-2">特休:</label>
-                    <input type="text" class="w-100" value="${data.特休}"disabled>
-                </div>
-                <div>
-                    <label class="mt-2">薪資:</label>
-                    <input type="text" class="w-100" value="${data.薪資}"disabled>
-                </div>
-            </div>
-        </div>`);
+                                                                  <div>
+                                <div>
+                                    <label>中文姓名:</label>
+                                    <input type="text" class="w-100" value="${data.中文姓名}"disabled>
+                                </div>
+                                <div>
+                                    <label class="mt-2">英文姓名:</label>
+                                    <input type="text" class="w-100" value="${data.英文姓名}"disabled>
+                                </div>
+                                <div>
+                                    <label class="mt-2">性別：</label>
+                                    <select disabled class="ml-2 mt-2">
+                                        <option value="性別" selected>${data.性別}</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <div>
+                                        <label class="mt-2">出生年月日:</label>
+                                        <input type="" id="birth" class="w-100" value="${data.出生年月日}"disabled>
+                                    </div>
+                                    <div>
+                                        <label class="mt-2">婚姻狀況:</label>
+                                        <input type="text" class="w-100" value="${data.婚姻狀況}"disabled>
+                                    </div>
+                                    <div>
+                                        <label class="mt-2">居住地:</label>
+                                        <input type="text" class="w-100" value="${data.居住地}"disabled>
+                                    </div>
+                                    <div>
+                                        <label class="mt-2">電話：</label>
+                                        <input type="text" class="w-100" value="${data.電話}"disabled>
+                                    </div>
+                                    <div>
+                                        <label class="mt-2">受雇日期:</label>
+                                        <input type="text" class="w-100" value="${data.受雇日期}"disabled>
+                                    </div>
+                                    <div>
+                                        <label class="mt-2">部門:</label>
+                                        <input type="text" class="w-100" value="${data.部門}" disabled>
+                                    </div>
+                                    <div>
+                                        <label class="mt-2">職稱:</label>
+                                        <input type="text" class="w-100" value="${data.職稱}"disabled>
+                                    </div>
+                                    <div>
+                                        <label class="mt-2">特休:</label>
+                                        <input type="text" class="w-100" value="${data.特休}"disabled>
+                                    </div>
+                                    <div>
+                                        <label class="mt-2">薪資:</label>
+                                        <input type="text" class="w-100" value="${data.薪資}"disabled>
+                                    </div>
+                                </div>
+                            </div>`);
                 }
             });
 

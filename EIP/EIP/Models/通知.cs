@@ -12,14 +12,13 @@ namespace EIP.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class 打卡系統
+    public partial class 通知
     {
-        public int 打卡ID { get; set; }
-        public Nullable<System.DateTime> 上班打卡時間 { get; set; }
-        public Nullable<System.DateTime> 下班打卡時間 { get; set; }
-        public Nullable<System.DateTime> 打卡日期 { get; set; }
-        public Nullable<int> 員工編號 { get; set; }
-        public string 中文姓名 { get; set; }
-        public string ThemeColor { get; set; }
+        public int 通知流水號 { get; set; }
+        public Nullable<int> 通知類別id { get; set; }
+        public string 通知內容 { get; set; }
+        public string 讀取狀態 { get; set; }
+    
+        public virtual 通知類別 通知類別 { get; set; }
     }
 }

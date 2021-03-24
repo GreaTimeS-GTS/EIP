@@ -25,5 +25,7 @@ namespace EIP.Models
         public string MeetingRemark { get; set; }
         public string MeetingSubject { get; set; }
         public string MeetingAttentee { get; set; }
+        public Nullable<int> IsAllDay { get; set; }
+        public Nullable<int> Status { get; set; }
     }
 }
