@@ -14,11 +14,12 @@
     @*頁碼*@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.5/pagination.css" integrity="sha512-QmxybGIvkSI8+CGxkt5JAcGOKIzHDqBMs/hdemwisj4EeGLMXxCm9h8YgoCwIvndnuN1NdZxT4pdsesLXSaKaA==" crossorigin="anonymous" />
     @*semantic*@
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
     @Styles.Render("~/Content/css")
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
     @Scripts.Render("~/bundles/modernizr")
 
     <style>
+
         body {
             padding: 0;
             background-color: #E0E0E0;
@@ -234,13 +235,14 @@
         pointer-events:none;
         }
         .AlerBellOut {
-            top: 10%;
+            top: 90%;
             position: fixed;
-            right: 2%;
+            right: 3%;
             background-color: #FCFCFC;
             border:1px solid white;
             border-radius:50% 50% 50% 50%;
             padding:1% 1%;
+            z-index:999;
         }
         </style>
 </head>
@@ -271,14 +273,15 @@
                         <a class="dropdown-item" href="#">Something else here</a>
                     </div>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <!--<a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         專案管理
                     </a>
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="@Url.Action("EmpIndex","Project")">新增專案</a>
                         <a class="dropdown-item" href="@Url.Action("pjView","theProject")">專案進度</a>
-                        <a class="dropdown-item" href="#">退補件</a>    @*主管駁回的案件*@
-                    </div>
+                        <a class="dropdown-item" href="#">退補件</a>-->    @*主管駁回的案件*@
+                    <!--</div>-->
+                    <a class="nav-link" href="@Url.Action("showProjectList","projectControl")">專案</a>
                 <li class="nav-item dropdown boss">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         主管
@@ -299,20 +302,16 @@
                     </div>
             </ul>
             @**@
-            <div class="dropdown text-secondary AlerBellOut">
-                <i class="big teal bell outline icon" id="dropdownMenuButton" data-toggle="dropdown"></i>
-                <div class="dropdown-menu AlertBell"></div>
-            </div>
             <div class="w-25">
                 <div class="ui buttons w-100">
-                    <button class="ui labeled icon button nohover" title="權限" >
+                    <button class="ui labeled icon button nohover" title="權限">
                         <i class="left user icon"></i>
                         <p class="CookieAuth"></p>
                     </button>
-                        <button class="ui labeled icon button NameClick" title="員工姓名">
-                            <i class="address card icon"></i>
-                            <p class="CookieName"></p>
-                        </button>
+                    <button class="ui labeled icon button NameClick " title="員工姓名">
+                        <i class="address card icon"></i>
+                        <p class="CookieName flex-nowrap"></p>
+                    </button>
                     <button class="ui right labeled icon button Logout" title="登出">
                         登出
                         <i class="icon sign-out"></i>
@@ -321,6 +320,10 @@
             </div>
         </div>
     </nav>
+    <div class="dropdown text-secondary AlerBellOut shadow">
+        <i class="big teal bell outline icon" id="dropdownMenuButton" data-toggle="dropdown"></i>
+        <div class="dropdown-menu AlertBell"></div>
+    </div>
     <div class="container body-content" style="max-width:1600px;">
         @RenderBody()
         @*======================================Yuanu加班進入Model======================================*@
@@ -552,7 +555,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.5/pagination.min.js" integrity="sha512-1zzZ0ynR2KXnFskJ1C2s+7TIEewmkB2y+5o/+ahF7mwNj9n3PnzARpqalvtjSbUETwx6yuxP5AJXZCpnjEJkQw==" crossorigin="anonymous"></script>
     @RenderSection("script", required: false)
     <script>
-        
+
         if (document.cookie != '') {
             $('.CookieAuth').html(decodeURI(document.cookie.split('Auth=')[1].split('&')[0]));
             $('.CookieName').html(decodeURI(document.cookie.split('Name=')[1].split('&')[0]));
@@ -591,114 +594,114 @@
                 method: "Get",
                 success: function (data) {
                     $(".addprofile").html(`
-                                                                      <div>
-            <input type="hidden" name="EmployeePW" value="${data.EmployeePW}" />
-            <input type="hidden" name="EmployeeID" value="${data.EmployeeID}" />
-            <input type="hidden" name="信箱" value="${data.信箱}" />
-        </div>
-        <div class="field">
-            <div class="two fields">
-                <div class="eight wide field">
-                    <label class="formlbl">中文姓名：</label>
-                    <input name="中文姓名" type="text" class="w-100" value="${data.中文姓名}" disabled />
-                </div>
-                <div class="eight wide field">
-                    <label class="formlbl">英文姓名：</label>
-                    <input name="英文姓名" type="text" class="w-100" value="${data.英文姓名}" disabled />
+                                                                          <div>
+                <input type="hidden" name="EmployeePW" value="${data.EmployeePW}" />
+                <input type="hidden" name="EmployeeID" value="${data.EmployeeID}" />
+                <input type="hidden" name="信箱" value="${data.信箱}" />
+            </div>
+            <div class="field">
+                <div class="two fields">
+                    <div class="eight wide field">
+                        <label class="formlbl">中文姓名：</label>
+                        <input name="中文姓名" type="text" class="w-100" value="${data.中文姓名}" disabled />
+                    </div>
+                    <div class="eight wide field">
+                        <label class="formlbl">英文姓名：</label>
+                        <input name="英文姓名" type="text" class="w-100" value="${data.英文姓名}" disabled />
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="field">
-            <div class="two fields">
-                <div class="five wide field">
-                    <label class="formlbl">性別：</label>
-                    <input type="text" name="性別" value="${data.性別}" hidden />
-                    <select disabled class="ml-2 mt-2">
-                        <option value="性別" selected>${data.性別}</option>
-                    </select>
-                </div>
-                <div class="thirteen wide field">
-                    <label class="formlbl">出生年月日：</label>
-                    <input type="text" name="出生年月日" class="w-100" value="${data.出生年月日}" hidden />
-                    <input type="date" class="w-100" value="${data.出生年月日}" disabled />
+            <div class="field">
+                <div class="two fields">
+                    <div class="five wide field">
+                        <label class="formlbl">性別：</label>
+                        <input type="text" name="性別" value="${data.性別}" hidden />
+                        <select disabled class="ml-2 mt-2">
+                            <option value="性別" selected>${data.性別}</option>
+                        </select>
+                    </div>
+                    <div class="thirteen wide field">
+                        <label class="formlbl">出生年月日：</label>
+                        <input type="text" name="出生年月日" class="w-100" value="${data.出生年月日}" hidden />
+                        <input type="date" class="w-100" value="${data.出生年月日}" disabled />
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="field">
-            <label class="formlbl">居住地:</label>
-            <input name="居住地" value="${data.居住地}" disabled />
-        </div>
+            <div class="field">
+                <label class="formlbl">居住地:</label>
+                <input name="居住地" value="${data.居住地}" disabled />
+            </div>
 
-        <div class="field">
-            <div class="two fields">
-                <div class="twelve wide field">
-                    <label class="formlbl">電話：</label>
-                    <input type="text" name="電話" class="w-100" value="${data.電話}" disabled />
-                </div>
-                <div class="six wide field">
-                    <label class="formlbl">婚姻狀況：</label>
-                    <select name="婚姻狀況" disabled>
-                        <option hidden>${data.婚姻狀況}</option>
-                        <option value="已婚">已婚</option>
-                        <option value="未婚">未婚</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-        <div class="field">
-            <div class="two fields">
-                <div class="nine wide field">
-                    <label class="formlbl">部門：</label>
-                    <select name="部門" disabled>
-                        <option hidden>${data.部門}</option>
-                        <option value="財部部">財部部</option>
-                        <option value="總務部">總務部</option>
-                        <option value="人事部">人事部</option>
-                        <option value="業務部">業務部</option>
-                    </select>
-                </div>
-                <div class="nine wide field">
-                    <label class="formlbl">職稱：</label>
-                    <select name="職稱" disabled>
-                        <option hidden>${data.職稱}</option>
-                        <option value="主管">主管</option>
-                        <option value="員工">員工</option>
-                        <option value="人事">人事</option>
-                    </select>
+            <div class="field">
+                <div class="two fields">
+                    <div class="twelve wide field">
+                        <label class="formlbl">電話：</label>
+                        <input type="text" name="電話" class="w-100" value="${data.電話}" disabled />
+                    </div>
+                    <div class="six wide field">
+                        <label class="formlbl">婚姻狀況：</label>
+                        <select name="婚姻狀況" disabled>
+                            <option hidden>${data.婚姻狀況}</option>
+                            <option value="已婚">已婚</option>
+                            <option value="未婚">未婚</option>
+                        </select>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="field">
-            <div class="two fields">
-                <div class="nine wide field">
-                    <label class="formlbl">受雇日期：</label>
-                    <input type="text" name="受雇日期" class="w-100" value="${data.受雇日期}" hidden />
-                    <input type="text" class="w-100" value="${data.受雇日期}" disabled />
-                </div>
-                <div class="nine wide field">
-                    <label class="formlbl">在職狀態：</label>
-                    <select name="狀態" disabled>
-                        <option hidden>${data.狀態}</option>
-                        <option value="在職">在職</option>
-                        <option value="離職">離職</option>
-                        <option value="未到職">未到職</option>
-                        <option value="留職停薪">留職停薪</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-        <div class="field">
-            <div class="two fields">
-                <div class="field">
-                    <label class="formlbl">薪資：</label>
-                    <input name="薪資" class="Regular shadow" value="${data.薪資}" disabled />
-                </div>
-                <div class="field">
-                    <label class="formlbl">特休：</label>
-                    <input name="特休" class="Regular shadow" value="${data.特休}" disabled />
+            <div class="field">
+                <div class="two fields">
+                    <div class="nine wide field">
+                        <label class="formlbl">部門：</label>
+                        <select name="部門" disabled>
+                            <option hidden>${data.部門}</option>
+                            <option value="財部部">財部部</option>
+                            <option value="總務部">總務部</option>
+                            <option value="人事部">人事部</option>
+                            <option value="業務部">業務部</option>
+                        </select>
+                    </div>
+                    <div class="nine wide field">
+                        <label class="formlbl">職稱：</label>
+                        <select name="職稱" disabled>
+                            <option hidden>${data.職稱}</option>
+                            <option value="主管">主管</option>
+                            <option value="員工">員工</option>
+                            <option value="人事">人事</option>
+                        </select>
+                    </div>
                 </div>
             </div>
-        </div>`);
+            <div class="field">
+                <div class="two fields">
+                    <div class="nine wide field">
+                        <label class="formlbl">受雇日期：</label>
+                        <input type="text" name="受雇日期" class="w-100" value="${data.受雇日期}" hidden />
+                        <input type="text" class="w-100" value="${data.受雇日期}" disabled />
+                    </div>
+                    <div class="nine wide field">
+                        <label class="formlbl">在職狀態：</label>
+                        <select name="狀態" disabled>
+                            <option hidden>${data.狀態}</option>
+                            <option value="在職">在職</option>
+                            <option value="離職">離職</option>
+                            <option value="未到職">未到職</option>
+                            <option value="留職停薪">留職停薪</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="field">
+                <div class="two fields">
+                    <div class="field">
+                        <label class="formlbl">薪資：</label>
+                        <input name="薪資" class="Regular shadow" value="${data.薪資}" disabled />
+                    </div>
+                    <div class="field">
+                        <label class="formlbl">特休：</label>
+                        <input name="特休" class="Regular shadow" value="${data.特休}" disabled />
+                    </div>
+                </div>
+            </div>`);
                 }
             });
 
@@ -755,7 +758,7 @@
 
         var baid = 0;
         var beid = 0;
-        //設定一個 佈告欄新增id 讓他自動++ 判定 大於多少 刪除 上面的 div 
+        //設定一個 佈告欄新增id 讓他自動++ 判定 大於多少 刪除 上面的 div
         //設定一個佈告欄修改id 讓他自動++ 判定 大於多少 刪除 上面的 div 讓他和編輯的div加總維持在一定的數量
 
         const bell = $.connection.bell;   //呼叫hub

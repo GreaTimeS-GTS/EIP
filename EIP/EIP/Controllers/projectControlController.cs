@@ -21,6 +21,12 @@ namespace EIP.Controllers
 
 
 
+        public ActionResult pjView()
+        {
+            return View();
+        }
+
+
         //找所有專案資料from總表
         public JsonResult getMainData()
         {

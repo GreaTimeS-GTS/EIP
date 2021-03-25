@@ -1012,3 +1012,4 @@ D:\MyEipFuck\EIP GITHUB\EIP\EIP\obj\Debug\EIP.csproj.CoreCompileInputs.cache
 D:\MyEipFuck\EIP GITHUB\EIP\EIP\obj\Debug\EIP.csproj.CopyComplete
 D:\MyEipFuck\EIP GITHUB\EIP\EIP\obj\Debug\EIP.dll
 D:\MyEipFuck\EIP GITHUB\EIP\EIP\obj\Debug\EIP.pdb
+D:\myEIPClone\EIP\EIP\obj\Debug\EIP.csprojAssemblyReference.cache
