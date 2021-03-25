@@ -13,12 +13,14 @@ namespace EIP.Models.ViewModel
         public string BookingEndTime { get; set; }
         public string MeetingRemark { get; set; }
         public string MeetingSubject { get; set; }
-        public string MeetingAttendee { get; set; }
+        public string MeetingAttentee { get; set; }
         public int MeetingRoomId{get; set;}
         public string MeetingRoomName { get; set; }     
         public string Description { get; set; }
         public string 中文姓名 { get; set; }
         public int EmployeeID { get; set; }
+        public int IsAllDay { get; set; }
+        public int Status { get; set; }
 
     }
 }

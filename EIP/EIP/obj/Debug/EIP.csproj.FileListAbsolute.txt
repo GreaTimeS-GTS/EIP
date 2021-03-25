@@ -890,9 +890,6 @@ C:\Users\User\Documents\EIP\EIP\EIP\bin\roslyn\System.Xml.XPath.XDocument.dll
 C:\Users\User\Documents\EIP\EIP\EIP\bin\roslyn\vbc.exe.config
 C:\Users\User\Documents\EIP\EIP\EIP\bin\roslyn\vbc.rsp
 C:\Users\User\Documents\EIP\EIP\EIP\bin\roslyn\VBCSCompiler.exe.config
-C:\Users\User\Documents\EIP\EIP\EIP\bin\PagedList.dll
-C:\Users\User\Documents\EIP\EIP\EIP\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\User\Documents\EIP\EIP\EIP\bin\PagedList.xml
 C:\Users\User\Documents\EIP\EIP\EIP\obj\Debug\EIP.csprojAssemblyReference.cache
 C:\Users\User\Documents\EIP\EIP\EIP\obj\Debug\EIP.csproj.CoreCompileInputs.cache
 C:\Users\User\Documents\EIP\EIP\EIP\obj\Debug\EIP.csproj.CopyComplete
