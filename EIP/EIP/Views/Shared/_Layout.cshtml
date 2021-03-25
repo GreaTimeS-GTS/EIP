@@ -605,13 +605,13 @@
 
         const bell = $.connection.bell;   //呼叫hub
         bell.client.message = function (name, message) {
-            $(".AlertBell").append(` <div class="ui label dropdown-item"><i class="bullhorn icon"></i><a class="text-success font-weight-bold" b-aid="${baid++}" href="/BulletinBoard/BulletinBoard">您的佈告欄有新的通知!</a></div>`);
+            $(".AlertBell").append(` <div class="ui label item"><i class="bullhorn icon"></i><a class="text-success font-weight-bold" b-aid="${baid++}" href="/BulletinBoard/BulletinBoard">您的佈告欄有新的通知!</a></div>`);
         }
         bell.client.edit = function (name) {
-            $(".AlertBell").append(`<div class="ui label dropdown-item"><i class="bullhorn icon"></i><a class="text-warning font-weight-bold"  b-eid="${beid++}"href="/BulletinBoard/BulletinBoard">您的佈告欄有新的通知!</a></div>`);
+            $(".AlertBell").append(`<div class="ui label item"><i class="bullhorn icon"></i><a class="text-warning font-weight-bold"  b-eid="${beid++}"href="/BulletinBoard/BulletinBoard">您的佈告欄有新的通知!</a></div>`);
         }
         bell.client.delete = function (message) {
-            $(".AlertBell").append(`<div class="ui label dropdown-item"><i class="bullhorn icon"></i><a class="text-danger font-weight-bold" href="/BulletinBoard/BulletinBoard">您的佈告欄有新的異動！${message}已被刪除！</a></div>`);
+            $(".AlertBell").append(`<div class="ui label item"><i class="bullhorn icon"></i><a class="text-danger font-weight-bold" href="/BulletinBoard/BulletinBoard">您的佈告欄有新的異動！${message}已被刪除！</a></div>`);
         }
 
         function ChangePage() {
