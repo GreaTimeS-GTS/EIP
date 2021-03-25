@@ -25,5 +25,14 @@ namespace EIP.Models.BellHub
 
             Clients.All.Delete(message);
         }
+        public void SetHRADD(string GroupID)   //設定特定群組
+        {
+            Groups.Add(Context.ConnectionId, GroupID);
+            Clients.Group(GroupID).addMessage("Welcome");
+        }
+        public void SendHRAdd(String GroupId, String Message)   //對特定群組發送通知
+        {
+            Clients.Group(GroupId).addMessage(Message);
+        }
     }
 }
