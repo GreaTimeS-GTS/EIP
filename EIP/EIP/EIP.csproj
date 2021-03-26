@@ -611,6 +611,7 @@
     <Content Include="Views\DDDDD\BusinessTrip.cshtml" />
     <Content Include="Views\DDDDD\BusinessTripList.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\projectControl\pjView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
