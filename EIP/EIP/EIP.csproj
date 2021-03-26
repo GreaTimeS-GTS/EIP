@@ -601,6 +601,7 @@
     <Content Include="Views\DDDDD\AskforList.cshtml" />
     <Content Include="Views\DDDDD\Index.cshtml" />
     <Content Include="Views\DDDDD\UpdateData.cshtml" />
+    <Content Include="Views\DDDDD\出缺勤系統.cshtml" />
     <Content Include="Views\MeetingRoom\MeetingRoomBookingSearch.cshtml" />
     <Content Include="Views\DDDDD\OverTime.cshtml" />
     <Content Include="Views\DDDDD\OverTimeList.cshtml" />
@@ -611,7 +612,6 @@
     <Content Include="Views\DDDDD\BusinessTrip.cshtml" />
     <Content Include="Views\DDDDD\BusinessTripList.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\projectControl\pjView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -14,6 +14,7 @@ namespace EIP.Controllers
     {
         dbEIPEntities db = new dbEIPEntities();
         EIPRepository<佈告欄> er = new EIPRepository<佈告欄>();
+        EIPRepository<打卡系統> sr = new EIPRepository<打卡系統>();
         // GET: BulletinBoard
         public ActionResult Index()
         {
@@ -203,5 +204,93 @@ namespace EIP.Controllers
             return new JsonResult { Data = new { status = status } };
         }
 
+        // ---------------------------以下Fullcalendar打卡系統方法----------------------------//
+
+        public JsonResult SignInShow()
+        {
+            var x = Request.Cookies["AutoLg"]["id"];
+
+                var c = db.個人資料.FirstOrDefault(m => m.EmployeeID.ToString() == x);
+                var events = db.打卡系統.Where(m => m.中文姓名.ToString() == c.中文姓名);
+                if (events.Count() != 0)
+                {
+                    return new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                }
+                return new JsonResult { Data ="", JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
+
+        [HttpPost]
+        public JsonResult SignInSave()
+        {
+            var 員工編號 = Convert.ToInt32(Request.Cookies["AutoLg"]["id"]);
+            var 中文姓名 = Server.UrlDecode(Request.Cookies["AutoLg"]["Name"]);
+            var 現在日期 = DateTime.Now.Date;
+            var 現在時間 = DateTime.Now;
+            using (dbEIPEntities db = new dbEIPEntities())
+            {
+                打卡系統 v = new 打卡系統();
+                var v1 = db.打卡系統.Where(a => a.員工編號 == 員工編號 && a.打卡日期 == 現在日期).FirstOrDefault();
+                if (v1 == null)
+                {
+                    v.員工編號 = 員工編號;
+                    v.上班打卡時間 = 現在時間;
+                    v.打卡日期 = DateTime.Now.Date;
+                    v.中文姓名 = 中文姓名;
+                    v.ThemeColor = "gray";
+                    sr.Create(v);
+                }
+                else
+                {
+                    v1.員工編號 = 員工編號;
+                    v1.打卡日期 = DateTime.Now.Date;
+                    v1.中文姓名 = 中文姓名;
+                    v1.下班打卡時間 = 現在時間;
+                    if (v1.上班打卡時間 < 現在時間 && v1.下班打卡時間 > 現在時間)
+                    {
+                        v1.ThemeColor = "green";
+                    }
+                    else
+                    {
+                        v1.ThemeColor = "red";
+                    }
+                    sr.Update(v1);
+                }
+            }
+            return Json("",JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult SignInDemoSave()
+        {
+            var 員工編號 = Convert.ToInt32(Request.Cookies["AutoLg"]["id"]);
+            var 中文姓名 = Server.UrlDecode(Request.Cookies["AutoLg"]["Name"]);
+            var 現在日期 = new DateTime(2021, 3, 25);
+            var 模擬上班打卡時間 = new DateTime(2021, 3, 25, 8, 30, 0);
+            var 模擬下班打卡時間 = new DateTime(2021, 3, 25, 18, 30, 0);
+            using (dbEIPEntities db = new dbEIPEntities())
+            {
+                打卡系統 v = new 打卡系統();
+                var v1 = db.打卡系統.Where(a => a.員工編號 == 員工編號 && a.打卡日期 == 現在日期).FirstOrDefault();
+                if (v1 == null)
+                {
+                    v.員工編號 = 員工編號;
+                    v.上班打卡時間 = 模擬上班打卡時間;
+                    v.打卡日期 = new DateTime(2021, 3, 25);
+                    v.中文姓名 = 中文姓名;
+                    v.ThemeColor = "gray";
+                    sr.Create(v);
+                }
+                else
+                {
+                    v1.員工編號 = 員工編號;
+                    v1.打卡日期 = new DateTime(2021, 3, 25);
+                    v1.中文姓名 = 中文姓名;
+                    v1.下班打卡時間 = 模擬下班打卡時間;
+                    v1.ThemeColor = "green";
+                    sr.Update(v1);
+                }
+            }
+            return Json("", JsonRequestBehavior.AllowGet);
+        }
     }
 }

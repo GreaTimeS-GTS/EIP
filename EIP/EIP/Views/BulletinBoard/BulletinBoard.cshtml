@@ -7,7 +7,7 @@
 
     .佈告欄總表外框 {
         background-color: white;
-        height: 1000px;
+        height: 100%;
         width: 100%;
         padding-left: 30px;
         padding-right: 30px;
@@ -136,9 +136,9 @@
         background-color: #00CACA;
     }
 
-    .行事曆彈出視窗按鈕{
-        font-size:25px;
-        font-weight:900;
+    .行事曆彈出視窗按鈕 {
+        font-size: 25px;
+        font-weight: 900;
     }
 
     .行事曆事項名稱輸入框 {
@@ -154,18 +154,52 @@
     .行事曆描述輸入框 {
         max-width: 600px;
         width: 436px;
-        max-height:600px;
-        height:300px;
-        resize:none;
+        max-height: 600px;
+        height: 300px;
+        resize: none;
+    }
+
+    .signincalender {
+        padding-top: 50px;
+    }
+
+    .打卡按鈕 {
+        height: 80px;
+        width: 200px;
+        font-size: 30px;
+        font-weight: 900;
+        display: inline-block;
+        box-shadow: 3px 3px 9px black;
+        margin-left: 60px;
+        margin-top: 50px;
+    }
+
+    .模擬打卡按鈕 {
+        height: 80px;
+        width: 200px;
+        font-size: 26px;
+        font-weight: 900;
+        display: inline-block;
+        box-shadow: 3px 3px 9px black;
+        margin-left: 50px;
+        margin-top: 50px;
+    }
+
+    .時鐘 {
+        margin-left: -20px;
+        padding-top: 50px;
+        font-size: 24px;
+        font-weight: 900;
     }
 </style>
+
 
 @*------------------------------資料夾Model起始------------------------------*@
 <nav class="mt-5 文字">
     <div class="nav nav-tabs font-weight-bolder" id="nav-tab">
         <a class="nav-item nav-link active text-dark" id="nav-home-tab" data-toggle="tab" href="#nav-1">佈告欄</a>
         <a class="nav-item nav-link text-dark" id="nav-profile-tab" data-toggle="tab" href="#nav-2">行事曆</a>
-        <a class="nav-item nav-link text-dark" id="nav-profile-tab" data-toggle="tab" href="#nav3">打卡系統</a>
+        <a class="nav-item nav-link text-dark" id="nav-profile-tab" data-toggle="tab" href="#nav-3">打卡系統</a>
     </div>
 </nav>
 @*------------------------------資料夾Model結束------------------------------*@
@@ -188,16 +222,12 @@
                         </div>
                     </div>
                     @*------------------------------搜尋彈跳視窗起始------------------------------*@
-                    <div class="modal fade bd-example-modal-xl" id="searchinfo" tabindex="-1" role="dialog">
-                        <div class="modal-dialog modal-xl">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title FormTextShadow">佈告欄搜尋結果</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
+                    <div class="ui fullscreen modal centermodal" id="searchinfo" tabindex="-1" role="dialog">
+                        <i class="close icon"></i>
+                                <div class="header">
+                                    佈告欄搜尋結果                         
                                 </div>
-                                <div class="modal-body">
+                                <div class="content">
                                     <table class="w-100 搜尋彈跳視窗Table">
                                         <thead class="w-100 h-100">
                                             <tr>
@@ -215,11 +245,9 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
+                                <div class="actions">
+                                    <button type="button" class="btn btn-secondary cancel">關閉</button>
                                 </div>
-                            </div>
-                        </div>
                     </div>
                     @*------------------------------搜尋彈跳視窗結束------------------------------*@
 
@@ -257,9 +285,9 @@
             @*------------------------------Fullcalender結束------------------------------*@
 
             @*FullCalender修改彈跳視窗起始*@
-            <div id="myModal" class="modal fade" role="dialog">
+            <div id="myModal" class="ui modal centermodal"  role="dialog">
                 <div class="modal-dialog">
-                    <div class="modal-content">
+                    <div class="content">
                         <div class="modal-header">
                             <h4 class="modal-title 行事曆彈出視窗按鈕"><span id="eventTitle"></span></h4>
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -282,9 +310,9 @@
             @*FullCalender修改彈跳視窗結束*@
 
             @*FullCalender新增彈跳視窗起始*@
-            <div id="myModalSave" class="modal fade" role="dialog">
+            <div id="myModalSave" class="ui modal centermodal" role="dialog">
                 <div class="modal-dialog">
-                    <div class="modal-content">
+                    <div class="content">
                         <div class="modal-header">
                             <h4 class="modal-title 行事曆彈出視窗按鈕">新增事項</h4>
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -333,6 +361,7 @@
                                         <option value="green">綠色</option>
                                     </select>
                                 </div>
+                                <button type="button" class="btn btn-info" onclick="FullcalenderDemoAdd()">Demo</button>
                                 <button type="button" id="btnSave" class="btn btn-primary">儲存</button>
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
                             </form>
@@ -342,18 +371,25 @@
             </div>
             @*FullCalender新增彈跳視窗結束*@
         </div>
-        <div id="nav-3" class="tab-pane fade show active ">
+        <div id="nav-3" class="tab-pane fade active ">
+            <div class="col-12 d-flex justify-content-between">
+                <div class="col-6">
+                    <p id='clock' class="時鐘"></p>
+                </div>
+                <div class="col-6">
+                    <button type="button" class="btn btn-primary 模擬打卡按鈕" onclick="SignInDemoSave()">模擬成功打卡</button>
+                    <button type="button" class="btn btn-danger 打卡按鈕" onclick="SignInSave()">現在打卡</button>
+                </div>
+            </div>
+            <div id='signincalender' class="signincalender"></div>
         </div>
     </div>
 </div>
 
-
-
-
 @*佈告欄新增彈跳視窗*@
-<div class="modal fade" id="CreateBulletinBoardList" tabindex="-1" role="dialog">
+<div class="ui modal centermodal" id="CreateBulletinBoardList" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
-        <div class="modal-content">
+        <div class="content">
             <div class="modal-header 新增視窗頭">
                 <h5 class="modal-title 文字2" id="exampleModalLabel">新增佈告欄</h5>
                 <button type="button" class="close" data-dismiss="modal">
@@ -381,6 +417,7 @@
                 </form>
             </div>
             <div class="modal-footer">
+                <button type="button" class="btn btn-info" onclick="BulletinBoardDemoAdd()">Demo</button>
                 <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="BulletinBoardAdd()">送出</button>
                 <button type="button" class="btn btn-secondary ClearModal" data-dismiss="modal">取消</button>
             </div>
@@ -389,9 +426,9 @@
 </div>
 
 @*佈告欄指定單筆搜尋彈跳視窗*@
-<div class="modal fade" id="ShowBulletinBoard" tabindex="-1" role="dialog">
+<div class="ui modal centermodal" id="ShowBulletinBoard" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
-        <div class="modal-content">
+        <div class="content">
             <div class="modal-header 指定查詢視窗頭">
                 <h5 class="modal-title 文字2" id="exampleModalLabel">佈告欄資訊</h5>
                 <button type="button" class="close" data-dismiss="modal">
@@ -409,9 +446,9 @@
 </div>
 
 @*佈告欄修改尋彈跳視窗*@
-<div class="modal fade" id="EditBulletinBoard" tabindex="-1" role="dialog">
+<div class="ui modal centermodal" id="EditBulletinBoard" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
-        <div class="modal-content">
+        <div class="content">
             <div class="modal-header 編輯視窗頭">
                 <h5 class="modal-title 文字2" id="exampleModalLabel">編輯佈告欄</h5>
                 <button type="button" class="close" data-dismiss="modal">
@@ -453,14 +490,14 @@
                     method: "get",
                     success: function (data) {
                         $(".THeadAdd").html(`
-                                                                                            <tr>
-                                                                                            <th>佈告欄編號</th>
-                                                                                            <th>發佈人</th>
-                                                                                            <th>標題</th>
-                                                                                            <th>發佈日期</th>
-                                                                                            <th>詳細</th>
-                                                                                            </tr>
-                                                                                            `)
+                                                                                                <tr>
+                                                                                                <th>佈告欄編號</th>
+                                                                                                <th>發佈人</th>
+                                                                                                <th>標題</th>
+                                                                                                <th>發佈日期</th>
+                                                                                                <th>詳細</th>
+                                                                                                </tr>
+                                                                                                `)
                         var a = "";  // 使用一個空字串
                         $(data).each(function (index, item) {
                             var datetime = parseInt(item.發布日期.replace(/\D/igm, ""));
@@ -480,12 +517,12 @@
                                 y = datetime1.getMinutes();
                             }
                             a += ` <tr>
-                                                                                <td>${item.佈告欄ID}</td>
-                                                                                <td>${item.中文姓名}</td>
-                                                                                <td>${item.佈告欄標題}</td>
-                                                                                <td>${datetime1.getFullYear() + "/" + (datetime1.getMonth() + 1) + "/" + datetime1.getDate() + " " + x + ":" + y}</td>
-                                                                                <td><a class="btn btn-info empedit 詳細按鈕" data-id="${item.佈告欄ID}" data-toggle="modal" data-target="#ShowBulletinBoard" onclick="SearchThis()">詳細</a></td> 
-                                                                            </tr>`;
+                                                                                    <td>${item.佈告欄ID}</td>
+                                                                                    <td>${item.中文姓名}</td>
+                                                                                    <td>${item.佈告欄標題}</td>
+                                                                                    <td>${datetime1.getFullYear() + "/" + (datetime1.getMonth() + 1) + "/" + datetime1.getDate() + " " + x + ":" + y}</td>
+                                                                                    <td><a class="btn btn-info empedit 詳細按鈕" data-id="${item.佈告欄ID}" data-toggle="modal" data-target="#ShowBulletinBoard" onclick="SearchThis()">詳細</a></td>
+                                                                                </tr>`;
                         })
                         $(".TBodyAdd").html(a); // 取代原本內容
 
@@ -494,8 +531,8 @@
                         SliceTotal = Math.ceil(TotalEMP / 10);
                         $(".arrowborn").empty();
                         $(".arrowborn").append(` <li class="page-item pointer prevbtn" value="${page_num}">
-                                                                <a class="page-link ">Previous</a>
-                                                            </li>`);
+                                                                    <a class="page-link ">Previous</a>
+                                                                </li>`);
                         $(".arrowborn").append(
                             ` <li class="page-item pointer firstbtn" value="${page_num}"><a class="page-link showbtn1">${page_num}</a></li>`
                         );
@@ -507,8 +544,8 @@
                         );
 
                         $(".arrowborn").append(` <li class="page-item pointer nextbtn" value="${page_num + 1}">
-                                                                <a class="page-link">Next</a>
-                                                            </li>`);
+                                                                    <a class="page-link">Next</a>
+                                                                </li>`);
                     }
                 })
             }
@@ -518,15 +555,15 @@
                     method: "get",
                     success: function (data) {
                         $(".THeadAdd").html(`
-                                                                                            <tr>
-                                                                                            <th>佈告欄編號</th>
-                                                                                            <th>發佈人</th>
-                                                                                            <th>標題</th>
-                                                                                            <th>發佈日期</th>
-                                                                                            <th>編輯</th>
-                                                                                            <th>刪除</th>
-                                                                                            </tr>
-                                                                                            `)
+                                                                                                <tr>
+                                                                                                <th>佈告欄編號</th>
+                                                                                                <th>發佈人</th>
+                                                                                                <th>標題</th>
+                                                                                                <th>發佈日期</th>
+                                                                                                <th>編輯</th>
+                                                                                                <th>刪除</th>
+                                                                                                </tr>
+                                                                                                `)
                         var a = "";  // 使用一個空字串
                         $(data).each(function (index, item) {
                             var datetime = parseInt(item.發布日期.replace(/\D/igm, ""));
@@ -546,13 +583,13 @@
                                 y = datetime1.getMinutes();
                             }
                             a += ` <tr>
-                                                                                <td>${item.佈告欄ID}</td>
-                                                                                <td>${item.中文姓名}</td>
-                                                                                <td>${item.佈告欄標題}</td>
-                                                                                <td>${datetime1.getFullYear() + "/" + (datetime1.getMonth() + 1) + "/" + datetime1.getDate() + " " + x + ":" + y}</td>
-                                                                                <td><a class="btn btn-warning empedit 詳細按鈕" data-id="${item.佈告欄ID}" data-toggle="modal" data-target="#EditBulletinBoard" onclick="startedit()">編輯</a></td>
-                                                                                <td><a class="btn btn-danger empedit 詳細按鈕" data-id="${item.佈告欄ID}" data-toggle="modal" onclick="DeleteBB()">刪除</a></td>
-                                                                            </tr>`;
+                                                                                    <td>${item.佈告欄ID}</td>
+                                                                                    <td>${item.中文姓名}</td>
+                                                                                    <td>${item.佈告欄標題}</td>
+                                                                                    <td>${datetime1.getFullYear() + "/" + (datetime1.getMonth() + 1) + "/" + datetime1.getDate() + " " + x + ":" + y}</td>
+                                                                                    <td><a class="btn btn-warning empedit 詳細按鈕" data-id="${item.佈告欄ID}" data-toggle="modal" data-target="#EditBulletinBoard" onclick="startedit()">編輯</a></td>
+                                                                                    <td><a class="btn btn-danger empedit 詳細按鈕" data-id="${item.佈告欄ID}" data-toggle="modal" onclick="DeleteBB()">刪除</a></td>
+                                                                                </tr>`;
                         })
                         $(".TBodyAdd").html(a); // 取代原本內容
 
@@ -561,8 +598,8 @@
                         SliceTotal = Math.ceil(TotalEMP / 10);
                         $(".arrowborn").empty();
                         $(".arrowborn").append(` <li class="page-item pointer prevbtn" value="${page_num}">
-                                                                <a class="page-link ">Previous</a>
-                                                            </li>`);
+                                                                    <a class="page-link ">Previous</a>
+                                                                </li>`);
                         $(".arrowborn").append(
                             ` <li class="page-item pointer firstbtn" value="${page_num}"><a class="page-link showbtn1">${page_num}</a></li>`
                         );
@@ -574,24 +611,36 @@
                         );
 
                         $(".arrowborn").append(` <li class="page-item pointer nextbtn" value="${page_num + 1}">
-                                                                <a class="page-link">Next</a>
-                                                            </li>`);
+                                                                    <a class="page-link">Next</a>
+                                                                </li>`);
                     }
                 })
             }
         }
 
-
-            
-
-
         refresh();
+
+        //---------------------------時鐘起始--------------------------
+        var now, hours, minutes, seconds, timeValue;
+        function showtime() {
+            now = new Date();
+            hours = now.getHours();
+            minutes = now.getMinutes();
+            seconds = now.getSeconds();
+            timeValue = (hours >= 12) ? "現在時間 :   下午 " : "現在時間   上午 ";
+            timeValue += `${hours > 12 ? hours - 12 : hours}  點`;
+            timeValue += ((minutes < 10) ? " 0" : " ") + minutes + " 分";
+            timeValue += ((seconds < 10) ? " 0" : " ") + seconds + " 秒";
+            clock.innerHTML = timeValue;
+            setTimeout("showtime()", 1000);
+        }
+        showtime();
 
         //----------------------分頁跳轉起始----------------------
         //動態bind事件的話要用on事先綁定父層
 
         $(".arrowborn").on('click', '.firstbtn', function () {
-              $(".currentpage").html(`當前頁面：${$(this).attr("value")}`);
+            $(".currentpage").html(`當前頁面：${$(this).attr("value")}`);
 
             if (page_num == SliceTotal) {
                 $(".firstbtn").attr('value', currentpage = page_num - 2);
@@ -602,6 +651,7 @@
             }
             $(".firstbtn").off('click');
         })
+
         $(".arrowborn").on('click', '.sectbtn', function () {
             $(".currentpage").html(`當前頁面：${$(this).attr("value")}`);
 
@@ -662,17 +712,17 @@
                 },
                 success: function (data) {
                     $(".THeadAdd").html(`
-                                                                                            <tr>
-                                                                                            <th>佈告欄編號</th>
-                                                                                            <th>發佈人</th>
-                                                                                            <th>標題</th>
-                                                                                            <th>內容</th>
-                                                                                            <th>發佈日期</th>
-                                                                                            <th>詳細</th>
-                                                                                            <th>編輯</th>
-                                                                                            <th>刪除</th>
-                                                                                            </tr>
-                                                                                            `)
+                                                                                                <tr>
+                                                                                                <th>佈告欄編號</th>
+                                                                                                <th>發佈人</th>
+                                                                                                <th>標題</th>
+                                                                                                <th>內容</th>
+                                                                                                <th>發佈日期</th>
+                                                                                                <th>詳細</th>
+                                                                                                <th>編輯</th>
+                                                                                                <th>刪除</th>
+                                                                                                </tr>
+                                                                                                `)
                     var a = "";  // 使用一個空字串
                     $(data).each(function (index, item) {
                         var datetime = parseInt(item.發布日期.replace(/\D/igm, ""));
@@ -692,15 +742,15 @@
                             y = datetime1.getMinutes();
                         }
                         a += ` <tr>
-                                                                                <td>${item.佈告欄ID}</td>
-                                                                                <td>${item.中文姓名}</td>
-                                                                                <td>${item.佈告欄標題}</td>
-                                                                                <td>${item.佈告欄內容}</td>
-                                                                                <td>${datetime1.getFullYear() + "/" + (datetime1.getMonth() + 1) + "/" + datetime1.getDate() + " " + x + ":" + y}</td>
-                                                                                <td><a class="btn btn-info empedit 詳細按鈕" data-id="${item.佈告欄ID}" data-toggle="modal" data-target="#ShowBulletinBoard" onclick="SearchThis()">詳細</a></td>
-                                                                                <td><a class="btn btn-warning empedit 詳細按鈕" data-id="${item.佈告欄ID}" data-toggle="modal" data-target="#EditBulletinBoard" onclick="startedit()">編輯</a></td>
-                                                                                <td><a class="btn btn-danger empedit 詳細按鈕" data-id="${item.佈告欄ID}" data-toggle="modal" onclick="DeleteBB()">刪除</a></td>
-                                                                            </tr>`;
+                                                                                    <td>${item.佈告欄ID}</td>
+                                                                                    <td>${item.中文姓名}</td>
+                                                                                    <td>${item.佈告欄標題}</td>
+                                                                                    <td>${item.佈告欄內容}</td>
+                                                                                    <td>${datetime1.getFullYear() + "/" + (datetime1.getMonth() + 1) + "/" + datetime1.getDate() + " " + x + ":" + y}</td>
+                                                                                    <td><a class="btn btn-info empedit 詳細按鈕" data-id="${item.佈告欄ID}" data-toggle="modal" data-target="#ShowBulletinBoard" onclick="SearchThis()">詳細</a></td>
+                                                                                    <td><a class="btn btn-warning empedit 詳細按鈕" data-id="${item.佈告欄ID}" data-toggle="modal" data-target="#EditBulletinBoard" onclick="startedit()">編輯</a></td>
+                                                                                    <td><a class="btn btn-danger empedit 詳細按鈕" data-id="${item.佈告欄ID}" data-toggle="modal" onclick="DeleteBB()">刪除</a></td>
+                                                                                </tr>`;
                     })
                     $(".TBodyAdd").html(a); // 取代原本內容
 
@@ -708,8 +758,8 @@
                     SliceTotal = Math.ceil(TotalEMP / 10);
                     $(".arrowborn").empty();
                     $(".arrowborn").append(` <li class="page-item pointer prevbtn" value="${page_num}">
-                                                                <a class="page-link ">Previous</a>
-                                                            </li>`);
+                                                                    <a class="page-link ">Previous</a>
+                                                                </li>`);
                     $(".arrowborn").append(
                         ` <li class="page-item pointer firstbtn" value="${page_num}"><a class="page-link showbtn1">${page_num}</a></li>`
                     );
@@ -721,8 +771,8 @@
                     );
 
                     $(".arrowborn").append(` <li class="page-item pointer nextbtn" value="${page_num + 1}">
-                                                                <a class="page-link">Next</a>
-                                                            </li>`);
+                                                                    <a class="page-link">Next</a>
+                                                                </li>`);
                 }
             })
             $('.page-item').off('click');
@@ -750,19 +800,25 @@
                         let title = `${$(".addTitle").val()}`;
                         swal("新增成功!", "佈告欄已新增成功!", "success");
                         $.connection.hub.start()
-                            .done(function () {                             
-                                bell.server.send(`${decodeURI(document.cookie.split('Name=')[1].split('&')[0])}`, title);   //傳值到hub                          
-                            });                         
+                            .done(function () {
+                                bell.server.send(`${decodeURI(document.cookie.split('Name=')[1].split('&')[0])}`, title);   //傳值到hub
+                            });
                         $(".addTitle").val('');
                         $(".addContent").val('');
                         $(".addDate").val('');
                         refresh();
-                       
-
                     }
                 });
             }
         };
+
+        // 佈告欄Demo
+        function BulletinBoardDemoAdd()
+        {
+            $(".addTitle").val("開會"),
+            $(".addContent").val("跟老闆開會"),
+            $(".addDate").val("2021-03-24T09:00:00")
+        }
 
         // 新增按鈕彈出來的方法
         function startedit() {
@@ -806,31 +862,31 @@
                         min = datetime1.getMinutes();
                     }
                     $(".EditUserProfile").html(`
-                                                                                            <div class="d-flex justify-content-center">
-                                                                                                <div class="mr-1">
-                                                                                                    <div class="文字2">佈告欄編號：</div>
-                                                                                                    <input name="BulletinBoardID" type="text" class="updateBBID 不能修改 txt樣式" disabled value="${data.佈告欄ID}"/>
-                                                                                                     <br>
-                                                                                                     <br>
-                                                                                                    <input name="EmployeeID" type="hidden" class="updateEPID txt樣式" value="${data.EmployeeID}"/>
-                                                                                                    <div class="文字2">發佈人：</div>
-                                                                                                    <input name="發佈人姓名" type="text" class="updateBBName txt樣式" value="${data.中文姓名}" disabled/>
-                                                                                                    <br>
-                                                                                                    <br>
-                                                                                                    <div class="文字2">標題：</div>
-                                                                                                    <input name="Title" type="text" class="updateTitle txt樣式" value="${data.佈告欄標題}"/>
-                                                                                                    <br>
-                                                                                                    <br>
-                                                                                                    <div class="文字2">內容:   </div>
-                                                                                                    <textarea name="Content" class="updateContent">${data.佈告欄內容}</textarea>
-                                                                                                    <br>
-                                                                                                    <br>
-                                                                                                    <div class="文字2">發佈日期:  </div>
-                                                                                                    <input name="Date" type="datetime-local" class="updateTime txt樣式" value="${datetime1.getFullYear() + "-" + m + "-" + d + "T" + h + ":" + min + ":00"}"/>
-                                                                                                    <br>
-                                                                                                    <br>
-                                                                                                </div>
-                                                                                            </div>`);
+                                                                                                <div class="d-flex justify-content-center">
+                                                                                                    <div class="mr-1">
+                                                                                                        <div class="文字2">佈告欄編號：</div>
+                                                                                                        <input name="BulletinBoardID" type="text" class="updateBBID 不能修改 txt樣式" disabled value="${data.佈告欄ID}"/>
+                                                                                                         <br>
+                                                                                                         <br>
+                                                                                                        <input name="EmployeeID" type="hidden" class="updateEPID txt樣式" value="${data.EmployeeID}"/>
+                                                                                                        <div class="文字2">發佈人：</div>
+                                                                                                        <input name="發佈人姓名" type="text" class="updateBBName txt樣式" value="${data.中文姓名}" disabled/>
+                                                                                                        <br>
+                                                                                                        <br>
+                                                                                                        <div class="文字2">標題：</div>
+                                                                                                        <input name="Title" type="text" class="updateTitle txt樣式" value="${data.佈告欄標題}"/>
+                                                                                                        <br>
+                                                                                                        <br>
+                                                                                                        <div class="文字2">內容:   </div>
+                                                                                                        <textarea name="Content" class="updateContent">${data.佈告欄內容}</textarea>
+                                                                                                        <br>
+                                                                                                        <br>
+                                                                                                        <div class="文字2">發佈日期:  </div>
+                                                                                                        <input name="Date" type="datetime-local" class="updateTime txt樣式" value="${datetime1.getFullYear() + "-" + m + "-" + d + "T" + h + ":" + min + ":00"}"/>
+                                                                                                        <br>
+                                                                                                        <br>
+                                                                                                    </div>
+                                                                                                </div>`);
                 }
             });
         };
@@ -879,31 +935,31 @@
                         min = datetime1.getMinutes();
                     }
                     $(".ShowUserProfile").html(`
-                                                                                            <div class="d-flex justify-content-center">
-                                                                                                <div class="mr-1">
-                                                                                                    <div class="文字2">佈告欄編號：</div>
-                                                                                                    <input name="BulletinBoardID" type="text" class="updateBBID 不能修改 txt樣式" disabled value="${data.佈告欄ID}"/>
-                                                                                                     <br>
-                                                                                                     <br>
-                                                                                                    <input name="EmployeeID" type="hidden" class="updateEPID txt樣式" disabled value="${data.EmployeeID}"/>
-                                                                                                    <div class="文字2">發佈人：</div>
-                                                                                                    <input name="發佈人姓名" type="text" class="updateBBName txt樣式" disabled value="${data.中文姓名}" disabled/>
-                                                                                                    <br>
-                                                                                                    <br>
-                                                                                                    <div class="文字2">標題：</div>
-                                                                                                    <input name="Title" type="text" class="updateTitle txt樣式" disabled value="${data.佈告欄標題}"/>
-                                                                                                    <br>
-                                                                                                    <br>
-                                                                                                    <div class="文字2">內容:   </div>
-                                                                                                    <textarea name="Content" class="updateContent" disabled>${data.佈告欄內容}</textarea>
-                                                                                                    <br>
-                                                                                                    <br>
-                                                                                                    <div class="文字2">發佈日期:  </div>
-                                                                                                    <input name="Date" type="datetime-local" class="updateTime txt樣式" value="${datetime1.getFullYear() + "-" + m + "-" + d + "T" + h + ":" + min + ":00"}"/>
-                                                                                                    <br>
-                                                                                                    <br>
-                                                                                                </div>
-                                                                                            </div>`);
+                                                                                                <div class="d-flex justify-content-center">
+                                                                                                    <div class="mr-1">
+                                                                                                        <div class="文字2">佈告欄編號：</div>
+                                                                                                        <input name="BulletinBoardID" type="text" class="updateBBID 不能修改 txt樣式" disabled value="${data.佈告欄ID}"/>
+                                                                                                         <br>
+                                                                                                         <br>
+                                                                                                        <input name="EmployeeID" type="hidden" class="updateEPID txt樣式" disabled value="${data.EmployeeID}"/>
+                                                                                                        <div class="文字2">發佈人：</div>
+                                                                                                        <input name="發佈人姓名" type="text" class="updateBBName txt樣式" disabled value="${data.中文姓名}" disabled/>
+                                                                                                        <br>
+                                                                                                        <br>
+                                                                                                        <div class="文字2">標題：</div>
+                                                                                                        <input name="Title" type="text" class="updateTitle txt樣式" disabled value="${data.佈告欄標題}"/>
+                                                                                                        <br>
+                                                                                                        <br>
+                                                                                                        <div class="文字2">內容:   </div>
+                                                                                                        <textarea name="Content" class="updateContent" disabled>${data.佈告欄內容}</textarea>
+                                                                                                        <br>
+                                                                                                        <br>
+                                                                                                        <div class="文字2">發佈日期:  </div>
+                                                                                                        <input name="Date" type="datetime-local" class="updateTime txt樣式" value="${datetime1.getFullYear() + "-" + m + "-" + d + "T" + h + ":" + min + ":00"}"/>
+                                                                                                        <br>
+                                                                                                        <br>
+                                                                                                    </div>
+                                                                                                </div>`);
                 }
             });
         };
@@ -926,8 +982,8 @@
                     swal("修改成功!", "佈告欄已修改成功!", "success");
                     $.connection.hub.start()
                         .done(function () {
-                            bell.server.sendbulletinboardedit(`${EditTitle}`);   //傳值到hub                          
-                        });       
+                            bell.server.sendbulletinboardedit(`${EditTitle}`);   //傳值到hub
+                        });
                     refresh();
                 }
             });
@@ -945,7 +1001,7 @@
             }).then((isConfirm) => {
                 if (isConfirm) {
                     swal("刪除!", "佈告欄已刪除!...", 'success');
-                  
+
                     $.ajax({
                         url: "/BulletinBoard/BulletinBoardDelete",
                         method: "get",
@@ -954,10 +1010,10 @@
                         },
                         success: function (data) {
                             let deletitle = data.佈告欄標題;
-                                $.connection.hub.start()
-                                    .done(function () {
-                                        bell.server.sendbulletinboarddelete(`${deletitle}`);   //傳值到hub                          
-                                    });       
+                            $.connection.hub.start()
+                                .done(function () {
+                                    bell.server.sendbulletinboarddelete(`${deletitle}`);   //傳值到hub
+                                });
                             refresh();
 
                         }
@@ -1007,15 +1063,15 @@
                                     y = datetime1.getMinutes();
                                 };
                                 a += `<tr>
-                                                                            <td>${item.佈告欄ID}</td>
-                                                                            <td>${item.中文姓名}</td>
-                                                                            <td>${item.佈告欄標題}</td>
-                                                                            <td>${item.佈告欄內容}</td>
-                                                                            <td>${datetime1.getFullYear() + "/" + (datetime1.getMonth() + 1) + "/" + datetime1.getDate() + " " + x + ":" + y}</td>
-                                                                            <td><a class="btn btn-info empedit 詳細按鈕" data-id="${item.佈告欄ID}" data-toggle="modal" data-target="#ShowBulletinBoard" onclick="SearchThis()">詳細</a></td>
-                                                                            <td><a class="btn btn-warning empedit 詳細按鈕" data-id="${item.佈告欄ID}" data-toggle="modal" data-target="#EditBulletinBoard" onclick="startedit()">編輯</a></td>
-                                                                            <td><a class="btn btn-danger empedit 詳細按鈕" data-id="${item.佈告欄ID}" data-toggle="modal" onclick="DeleteBB()">刪除</a></td>
-                                                                            </tr>`;
+                                                                                <td>${item.佈告欄ID}</td>
+                                                                                <td>${item.中文姓名}</td>
+                                                                                <td>${item.佈告欄標題}</td>
+                                                                                <td>${item.佈告欄內容}</td>
+                                                                                <td>${datetime1.getFullYear() + "/" + (datetime1.getMonth() + 1) + "/" + datetime1.getDate() + " " + x + ":" + y}</td>
+                                                                                <td><a class="btn btn-info empedit 詳細按鈕" data-id="${item.佈告欄ID}" data-toggle="modal" data-target="#ShowBulletinBoard" onclick="SearchThis()">詳細</a></td>
+                                                                                <td><a class="btn btn-warning empedit 詳細按鈕" data-id="${item.佈告欄ID}" data-toggle="modal" data-target="#EditBulletinBoard" onclick="startedit()">編輯</a></td>
+                                                                                <td><a class="btn btn-danger empedit 詳細按鈕" data-id="${item.佈告欄ID}" data-toggle="modal" onclick="DeleteBB()">刪除</a></td>
+                                                                                </tr>`;
                                 $(".SearchShowTable").html(a)
                             })
                         }
@@ -1045,17 +1101,17 @@
                     success: function (data) {
                         $(".currentpage").html(`當前頁面：${$(".pagesearch").val()}`);
                         $(".THeadAdd").html(`
-                                                                                            <tr>
-                                                                                            <th>佈告欄編號</th>
-                                                                                            <th>發佈人</th>
-                                                                                            <th>標題</th>
-                                                                                            <th>內容</th>
-                                                                                            <th>發佈日期</th>
-                                                                                            <th>詳細</th>
-                                                                                            <th>編輯</th>
-                                                                                            <th>刪除</th>
-                                                                                            </tr>
-                                                                                            `)
+                                                                                                <tr>
+                                                                                                <th>佈告欄編號</th>
+                                                                                                <th>發佈人</th>
+                                                                                                <th>標題</th>
+                                                                                                <th>內容</th>
+                                                                                                <th>發佈日期</th>
+                                                                                                <th>詳細</th>
+                                                                                                <th>編輯</th>
+                                                                                                <th>刪除</th>
+                                                                                                </tr>
+                                                                                                `)
                         var a = "";  // 使用一個空字串
                         $(data).each(function (index, item) {
                             var datetime = parseInt(item.發布日期.replace(/\D/igm, ""));
@@ -1075,15 +1131,15 @@
                                 y = datetime1.getMinutes();
                             }
                             a += ` <tr>
-                                                                                <td>${item.佈告欄ID}</td>
-                                                                                <td>${item.中文姓名}</td>
-                                                                                <td>${item.佈告欄標題}</td>
-                                                                                <td>${item.佈告欄內容}</td>
-                                                                                <td>${datetime1.getFullYear() + "/" + (datetime1.getMonth() + 1) + "/" + datetime1.getDate() + " " + x + ":" + y}</td>
-                                                                                <td><a class="btn btn-info empedit 詳細按鈕" data-id="${item.佈告欄ID}" data-toggle="modal" data-target="#ShowBulletinBoard" onclick="SearchThis()">詳細</a></td>
-                                                                                <td><a class="btn btn-warning empedit 詳細按鈕" data-id="${item.佈告欄ID}" data-toggle="modal" data-target="#EditBulletinBoard" onclick="startedit()">編輯</a></td>
-                                                                                <td><a class="btn btn-danger empedit 詳細按鈕" data-id="${item.佈告欄ID}" data-toggle="modal" onclick="DeleteBB()">刪除</a></td>
-                                                                            </tr>`;
+                                                                                    <td>${item.佈告欄ID}</td>
+                                                                                    <td>${item.中文姓名}</td>
+                                                                                    <td>${item.佈告欄標題}</td>
+                                                                                    <td>${item.佈告欄內容}</td>
+                                                                                    <td>${datetime1.getFullYear() + "/" + (datetime1.getMonth() + 1) + "/" + datetime1.getDate() + " " + x + ":" + y}</td>
+                                                                                    <td><a class="btn btn-info empedit 詳細按鈕" data-id="${item.佈告欄ID}" data-toggle="modal" data-target="#ShowBulletinBoard" onclick="SearchThis()">詳細</a></td>
+                                                                                    <td><a class="btn btn-warning empedit 詳細按鈕" data-id="${item.佈告欄ID}" data-toggle="modal" data-target="#EditBulletinBoard" onclick="startedit()">編輯</a></td>
+                                                                                    <td><a class="btn btn-danger empedit 詳細按鈕" data-id="${item.佈告欄ID}" data-toggle="modal" onclick="DeleteBB()">刪除</a></td>
+                                                                                </tr>`;
                         })
                         $(".TBodyAdd").html(a); // 取代原本內容
                     }
@@ -1094,200 +1150,118 @@
 
 
         ///-------Fullcalender---------
-            $(document).ready(function () {
-                var events = [];
-                var selectedEvent = null;
-                FetchEventAndRenderCalendar();
-                function FetchEventAndRenderCalendar() {
-                    events = [];
-                    $.ajax({
-                        type: "GET",
-                        url: "/BulletinBoard/GetEvents",
-                        success: function (data) {
-                            $.each(data, function (i, v) {
-                                events.push({
-                                    eventID: v.EventID,
-                                    title: v.Subject,
-                                    description: v.Description,
-                                    start: moment(v.Start),
-                                    end: v.End != null ? moment(v.End) : null,
-                                    color: v.ThemeColor,
-                                    allDay: v.IsFullDay
-                                });
-                            }),
-                                GenerateCalender(events);
-                        },
-                        error: function (error) {
-                            alert('failed');
-                        }
-                    })
-                }
-
-                function GenerateCalender(events) {
-                    $('#calender').fullCalendar('destroy');
-                    $('#calender').fullCalendar({
-                        defaultDate: new Date(),
-                        timeFormat: 'h(:mm)a',
-                        header: {
-                            left: 'prevYear,prev,next,nextYear today',
-                            center: 'title',
-                            right: 'month,basicWeek,agenda'
-                        },
-                        contentHeight: 850,   // 容器高 
-                        monthNames: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
-                        dayNames: ["週日", "週一", "週二", "週三", "週四", "週五", "週六"],
-                        dayNamesShort: ["週日", "週一", "週二", "週三", "週四", "週五", "週六"],
-                        today: ["今天"],
-                        buttonText: {
-                            today: '今天',
-                            month: '月',
-                            week: '週',
-                            agenda: '日'
-                        },
-                        eventLimit: true,
-                        eventColor: '#378006',
-                        events: events,
-                        eventClick: function (calEvent, jsEvent, view) {
-                            selectedEvent = calEvent;
-                            $('#myModal #eventTitle').text(calEvent.title);
-                            var $description = $('<div/>');
-                            $description.append($('<p/>').html('<b>開始時間 :</b>' + calEvent.start.format("YYYY-MM-DD HH:mm A")));
-                            if (calEvent.end != null) {
-                                $description.append($('<p/>').html('<b>結束時間 :</b>' + calEvent.end.format("YYYY-MM-DD HH:mm A")));
-                            }
-                            $description.append($('<p/>').html('<b class="mr-3">內容 :</b>' + calEvent.description));
-                            $('#myModal #pDetails').empty().html($description);
-
-                            $('#myModal').modal();
-                        },
-                        selectable: true,
-                        select: function (start, end) {
-                            selectedEvent = {
-                                eventID: 0,
-                                title: '',
-                                description: '',
-                                start: start,
-                                end: end,
-                                allDay: false,
-                                color: ''
-                            };
-                            openAddEditForm();
-                            $('#calender').fullCalendar('unselect');
-                        },
-                        editable: true,
-                        eventDrop: function (event) {
-                            var data = {
-                                EventID: event.eventID,
-                                Subject: event.title,
-                                Start: event.start.format('YYYY/MM/DD HH:mm A'),
-                                End: event.end != null ? event.end.format('YYYY/MM/DD HH:mm A') : null,
-                                Description: event.description,
-                                ThemeColor: event.color,
-                                IsFullDay: event.allDay
-                            };
-                            SaveEvent(data);
-                        }
-                    })
-                }
-
-                $('#btnEdit').click(function () {
-                    //Open modal dialog for edit event
-                    openAddEditForm();
-                })
-                $('#btnDelete').click(function () {
-                    if (selectedEvent != null && confirm('Are you sure?')) {
-                        $.ajax({
-                            type: "POST",
-                            url: '/BulletinBoard/DeleteEvent',
-                            data: { 'eventID': selectedEvent.eventID },
-                            success: function (data) {
-                                if (data.status) {
-                                    //Refresh the calender
-                                    FetchEventAndRenderCalendar();
-                                    $('#myModal').modal('hide');
-                                }
-                            },
-                            error: function () {
-                                alert('Failed');
-                            }
-                        })
+        $(document).ready(function () {
+            var events = [];
+            var selectedEvent = null;
+            FetchEventAndRenderCalendar();
+            function FetchEventAndRenderCalendar() {
+                events = [];
+                $.ajax({
+                    type: "GET",
+                    url: "/BulletinBoard/GetEvents",
+                    success: function (data) {
+                        $.each(data, function (i, v) {
+                            events.push({
+                                eventID: v.EventID,
+                                title: v.Subject,
+                                description: v.Description,
+                                start: moment(v.Start),
+                                end: v.End != null ? moment(v.End) : null,
+                                color: v.ThemeColor,
+                                allDay: v.IsFullDay
+                            });
+                        }),
+                            GenerateCalender(events);
+                    },
+                    error: function (error) {
+                        alert('failed');
                     }
                 })
+            }
 
-                $('#dtp1,#dtp2').datetimepicker({
-                    format: 'YYYY/MM/DD HH:mm A'
-                });
-
-                $('#chkIsFullDay').change(function () {
-                    if ($(this).is(':checked')) {
-                        $('#divEndDate').hide();
-                    }
-                    else {
-                        $('#divEndDate').show();
-                    }
-                });
-
-                function openAddEditForm() {
-                    if (selectedEvent != null) {
-                        $('#hdEventID').val(selectedEvent.eventID);
-                        $('#txtSubject').val(selectedEvent.title);
-                        $('#txtStart').val(selectedEvent.start.format('YYYY/MM/DD HH:mm A'));
-                        $('#chkIsFullDay').prop("checked", selectedEvent.allDay || false);
-                        $('#chkIsFullDay').change();
-                        $('#txtEnd').val(selectedEvent.end != null ? selectedEvent.end.format('YYYY/MM/DD HH:mm A') : '');
-                        $('#txtDescription').val(selectedEvent.description);
-                        $('#ddThemeColor').val(selectedEvent.color);
-                    }
-                    $('#myModal').modal('hide');
-                    $('#myModalSave').modal();
-                }
-
-                $('#btnSave').click(function () {
-                    //Validation/
-                    if ($('#txtSubject').val().trim() == "") {
-                        alert('Subject required');
-                        return;
-                    }
-                    if ($('#txtStart').val().trim() == "") {
-                        alert('Start date required');
-                        return;
-                    }
-                    if ($('#chkIsFullDay').is(':checked') == false && $('#txtEnd').val().trim() == "") {
-                        alert('End date required');
-                        return;
-                    }
-                    else {
-                        var startDate = moment($('#txtStart').val(), "YYYY/MM/DD HH:mm A").toDate();
-                        var endDate = moment($('#txtEnd').val(), "YYYY/MM/DD HH:mm A").toDate();
-                        if (startDate > endDate) {
-                            alert('Invalid end date');
-                            return;
+            function GenerateCalender(events) {
+                $('#calender').fullCalendar('destroy');
+                $('#calender').fullCalendar({
+                    defaultDate: new Date(),
+                    timeFormat: 'h(:mm)a',
+                    header: {
+                        left: 'prevYear,prev,next,nextYear today',
+                        center: 'title',
+                        right: 'month,basicWeek,agenda'
+                    },
+                    contentHeight: 850,   // 容器高
+                    monthNames: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
+                    dayNames: ["週日", "週一", "週二", "週三", "週四", "週五", "週六"],
+                    dayNamesShort: ["週日", "週一", "週二", "週三", "週四", "週五", "週六"],
+                    today: ["今天"],
+                    buttonText: {
+                        today: '今天',
+                        month: '月',
+                        week: '週',
+                        agenda: '日'
+                    },
+                    eventLimit: true,  
+                    eventColor: '#378006',
+                    events: events,
+                    eventClick: function (calEvent, jsEvent, view) {
+                        console.log(1)
+                        selectedEvent = calEvent;
+                        $('#myModal #eventTitle').text(calEvent.title);
+                        var $description = $('<div/>');
+                        $description.append($('<p/>').html('<b>開始時間 :</b>' + calEvent.start.format("YYYY-MM-DD HH:mm A")));
+                        if (calEvent.end != null) {
+                            $description.append($('<p/>').html('<b>結束時間 :</b>' + calEvent.end.format("YYYY-MM-DD HH:mm A")));
                         }
-                    }
+                        $description.append($('<p/>').html('<b class="mr-3">內容 :</b>' + calEvent.description));
+                        $('#myModal #pDetails').empty().html($description);
 
-                    var data = {
-                        EventID: $('#hdEventID').val(),
-                        Subject: $('#txtSubject').val().trim(),
-                        Start: $('#txtStart').val().trim(),
-                        End: $('#chkIsFullDay').is(':checked') ? null : $('#txtEnd').val().trim(),
-                        Description: $('#txtDescription').val(),
-                        ThemeColor: $('#ddThemeColor').val(),
-                        IsFullDay: $('#chkIsFullDay').is(':checked')
+                        $('#myModal').modal('show');
+                    },
+                    selectable: true,
+                    select: function (start, end) {
+                        selectedEvent = {
+                            eventID: 0,
+                            title: '',
+                            description: '',
+                            start: start,
+                            end: end,
+                            allDay: false,
+                            color: ''
+                        };
+                        openAddEditForm();
+                        $('#calender').fullCalendar('unselect');
+                    },
+                    editable: true,
+                    eventDrop: function (event) {
+                        var data = {
+                            EventID: event.eventID,
+                            Subject: event.title,
+                            Start: event.start.format('YYYY/MM/DD HH:mm A'),
+                            End: event.end != null ? event.end.format('YYYY/MM/DD HH:mm A') : null,
+                            Description: event.description,
+                            ThemeColor: event.color,
+                            IsFullDay: event.allDay
+                        };
+                        SaveEvent(data);
                     }
-                    SaveEvent(data);
-                    // call function for submit data to the server
                 })
+            }
 
-                function SaveEvent(data) {
+            $('#btnEdit').click(function () {
+                //Open modal dialog for edit event
+                openAddEditForm();
+            })
+            $('#btnDelete').click(function () {
+                if (selectedEvent != null && confirm('Are you sure?')) {
                     $.ajax({
                         type: "POST",
-                        url: '/BulletinBoard/SaveEvent',
-                        data: data,
+                        url: '/BulletinBoard/DeleteEvent',
+                        data: { 'eventID': selectedEvent.eventID },
                         success: function (data) {
                             if (data.status) {
                                 //Refresh the calender
                                 FetchEventAndRenderCalendar();
-                                $('#myModalSave').modal('hide');
+                                $('#myModal').modal('hide');
                             }
                         },
                         error: function () {
@@ -1296,6 +1270,188 @@
                     })
                 }
             })
+
+            $('#dtp1,#dtp2').datetimepicker({
+                format: 'YYYY/MM/DD HH:mm A'
+            });
+
+            $('#chkIsFullDay').change(function () {
+                if ($(this).is(':checked')) {
+                    $('#divEndDate').hide();
+                }
+                else {
+                    $('#divEndDate').show();
+                }
+            });
+
+            function openAddEditForm() {
+                if (selectedEvent != null) {
+                    $('#hdEventID').val(selectedEvent.eventID);
+                    $('#txtSubject').val(selectedEvent.title);
+                    $('#txtStart').val(selectedEvent.start.format('YYYY/MM/DD HH:mm A'));
+                    $('#chkIsFullDay').prop("checked", selectedEvent.allDay || false);
+                    $('#chkIsFullDay').change();
+                    $('#txtEnd').val(selectedEvent.end != null ? selectedEvent.end.format('YYYY/MM/DD HH:mm A') : '');
+                    $('#txtDescription').val(selectedEvent.description);
+                    $('#ddThemeColor').val(selectedEvent.color);
+                }
+                $('#myModal').modal('hide');
+                $('#myModalSave').modal('show');
+            }
+
+            $('#btnSave').click(function () {
+                //Validation/
+                if ($('#txtSubject').val().trim() == "") {
+                    alert('Subject required');
+                    return;
+                }
+                if ($('#txtStart').val().trim() == "") {
+                    alert('Start date required');
+                    return;
+                }
+                if ($('#chkIsFullDay').is(':checked') == false && $('#txtEnd').val().trim() == "") {
+                    alert('End date required');
+                    return;
+                }
+                else {
+                    var startDate = moment($('#txtStart').val(), "YYYY/MM/DD HH:mm A").toDate();
+                    var endDate = moment($('#txtEnd').val(), "YYYY/MM/DD HH:mm A").toDate();
+                    if (startDate > endDate) {
+                        alert('Invalid end date');
+                        return;
+                    }
+                }
+
+                var data = {
+                    EventID: $('#hdEventID').val(),
+                    Subject: $('#txtSubject').val().trim(),
+                    Start: $('#txtStart').val().trim(),
+                    End: $('#chkIsFullDay').is(':checked') ? null : $('#txtEnd').val().trim(),
+                    Description: $('#txtDescription').val(),
+                    ThemeColor: $('#ddThemeColor').val(),
+                    IsFullDay: $('#chkIsFullDay').is(':checked')
+                }
+                SaveEvent(data);
+                // call function for submit data to the server
+            })
+
+            function SaveEvent(data) {
+                $.ajax({
+                    type: "POST",
+                    url: '/BulletinBoard/SaveEvent',
+                    data: data,
+                    success: function (data) {
+                        if (data.status) {
+                            //Refresh the calender
+                            FetchEventAndRenderCalendar();
+                            $('#myModalSave').modal('hide');
+                        }
+                    },
+                    error: function () {
+                        alert('Failed');
+                    }
+                })
+            }
+        })
+
+        ///-----------FullcalenderDemo--------------
+        //function FullcalenderDemoAdd() {
+        //    $("#txtSubject").val(),
+        //    $("#txtStart").val(),
+        //    $("#txtEnd").val(),
+        //    $("#chkIsFullDay").val(),
+        //    $("#txtDescription").val()
+        //    $("#ddThemeColor").val(),
+        //};
+
+        // ------------------------打卡系統---------------------------
+            var events = [];
+            ShowCalendar();
+            function ShowCalendar() {
+                events = [];
+                $.ajax({
+                    type: "GET",
+                    url: "/BulletinBoard/SignInShow",
+                    success: function (data) {
+                        $.each(data, function (i, v) {
+                            events.push({
+                                eventID: v.打卡ID,
+                                EmployeeID: v.員工編號,
+                                title: v.中文姓名,
+                                description: v.打卡日期,
+                                start: moment(v.上班打卡時間),
+                                end: moment(v.下班打卡時間),
+                                color: v.ThemeColor,
+                            });
+                        }),
+                            MadeCalender(events);
+                    },
+                    error: function (error) {
+                        alert('failed');
+                    }
+                })
+            }
+
+            function MadeCalender(events) {
+                $('#signincalender').fullCalendar('destroy');
+                $('#signincalender').fullCalendar({
+                    defaultDate: new Date(),
+                    timeFormat: 'h(:mm)a',
+                    header: {
+                        left: 'prevYear,prev,next,nextYear today',
+                        center: '',
+                        right: 'title'
+                    },
+                    contentHeight: 750,   // 容器高 
+                    monthNames: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
+                    dayNames: ["週日", "週一", "週二", "週三", "週四", "週五", "週六"],
+                    dayNamesShort: ["週日", "週一", "週二", "週三", "週四", "週五", "週六"],
+                    today: ["今天"],
+                    buttonText: {
+                        today: '今天',
+                        month: '月',
+                        week: '週',
+                        agenda: '日'
+                    },
+                    eventLimit: true,
+                    eventColor: '#378006',
+                    events: events,
+                    selectable: true,
+                    select: function (start, end) {
+                        selectedEvent = {
+                            eventID: $('.CookieAuth').html(decodeURI(document.cookie.split('Auth=')[1].split('&')[0])),
+                            title: '',
+                            description: '',
+                            start: start,
+                            end: end,
+                            color: ''
+                        };
+                        $('#signincalender').fullCalendar('unselect');
+                    }
+                })
+            }
+
+            function SignInSave(data) {
+                $.ajax({
+                    type: "POST",
+                    url: '/BulletinBoard/SignInSave',
+                    data: data,
+                    success: function () {
+                        ShowCalendar();
+                    }
+                })
+        }
+
+        function SignInDemoSave(data) {
+            $.ajax({
+                type: "POST",
+                url: '/BulletinBoard/SignInDemoSave',
+                data: data,
+                success: function () {
+                    ShowCalendar();
+                }
+            })
+        }
 
     </script>
 }
