@@ -223,16 +223,6 @@
             right: auto;
             width: 400px;
         }
-        /*互動式視窗置中*/
-        #searchinfo {
-            height: auto;
-            top: auto;
-            left: auto;
-            bottom: auto;
-            right: auto;
-            width: 400px;
-        }
-
         .formlbl {
             font-size: 16px !important;
         }
@@ -259,7 +249,13 @@
         }
         .modal-backdrop {
             z-index: -1;
-        } 
+        }
+        .HomePic {
+            background-color: #4F4F4F;
+        }
+        .bottomdiv {
+        justify-content:space-evenly;
+        }
     </style>
 </head>
 <body>
@@ -269,6 +265,7 @@
             <span class="font-weight-bold ml-2">功能選單</span>
         </a>
         <div class="w-25 ml-auto">
+            <div class="CookieID" hidden></div>
             <div class="ui buttons w-100">
                 <button class="ui labeled icon button nohover  text-dark" title="權限">
                     <i class="left user icon"></i>
@@ -401,6 +398,7 @@
         if (document.cookie != '') {
             $('.CookieAuth').html(decodeURI(document.cookie.split('Auth=')[1].split('&')[0]));
             $('.CookieName').html(decodeURI(document.cookie.split('Name=')[1].split('&')[0]));
+            $('.CookieID').html(decodeURI(document.cookie.split('id=')[1].split('&')[0]));
         } else {
             window.location.href = "/Home/Login";
         }
@@ -604,6 +602,11 @@
         //設定一個佈告欄修改id 讓他自動++ 判定 大於多少 刪除 上面的 div 讓他和編輯的div加總維持在一定的數量
 
         const bell = $.connection.bell;   //呼叫hub
+        $.connection.hub.start()
+            .done(function () {
+        bell.server.group(document.cookie.split('id=')[1].split('&')[0]);
+                              
+            });       
         bell.client.message = function (name, message) {
             $(".AlertBell").append(` <div class="ui label dropdown-item"><i class="bullhorn icon"></i><a class="text-success font-weight-bold" b-aid="${baid++}" href="/BulletinBoard/BulletinBoard">您的佈告欄有新的通知!</a></div>`);
         }
@@ -612,6 +615,11 @@
         }
         bell.client.delete = function (message) {
             $(".AlertBell").append(`<div class="ui label dropdown-item"><i class="bullhorn icon"></i><a class="text-danger font-weight-bold" href="/BulletinBoard/BulletinBoard">您的佈告欄有新的異動！${message}已被刪除！</a></div>`);
+        }
+        bell.client.addMessage = function (職稱) {
+            if (decodeURI(document.cookie.split('Auth=')[1].split('&')[0]) == "人事") {
+                window.location.href = "Home/HRShow";
+            }
         }
 
         function ChangePage() {

@@ -16,7 +16,7 @@
 </div>
 
 
-<div class="ui fullscreen modal" id="searchinfo">
+<div class="ui fullscreen modal centermodal" id="searchinfo">
     <i class="close icon"></i>
     <div class="header">
         員工資訊搜尋結果
@@ -206,7 +206,7 @@
         <div id="PageNumber"></div>
     </div>
 </div>
-<div class="ui fullscreen modal centermodal" id="EditProfile">
+<div class="ui modal centermodal" id="EditProfile">
     <i class="close icon"></i>
     <div class="header">
         編輯員工資訊
@@ -214,12 +214,12 @@
     <div class="content">
         <form class="ui form EditUserProfile "></form>
     </div>
-    <div class="actions d-flex justify-content-between">
+    <div class="actions d-flex justify-content-center">
         <div>
-            <button type="button" class="btn btn-primary editsave">確認</button>
+            <button class="ui inverted primary button editsave">確認</button>
         </div>
         <div>
-            <button type="button" class="btn btn-secondary cancel ClearModal">關閉</button>
+            <button class="ui inverted red button cancel ClearModal">關閉</button>
         </div>
     </div>
 </div>
@@ -623,15 +623,15 @@
                             $(data).each(function (index, item) {
                                 $(".SearchShowTable").append(
                                     `<tr>
-                                                                                                 <td class="pl-3">${item.EmployeeID}</td>
-                                                                                                 <td>${item.信箱}</td>
-                                                                                                 <td>${item.中文姓名}</td>
-                                                                                                 <td>${item.性別}</td>
-                                                                                                 <td>${item.電話}</td>
-                                                                                                 <td>${item.部門}</td>
-                                                                                                 <td><a class="btn empedit btn-outline-primary button btnDetail" data-id="${item.EmployeeID}" data-toggle="modal" data-target="#EditProfile" onclick="startedit()"><span>編輯</span></a></td>
-                                                                                                 <td><a class="btn btn-outline-danger button" data-id="${item.EmployeeID}" onclick="DeleteEMP()"><span>刪除</span></a></td>
-                                                                                                </tr>`);
+                                        <td class="pl-3">${item.EmployeeID}</td>
+                                        <td>${item.信箱}</td>
+                                        <td>${item.中文姓名}</td>
+                                        <td>${item.性別}</td>
+                                        <td>${item.電話}</td>
+                                        <td>${item.部門}</td>
+                                        <td><a class="btn empedit btn-outline-primary button btnDetail" data-id="${item.EmployeeID}" onclick="startedit()"><span>編輯</span></a></td>
+                                        <td><a class="btn btn-outline-danger button" data-id="${item.EmployeeID}" onclick="DeleteEMP()"><span>刪除</span></a></td>
+                                    </tr>`);
                             })
                         }
                     }
