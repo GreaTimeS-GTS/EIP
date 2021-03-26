@@ -209,7 +209,7 @@
         <div id="nav-1" class="tab-pane fade show active">
             <div class="col-12 d-flex justify-content-between">
                 <div class="col-6">
-                    <a class="btn btn-primary empedit 新增按鈕" data-id="" data-toggle="modal" data-target="#CreateBulletinBoardList">新增</a>
+                    <a class="btn btn-primary empedit 新增按鈕">新增</a>
                 </div>
                 <div class="col-6 pr-0 pl-5">
                     @*------------------------------搜尋框起始------------------------------*@
@@ -310,65 +310,63 @@
             @*FullCalender修改彈跳視窗結束*@
 
             @*FullCalender新增彈跳視窗起始*@
-            <div id="myModalSave" class="ui modal centermodal" role="dialog">
-                <div class="modal-dialog">
-                    <div class="content">
-                        <div class="modal-header">
-                            <h4 class="modal-title 行事曆彈出視窗按鈕">新增事項</h4>
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        </div>
-                        <div class="modal-body">
-                            <form class="col-md-12 form-horizontal">
-                                <input type="hidden" id="hdEventID" value="0" />
-                                <div class="form-group">
-                                    <label>事項名稱</label>
-                                    <input type="text" id="txtSubject" class="form-control 行事曆事項名稱輸入框" />
-                                </div>
-                                <div class="form-group">
-                                    <label>開始時間</label>
-                                    <div class="input-group date" id="dtp1">
-                                        <input type="text" id="txtStart" class="form-control 行事曆時間輸入框" />
-                                        <span class="input-group-addon">
-                                            <span class="glyphicon glyphicon-calendar"></span>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="form-group" id="divEndDate" style="display:none">
-                                    <label>結束時間</label>
-                                    <div class="input-group date" id="dtp2">
-                                        <input type="text" id="txtEnd" class="form-control 行事曆時間輸入框" />
-                                        <span class="input-group-addon">
-                                            <span class="glyphicon glyphicon-calendar"></span>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="form-group ">
-                                    <div class="checkbox">
-                                        <label><input type="checkbox" id="chkIsFullDay" checked="checked" />   全日</label>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label>事項描述</label>
-                                    <textarea id="txtDescription" rows="3" class="form-control 行事曆描述輸入框"></textarea>
-                                </div>
-                                <div class="form-group 行事曆事項名稱輸入框">
-                                    <label>主題顏色</label>
-                                    <select id="ddThemeColor" class="form-control 行事曆事項名稱輸入框">
-                                        <option value="">不使用</option>
-                                        <option value="red">紅色</option>
-                                        <option value="blue">藍色</option>
-                                        <option value="black">黑色</option>
-                                        <option value="green">綠色</option>
-                                    </select>
-                                </div>
-                                <button type="button" class="btn btn-info" onclick="FullcalenderDemoAdd()">Demo</button>
-                                <button type="button" id="btnSave" class="btn btn-primary">儲存</button>
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
-                            </form>
+        <div id="myModalSave" class="ui modal centermodal">
+            <i class="close icon"></i>
+            <div class="header">
+                行事曆彈出視窗按鈕
+            </div>
+            <div class="content">
+                <form class="col-md-12 form-horizontal">
+                    <input type="hidden" id="hdEventID" value="0" />
+                    <div class="form-group">
+                        <label>事項名稱</label>
+                        <input type="text" id="txtSubject" class="form-control 行事曆事項名稱輸入框" />
+                    </div>
+                    <div class="form-group">
+                        <label>開始時間</label>
+                        <div class="input-group date" id="dtp1">
+                            <input type="text" id="txtStart" class="form-control 行事曆時間輸入框" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
                         </div>
                     </div>
-                </div>
+                    <div class="form-group" id="divEndDate" style="display:none">
+                        <label>結束時間</label>
+                        <div class="input-group date" id="dtp2">
+                            <input type="text" id="txtEnd" class="form-control 行事曆時間輸入框" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group ">
+                        <div class="checkbox">
+                            <label><input type="checkbox" id="chkIsFullDay" checked="checked" />   全日</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>事項描述</label>
+                        <textarea id="txtDescription" rows="3" class="form-control 行事曆描述輸入框"></textarea>
+                    </div>
+                    <div class="form-group 行事曆事項名稱輸入框">
+                        <label>主題顏色</label>
+                        <select id="ddThemeColor" class="form-control 行事曆事項名稱輸入框">
+                            <option value="">不使用</option>
+                            <option value="red">紅色</option>
+                            <option value="blue">藍色</option>
+                            <option value="black">黑色</option>
+                            <option value="green">綠色</option>
+                        </select>
+                    </div>
+                </form>
             </div>
+            <div class="actions">
+                <button type="button" class="btn btn-info" onclick="FullcalenderDemoAdd()">Demo</button>
+                <button type="button" id="btnSave" class="btn btn-primary">儲存</button>
+                <button type="button" class="btn btn-secondary cancel" data-dismiss="modal">關閉</button>
+            </div>
+        </div>
             @*FullCalender新增彈跳視窗結束*@
         </div>
         <div id="nav-3" class="tab-pane fade active ">
@@ -387,41 +385,33 @@
 </div>
 
 @*佈告欄新增彈跳視窗*@
-<div class="ui modal centermodal" id="CreateBulletinBoardList" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="content">
-            <div class="modal-header 新增視窗頭">
-                <h5 class="modal-title 文字2" id="exampleModalLabel">新增佈告欄</h5>
-                <button type="button" class="close" data-dismiss="modal">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form class="CreateBulletinBoard">
-                    <label class="文字2">標題：</label>
-                    <br>
-                    <input name="Title" type="text" class="addTitle" />
-                    <br>
-                    <br>
-                    <label class="文字2">內容：</label>
-                    <br>
-                    <textarea name="Content" class="addContent" rows="5" cols="200">
-                    </textarea>
-                    <br>
-                    <br>
-                    <label class="文字2">發佈日期：</label>
-                    <br>
-                    <input name="Date" type="datetime-local" class="addDate" />
-                    <br>
-                    <br>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-info" onclick="BulletinBoardDemoAdd()">Demo</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="BulletinBoardAdd()">送出</button>
-                <button type="button" class="btn btn-secondary ClearModal" data-dismiss="modal">取消</button>
-            </div>
-        </div>
+<div id="CreateBulletinBoardList" class="ui modal centermodal"  tabindex="-1" role="dialog">
+    <div class="header 新增視窗頭">
+        新增佈告欄
+    </div>
+    <div class="content">
+        <form class="CreateBulletinBoard">
+            <label class="文字2">標題：</label>
+            <br>
+            <input name="Title" type="text" class="addTitle" />
+            <br>
+            <br>
+            <label class="文字2">內容：</label>
+            <br>
+            <textarea name="Content" class="addContent" rows="5" cols="200"></textarea>
+            <br>
+            <br>
+            <label class="文字2">發佈日期：</label>
+            <br>
+            <input name="Date" type="datetime-local" class="addDate" />
+            <br>
+            <br>
+        </form>
+    </div>
+    <div class="actions">
+        <button type="button" class="btn btn-info" onclick="BulletinBoardDemoAdd()">Demo</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="BulletinBoardAdd()">送出</button>
+        <button type="button" class="btn btn-secondary ClearModal cancel">取消</button>
     </div>
 </div>
 
@@ -447,23 +437,16 @@
 
 @*佈告欄修改尋彈跳視窗*@
 <div class="ui modal centermodal" id="EditBulletinBoard" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="content">
-            <div class="modal-header 編輯視窗頭">
-                <h5 class="modal-title 文字2" id="exampleModalLabel">編輯佈告欄</h5>
-                <button type="button" class="close" data-dismiss="modal">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+            <div class="header 編輯視窗頭">
+             編輯佈告欄 
             </div>
-            <div class="modal-body">
+            <div class="content">
                 <form class="EditUserProfile"></form>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary editsave" data-dismiss="modal">確認修改</button>
-                <button type="button" class="btn btn-secondary ClearModal" data-dismiss="modal">取消</button>
-            </div>
-        </div>
-    </div>
+            <div class="actions">
+                <button type="button" class="btn btn-primary editsave">確認修改</button>
+                <button type="button" class="btn btn-secondary ClearModal cancel">取消</button>
+            </div>  
 </div>
 
 
@@ -482,7 +465,7 @@
         var TotalEMP = "";
         var SliceTotal = "";
         var currentpage = page_num;
-
+        $(".新增按鈕").click(function () { $("#CreateBulletinBoardList").modal('show') });
         function refresh() {
             if (decodeURI(document.cookie.split('Auth=')[1].split('&')[0]) != '主管') {
                 $.ajax({
@@ -587,7 +570,7 @@
                                                                                     <td>${item.中文姓名}</td>
                                                                                     <td>${item.佈告欄標題}</td>
                                                                                     <td>${datetime1.getFullYear() + "/" + (datetime1.getMonth() + 1) + "/" + datetime1.getDate() + " " + x + ":" + y}</td>
-                                                                                    <td><a class="btn btn-warning empedit 詳細按鈕" data-id="${item.佈告欄ID}" data-toggle="modal" data-target="#EditBulletinBoard" onclick="startedit()">編輯</a></td>
+                                                                                    <td><a class="btn btn-warning empedit 詳細按鈕　" data-id="${item.佈告欄ID}" onclick="startedit()">編輯</a></td>
                                                                                     <td><a class="btn btn-danger empedit 詳細按鈕" data-id="${item.佈告欄ID}" data-toggle="modal" onclick="DeleteBB()">刪除</a></td>
                                                                                 </tr>`;
                         })
@@ -797,11 +780,11 @@
                     },
                     method: "Get",
                     success: function (data) {
-                        let title = `${$(".addTitle").val()}`;
+                        
                         swal("新增成功!", "佈告欄已新增成功!", "success");
                         $.connection.hub.start()
                             .done(function () {
-                                bell.server.send(`${decodeURI(document.cookie.split('Name=')[1].split('&')[0])}`, title);   //傳值到hub
+                                bell.server.send(`${decodeURI(document.cookie.split('Auth=')[1].split('&')[0])}`, "有新的佈告欄！");   //傳值到hub
                             });
                         $(".addTitle").val('');
                         $(".addContent").val('');
@@ -822,6 +805,7 @@
 
         // 新增按鈕彈出來的方法
         function startedit() {
+            $("#EditBulletinBoard").modal('show');
             $.ajax({
                 url: "/BulletinBoard/SearchOneBulletinBoard",
                 method: "Get",
@@ -977,12 +961,11 @@
                     "佈告欄內容": $(".updateContent").val(),
                     "發布日期": $(".updateTime").val()
                 },
-                success: function (data) {
-                    let EditTitle = $(".updateTitle").val();
+                success: function (data) {     
                     swal("修改成功!", "佈告欄已修改成功!", "success");
                     $.connection.hub.start()
                         .done(function () {
-                            bell.server.sendbulletinboardedit(`${EditTitle}`);   //傳值到hub
+                            bell.server.sendbulletinboardedit('全體:佈告欄有新的異動!');   //傳值到hub
                         });
                     refresh();
                 }
@@ -1001,7 +984,6 @@
             }).then((isConfirm) => {
                 if (isConfirm) {
                     swal("刪除!", "佈告欄已刪除!...", 'success');
-
                     $.ajax({
                         url: "/BulletinBoard/BulletinBoardDelete",
                         method: "get",
@@ -1009,10 +991,9 @@
                             "id": id
                         },
                         success: function (data) {
-                            let deletitle = data.佈告欄標題;
                             $.connection.hub.start()
                                 .done(function () {
-                                    bell.server.sendbulletinboarddelete(`${deletitle}`);   //傳值到hub
+                                    bell.server.deletebb(`${2}`, `佈告欄有新的異動`);   //傳值到hub
                                 });
                             refresh();
 

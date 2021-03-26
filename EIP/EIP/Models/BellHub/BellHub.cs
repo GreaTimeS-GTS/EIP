@@ -21,17 +21,29 @@ namespace EIP.Models.BellHub
 
             Clients.All.Message(職稱, message);
         }
-        public void Sendbulletinboardedit(string name) //佈告欄修改通知
+        public void Sendbulletinboardedit(string message) //佈告欄修改通知
         {
+            var 通知 = new 通知
+            {
 
-            Clients.All.Edit(name);
+
+            };
+            Clients.All.Edit(message);
         }
-        public void Sendbulletinboarddelete(string message) //佈告欄刪除通知
+        public void Deletebb(int 類別, string message) //佈告欄刪除通知
         {
-
-            Clients.All.Delete(message);
+            var 通知 = new 通知
+            {
+                通知類別id = 類別,
+                通知內容 = message,
+                讀取狀態 = "未讀"
+            };
+            db.通知.Add(通知);
+            db.SaveChanges();
+            var 通知類別轉換 = db.通知類別.FirstOrDefault(m => m.通知類別id == 類別);
+            Clients.All.Delete(通知類別轉換.通知類別1, message);
         }
-        public void identityGroup(string id,string Message,int check)   //設定特定群組
+        public void SendGroup(string id,string Message,int check) //對特定群組發送通知  
         {
             var f =db.個人資料.Find(id);
             if(f.職稱 == "人事")
@@ -45,17 +57,8 @@ namespace EIP.Models.BellHub
             Clients.Group("主管").addMessage(f.職稱, Message);
             Clients.Group("總經理").addMessage(f.職稱, Message);
             }
-            var 通知 = new 通知
-            {
-               
-            };
         }
-        public void SendHRAdd(String GroupId, String Message)   //對特定群組發送通知
-        {
-            Clients.Group(GroupId).addMessage(Message);
-        }
-
-        public void group(int id)
+        public void Setgroup(int id)  //設定特定群組
         {
            var connectedID = db.個人資料.FirstOrDefault(c => c.EmployeeID == id);
             var 發送職稱 = connectedID.職稱;
@@ -65,10 +68,15 @@ namespace EIP.Models.BellHub
             }
             if (發送職稱 == "主管")
             {
-                Groups.Add(Context.ConnectionId, "人事");
                 Groups.Add(Context.ConnectionId, "主管");
             }
-          
+            if (發送職稱 == "總經理")
+            {
+                Groups.Add(Context.ConnectionId, "總經理");
+            }
+
+
+
         }
     }
 }

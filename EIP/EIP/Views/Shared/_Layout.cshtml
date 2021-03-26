@@ -240,6 +240,8 @@
             border-radius: 50% 50% 50% 50%;*/
             padding: 1% 1%;
         }
+        #CreateBulletinBoardList {
+        }
         .centermodal {
             height: auto;
             top: auto;
@@ -256,6 +258,7 @@
         .bottomdiv {
         justify-content:space-evenly;
         }
+
     </style>
 </head>
 <body>
@@ -604,23 +607,24 @@
         const bell = $.connection.bell;   //呼叫hub
         $.connection.hub.start()
             .done(function () {
-        bell.server.group(document.cookie.split('id=')[1].split('&')[0]);
-                              
+        bell.server.group(document.cookie.split('id=')[1].split('&')[0]);                         
             });       
-        bell.client.message = function (name, message) {
-            $(".AlertBell").append(` <div class="ui label dropdown-item"><i class="bullhorn icon"></i><a class="text-success font-weight-bold" b-aid="${baid++}" href="/BulletinBoard/BulletinBoard">您的佈告欄有新的通知!</a></div>`);
-        }
-        bell.client.edit = function (name) {
-            $(".AlertBell").append(`<div class="ui label dropdown-item"><i class="bullhorn icon"></i><a class="text-warning font-weight-bold"  b-eid="${beid++}"href="/BulletinBoard/BulletinBoard">您的佈告欄有新的通知!</a></div>`);
-        }
-        bell.client.delete = function (message) {
-            $(".AlertBell").append(`<div class="ui label dropdown-item"><i class="bullhorn icon"></i><a class="text-danger font-weight-bold" href="/BulletinBoard/BulletinBoard">您的佈告欄有新的異動！${message}已被刪除！</a></div>`);
-        }
-        bell.client.addMessage = function (職稱) {
-            if (decodeURI(document.cookie.split('Auth=')[1].split('&')[0]) == "人事") {
-                window.location.href = "Home/HRShow";
+        bell.client.message = function (職稱, message) {  
+            $(".AlertBell").append(` <div class="ui label item"><i class="bullhorn icon"></i><a class="text-success font-weight-bold" href="/BulletinBoard/BulletinBoard">${職稱}:${message}</a></div>`);
             }
+
+        bell.client.edit = function (message) {
+            $(".AlertBell").append(`<div class="ui label item"><i class="bullhorn icon"></i><a class="text-warning font-weight-bold"  b-eid="${beid++}"href="/BulletinBoard/BulletinBoard">${message}</a></div>`);
         }
+        bell.client.delete = function (通知類別, message) {
+            $(".AlertBell").append(` <div class="ui label item"><i class="bullhorn icon"></i><a class="text-success font-weight-bold" href="/BulletinBoard/BulletinBoard">${通知類別}:${message}</a></div>`);
+        }
+        bell.client.addmessage=
+        //bell.client.addMessage = function (職稱) {
+        //    if (decodeURI(document.cookie.split('Auth=')[1].split('&')[0]) == "人事") {
+        //        window.location.href = "Home/HRShow";
+        //    }
+        //}
 
         function ChangePage() {
             $('#overtimemodel').modal('show');
