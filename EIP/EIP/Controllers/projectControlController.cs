@@ -34,7 +34,10 @@ namespace EIP.Controllers
             });
             return Json(pjMainData, JsonRequestBehavior.AllowGet);
         }
-   
+        public ActionResult pjView()
+        {
+            return View();
+        }
 
 
         //總表 有View
