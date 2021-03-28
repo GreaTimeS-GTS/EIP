@@ -784,7 +784,7 @@
                         swal("新增成功!", "佈告欄已新增成功!", "success");
                         $.connection.hub.start()
                             .done(function () {
-                                bell.server.send(`${decodeURI(document.cookie.split('Auth=')[1].split('&')[0])}`, "有新的佈告欄！");   //傳值到hub
+                                bell.server.sendGroup(`${2}`,`${decodeURI(document.cookie.split('Auth=')[1].split('&')[0])}`, `有新的佈告欄！`,`員工`);   //傳值到hub
                             });
                         $(".addTitle").val('');
                         $(".addContent").val('');
@@ -965,7 +965,7 @@
                     swal("修改成功!", "佈告欄已修改成功!", "success");
                     $.connection.hub.start()
                         .done(function () {
-                            bell.server.sendbulletinboardedit('全體:佈告欄有新的異動!');   //傳值到hub
+                            bell.server.sendGroup(`${2}`, `${decodeURI(document.cookie.split('Auth=')[1].split('&')[0])}`, `佈告欄有新的異動！`,`員工`);   //傳值到hub
                         });
                     refresh();
                 }
@@ -991,10 +991,10 @@
                             "id": id
                         },
                         success: function (data) {
-                            $.connection.hub.start()
-                                .done(function () {
-                                    bell.server.deletebb(`${2}`, `佈告欄有新的異動`);   //傳值到hub
-                                });
+                             $.connection.hub.start()
+                        .done(function () {
+                            bell.server.sendGroup(`${2}`, `${decodeURI(document.cookie.split('Auth=')[1].split('&')[0])}`, `佈告欄有新的異動！`,`員工`);   //傳值到hub
+                        });
                             refresh();
 
                         }
@@ -1344,7 +1344,6 @@
         //    $("#txtDescription").val()
         //    $("#ddThemeColor").val(),
         //};
-
         // ------------------------打卡系統---------------------------
             var events = [];
             ShowCalendar();

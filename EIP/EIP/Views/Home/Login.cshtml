@@ -4,7 +4,38 @@
 }
 
 
+<button class="ui black button mt-2 ml-2 demo4 disapear">
+    <i class="icon sign-in"></i>
+    隱藏Demo鍵
+</button>
+<button class="ui black button mt-2 ml-2 demo5 disapear">
+    <i class="icon sign-in"></i>
+    顯示Demo鍵
+</button>
 
+<div class="ui mini modal forgetpwmodal centermodal">
+    <i class="close icon"></i>
+    <div class="header">
+        忘記密碼
+    </div>
+    <div class="content">
+        <form class="ui form">
+            <div class="field">
+                <label>員工編號：</label>
+                <input type="text" class="EmpID" name="EmpID" placeholder="員工編號...">
+            </div>
+            <div class="field">
+                <label>帳號：</label>
+                <input type="text" class="EmpEmail" name="ACCtext" placeholder="Email...">
+            </div>
+            <div class="actions">
+                <div class="ui button cancel">取消</div>
+                <div class="ui button" onclick="sendchpwreq()">確認發送</div>
+            </div>
+        </form>
+    </div>
+   
+</div>
 <div class="LoginForm ">
     <div class="w-100 border-top"></div>
     <div class="d-flex">
@@ -12,6 +43,18 @@
             <img class="w-100 h-100" src="~/images/Logo.png" />
         </div>
         <div class="Block2">
+            <button class="ui black button w-25  mt-2 demo1">
+                <i class="icon sign-in"></i>
+                主管
+            </button>
+            <button class="ui black button w-25 mt-2 demo2">
+                <i class="icon sign-in"></i>
+                人事
+            </button>
+            <button class="ui black button w-25 mt-2 demo3">
+                <i class="icon sign-in"></i>
+                員工
+            </button>
             <form class="FormLogin px-4 py-4 formbord ui form mt-5">
                 <div>
                     <div class="field ui massive label d-flex justify-content-center">
@@ -31,11 +74,13 @@
                             <i class="key icon"></i>
                         </div>
                     </div>
-                    <div class="mt-5">
+                    <div class="mt-5 d-flex justify-content-between">
                         <input type="checkbox" class="mt-1 mr-1" />
-                        <label class="RememberME font-weight-bolder">記住我</label>
-                    </div>
-
+                        <label class="RememberME font-weight-bolder mr-5">記住我</label>
+                        <div class="ui inverted secondary button w-50 ml-5 mb-2" onclick="showforgetpwmodal()">
+                            <span class="mr-2">忘記密碼</span><i class="blue icon question"></i>
+                        </div>
+                    </div>   
                     <div class="form-group mt-2">
                         <button class="ui black button w-100 btnSend mt-2">
                             <i class="icon sign-in"></i>
@@ -45,13 +90,37 @@
                     </div>
                 </div>
             </form>
+           
         </div>
     </div>
     <div class="bottomblock w-100 border-top"></div>
 </div>
 
+
 @section script{
     <script>
+        $(".demo1").click(function () {
+            $(".ACCtext").val('boss@gmail.com');
+            $(".PWtext").val('123456');
+        });
+        $(".demo2").click(function () {
+            $(".ACCtext").val('abc@gmail.com');
+            $(".PWtext").val('123456');
+        });
+        $(".demo3").click(function () {
+            $(".ACCtext").val('abcd@gmail.com');
+            $(".PWtext").val('123456');
+        });
+        $(".demo4").click(function () {
+            $(".demo1").attr('hidden', true);
+            $(".demo2").attr('hidden', true);
+            $(".demo3").attr('hidden', true);
+        });
+        $(".demo5").click(function () {
+            $(".demo1").attr('hidden', false);
+            $(".demo2").attr('hidden', false);
+            $(".demo3").attr('hidden', false);
+         });
         $(".btnSend").click(function () {
             event.preventDefault();
             $.ajax({
@@ -70,11 +139,38 @@
                         $(".resetform").click();
                         swal("登入失敗", "帳號或密碼錯誤,請重新登入...", "error");
                     }
-
                 }
             })
 
-        })
+        });
+
+
+        function showforgetpwmodal() {
+            $(".forgetpwmodal").modal('show');
+
+        };
+
+        function sendchpwreq() {
+            if ($(".EmpEmail").val() == "" || $(".EmpID").val() == "") {
+                swal("密碼重置", "欄位請勿留空...", "error");
+            }   
+                      $.ajax({
+                          url: "/Home/forgetpw",
+                          data: {
+                              "信箱": $(".EmpEmail").val(),
+                              "員工編號": $(".EmpID").val()                            
+                          },
+                          method: "get",
+                          success: function (data) {
+                              swal('密碼重置', `${data}`, 'warning');
+                              $(".EmpEmail").val("");
+                              $(".EmpID").val("");
+                              $(".forgetpwmodal").modal('hide');
+                          }
+      
+                });   
+       
+        }
 
     </script>
 }

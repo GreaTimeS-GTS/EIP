@@ -18,6 +18,7 @@ namespace EIP.Models
         public Nullable<int> 通知類別id { get; set; }
         public string 通知內容 { get; set; }
         public string 讀取狀態 { get; set; }
+        public string 通知權限 { get; set; }
     
         public virtual 通知類別 通知類別 { get; set; }
     }

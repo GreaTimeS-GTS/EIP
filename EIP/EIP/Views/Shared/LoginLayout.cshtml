@@ -30,12 +30,7 @@
             margin-top:10%;           
         }
         .EIPLOGO {
-            /*         width: 50%;
-            height: 50%;
-            border-right: 2px solid #7B7B7B;
-            position:relative;
-            padding-right:5%;
-            margin-left:5%;*/
+
             width:75%;
             height:75%;
             margin-top:2%;
@@ -46,13 +41,7 @@
             position: relative;
         }
         .Block2 {
-            /*            position: relative;
-            margin-left:5%;
-            margin-right:25%;
-            margin-top:1%;*/
-           
             border-left: 2px solid #7B7B7B;
-            /* margin-top:5%;*/
             padding-left: 3%;
             padding-right:3%;
             padding-bottom:3%;
@@ -76,6 +65,16 @@
             color: black;
             margin-top:30px;
         }
+        .disapear {
+             opacity:0;
+        }
+        .centermodal {
+            height: auto;
+            top: auto;
+            left: auto;
+            bottom: auto;
+            right: auto;
+        }
     </style>
 </head>
 <body>
@@ -86,6 +85,8 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/jquery.signalR-2.4.1.js"></script>
+    <script src="~/signalr/hubs"></script>
     <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
 
     @RenderSection("script", required: false)

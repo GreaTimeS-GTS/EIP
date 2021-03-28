@@ -219,14 +219,11 @@ namespace EIP.Controllers
                 特休 = mlvm.特休,
                 薪資 = mlvm.薪資,
                 權限 = mlvm.權限,
-                狀態=mlvm.狀態
-                
+                狀態=mlvm.狀態          
             };
-
             db.個人資料.Add(mmb);
             db.SaveChanges();
             return Json(mmb, JsonRequestBehavior.AllowGet);
-            //return mlvm;
         }
         public JsonResult HRDelete(int id) {
             個人資料 mlvm = db.個人資料.Find(id);
@@ -245,6 +242,39 @@ namespace EIP.Controllers
             return Json(mlvm.Take(10), JsonRequestBehavior.AllowGet);
         }
 
-   
+        public JsonResult allalertbell(string 權限)  
+        {
+            var qqm = db.通知.Where(m => m.通知權限 == 權限).Select(m => new
+            {
+                通知類別id = m.通知類別.通知類別1,
+                通知內容 = m.通知內容,
+                通知權限 = m.通知權限,
+                讀取狀態 = m.讀取狀態,
+                流水號 = m.通知流水號
+            }).OrderByDescending(m => m.流水號).ToList();
+             return Json(qqm, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult alertcheck(int 第幾筆訊息)
+        {
+            var qqm = db.通知.Find(第幾筆訊息);
+            qqm.讀取狀態 = "已讀";
+            db.SaveChanges();
+            
+
+            return Json(qqm, JsonRequestBehavior.AllowGet);
+
+        }
+        public string forgetpw(int 員工編號,string 信箱) {
+            var mmb = db.個人資料.FirstOrDefault(m => m.信箱 == 信箱 && m.EmployeeID == 員工編號);
+            if (mmb == null)
+            {
+                return "員工編號與帳號不符合!,請重新輸入！";
+            }
+            else {
+                db.個人資料.FirstOrDefault(x => x.EmployeeID == 員工編號).EmployeePW = "123456";
+            }
+            db.SaveChanges();
+            return "密碼已重置為 123456 !,請於登入後,盡速修改個人登入密碼！";
+        }
     }
 }

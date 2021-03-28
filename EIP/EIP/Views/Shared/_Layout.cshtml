@@ -54,10 +54,6 @@
                 cursor: pointer;*/ /*如果想要用手指效果就+這個class*/
         /*}*/
         /*以下是SweetAlert2的套件樣式*/
-        .searchbox {
-            outline: none;
-        }
-
         .modalbody {
             background-color: #F0F0F0;
         }
@@ -240,8 +236,7 @@
             border-radius: 50% 50% 50% 50%;*/
             padding: 1% 1%;
         }
-        #CreateBulletinBoardList {
-        }
+    
         .centermodal {
             height: auto;
             top: auto;
@@ -291,7 +286,7 @@
                 <i class="home icon"></i>
                 Home
             </a>
-            <a class="item " href="@Url.Action("HRShow","Home")">
+            <a class="item hr" href="@Url.Action("HRShow","Home")">
                 <i class="user icon"></i>
                 人資專區
             </a>
@@ -316,16 +311,17 @@
             <div class="ui basic segment">
                 <h3 class="ui header"></h3>
                 @RenderBody()
-                <div class="AlerBellOut">
+            <div class="AlerBellOut">
+
                     <div class="ui dropdown">
                         <i class="big teal bell outline icon"></i>
-                        <div class="default text text-success ">通知訊息</div>
-                        <div class="menu AlertBell"></div>
+                        <div class="default text text-success alertnumber">通知訊息</div>
+                        <ul class="menu AlertBell"></ul>
                     </div>
                 </div>
+            </div>       
             </div>
         </div>
-    </div>
 
     <div class="ui small modal" id="UserProfile">
         <i class="close icon"></i>
@@ -439,9 +435,14 @@
                     $(".addprofile").html(`
                                                                                                           <div>
                                                 <input type="hidden" name="EmployeePW" value="${data.EmployeePW}" />
-                                                <input type="hidden" name="EmployeeID" value="${data.EmployeeID}" />
                                                 <input type="hidden" name="信箱" value="${data.信箱}" />
                                             </div>
+
+                                                <div class="field">
+                                                <label class="formlbl">員工編號：</label>
+                                                <input name="EmployeeID" type="text" class="w-100" value="${data.EmployeeID}" disabled />
+                                                </div>
+
                                             <div class="field">
                                                 <div class="two fields">
                                                     <div class="eight wide field">
@@ -466,7 +467,7 @@
                                                     <div class="thirteen wide field">
                                                         <label class="formlbl">出生年月日：</label>
                                                         <input type="text" name="出生年月日" class="w-100" value="${data.出生年月日}" hidden />
-                                                        <input type="date" class="w-100" value="${data.出生年月日}" disabled />
+                                                        <input type="text" class="w-100" value="${data.出生年月日}" disabled />
                                                     </div>
                                                 </div>
                                             </div>
@@ -599,38 +600,74 @@
             }
         });
 
-        var baid = 0;
-        var beid = 0;
-        //設定一個 佈告欄新增id 讓他自動++ 判定 大於多少 刪除 上面的 div
-        //設定一個佈告欄修改id 讓他自動++ 判定 大於多少 刪除 上面的 div 讓他和編輯的div加總維持在一定的數量
-
         const bell = $.connection.bell;   //呼叫hub
         $.connection.hub.start()
             .done(function () {
-        bell.server.group(document.cookie.split('id=')[1].split('&')[0]);                         
-            });       
-        bell.client.message = function (職稱, message) {  
-            $(".AlertBell").append(` <div class="ui label item"><i class="bullhorn icon"></i><a class="text-success font-weight-bold" href="/BulletinBoard/BulletinBoard">${職稱}:${message}</a></div>`);
-            }
-
-        bell.client.edit = function (message) {
-            $(".AlertBell").append(`<div class="ui label item"><i class="bullhorn icon"></i><a class="text-warning font-weight-bold"  b-eid="${beid++}"href="/BulletinBoard/BulletinBoard">${message}</a></div>`);
-        }
-        bell.client.delete = function (通知類別, message) {
-            $(".AlertBell").append(` <div class="ui label item"><i class="bullhorn icon"></i><a class="text-success font-weight-bold" href="/BulletinBoard/BulletinBoard">${通知類別}:${message}</a></div>`);
-        }
-        bell.client.addmessage=
-        //bell.client.addMessage = function (職稱) {
-        //    if (decodeURI(document.cookie.split('Auth=')[1].split('&')[0]) == "人事") {
-        //        window.location.href = "Home/HRShow";
+                bell.server.setgroup(document.cookie.split('id=')[1].split('&')[0]);                         
+            });   
+   
+        //bell.client.message = function (職稱, message) {  
+        //    $(".AlertBell").append(` <div class="ui label item"><i class="bullhorn icon"></i><a class="text-success font-weight-bold" href="/BulletinBoard/BulletinBoard">${職稱}:${message}</a></div>`);
         //    }
+
+        //bell.client.edit = function (message) {
+        //    $(".AlertBell").append(`<div class="ui label item"><i class="bullhorn icon"></i><a class="text-warning font-weight-bold"  b-eid="${beid++}"href="/BulletinBoard/BulletinBoard">${message}</a></div>`);
         //}
+        bell.client.sendlv1 = function (通知類別, message, 權限) {
+            $(".AlertBell").html('');
+            AlertRefreshEmp(decodeURI(document.cookie.split('Auth=')[1].split('&')[0]));
+        }
+        bell.client.sendlv2 = function (通知類別, message,權限) {
+            $(".AlertBell").html('');
+            AlertRefreshEmp(decodeURI(document.cookie.split('Auth=')[1].split('&')[0]));
+        }
+        bell.client.sendlv3 = function (通知類別, message, 權限) {
+            $(".AlertBell").html('');
+            AlertRefreshEmp(decodeURI(document.cookie.split('Auth=')[1].split('&')[0]));
+        }
+        bell.client.sendtop = function (通知類別, message,權限) {
+            $(".AlertBell").html('');
+            AlertRefreshEmp(decodeURI(document.cookie.split('Auth=')[1].split('&')[0]));
+        }
+        AlertRefreshEmp(decodeURI(document.cookie.split('Auth=')[1].split('&')[0]));
 
         function ChangePage() {
             $('#overtimemodel').modal('show');
             window.location.href = '/DDDDD/OverTime';
-
         }
+        function AlertRefreshEmp(power) { 
+            $.ajax({
+                url: "/Home/allalertbell",
+                data: { '權限': `${power}` },
+                method: "Get",
+                success: function (data) {         
+                    $(data).each(function (index, item) {
+                        $(".AlertBell").append(` <li class="ui label item"><i class="bullhorn icon"></i><a class="font-weight-bold" >${item.通知類別id}:${item.通知內容}</a></li>`);
+                    });    
+                    if ($(".AlertBell > li").length != 0) {
+                        $(".alertnumber").html('有新的通知<i class="exclamation icon red"></i>');
+                    };
+                }
+            })
+        }
+
+
+
+        //$(".AlertBell").click(function () {
+        //    console.log(123);
+        //    $(".AlertBell > li").click(function () {
+        //        $.ajax({
+        //            url: "/Home/alertcheck",
+        //            method: "Get",
+        //            data: { '第幾筆訊息': `$(event.currentTarget).data("item")` },
+        //            success: function (data) {
+        //                console.log(123);
+        //                $(".alertnumber").html('通知訊息');
+        //            }
+        //        });
+        //    });
+        
+     /*   });*/
     </script>
 </body>
 </html>

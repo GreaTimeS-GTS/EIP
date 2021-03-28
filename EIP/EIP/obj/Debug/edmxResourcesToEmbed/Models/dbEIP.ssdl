@@ -253,6 +253,7 @@
     <Property Name="通知類別id" Type="int" />
     <Property Name="通知內容" Type="nvarchar" MaxLength="50" />
     <Property Name="讀取狀態" Type="nvarchar" MaxLength="50" />
+    <Property Name="通知權限" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="通知類別">
     <Key>

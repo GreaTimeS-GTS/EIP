@@ -1,40 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="dbEIPModelStoreContainer" CdmEntityContainer="dbEIPEntities">
-    <EntitySetMapping Name="pj控管">
-      <EntityTypeMapping TypeName="dbEIPModel.pj控管">
-        <MappingFragment StoreEntitySet="pj控管">
-          <ScalarProperty Name="pjScheduleId" ColumnName="pjScheduleId" />
-          <ScalarProperty Name="pjGoOrNogo" ColumnName="pjGoOrNogo" />
-          <ScalarProperty Name="pjWorstCaseScenario" ColumnName="pjWorstCaseScenario" />
-          <ScalarProperty Name="pjAuthorization" ColumnName="pjAuthorization" />
-          <ScalarProperty Name="pjIssueLog" ColumnName="pjIssueLog" />
-          <ScalarProperty Name="pjIntput" ColumnName="pjIntput" />
-          <ScalarProperty Name="pjGoal" ColumnName="pjGoal" />
-          <ScalarProperty Name="pjEndDate" ColumnName="pjEndDate" />
-          <ScalarProperty Name="pjStartDate" ColumnName="pjStartDate" />
-          <ScalarProperty Name="pjPlannedAndControl" ColumnName="pjPlannedAndControl" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="pj進度表">
-      <EntityTypeMapping TypeName="dbEIPModel.pj進度表">
-        <MappingFragment StoreEntitySet="pj進度表">
-          <ScalarProperty Name="pjHandOver" ColumnName="pjHandOver" />
-          <ScalarProperty Name="pjObjective" ColumnName="pjObjective" />
-          <ScalarProperty Name="pjLag" ColumnName="pjLag" />
-          <ScalarProperty Name="pjEstimation" ColumnName="pjEstimation" />
-          <ScalarProperty Name="pjFixedDuration" ColumnName="pjFixedDuration" />
-          <ScalarProperty Name="pjTarget" ColumnName="pjTarget" />
-          <ScalarProperty Name="pjDuration" ColumnName="pjDuration" />
-          <ScalarProperty Name="pjPhase" ColumnName="pjPhase" />
-          <ScalarProperty Name="pjActionItem" ColumnName="pjActionItem" />
-          <ScalarProperty Name="pjMemberName" ColumnName="pjMemberName" />
-          <ScalarProperty Name="pjMemberId" ColumnName="pjMemberId" />
-          <ScalarProperty Name="pjScheduleId" ColumnName="pjScheduleId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="MeetingRoom">
       <EntityTypeMapping TypeName="dbEIPModel.MeetingRoom">
         <MappingFragment StoreEntitySet="MeetingRoom">
@@ -78,6 +44,22 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="pj控管">
+      <EntityTypeMapping TypeName="dbEIPModel.pj控管">
+        <MappingFragment StoreEntitySet="pj控管">
+          <ScalarProperty Name="pjScheduleId" ColumnName="pjScheduleId" />
+          <ScalarProperty Name="pjGoOrNogo" ColumnName="pjGoOrNogo" />
+          <ScalarProperty Name="pjWorstCaseScenario" ColumnName="pjWorstCaseScenario" />
+          <ScalarProperty Name="pjAuthorization" ColumnName="pjAuthorization" />
+          <ScalarProperty Name="pjIssueLog" ColumnName="pjIssueLog" />
+          <ScalarProperty Name="pjIntput" ColumnName="pjIntput" />
+          <ScalarProperty Name="pjGoal" ColumnName="pjGoal" />
+          <ScalarProperty Name="pjEndDate" ColumnName="pjEndDate" />
+          <ScalarProperty Name="pjStartDate" ColumnName="pjStartDate" />
+          <ScalarProperty Name="pjPlannedAndControl" ColumnName="pjPlannedAndControl" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="pj結案">
       <EntityTypeMapping TypeName="dbEIPModel.pj結案">
         <MappingFragment StoreEntitySet="pj結案">
@@ -90,6 +72,24 @@
           <ScalarProperty Name="pjFinalDuration" ColumnName="pjFinalDuration" />
           <ScalarProperty Name="pjFinalManager" ColumnName="pjFinalManager" />
           <ScalarProperty Name="pjFinalReport" ColumnName="pjFinalReport" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="pj進度表">
+      <EntityTypeMapping TypeName="dbEIPModel.pj進度表">
+        <MappingFragment StoreEntitySet="pj進度表">
+          <ScalarProperty Name="pjHandOver" ColumnName="pjHandOver" />
+          <ScalarProperty Name="pjObjective" ColumnName="pjObjective" />
+          <ScalarProperty Name="pjLag" ColumnName="pjLag" />
+          <ScalarProperty Name="pjEstimation" ColumnName="pjEstimation" />
+          <ScalarProperty Name="pjFixedDuration" ColumnName="pjFixedDuration" />
+          <ScalarProperty Name="pjTarget" ColumnName="pjTarget" />
+          <ScalarProperty Name="pjDuration" ColumnName="pjDuration" />
+          <ScalarProperty Name="pjPhase" ColumnName="pjPhase" />
+          <ScalarProperty Name="pjActionItem" ColumnName="pjActionItem" />
+          <ScalarProperty Name="pjMemberName" ColumnName="pjMemberName" />
+          <ScalarProperty Name="pjMemberId" ColumnName="pjMemberId" />
+          <ScalarProperty Name="pjScheduleId" ColumnName="pjScheduleId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -268,6 +268,7 @@
     <EntitySetMapping Name="通知">
       <EntityTypeMapping TypeName="dbEIPModel.通知">
         <MappingFragment StoreEntitySet="通知">
+          <ScalarProperty Name="通知權限" ColumnName="通知權限" />
           <ScalarProperty Name="讀取狀態" ColumnName="讀取狀態" />
           <ScalarProperty Name="通知內容" ColumnName="通知內容" />
           <ScalarProperty Name="通知類別id" ColumnName="通知類別id" />
