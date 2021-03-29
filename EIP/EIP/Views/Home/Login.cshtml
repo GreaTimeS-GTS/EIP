@@ -22,15 +22,16 @@
         <form class="ui form">
             <div class="field">
                 <label>員工編號：</label>
-                <input type="text" class="EmpID" name="EmpID" placeholder="員工編號...">
+                <input type="text" class="EmpID" name="EmpID" placeholder="員工編號..."onkeyup="return ValidateNumber($(this),value)" maxlength="5">
+                <div class="valiempid"></div>
             </div>
             <div class="field">
                 <label>帳號：</label>
                 <input type="text" class="EmpEmail" name="ACCtext" placeholder="Email...">
             </div>
             <div class="actions">
-                <div class="ui button cancel">取消</div>
-                <div class="ui button" onclick="sendchpwreq()">確認發送</div>
+                <div class="ui inverted red button cancel">取消</div>
+                <div class="ui inverted primary button" onclick="sendchpwreq()">確認發送</div>
             </div>
         </form>
     </div>
@@ -152,8 +153,15 @@
 
         function sendchpwreq() {
             if ($(".EmpEmail").val() == "" || $(".EmpID").val() == "") {
+                $(".EmpEmail").val("");
+                $(".EmpID").val("");
                 swal("密碼重置", "欄位請勿留空...", "error");
             }   
+            if ($(".EmpEmail").val() != $(".EmpID").val()) {
+                swal("密碼重置", "編號與帳號有誤!請重新在試...", "error");
+                $(".EmpEmail").val("");
+                $(".EmpID").val("");
+            }
                       $.ajax({
                           url: "/Home/forgetpw",
                           data: {
@@ -162,15 +170,37 @@
                           },
                           method: "get",
                           success: function (data) {
-                              swal('密碼重置', `密碼重置為'${data}',請於登入後盡速修改個人密碼!`, 'warning');
-                              $(".EmpEmail").val("");
-                              $(".EmpID").val("");
-                              $(".forgetpwmodal").modal('hide');
+                              if (data == "員工編號與帳號不符合!,請重新輸入！") {
+                                  swal("密碼重置", "員工編號與帳號有誤!請重新在試...", "error");
+                                  $(".EmpEmail").val("");
+                                  $(".EmpID").val("");
+                                  $(".forgetpwmodal").modal('hide');
+                              } else {
+                                  swal('密碼重置', `密碼重置為'${data}',請於登入後盡速修改個人密碼!`, 'warning');
+                                  $(".EmpEmail").val("");
+                                  $(".EmpID").val("");
+                                  $(".forgetpwmodal").modal('hide');
+                              }
+                            
                           }
       
                 });   
        
         }
+
+        //檢驗員工編號是否為int
+        function ValidateNumber(e, empid) {
+            if (!/^\d+$/.test(empid)) {
+                $(e).val(/^\d+/.exec($(e).val()));   
+                $(".valiempid").html(`<span class="text-danger">請輸入正確的員工編號<i class="exclamation icon red"></i></span>`);
+            }
+            else {
+                $(".valiempid").html("");
+                return false;
+            }
+        }
+
+
 
     </script>
 }

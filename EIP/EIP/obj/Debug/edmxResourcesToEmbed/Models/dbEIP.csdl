@@ -210,7 +210,7 @@
     <Key>
       <PropertyRef Name="出差表編號" />
     </Key>
-    <Property Name="出差表編號" Type="Int32" Nullable="false" />
+    <Property Name="出差表編號" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="EmployeeID" Type="Int32" Nullable="false" />
     <Property Name="中文姓名" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="部門" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
