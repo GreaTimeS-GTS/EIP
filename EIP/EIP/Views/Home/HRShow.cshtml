@@ -7,23 +7,22 @@
 
 @*------------------------------搜尋框起始------------------------------*@
 @*<div class="mt-5 d-flex justify-content-center align-items-center">
-    <div>
-        <input type="search" name="searchbox" class="searchbox rounded-pill border-info pl-3 Regular shadow" placeholder="搜尋員工姓名..." />
-    </div>
-    <div class="ml-3">
-        <button class="btn btn-primary rounded-pill searchbtn Regular shadow"><i class="fa fa-search mr-2"></i>搜尋</button>
-    </div>
-</div>*@
+        <div>
+            <input type="search" name="searchbox" class="searchbox rounded-pill border-info pl-3 Regular shadow" placeholder="搜尋員工姓名..." />
+        </div>
+        <div class="ml-3">
+            <button class="btn btn-primary rounded-pill searchbtn Regular shadow"><i class="fa fa-search mr-2"></i>搜尋</button>
+        </div>
+    </div>*@
 
-<div class="d-flex justify-content-center">
-    <div class="ui action input">
-        <input type="text" class="searchbox" placeholder="搜尋員工姓名..." name="searchbox">
-        <button class="ui icon button searchbtn">
-            <i class="search icon"></i>
-        </button>
+    <div class="d-flex justify-content-center">
+        <div class="ui action input">
+            <input type="text" class="searchbox" placeholder="搜尋員工姓名..." name="searchbox">
+            <button class="ui icon button searchbtn">
+                <i class="search icon"></i>
+            </button>
+        </div>
     </div>
-</div>
-
 
 
 <div class="ui fullscreen modal centermodal" id="searchinfo">
@@ -97,7 +96,7 @@
                 </div>
                 <div class="four wide field">
                     <label class="formlbl">電話：</label>
-                    <input type="text" class="addphone formlbl" placeholder="Phone" onkeyup="return ValidateNumber($(this),value)" maxlength="10" />        
+                    <input type="text" class="addphone formlbl" placeholder="Phone" onkeyup="return ValidateNumber($(this),value)" maxlength="10" />
                 </div>
                 <div class="one wide field d-flex flex-column-reverse">
                     <label class="ErrorPhpne"></label>
@@ -190,20 +189,20 @@
                 </div>
                 <div class="one wide field d-flex flex-column-reverse">
                     <label class="formlbl ">元 <span class="ErrorSalery"></span></label>
-                  
+
                 </div>
-                 <div class="seven wide field">
+                <div class="seven wide field">
                     <label class="formlbl">特休：</label>
                     <input type="text" class="addspvaction formlbl" placeholder="days" onkeyup="return ValidateVacation($(this),value)" maxlength="2" />
                 </div>
                 <div class="one wide field d-flex flex-column-reverse">
                     <label class="formlbl">天 <span class="ErrorVacation"></span></label>
                 </div>
-          
+
 
             </div>
         </div>
-  
+
         <div class="field d-flex justify-content-center">
             <div class="demobtn1 w-25 ui green button">
                 <i class="icon user"></i>
@@ -267,11 +266,11 @@
 
 @section script{
     <script>
-       /* 驗證電話欄位*/
+        /* 驗證電話欄位*/
         function ValidateNumber(e, pnumber) {
             if (!/^\d+$/.test(pnumber)) {
                 $(e).val(/^\d+/.exec($(e).val()));
-                $('.ErrorPhpne').html('<span class="text-danger">請輸入數字<i class="exclamation icon red"></i></span>');      
+                $('.ErrorPhpne').html('<span class="text-danger">請輸入數字<i class="exclamation icon red"></i></span>');
             }
             else {
                 $('.ErrorPhpne').html('');
@@ -289,7 +288,7 @@
                 return false;
             }
         }
-       /* 驗證特休天數*/
+        /* 驗證特休天數*/
         function ValidateVacation(e, pnumber) {
             if (!/^\d+$/.test(pnumber)) {
                 $(e).val(/^\d+/.exec($(e).val()));
@@ -324,15 +323,15 @@
                     $("#tbodyadd").empty();
                     $(data).each(function (index, item) {
                         $("#tbodyadd").append(`<tr>
-                                            <td>${item.EmployeeID}</td>
-                                            <td>${item.信箱}</td>
-                                            <td>${item.中文姓名}</td>
-                                            <td>${item.性別}</td>
-                                            <td>${item.電話}</td>
-                                            <td>${item.部門}</td>
-                                            <td><a class="btn empedit btn-outline-primary button btnDetail" data-id="${item.EmployeeID}" data-toggle="modal" data-target="#EditProfile" onclick="startedit()"><span>編輯</span></a></td>
-                                            <td><a class="btn btn-outline-danger button" data-id="${item.EmployeeID}" onclick="DeleteEMP()"><span>刪除</span></a></td>
-                                            </tr>`);
+                                                        <td>${item.EmployeeID}</td>
+                                                        <td>${item.信箱}</td>
+                                                        <td>${item.中文姓名}</td>
+                                                        <td>${item.性別}</td>
+                                                        <td>${item.電話}</td>
+                                                        <td>${item.部門}</td>
+                                                        <td><a class="btn empedit btn-outline-primary button btnDetail" data-id="${item.EmployeeID}" data-toggle="modal" data-target="#EditProfile" onclick="startedit()"><span>編輯</span></a></td>
+                                                        <td><a class="btn btn-outline-danger button" data-id="${item.EmployeeID}" onclick="DeleteEMP()"><span>刪除</span></a></td>
+                                                        </tr>`);
                     })
                 }
 
@@ -349,111 +348,111 @@
                 method: "Get",
                 success: function (data) {
                     $(".EditUserProfile").html(`
-                                                <div>
-                        <input type="hidden" name="EmployeePW" value="${data.EmployeePW}" />
-                        <input type="hidden" name="EmployeeID" value="${data.EmployeeID}" />
-                        <input type="hidden" name="信箱" value="${data.信箱}" />
-                    </div>
-                    <div class="field">
-                        <div class="two fields">
-                            <div class="eight wide field">
-                                <label class="formlbl">中文姓名：</label>
-                                <input name="中文姓名" type="text" class="w-100" value="${data.中文姓名}"/>
-                            </div>
-                            <div class="eight wide field">
-                                <label class="formlbl">英文姓名：</label>
-                                <input name="英文姓名"type="text" class="w-100" value="${data.英文姓名}" />
-                            </div>
-                        </div>
-                    </div>
+                                                            <div>
+                                    <input type="hidden" name="EmployeePW" value="${data.EmployeePW}" />
+                                    <input type="hidden" name="EmployeeID" value="${data.EmployeeID}" />
+                                    <input type="hidden" name="信箱" value="${data.信箱}" />
+                                </div>
+                                <div class="field">
+                                    <div class="two fields">
+                                        <div class="eight wide field">
+                                            <label class="formlbl">中文姓名：</label>
+                                            <input name="中文姓名" type="text" class="w-100" value="${data.中文姓名}"/>
+                                        </div>
+                                        <div class="eight wide field">
+                                            <label class="formlbl">英文姓名：</label>
+                                            <input name="英文姓名"type="text" class="w-100" value="${data.英文姓名}" />
+                                        </div>
+                                    </div>
+                                </div>
 
-                    <div class="field">
-                        <div class="three fields">
-                            <div class="five wide field">
-                                <label class="formlbl">性別：</label>
-                                 <input type="text"name="性別" value="${data.性別}" hidden/>
-                                <select disabled   class="ml-2 mt-2">
-                                    <option value="性別" selected>${data.性別}</option>
-                                </select>
-                            </div>
-                            <div class="five wide field">
-                                <label class="formlbl">出生年月日：</label>
-                                <input type="text" name="出生年月日" class="w-100" value="${data.出生年月日}" hidden/>
-                                <input type="text"  class="w-100" value="${data.出生年月日}" disabled/>
-                            </div>
-                            <div class="six wide field">
-                                <label class="formlbl">婚姻狀況：</label>
-                                <select name="婚姻狀況">
-                                    <option hidden>${data.婚姻狀況}</option>
-                                    <option value="已婚">已婚</option>
-                                    <option value="未婚">未婚</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="field">
-                        <label class="formlbl">居住地:</label>
-                        <input name="居住地" value="${data.居住地}" />
-                    </div>
+                                <div class="field">
+                                    <div class="three fields">
+                                        <div class="five wide field">
+                                            <label class="formlbl">性別：</label>
+                                             <input type="text"name="性別" value="${data.性別}" hidden/>
+                                            <select disabled   class="ml-2 mt-2">
+                                                <option value="性別" selected>${data.性別}</option>
+                                            </select>
+                                        </div>
+                                        <div class="five wide field">
+                                            <label class="formlbl">出生年月日：</label>
+                                            <input type="text" name="出生年月日" class="w-100" value="${data.出生年月日}" hidden/>
+                                            <input type="text"  class="w-100" value="${data.出生年月日}" disabled/>
+                                        </div>
+                                        <div class="six wide field">
+                                            <label class="formlbl">婚姻狀況：</label>
+                                            <select name="婚姻狀況">
+                                                <option hidden>${data.婚姻狀況}</option>
+                                                <option value="已婚">已婚</option>
+                                                <option value="未婚">未婚</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label class="formlbl">居住地:</label>
+                                    <input name="居住地" value="${data.居住地}" />
+                                </div>
 
-                    <div class="field">
-                        <div class="eighteen wide field">
-                            <label class="formlbl">電話：</label>
-                            <input type="text" name="電話" class="w-100" value="${data.電話}" >
-                        </div>
+                                <div class="field">
+                                    <div class="eighteen wide field">
+                                        <label class="formlbl">電話：</label>
+                                        <input type="text" name="電話" class="w-100" value="${data.電話}" >
+                                    </div>
 
-                    </div>
-                    <div class="field">
-                        <div class="four fields">
-                            <div class="four wide field">
-                                <label class="formlbl">部門：</label>
-                                <select name="部門">
-                                    <option hidden>${data.部門}</option>
-                                    <option value="財部部">財部部</option>
-                                    <option value="總務部">總務部</option>
-                                    <option value="人事部">人事部</option>
-                                    <option value="業務部">業務部</option>
-                                </select>
-                            </div>
-                            <div class="four wide field">
-                                <label class="formlbl">職稱：</label>
-                                <select name="職稱">
-                                    <option hidden>${data.職稱}</option>
-                                    <option value="主管">主管</option>
-                                    <option value="員工">員工</option>
-                                    <option value="人事">人事</option>
-                                </select>
-                            </div>
-                            <div class="four wide field">
-                                <label class="formlbl">受雇日期：</label>
-                             <input type="text" name="受雇日期" class="w-100" value="${data.受雇日期}" hidden/>
-                                <input type="text"  class="w-100" value="${data.受雇日期}" disabled/>
-                            </div>
-                            <div class="four wide field">
-                                <label class="formlbl">在職狀態：</label>
-                                <select name="狀態">
-                                    <option hidden>${data.狀態}</option>
-                                    <option value="在職">在職</option>
-                                    <option value="離職">離職</option>
-                                    <option value="未到職">未到職</option>
-                                    <option value="留職停薪">留職停薪</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="field">
-                        <div class="two fields">
-                            <div class="field">
-                                <label class="formlbl">薪資：</label>
-                                <input name="薪資" class="Regular shadow" value="${data.薪資}" />
-                            </div>
-                            <div class="field">
-                                <label class="formlbl">特休：</label>
-                                <input name="特休" class="Regular shadow" value="${data.特休}" />
-                            </div>
-                        </div>
-                    </div>
-                                       `);
+                                </div>
+                                <div class="field">
+                                    <div class="four fields">
+                                        <div class="four wide field">
+                                            <label class="formlbl">部門：</label>
+                                            <select name="部門">
+                                                <option hidden>${data.部門}</option>
+                                                <option value="財部部">財部部</option>
+                                                <option value="總務部">總務部</option>
+                                                <option value="人事部">人事部</option>
+                                                <option value="業務部">業務部</option>
+                                            </select>
+                                        </div>
+                                        <div class="four wide field">
+                                            <label class="formlbl">職稱：</label>
+                                            <select name="職稱">
+                                                <option hidden>${data.職稱}</option>
+                                                <option value="主管">主管</option>
+                                                <option value="員工">員工</option>
+                                                <option value="人事">人事</option>
+                                            </select>
+                                        </div>
+                                        <div class="four wide field">
+                                            <label class="formlbl">受雇日期：</label>
+                                         <input type="text" name="受雇日期" class="w-100" value="${data.受雇日期}" hidden/>
+                                            <input type="text"  class="w-100" value="${data.受雇日期}" disabled/>
+                                        </div>
+                                        <div class="four wide field">
+                                            <label class="formlbl">在職狀態：</label>
+                                            <select name="狀態">
+                                                <option hidden>${data.狀態}</option>
+                                                <option value="在職">在職</option>
+                                                <option value="離職">離職</option>
+                                                <option value="未到職">未到職</option>
+                                                <option value="留職停薪">留職停薪</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <div class="two fields">
+                                        <div class="field">
+                                            <label class="formlbl">薪資：</label>
+                                            <input name="薪資" class="Regular shadow" value="${data.薪資}" />
+                                        </div>
+                                        <div class="field">
+                                            <label class="formlbl">特休：</label>
+                                            <input name="特休" class="Regular shadow" value="${data.特休}" />
+                                        </div>
+                                    </div>
+                                </div>
+                                                   `);
                 }
             });
         };
@@ -600,7 +599,7 @@
                         success: function () {
                             $.connection.hub.start()
                                 .done(function () {
-                                    bell.server.sendGroup(`${1}`, `${decodeURI(document.cookie.split('Auth=')[1].split('&')[0])}`, `有員工離職了！`,權限陣列);   //傳值到hub
+                                    bell.server.sendGroup(`${1}`, `${decodeURI(document.cookie.split('Auth=')[1].split('&')[0])}`, `有員工離職了！`, 權限陣列);   //傳值到hub
                                 });
                             $.ajax({
                                 url: "/Home/HRShowEdit",
@@ -643,15 +642,15 @@
                             $(data).each(function (index, item) {
                                 $(".SearchShowTable").append(
                                     `<tr>
-                                        <td class="pl-3">${item.EmployeeID}</td>
-                                        <td>${item.信箱}</td>
-                                        <td>${item.中文姓名}</td>
-                                        <td>${item.性別}</td>
-                                        <td>${item.電話}</td>
-                                        <td>${item.部門}</td>
-                                        <td><a class="btn empedit btn-outline-primary button btnDetail" data-id="${item.EmployeeID}" onclick="startedit()"><span>編輯</span></a></td>
-                                        <td><a class="btn btn-outline-danger button" data-id="${item.EmployeeID}" onclick="DeleteEMP()"><span>刪除</span></a></td>
-                                    </tr>`);
+                                                    <td class="pl-3">${item.EmployeeID}</td>
+                                                    <td>${item.信箱}</td>
+                                                    <td>${item.中文姓名}</td>
+                                                    <td>${item.性別}</td>
+                                                    <td>${item.電話}</td>
+                                                    <td>${item.部門}</td>
+                                                    <td><a class="btn empedit btn-outline-primary button btnDetail" data-id="${item.EmployeeID}" onclick="startedit()"><span>編輯</span></a></td>
+                                                    <td><a class="btn btn-outline-danger button" data-id="${item.EmployeeID}" onclick="DeleteEMP()"><span>刪除</span></a></td>
+                                                </tr>`);
                             })
                         }
                     }
@@ -662,7 +661,7 @@
         //----------------------人事搜尋按鈕結束----------------------
 
 
-       
+
 
         new TwCitySelector({
             el: ".CitySelect", // 同 DOM querySelector()
@@ -674,19 +673,19 @@
         /*DEMO員工*/
         $(".demobtn1").click(function () {
             $(".addemail").val('gg75857@gmail.com');
-                $(".addpw").val('Aa0245!');
-                $(".addch").val('王曉明');
-                $(".adden").val('Xiao Ming Wang');
-                $(".addsex").val('男');
-                $(".addphone").val('0987858525');
+            $(".addpw").val('Aa0245!');
+            $(".addch").val('王曉明');
+            $(".adden").val('Xiao Ming Wang');
+            $(".addsex").val('男');
+            $(".addphone").val('0987858525');
             $(".addbirth").val('1993-03-24');
-                $(".addmerry").val('已婚');
+            $(".addmerry").val('已婚');
             $(".addhire").val('2011-03-24');
-                $(".addjob").val('員工');
-                $(".addspvaction").val('3');
+            $(".addjob").val('員工');
+            $(".addspvaction").val('3');
             $(".addpayment").val('32000');
-            $(".addstatus").val('在職');    
-            $(".addpart").val('財務部');  
+            $(".addstatus").val('在職');
+            $(".addpart").val('財務部');
             $(".live").val('忠孝東路1段108號8樓')
             $(".addlive").val(`${$(".zipcode").val() + '   ' + $(".county").val() + $(".district").val() + $(".live").val()}`);
 
