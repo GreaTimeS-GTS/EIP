@@ -767,7 +767,7 @@
         // 新增方法
         function BulletinBoardAdd() {
             var 權限陣列 = [];
-            if (decodeURI(document.cookie.split('Auth=')[1].split('&')[0]) == "主管") {
+            if (decodeURI(document.cookie.split('Auth=')[1].split('&')[0]) == "主管" || decodeURI(document.cookie.split('Auth=')[1].split('&')[0]) == "人事" || decodeURI(document.cookie.split('Auth=')[1].split('&')[0]) == "員工") {
                 權限陣列.push('總經理');
                 權限陣列.push('主管');
                 權限陣列.push('人事');
@@ -957,7 +957,7 @@
         //-------------------------修改方法--------------------------------
         $(".editsave").click(function () {
             var 權限陣列 = [];
-            if (decodeURI(document.cookie.split('Auth=')[1].split('&')[0]) == "主管") {
+            if (decodeURI(document.cookie.split('Auth=')[1].split('&')[0]) == "主管" || decodeURI(document.cookie.split('Auth=')[1].split('&')[0]) == "人事" || decodeURI(document.cookie.split('Auth=')[1].split('&')[0]) == "員工") {
                 權限陣列.push('總經理');
                 權限陣列.push('主管');
                 權限陣列.push('人事');
@@ -988,7 +988,7 @@
         // ----------------------------刪除方法-----------------------------
         function DeleteBB() {
             var 權限陣列 = [];
-            if (decodeURI(document.cookie.split('Auth=')[1].split('&')[0]) == "主管") {
+            if (decodeURI(document.cookie.split('Auth=')[1].split('&')[0]) == "主管" || decodeURI(document.cookie.split('Auth=')[1].split('&')[0]) == "人事" || decodeURI(document.cookie.split('Auth=')[1].split('&')[0]) == "員工") {
                 權限陣列.push('總經理');
                 權限陣列.push('主管');
                 權限陣列.push('人事');
