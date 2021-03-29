@@ -138,7 +138,7 @@
     <Key>
       <PropertyRef Name="出差表編號" />
     </Key>
-    <Property Name="出差表編號" Type="int" Nullable="false" />
+    <Property Name="出差表編號" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="EmployeeID" Type="int" Nullable="false" />
     <Property Name="中文姓名" Type="nvarchar" MaxLength="50" />
     <Property Name="部門" Type="nvarchar" MaxLength="50" />

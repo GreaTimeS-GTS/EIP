@@ -257,14 +257,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="假別">
-      <EntityTypeMapping TypeName="dbEIPModel.假別">
-        <MappingFragment StoreEntitySet="假別">
-          <ScalarProperty Name="假別1" ColumnName="假別" />
-          <ScalarProperty Name="假別ID" ColumnName="假別ID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="通知">
       <EntityTypeMapping TypeName="dbEIPModel.通知">
         <MappingFragment StoreEntitySet="通知">
@@ -281,6 +273,14 @@
         <MappingFragment StoreEntitySet="通知類別">
           <ScalarProperty Name="通知類別1" ColumnName="通知類別" />
           <ScalarProperty Name="通知類別id" ColumnName="通知類別id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="假別">
+      <EntityTypeMapping TypeName="dbEIPModel.假別">
+        <MappingFragment StoreEntitySet="假別">
+          <ScalarProperty Name="假別1" ColumnName="假別" />
+          <ScalarProperty Name="假別ID" ColumnName="假別ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
