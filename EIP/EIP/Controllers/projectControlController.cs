@@ -36,6 +36,10 @@ namespace EIP.Controllers
         }
    
 
+        public ActionResult pjView()
+        {
+            return View();
+        }
 
         //總表 有View
     public ActionResult showProjectList()

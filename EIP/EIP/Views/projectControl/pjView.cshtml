@@ -305,23 +305,23 @@
 
 
 @section script{
-    <script>
-        $('.menu .item').tab();
+<script>
+    $('.menu .item').tab();
 
-        $('.woo').click(function () {
-            window.alert('woo');
-        });
-        $('.sendInfo').click(function () {
-            console.log($(event.currentTarget).data('id'));
-            $.ajax({
-                url: "",
-                method: "post",
-                data: { 'id': $(event.currentTarget).data('id') },
-                success: function (data) {
-                    console.log('nice');
-                }
-            })
+    $('.woo').click(function () {
+        window.alert('woo');
+    });
+    $('.sendInfo').click(function () {
+        console.log($(event.currentTarget).data('id'));
+        $.ajax({
+            url: "",
+            method: "post",
+            data: { 'id': $(event.currentTarget).data('id') },
+            success: function (data) {
+                console.log('nice');
+            }
         })
+    })
 
-    </script>
+</script>
 }

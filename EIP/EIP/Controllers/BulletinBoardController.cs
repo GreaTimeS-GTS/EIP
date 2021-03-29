@@ -41,9 +41,9 @@ namespace EIP.Controllers
                             佈告欄內容 = b.佈告欄內容,
                             發布日期 = b.發布日期,
                             總比數 = db.佈告欄.Count()
-                        }).ToList();
+                        });
 
-            return Json(佈告欄.Take(10), JsonRequestBehavior.AllowGet);
+            return Json(佈告欄, JsonRequestBehavior.AllowGet);
         }
 
 
@@ -114,13 +114,10 @@ namespace EIP.Controllers
         // 搜尋佈告欄
         public JsonResult BulletinBoardSearch(string name)
         {
-
             var bb = from b in db.佈告欄
+                     where (b.中文姓名.Contains(name))
+                     orderby b.佈告欄ID descending
                      select b;
-            if (!String.IsNullOrEmpty(name))
-            {
-                bb = bb.Where(a => a.中文姓名.Contains(name)||a.佈告欄標題.Contains(name)||a.發布日期.ToString().Contains(name));
-            }
             return Json(bb.ToList().Take(10), JsonRequestBehavior.AllowGet);
         }
 
@@ -264,9 +261,9 @@ namespace EIP.Controllers
         {
             var 員工編號 = Convert.ToInt32(Request.Cookies["AutoLg"]["id"]);
             var 中文姓名 = Server.UrlDecode(Request.Cookies["AutoLg"]["Name"]);
-            var 現在日期 = new DateTime(2021, 3, 25);
-            var 模擬上班打卡時間 = new DateTime(2021, 3, 25, 8, 30, 0);
-            var 模擬下班打卡時間 = new DateTime(2021, 3, 25, 18, 30, 0);
+            var 現在日期 = new DateTime(2021, 3, 27);
+            var 模擬上班打卡時間 = new DateTime(2021, 3, 27, 8, 30, 0);
+            var 模擬下班打卡時間 = new DateTime(2021, 3, 27, 18, 30, 0);
             using (dbEIPEntities db = new dbEIPEntities())
             {
                 打卡系統 v = new 打卡系統();
@@ -275,7 +272,7 @@ namespace EIP.Controllers
                 {
                     v.員工編號 = 員工編號;
                     v.上班打卡時間 = 模擬上班打卡時間;
-                    v.打卡日期 = new DateTime(2021, 3, 25);
+                    v.打卡日期 = new DateTime(2021, 3, 27);
                     v.中文姓名 = 中文姓名;
                     v.ThemeColor = "gray";
                     sr.Create(v);
@@ -283,7 +280,7 @@ namespace EIP.Controllers
                 else
                 {
                     v1.員工編號 = 員工編號;
-                    v1.打卡日期 = new DateTime(2021, 3, 25);
+                    v1.打卡日期 = new DateTime(2021, 3, 27);
                     v1.中文姓名 = 中文姓名;
                     v1.下班打卡時間 = 模擬下班打卡時間;
                     v1.ThemeColor = "green";

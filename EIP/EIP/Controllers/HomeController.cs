@@ -107,7 +107,6 @@ namespace EIP.Controllers
 
         public ActionResult HRShow()
         {
-
             return View();
         }
    
@@ -136,9 +135,7 @@ namespace EIP.Controllers
                           權限 = m.權限,
                           總比數= db.個人資料.Count()                         
                       });
-            
             return Json(qqm, JsonRequestBehavior.AllowGet);
-
         }
 
         [HttpGet]    
@@ -244,7 +241,5 @@ namespace EIP.Controllers
                        select m;
             return Json(mlvm.Take(10), JsonRequestBehavior.AllowGet);
         }
-
-   
     }
 }

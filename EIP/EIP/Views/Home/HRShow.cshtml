@@ -53,6 +53,8 @@
     <a class="item active tabMenu" data-tab="first">註冊員工</a>
     <a class="item tabMenu" data-tab="second">員工資訊總表</a>
 </div>
+
+
 <div class="ui tab segment active" data-tab="first">
     <form class="ui form px-5 pb-3 pt-5 font-weight-bolder" id="AddEMPForm">
         <input type="hidden" class="addempid" />
@@ -68,7 +70,6 @@
                 </div>
             </div>
         </div>
-
         <div class="field">
             <div class="three fields">
                 <div class="five wide field">
@@ -206,6 +207,7 @@
         <div id="PageNumber"></div>
     </div>
 </div>
+
 <div class="ui fullscreen modal centermodal" id="EditProfile">
     <i class="close icon"></i>
     <div class="header">
@@ -225,71 +227,6 @@
 </div>
 
 
-@*------------------------------TAB分頁標籤起始------------------------------*@
-
-@*<nav class="mt-5 navtitle">
-
-    </nav>*@
-@*------------------------------TAB分頁標籤結束------------------------------*@
-
-
-
-@*------------------------------新增員工資訊起始------------------------------*@
-<!--<div class="tab-content" id="nav-tabContent">
-    <div class="tab-pane fade  show active TotalWrap" id="nav-Add">-->
-@*------------------------------新增員工資訊結束------------------------------*@
-<!--</div>-->
-@*<div class="tab-pane fade" id="nav-Show">
-    <div class="overflow-auto">*@
-@*------------------------------員工資訊總表起始------------------------------*@
-
-@*------------------------------員工資訊總表結束------------------------------*@
-@*------------------------------分頁按鈕起始------------------------------*@
-
-
-@*------------------------------分頁按鈕結束------------------------------*@
-@*</div>
-    </div>*@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-@*------------------------------編輯個人資訊起始------------------------------*@
-@*<div class="modal fade" id="EditProfile" tabindex="-1" role="dialog">
-            <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title FormTextShadow" id="exampleModalLabel">編輯員工資訊</h5>
-                        <button type="button" class="close" data-dismiss="modal">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form class="EditUserProfile ui form px-5 pb-3 pt-5 font-weight-bolder"></form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary editsave" data-dismiss="modal">確認修改</button>
-                        <button type="button" class="btn btn-secondary ClearModal" data-dismiss="modal">Close</button>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>*@
-@*------------------------------編輯個人資訊結束------------------------------*@
-
 @section script{
     <script>
         $('.tabMenu').tab();
@@ -306,7 +243,6 @@
                         success: function (data) {
                             done(data);
                         },
-
                     })
                 },
                 callback: function (data) {
@@ -324,29 +260,8 @@
                                             </tr>`);
                     })
                 }
-
             })
         };
-        //-------------------刷新頁碼+tab+內文 結束-------------------
-        //----------------------新增員工生日datepicker格式化日期、範圍 起始位置----------------------
-        //$(".addbirth").datepicker({
-        //    dateFormat: 'yy-mm-dd',
-        //    changeMonth: true,
-        //    changeYear: true,
-        //    yearRange: "1960:",
-        //});
-        //----------------------新增員工生日datepicker格式化日期、範圍 結束位置----------------------
-        //----------------------新增員工雇用日期datepicker格式化日期、範圍 起始位置----------------------
-
-        //$(".addhire").datepicker({
-        //    dateFormat: 'yy-mm-dd',
-        //    changeMonth: true,
-        //    changeYear: true,
-        //    yearRange: "1960:",
-
-        //});
-        //----------------------新增員工雇用日期datepicker格式化日期、範圍 結束位置----------------------
-
 
         //----------------------編輯個人資訊起始----------------------
         function startedit() {
@@ -553,10 +468,8 @@
                                 success: function (data) {
                                     $("#tbodyadd").html("");
                                     Refresh();
-
                                 }
                             })
-
                         }
                     })
                 }
@@ -588,7 +501,6 @@
                                 success: function (data) {
                                     $("#tbodyadd").html("");
                                     Refresh();
-
                                 }
                             })
                         }
@@ -599,7 +511,6 @@
                 }
                 RefreshEdit();
             });
-
         }
         //----------------------個人資訊總表刪除按鈕結束----------------------
         //----------------------人事搜尋按鈕開始----------------------
@@ -637,77 +548,8 @@
                     }
                 })
             }
-
         });
         //----------------------人事搜尋按鈕結束----------------------
-
-
-        //----------------------刷新員工總人數"方法"起始----------------------
-        //function RefreshTotal() {
-        //    $.ajax({
-        //        url: "/Home/HRShowEdit",
-        //        method: "get",
-        //        success: function (data) {
-        //            TotalEMP = data[0].總比數;
-        //            $(".navtitle").html(
-        //                `  <div class="nav nav-tabs font-weight-bolder d-flex w-100 " id="nav-tab">
-        //                                                                            <a class="col-xl-2 col-lg-3 col-md-4 col-sm-12 text-center nav-item nav-link active text-dark" id="nav-home-tab" data-toggle="tab" href="#nav-Add">新進同仁註冊</a>
-        //                                                                            <a class="col-xl-2 col-lg-3 col-md-4 col-sm-12 text-center nav-item nav-link  text-dark" id="nav-profile-tab" data-toggle="tab" href="#nav-Show">顯示所有員工資訊</a>
-        //                                                                            <p class="col-xl-2 col-lg-3 col-md-4 col-sm-12 text-center text-dark pt-2 TotalEMP ml-auto bg-white px-2">員工總人數：${TotalEMP}</p>
-        //                                                                        </div>`
-        //            );
-
-        //        }
-        //    })
-        //}
-        //function RefreshEdit() {
-        //    $.ajax({
-        //        url: "/Home/HRShowEdit",
-        //        method: "get",
-        //        success: function (data) {
-        //            TotalEMP = data[0].總比數;
-        //            $(".navtitle").html(
-        //                `  <div class="nav nav-tabs font-weight-bolder d-flex" id="nav-tab">
-        //                                                                            <a class="col-xl-2 col-lg-3 col-md-4 col-sm-12 text-center nav-item nav-link  text-dark" id="nav-home-tab" data-toggle="tab" href="#nav-Add">新進同仁註冊</a>
-        //                                                                            <a class="col-xl-2 col-lg-3 col-md-4 col-sm-12 text-center nav-item nav-link active text-dark" id="nav-profile-tab" data-toggle="tab" href="#nav-Show">顯示所有員工資訊</a>
-        //                                                                            <p class="col-xl-2 col-lg-3 col-md-4 col-sm-12 text-center text-dark pt-2 TotalEMP ml-auto bg-white px-2">員工總人數：${TotalEMP}</p>
-        //                                                                        </div>`
-        //            );
-
-        //        }
-        //    })
-        //}
-
-        //----------------------刷新員工總人數"方法"結束----------------------
-
-
-        //------跳頁刷新起始----//
-        //$(".pagesearch").blur(function () {
-        //    if ($(".pagesearch").val() < SliceTotal) {
-        //        swal("頁面跳轉失敗", "輸入頁數不可小於 1", "error");
-        //    }
-        //    if ($(".pagesearch").val() > SliceTotal) {
-        //        $(".pagesearch").val('');
-        //        swal("頁面跳轉失敗", "輸入頁數大於最大頁數", "error");
-        //    } else if ($(".pagesearch").val() == 0) {
-        //        $(".pagesearch").val('');
-        //        swal("頁面跳轉失敗", "輸入頁數不可為空 ", "error");
-        //    }
-        //    else {
-        //        $.ajax({
-        //            url: "/Home/HRPage",
-        //            data: {
-        //                "arrow": $(".pagesearch").val()
-        //            },
-        //            success: function (data) {
-        //                $(".currentpage").html(`當前頁面：${$(".pagesearch").val()}`);
-        //                EMPrefresh(data);
-
-        //            }
-        //        })
-        //    }
-        //});
-        //------跳頁刷新結束----//
 
         new TwCitySelector({
             el: ".CitySelect", // 同 DOM querySelector()
@@ -715,8 +557,6 @@
             elDistrict: ".district",
             elZipcode: ".zipcode"
         });
-
-
     </script>
 }
 
