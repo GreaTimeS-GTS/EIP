@@ -1123,4 +1123,3 @@ D:\2021-03-25\EIP\EIP\obj\Debug\EIP.csproj.CoreCompileInputs.cache
 D:\2021-03-25\EIP\EIP\obj\Debug\EIP.csproj.CopyComplete
 D:\2021-03-25\EIP\EIP\obj\Debug\EIP.dll
 D:\2021-03-25\EIP\EIP\obj\Debug\EIP.pdb
-D:\GTSEIP\EIP\EIP\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml

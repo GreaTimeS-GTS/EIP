@@ -766,7 +766,13 @@
 
         // 新增方法
         function BulletinBoardAdd() {
-
+            var 權限陣列 = [];
+            if (decodeURI(document.cookie.split('Auth=')[1].split('&')[0]) == "主管") {
+                權限陣列.push('總經理');
+                權限陣列.push('主管');
+                權限陣列.push('人事');
+                權限陣列.push('員工');
+            }
             if ($(".addTitle").val() == '' || $(".addContent").val() == '' || $(".addDate").val() == '') {
                 swal("佈告欄新增失敗", "欄位不可為空", "error");
             }
@@ -784,7 +790,7 @@
                         swal("新增成功!", "佈告欄已新增成功!", "success");
                         $.connection.hub.start()
                             .done(function () {
-                                bell.server.sendGroup(`${2}`,`${decodeURI(document.cookie.split('Auth=')[1].split('&')[0])}`, `有新的佈告欄！`,`員工`);   //傳值到hub
+                                bell.server.sendGroup(`${2}`,`${decodeURI(document.cookie.split('Auth=')[1].split('&')[0])}`, `有新的佈告欄！`,權限陣列);   //傳值到hub
                             });
                         $(".addTitle").val('');
                         $(".addContent").val('');
@@ -950,6 +956,13 @@
 
         //-------------------------修改方法--------------------------------
         $(".editsave").click(function () {
+            var 權限陣列 = [];
+            if (decodeURI(document.cookie.split('Auth=')[1].split('&')[0]) == "主管") {
+                權限陣列.push('總經理');
+                權限陣列.push('主管');
+                權限陣列.push('人事');
+                權限陣列.push('員工');
+            }
             $.ajax({
                 url: "/BulletinBoard/BulletinBoardEdit",
                 method: "Post",
@@ -961,11 +974,11 @@
                     "佈告欄內容": $(".updateContent").val(),
                     "發布日期": $(".updateTime").val()
                 },
-                success: function (data) {     
+                success: function (data) {
                     swal("修改成功!", "佈告欄已修改成功!", "success");
                     $.connection.hub.start()
                         .done(function () {
-                            bell.server.sendGroup(`${2}`, `${decodeURI(document.cookie.split('Auth=')[1].split('&')[0])}`, `佈告欄有新的異動！`,`員工`);   //傳值到hub
+                            bell.server.sendGroup(`${2}`, `${decodeURI(document.cookie.split('Auth=')[1].split('&')[0])}`, `佈告欄有新的異動！`, 權限陣列);   //傳值到hub
                         });
                     refresh();
                 }
@@ -974,6 +987,13 @@
 
         // ----------------------------刪除方法-----------------------------
         function DeleteBB() {
+            var 權限陣列 = [];
+            if (decodeURI(document.cookie.split('Auth=')[1].split('&')[0]) == "主管") {
+                權限陣列.push('總經理');
+                權限陣列.push('主管');
+                權限陣列.push('人事');
+                權限陣列.push('員工');
+            }
             var id = $(event.currentTarget).data("id");
             swal({
                 title: '刪除佈告欄？',
@@ -993,7 +1013,7 @@
                         success: function (data) {
                              $.connection.hub.start()
                         .done(function () {
-                            bell.server.sendGroup(`${2}`, `${decodeURI(document.cookie.split('Auth=')[1].split('&')[0])}`, `佈告欄有新的異動！`,`員工`);   //傳值到hub
+                            bell.server.sendGroup(`${2}`, `${decodeURI(document.cookie.split('Auth=')[1].split('&')[0])}`, `佈告欄有新的異動！`, 權限陣列);   //傳值到hub
                         });
                             refresh();
 

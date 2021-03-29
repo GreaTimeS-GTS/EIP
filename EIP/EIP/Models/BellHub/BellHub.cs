@@ -16,37 +16,39 @@ namespace EIP.Models.BellHub
         {
             return base.OnConnected();
         }
-        public void SendGroup(int 類別, string 職稱, string message,string 權限) //對特定群組發送通知  
+        public void SendGroup(int 類別, string 職稱, string message,string[] 權限) //對特定群組發送通知  
         {
+            foreach(var x in 權限)
+            { 
             var 通知 = new 通知
             {
                 通知類別id = 類別,
                 通知內容 = message,
                 讀取狀態 = "未讀",
-                通知權限= 權限
+                通知權限= x.ToString()
             };
             db.通知.Add(通知);
             db.SaveChanges();
-
+            }
             var 通知類別轉換 = db.通知類別.FirstOrDefault(m => m.通知類別id == 類別);
 
             if (職稱 == "員工")
             {
-                Clients.Group("員工").sendlv1(通知類別轉換.通知類別1, message,權限);
-                Clients.Group("人事").sendlv1(通知類別轉換.通知類別1, message, 權限);
-                Clients.Group("主管").sendlv1(通知類別轉換.通知類別1, message, 權限);
-                Clients.Group("總經理").sendlv1(通知類別轉換.通知類別1, message, 權限);//sendtop=前端的function(自定義)
+                Clients.Group("員工").sendlv1(通知類別轉換.通知類別1, message,權限[3]);
+                Clients.Group("人事").sendlv2(通知類別轉換.通知類別1, message, 權限[2]);
+                Clients.Group("主管").sendlv3(通知類別轉換.通知類別1, message, 權限[1]);
+                Clients.Group("總經理").sendtop(通知類別轉換.通知類別1, message, 權限[0]);//sendtop=前端的function(自定義)
             }
             if (職稱 == "人事")
             {
-                Clients.Group("人事").sendlv2(通知類別轉換.通知類別1, message,權限);
-                Clients.Group("主管").sendlv2(通知類別轉換.通知類別1, message,權限);
-                Clients.Group("總經理").snedlv2(通知類別轉換.通知類別1, message, 權限); //sendtop=前端的function(自定義)
+                Clients.Group("人事").sendlv2(通知類別轉換.通知類別1, message,權限[2]);
+                Clients.Group("主管").sendlv3(通知類別轉換.通知類別1, message,權限[1]);
+                Clients.Group("總經理").snedlvtop(通知類別轉換.通知類別1, message, 權限[0]); //sendtop=前端的function(自定義)
             }
             if(職稱 == "主管")
             {
-                Clients.Group("主管").sendtop(通知類別轉換.通知類別1, message, 權限);
-                Clients.Group("總經理").sendtop(通知類別轉換.通知類別1, message, 權限);
+                Clients.Group("主管").sendtop(通知類別轉換.通知類別1, message, 權限[1]);
+                Clients.Group("總經理").sendtop(通知類別轉換.通知類別1, message, 權限[0]);
             }
         }
         public void Setgroup(int id)  //設定特定群組

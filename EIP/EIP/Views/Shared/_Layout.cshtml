@@ -253,6 +253,9 @@
         .bottomdiv {
         justify-content:space-evenly;
         }
+        .alertword {
+        font-size:16px;
+        }
 
     </style>
 </head>
@@ -312,11 +315,10 @@
                 <h3 class="ui header"></h3>
                 @RenderBody()
             <div class="AlerBellOut">
-
-                    <div class="ui dropdown">
+                    <div class="ui dropdown topbell">
                         <i class="big teal bell outline icon"></i>
                         <div class="default text text-success alertnumber">通知訊息</div>
-                        <ul class="menu AlertBell"></ul>
+                        <div class="menu AlertBell"></div>
                     </div>
                 </div>
             </div>       
@@ -615,19 +617,19 @@
         //}
         bell.client.sendlv1 = function (通知類別, message, 權限) {
             $(".AlertBell").html('');
-            AlertRefreshEmp(decodeURI(document.cookie.split('Auth=')[1].split('&')[0]));
+            AlertRefreshEmp(權限);
         }
         bell.client.sendlv2 = function (通知類別, message,權限) {
             $(".AlertBell").html('');
-            AlertRefreshEmp(decodeURI(document.cookie.split('Auth=')[1].split('&')[0]));
+            AlertRefreshEmp(權限);
         }
         bell.client.sendlv3 = function (通知類別, message, 權限) {
             $(".AlertBell").html('');
-            AlertRefreshEmp(decodeURI(document.cookie.split('Auth=')[1].split('&')[0]));
+            AlertRefreshEmp(權限);
         }
         bell.client.sendtop = function (通知類別, message,權限) {
             $(".AlertBell").html('');
-            AlertRefreshEmp(decodeURI(document.cookie.split('Auth=')[1].split('&')[0]));
+            AlertRefreshEmp(權限);
         }
         AlertRefreshEmp(decodeURI(document.cookie.split('Auth=')[1].split('&')[0]));
 
@@ -640,12 +642,18 @@
                 url: "/Home/allalertbell",
                 data: { '權限': `${power}` },
                 method: "Get",
-                success: function (data) {         
-                    $(data).each(function (index, item) {
-                        $(".AlertBell").append(` <li class="ui label item"><i class="bullhorn icon"></i><a class="font-weight-bold" >${item.通知類別id}:${item.通知內容}</a></li>`);
+                success: function (data) {    
+                    let 第一則通知;
+                    $(data).each(function (index, item) {             
+                        $(".AlertBell").append(`<div class="ui label item"><i class="bullhorn icon"></i><a class="alertword text-success font-weight-bold" >${item.通知類別id}:${item.通知內容}</a></div>`);
+                        if (index == 0) {
+                            //console.log(item.通知內容);
+                            //$(".topbell").dropdown("set text", `${item.通知類別id}:${item.通知內容}`);
+                            第一則通知 = `<i class="bullhorn icon"></i><a class="alertword text-success font-weight-bold" >${item.通知類別id}:${item.通知內容}</a>`;
+                        }
                     });    
-                    if ($(".AlertBell > li").length != 0) {
-                        $(".alertnumber").html('有新的通知<i class="exclamation icon red"></i>');
+                    if ($(".AlertBell > div").length != 0) {                   
+                        $(".alertnumber").html(`<span class="alertword">${第一則通知}</span>`);
                     };
                 }
             })

@@ -252,7 +252,7 @@ namespace EIP.Controllers
                 讀取狀態 = m.讀取狀態,
                 流水號 = m.通知流水號
             }).OrderByDescending(m => m.流水號).ToList();
-             return Json(qqm, JsonRequestBehavior.AllowGet);
+             return Json(qqm.Take(5), JsonRequestBehavior.AllowGet);
         }
         public JsonResult alertcheck(int 第幾筆訊息)
         {
