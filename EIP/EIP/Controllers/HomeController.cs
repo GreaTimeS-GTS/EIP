@@ -266,15 +266,17 @@ namespace EIP.Controllers
         }
         public string forgetpw(int 員工編號,string 信箱) {
             var mmb = db.個人資料.FirstOrDefault(m => m.信箱 == 信箱 && m.EmployeeID == 員工編號);
+            Random Rdpw = new Random();
+            var newpw = Rdpw.Next(1, 10).ToString() + Rdpw.Next(1, 10).ToString() + Rdpw.Next(1, 10).ToString() + Rdpw.Next(1, 10).ToString() + Rdpw.Next(1, 10).ToString() + Rdpw.Next(1, 10).ToString();
             if (mmb == null)
             {
                 return "員工編號與帳號不符合!,請重新輸入！";
             }
             else {
-                db.個人資料.FirstOrDefault(x => x.EmployeeID == 員工編號).EmployeePW = "123456";
+                db.個人資料.FirstOrDefault(x => x.EmployeeID == 員工編號).EmployeePW = newpw;
             }
             db.SaveChanges();
-            return "密碼已重置為 123456 !,請於登入後,盡速修改個人登入密碼！";
+            return newpw;
         }
     }
 }

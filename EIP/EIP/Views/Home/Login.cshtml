@@ -162,7 +162,7 @@
                           },
                           method: "get",
                           success: function (data) {
-                              swal('密碼重置', `${data}`, 'warning');
+                              swal('密碼重置', `密碼重置為'${data}',請於登入後盡速修改個人密碼!`, 'warning');
                               $(".EmpEmail").val("");
                               $(".EmpID").val("");
                               $(".forgetpwmodal").modal('hide');
