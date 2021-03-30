@@ -195,6 +195,10 @@
     .打卡按鈕樣式 {
         margin-left: 20px;
     }
+
+    .佈告欄分頁{
+        height:100%;
+    }
 </style>
 
 
@@ -230,15 +234,17 @@
                 </div>
             </div>
             @*------------------------------佈告欄起始------------------------------*@
-            <div class="外框">
-                <table class="table table-bordered table-hover text-nowrap table-striped 佈告欄列表">
-                    <thead class="THeadAdd 文字">
-                    </thead>
-                    <tbody class="TBodyAdd 文字">
-                    </tbody>
-                </table>
-
+        <div class="外框">
+            <table class="table-hover w-100 table table-striped text-nowrap 佈告欄列表">
+                <thead class="THeadAdd 文字">
+                </thead>
+                <tbody class="TBodyAdd 文字">
+                </tbody>
+            </table>
+            <div class="d-flex justify-content-center pb-5 pt-5">
+                <div id="BulletinBoardPage"></div>
             </div>
+        </div>
             @*------------------------------佈告欄結束------------------------------*@
         </div>
         <div id="nav-2" class="tab-pane fade active ">
@@ -263,9 +269,7 @@
         </div>
     </div>
 </div>
-<div class="d-flex justify-content-center">
-    <div id="BulletinBoardPage">123</div>
-</div>
+
 
 @*------------------------------搜尋彈跳視窗起始------------------------------*@
 <div class="ui fullscreen modal centermodal" id="searchinfo" tabindex="-1" role="dialog">
@@ -282,7 +286,7 @@
         </table>
     </div>
     <div class="actions">
-        <button type="button" class="btn btn-secondary cancel 文字2">關閉</button>
+        <button type="button" class="ui inverted secondary big button cancel">關閉</button>
     </div>
 </div>
 @*------------------------------搜尋彈跳視窗結束------------------------------*@
@@ -313,9 +317,9 @@
         </form>
     </div>
     <div class="actions">
-        <button type="button" class="btn btn-info mr-3 文字2" onclick="BulletinBoardDemoAdd()">Demo</button>
-        <button type="button" class="btn btn-primary mr-3 文字2" onclick="BulletinBoardAdd()">送出</button>
-        <button type="button" class="btn btn-secondary ClearModal cancel 文字2">取消</button>
+        <button type="button" class="ui inverted teal big button text-dark mr-3" onclick="BulletinBoardDemoAdd()">Demo</button>
+        <button type="button" class="ui inverted blue big button text-dark mr-3" onclick="BulletinBoardAdd()">送出</button>
+        <button type="button" class="ui inverted secondary big button ClearModal cancel">取消</button>
     </div>
 </div>
 
@@ -329,7 +333,7 @@
         <form class="ShowUserProfile"></form>
     </div>
     <div class="actions">
-        <button type="button" class="btn btn-secondary ClearModal cancel 文字2">關閉</button>
+        <button type="button" class="ui inverted secondary big button ClearModal cancel">關閉</button>
     </div>
 </div>
 
@@ -343,8 +347,8 @@
         <form class="EditUserProfile"></form>
     </div>
     <div class="actions">
-        <button type="button" class="btn btn-primary editsave mr-3 按鈕大小">確認修改</button>
-        <button type="button" class="btn btn-secondary ClearModal cancel 按鈕大小">取消</button>
+        <button type="button" class="ui inverted yellow big button text-dark editsave mr-3">修改</button>
+        <button type="button" class="ui inverted secondary big button ClearModal cancel">取消</button>
     </div>
 </div>
 
@@ -358,13 +362,13 @@
         <p id="pDetails" class="按鈕大小"></p>
     </div>
     <div class="actions">
-        <button id="btnDelete" class="btn btn-danger 按鈕大小 mr-3">
+        <button id="btnDelete" class="ui inverted red big button text-dark">
             <span class="glyphicon glyphicon-remove">刪除</span>
         </button>
-        <button id="btnEdit" class="btn btn-warning 按鈕大小 mr-3" style="margin-right:5px;">
+        <button id="btnEdit" class="ui inverted yellow big button text-dark" style="margin-right:5px;">
             <span class="glyphicon glyphicon-pencil">修改</span>
         </button>
-        <button type="button" class="btn btn-secondary cancel 按鈕大小">關閉</button>
+        <button class="ui inverted secondary big button cancel">關閉</button>
     </div>
 </div>
 @*FullCalender修改彈跳視窗結束*@
@@ -422,9 +426,9 @@
         </form>
     </div>
     <div class="actions">
-        <button type="button" class="btn btn-info 文字2 mr-3" onclick="FullcalenderDemoAdd()">Demo</button>
-        <button type="button" id="btnSave" class="btn btn-primary 文字2 mr-3">儲存</button>
-        <button type="button" class="btn btn-secondary cancel 文字2">關閉</button>
+        <button type="button" class="ui inverted teal big button text-dark mr-3" onclick="FullcalenderDemoAdd()">Demo</button>
+        <button type="button" id="btnSave" class="ui inverted primary big button text-dark mr-3">儲存</button>
+        <button type="button" class="ui inverted secondary big button cancel">關閉</button>
     </div>
 </div>
 @*FullCalender新增彈跳視窗結束*@
@@ -488,7 +492,7 @@
                                                                                                 <td>${item.中文姓名}</td>
                                                                                                 <td>${item.佈告欄標題}</td>
                                                                                                 <td>${datetime1.getFullYear() + "/" + (datetime1.getMonth() + 1) + "/" + datetime1.getDate() + " " + x + ":" + y}</td>
-                                                                                                <td><a class="btn btn-info empedit 詳細按鈕" data-id="${item.佈告欄ID}" data-toggle="modal" data-target="#ShowBulletinBoard" onclick="SearchThis()">詳細</a></td>
+                                                                                                <td><a class="ui inverted teal big button text-dark empedit 詳細按鈕" data-id="${item.佈告欄ID}" data-toggle="modal" data-target="#ShowBulletinBoard" onclick="SearchThis()">詳細</a></td>
                                                                                             </tr>`;
                         })
                         $(".TBodyAdd").html(a); // 取代原本內容
@@ -540,8 +544,8 @@
                                                                                                 <td>${item.中文姓名}</td>
                                                                                                 <td>${item.佈告欄標題}</td>
                                                                                                 <td>${datetime1.getFullYear() + "/" + (datetime1.getMonth() + 1) + "/" + datetime1.getDate() + " " + x + ":" + y}</td>
-                                                                                                <td><a class="btn btn-warning empedit 詳細按鈕" data-id="${item.佈告欄ID}" data-toggle="modal" data-target="#EditBulletinBoard" onclick="startedit()">編輯</a></td>
-                                                                                                <td><a class="btn btn-danger empedit 詳細按鈕" data-id="${item.佈告欄ID}" data-toggle="modal" onclick="DeleteBB()">刪除</a></td>
+                                                                                                <td><a class="ui inverted yellow big button text-dark empedit 詳細按鈕" data-id="${item.佈告欄ID}" data-toggle="modal" data-target="#EditBulletinBoard" onclick="startedit()">編輯</a></td>
+                                                                                                <td><a class="ui inverted red big button text-dark empedit 詳細按鈕" data-id="${item.佈告欄ID}" data-toggle="modal" onclick="DeleteBB()">刪除</a></td>
                                                                                             </tr>`;
                         })
                         $(".TBodyAdd").html(a); // 取代原本內容
@@ -887,7 +891,7 @@
                                                     <td>${item.佈告欄標題}</td>
                                                     <td>${item.佈告欄內容}</td>
                                                     <td>${datetime1.getFullYear() + "/" + (datetime1.getMonth() + 1) + "/" + datetime1.getDate() + " " + x + ":" + y}</td>
-                                                    <td><a class="btn btn-info empedit 詳細按鈕" data-id="${item.佈告欄ID}" data-toggle="modal" data-target="#ShowBulletinBoard" onclick="SearchThis()">詳細</a></td>
+                                                    <td><a class="ui inverted teal big button text-dark empedit 詳細按鈕" data-id="${item.佈告欄ID}" data-toggle="modal" data-target="#ShowBulletinBoard" onclick="SearchThis()">詳細</a></td>
                                                     </tr>`;
                                     $(".SearchShowTable").html(a)
                                 })
@@ -944,8 +948,8 @@
                                                     <td>${item.佈告欄標題}</td>
                                                     <td>${item.佈告欄內容}</td>
                                                     <td>${datetime1.getFullYear() + "/" + (datetime1.getMonth() + 1) + "/" + datetime1.getDate() + " " + x + ":" + y}</td>
-                                                    <td><a class="btn btn-warning empedit 詳細按鈕" data-id="${item.佈告欄ID}" data-toggle="modal" data-target="#EditBulletinBoard" onclick="startedit()">編輯</a></td>
-                                                    <td><a class="btn btn-danger empedit 詳細按鈕" data-id="${item.佈告欄ID}" data-toggle="modal" onclick="DeleteBB()">刪除</a></td>
+                                                    <td><a class="ui inverted yellow big button text-dark empedit 詳細按鈕" data-id="${item.佈告欄ID}" data-toggle="modal" data-target="#EditBulletinBoard" onclick="startedit()">編輯</a></td>
+                                                    <td><a class="ui inverted red big button text-dark empedit 詳細按鈕" data-id="${item.佈告欄ID}" data-toggle="modal" onclick="DeleteBB()">刪除</a></td>
                                                     </tr>`;
                                     $(".SearchShowTable").html(a)
                                 })
@@ -1012,7 +1016,6 @@
                     eventColor: '#378006',
                     events: events,
                     eventClick: function (calEvent, jsEvent, view) {
-                        console.log(1)
                         selectedEvent = calEvent;
                         $('#myModal #eventTitle').text(calEvent.title);
                         var $description = $('<div/>');
@@ -1059,21 +1062,24 @@
                 //Open modal dialog for edit event
                 openAddEditForm();
             })
+
+
             $('#btnDelete').click(function () {
-                if (selectedEvent != null && confirm('Are you sure?')) {
+                if (selectedEvent != null && confirm('確定刪除此行事曆項目嗎?')) {
                     $.ajax({
                         type: "POST",
                         url: '/BulletinBoard/DeleteEvent',
                         data: { 'eventID': selectedEvent.eventID },
                         success: function (data) {
                             if (data.status) {
+                                swal("刪除!", "行事曆項目已刪除!...", 'success');
                                 //Refresh the calender
                                 FetchEventAndRenderCalendar();
                                 $('#myModal').modal('hide');
                             }
                         },
                         error: function () {
-                            alert('Failed');
+                            alert('已取消刪除此行事曆項目!');
                         }
                     })
                 }
@@ -1153,6 +1159,7 @@
                             //Refresh the calender
                             FetchEventAndRenderCalendar();
                             $('#myModalSave').modal('hide');
+                            swal("新增成功!", "行事曆已新增成功!", "success");
                         }
                     },
                     error: function () {
@@ -1245,6 +1252,7 @@
                 url: '/BulletinBoard/SignInSave',
                 data: data,
                 success: function () {
+                    swal("打卡成功!", "你已成功打卡!", "success");
                     ShowCalendar();
                 }
             })
@@ -1256,6 +1264,7 @@
                 url: '/BulletinBoard/SignInDemoSave',
                 data: data,
                 success: function () {
+                    swal("打卡成功!", "你已成功打卡!", "success");
                     ShowCalendar();
                 }
             })

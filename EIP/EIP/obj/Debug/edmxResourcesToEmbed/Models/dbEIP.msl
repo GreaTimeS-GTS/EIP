@@ -30,6 +30,110 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="pjAdvice">
+      <EntityTypeMapping TypeName="dbEIPModel.pjAdvice">
+        <MappingFragment StoreEntitySet="pjAdvice">
+          <ScalarProperty Name="pj審核階段" ColumnName="pj審核階段" />
+          <ScalarProperty Name="pj意見內容" ColumnName="pj意見內容" />
+          <ScalarProperty Name="pjId" ColumnName="pjId" />
+          <ScalarProperty Name="pjAdviceId" ColumnName="pjAdviceId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="pjHandOverList">
+      <EntityTypeMapping TypeName="dbEIPModel.pjHandOverList">
+        <MappingFragment StoreEntitySet="pjHandOverList">
+          <ScalarProperty Name="pjReplyEmpId" ColumnName="pjReplyEmpId" />
+          <ScalarProperty Name="pjAskMemberId" ColumnName="pjAskMemberId" />
+          <ScalarProperty Name="pjActionItem" ColumnName="pjActionItem" />
+          <ScalarProperty Name="pjId" ColumnName="pjId" />
+          <ScalarProperty Name="pjHandOverId" ColumnName="pjHandOverId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="pjMeeting">
+      <EntityTypeMapping TypeName="dbEIPModel.pjMeeting">
+        <MappingFragment StoreEntitySet="pjMeeting">
+          <ScalarProperty Name="pjMemo" ColumnName="pjMemo" />
+          <ScalarProperty Name="pjContent" ColumnName="pjContent" />
+          <ScalarProperty Name="pjId" ColumnName="pjId" />
+          <ScalarProperty Name="pjMeetingDate" ColumnName="pjMeetingDate" />
+          <ScalarProperty Name="pjMeetingId" ColumnName="pjMeetingId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="pjOverall">
+      <EntityTypeMapping TypeName="dbEIPModel.pjOverall">
+        <MappingFragment StoreEntitySet="pjOverall">
+          <ScalarProperty Name="pjActionItem" ColumnName="pjActionItem" />
+          <ScalarProperty Name="pjId" ColumnName="pjId" />
+          <ScalarProperty Name="pjMemo" ColumnName="pjMemo" />
+          <ScalarProperty Name="pj審核" ColumnName="pj審核" />
+          <ScalarProperty Name="pj獲利" ColumnName="pj獲利" />
+          <ScalarProperty Name="pj收入" ColumnName="pj收入" />
+          <ScalarProperty Name="pjCost" ColumnName="pjCost" />
+          <ScalarProperty Name="pj是否繼續" ColumnName="pj是否繼續" />
+          <ScalarProperty Name="pj最壞情況評估" ColumnName="pj最壞情況評估" />
+          <ScalarProperty Name="pjGoal" ColumnName="pjGoal" />
+          <ScalarProperty Name="pjInput" ColumnName="pjInput" />
+          <ScalarProperty Name="pjOverallId" ColumnName="pjOverallId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="pjProject">
+      <EntityTypeMapping TypeName="dbEIPModel.pjProject">
+        <MappingFragment StoreEntitySet="pjProject">
+          <ScalarProperty Name="pj預估時間" ColumnName="pj預估時間" />
+          <ScalarProperty Name="pjManagerId" ColumnName="pjManagerId" />
+          <ScalarProperty Name="pj結束日期" ColumnName="pj結束日期" />
+          <ScalarProperty Name="pj開始日期" ColumnName="pj開始日期" />
+          <ScalarProperty Name="pj複審結果" ColumnName="pj複審結果" />
+          <ScalarProperty Name="pj初審結果" ColumnName="pj初審結果" />
+          <ScalarProperty Name="pjClient" ColumnName="pjClient" />
+          <ScalarProperty Name="pjMemberCount" ColumnName="pjMemberCount" />
+          <ScalarProperty Name="pjIntroduction" ColumnName="pjIntroduction" />
+          <ScalarProperty Name="pjBudget" ColumnName="pjBudget" />
+          <ScalarProperty Name="pjManager" ColumnName="pjManager" />
+          <ScalarProperty Name="pjName" ColumnName="pjName" />
+          <ScalarProperty Name="pjId" ColumnName="pjId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="pjReport">
+      <EntityTypeMapping TypeName="dbEIPModel.pjReport">
+        <MappingFragment StoreEntitySet="pjReport">
+          <ScalarProperty Name="pjReportDate" ColumnName="pjReportDate" />
+          <ScalarProperty Name="pjEstimation" ColumnName="pjEstimation" />
+          <ScalarProperty Name="pjLag" ColumnName="pjLag" />
+          <ScalarProperty Name="pjReportPreview" ColumnName="pjReportPreview" />
+          <ScalarProperty Name="pjObjective" ColumnName="pjObjective" />
+          <ScalarProperty Name="pjIssuelog" ColumnName="pjIssuelog" />
+          <ScalarProperty Name="pjReportContent" ColumnName="pjReportContent" />
+          <ScalarProperty Name="pjTask" ColumnName="pjTask" />
+          <ScalarProperty Name="pjMemberName" ColumnName="pjMemberName" />
+          <ScalarProperty Name="pjMemberId" ColumnName="pjMemberId" />
+          <ScalarProperty Name="pjId" ColumnName="pjId" />
+          <ScalarProperty Name="pjDayReportId" ColumnName="pjDayReportId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="pjTeam">
+      <EntityTypeMapping TypeName="dbEIPModel.pjTeam">
+        <MappingFragment StoreEntitySet="pjTeam">
+          <ScalarProperty Name="pj所需時間" ColumnName="pj所需時間" />
+          <ScalarProperty Name="pjFixedDuration" ColumnName="pjFixedDuration" />
+          <ScalarProperty Name="pjTask" ColumnName="pjTask" />
+          <ScalarProperty Name="pjDuration" ColumnName="pjDuration" />
+          <ScalarProperty Name="pjPhase" ColumnName="pjPhase" />
+          <ScalarProperty Name="pjMember部門" ColumnName="pjMember部門" />
+          <ScalarProperty Name="pjTarget" ColumnName="pjTarget" />
+          <ScalarProperty Name="pjMemberName" ColumnName="pjMemberName" />
+          <ScalarProperty Name="pjMemberId" ColumnName="pjMemberId" />
+          <ScalarProperty Name="pjId" ColumnName="pjId" />
+          <ScalarProperty Name="pjTeamId" ColumnName="pjTeamId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="pj建立">
       <EntityTypeMapping TypeName="dbEIPModel.pj建立">
         <MappingFragment StoreEntitySet="pj建立">
@@ -148,6 +252,7 @@
     <EntitySetMapping Name="出差細項">
       <EntityTypeMapping TypeName="dbEIPModel.出差細項">
         <MappingFragment StoreEntitySet="出差細項">
+          <ScalarProperty Name="審核狀態" ColumnName="審核狀態" />
           <ScalarProperty Name="備註" ColumnName="備註" />
           <ScalarProperty Name="預支費用" ColumnName="預支費用" />
           <ScalarProperty Name="住宿需求" ColumnName="住宿需求" />
@@ -174,6 +279,7 @@
     <EntitySetMapping Name="加班細項">
       <EntityTypeMapping TypeName="dbEIPModel.加班細項">
         <MappingFragment StoreEntitySet="加班細項">
+          <ScalarProperty Name="審核狀態" ColumnName="審核狀態" />
           <ScalarProperty Name="事由說明" ColumnName="事由說明" />
           <ScalarProperty Name="加班時數" ColumnName="加班時數" />
           <ScalarProperty Name="結束日期" ColumnName="結束日期" />

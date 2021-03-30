@@ -81,32 +81,6 @@ namespace EIP.Controllers
                             });
             return Json(leaveform, JsonRequestBehavior.AllowGet);
         }
-        //=============================單筆詳細=============================//
-        //public ActionResult FindSingleData()
-        //{
-        //    return View();
-        //}
-        //public JsonResult FindSingleDataAjax(int id)
-        //{
-        //    var mm = db.請假細項.Select(x => new
-        //    {
-        //        EmployeeID = x.EmployeeID,
-        //        信箱 = x.信箱,
-        //        部門 = x.部門,
-        //        假別ID = x.假別ID,
-        //        請假時數 = (int)x.請假時數,
-        //        開始日期 = x.開始日期,
-        //        結束日期 = x.結束日期,
-        //        申請日期 = x.申請日期,
-        //        中文姓名 = x.中文姓名,
-        //        職稱 = x.職稱,
-        //        請假班別 = x.請假班別,
-        //        代理人 = x.代理人,
-        //        審核狀態 = x.審核狀態,
-        //        假別 = x.假別.假別1,                
-        //    }).FirstOrDefault(C => C.EmployeeID == id);
-        //    return Json(mm, JsonRequestBehavior.AllowGet);
-        //}
         //=============================刪除=============================//
         public string DeleteData(int id)
         {
@@ -145,22 +119,6 @@ namespace EIP.Controllers
         [HttpPost]
         public JsonResult UpdateDataAjax(請假細項 mb)  //
         {
-            //請假細項 dba = new 請假細項()
-            //{
-            //    EmployeeID = mb.EmployeeID,
-            //    信箱 = mb.信箱,
-            //    部門 = mb.部門,
-            //    假別ID = mb.假別ID,
-            //    請假時數 = (int)mb.請假時數,
-            //    開始日期 = mb.開始日期,
-            //    結束日期 = mb.結束日期,
-            //    申請日期 = mb.申請日期,
-            //    中文姓名 = mb.中文姓名,
-            //    職稱 = mb.職稱,
-            //    請假班別 = mb.請假班別,
-            //    代理人 = mb.代理人,
-            //    審核狀態 = mb.審核狀態,
-            //};
             db.Entry<請假細項>(mb).State = EntityState.Modified;  //why
             db.SaveChanges();
             return Json(mb, JsonRequestBehavior.AllowGet);
@@ -185,6 +143,7 @@ namespace EIP.Controllers
                 加班時數 = n.加班時數,
                 加班ID = n.加班ID,
                 事由說明 = n.事由說明,
+                審核狀態 = n.審核狀態
             };
             db.加班細項.Add(k);
             db.SaveChanges();
@@ -211,7 +170,8 @@ namespace EIP.Controllers
                 加班時數 = m.加班時數,
                 加班ID = m.加班ID,
                 事由說明 = m.事由說明,
-                加班類別 = m.加班別.加班類別
+                加班類別 = m.加班別.加班類別,
+                審核狀態 = m.審核狀態
             });
             return Json(test, JsonRequestBehavior.AllowGet);
         }
@@ -246,41 +206,14 @@ namespace EIP.Controllers
                 加班時數 = x.加班時數,
                 加班ID = x.加班ID,
                 事由說明 = x.事由說明,
-                加班類別 = x.加班別.加班類別
+                加班類別 = x.加班別.加班類別,
+                審核狀態 = x.審核狀態
             }).FirstOrDefault(C => C.加班表編號 == id); //關聯屬性要用匿名或ViewModel
             return Json(overtimeupdate, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
         public JsonResult OverTimeUpdateAjax(加班細項 ovtvm)  //從前端修改存回後端
-        {
-
-            //加班細項 dba = new 加班細項()
-            //{
-            //    加班表編號 = ovtvm.加班表編號,
-            //    EmployeeID = ovtvm.EmployeeID,
-            //    中文姓名 = ovtvm.中文姓名,
-            //    部門 = ovtvm.部門,
-            //    開始日期 = ovtvm.開始日期,
-            //    結束日期 = ovtvm.結束日期,
-            //    加班時數 = ovtvm.加班時數,
-            //    已用可用 = ovtvm.已用可用,
-            //    加班ID = ovtvm.加班ID,
-            //    事由說明 = ovtvm.事由說明,
-            //    主管簽核 = ovtvm.主管簽核,
-            //};
-
-            //var test = db.加班細項.FirstOrDefault(m => m.加班表編號 == ovtvm.加班表編號);
-            //test.EmployeeID = ovtvm.EmployeeID;
-            //test.中文姓名 = ovtvm.中文姓名;
-            //test.部門 = ovtvm.部門;
-            //test.開始日期 = ovtvm.開始日期;
-            //test.結束日期 = ovtvm.結束日期;
-            //test.加班時數 = ovtvm.加班時數;
-            //test.已用可用 = ovtvm.已用可用;
-            //test.加班ID = ovtvm.加班ID;
-            //test.事由說明 = ovtvm.事由說明;
-            //test.主管簽核 = ovtvm.主管簽核;
-
+        {            
             db.Entry<加班細項>(ovtvm).State = EntityState.Modified;  //自動比對主索引鍵並覆蓋
             db.SaveChanges();
             return Json(ovtvm, JsonRequestBehavior.AllowGet);
@@ -320,7 +253,8 @@ namespace EIP.Controllers
                 x.交通需求,
                 x.住宿需求,
                 x.預支費用,
-                x.備註
+                x.備註,
+                x.審核狀態
             });
             return Json(btla, JsonRequestBehavior.AllowGet);
         }
@@ -356,7 +290,8 @@ namespace EIP.Controllers
                 k.交通需求,
                 k.住宿需求,
                 k.預支費用,
-                k.備註
+                k.備註,
+                k.審核狀態
             }).FirstOrDefault(C => C.出差表編號 == id); 
             return Json(getupdatabusiness, JsonRequestBehavior.AllowGet);
         }
