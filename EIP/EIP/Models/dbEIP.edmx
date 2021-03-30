@@ -143,7 +143,7 @@
           <Key>
             <PropertyRef Name="出差表編號" />
           </Key>
-          <Property Name="出差表編號" Type="int" Nullable="false" />
+          <Property Name="出差表編號" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="EmployeeID" Type="int" Nullable="false" />
           <Property Name="中文姓名" Type="nvarchar" MaxLength="50" />
           <Property Name="部門" Type="nvarchar" MaxLength="50" />
@@ -155,6 +155,7 @@
           <Property Name="住宿需求" Type="nvarchar" MaxLength="50" />
           <Property Name="預支費用" Type="int" />
           <Property Name="備註" Type="nvarchar" MaxLength="50" />
+          <Property Name="審核狀態" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="加班別">
           <Key>
@@ -176,6 +177,7 @@
           <Property Name="結束日期" Type="datetime" />
           <Property Name="加班時數" Type="int" />
           <Property Name="事由說明" Type="nvarchar" MaxLength="50" />
+          <Property Name="審核狀態" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="打卡系統">
           <Key>
@@ -670,7 +672,7 @@
           <Key>
             <PropertyRef Name="出差表編號" />
           </Key>
-          <Property Name="出差表編號" Type="Int32" Nullable="false" />
+          <Property Name="出差表編號" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="EmployeeID" Type="Int32" Nullable="false" />
           <Property Name="中文姓名" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="部門" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -682,6 +684,7 @@
           <Property Name="住宿需求" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="預支費用" Type="Int32" />
           <Property Name="備註" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="審核狀態" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="加班別">
           <Key>
@@ -704,6 +707,7 @@
           <Property Name="結束日期" Type="DateTime" Precision="3" />
           <Property Name="加班時數" Type="Int32" />
           <Property Name="事由說明" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="審核狀態" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="加班別" Relationship="dbEIPModel.FK_加班細項_加班別" FromRole="加班細項" ToRole="加班別" />
         </EntityType>
         <EntityType Name="打卡系統">
@@ -1082,6 +1086,7 @@
           <EntitySetMapping Name="出差細項">
             <EntityTypeMapping TypeName="dbEIPModel.出差細項">
               <MappingFragment StoreEntitySet="出差細項">
+                <ScalarProperty Name="審核狀態" ColumnName="審核狀態" />
                 <ScalarProperty Name="備註" ColumnName="備註" />
                 <ScalarProperty Name="預支費用" ColumnName="預支費用" />
                 <ScalarProperty Name="住宿需求" ColumnName="住宿需求" />
@@ -1108,6 +1113,7 @@
           <EntitySetMapping Name="加班細項">
             <EntityTypeMapping TypeName="dbEIPModel.加班細項">
               <MappingFragment StoreEntitySet="加班細項">
+                <ScalarProperty Name="審核狀態" ColumnName="審核狀態" />
                 <ScalarProperty Name="事由說明" ColumnName="事由說明" />
                 <ScalarProperty Name="加班時數" ColumnName="加班時數" />
                 <ScalarProperty Name="結束日期" ColumnName="結束日期" />

@@ -148,6 +148,7 @@
     <EntitySetMapping Name="出差細項">
       <EntityTypeMapping TypeName="dbEIPModel.出差細項">
         <MappingFragment StoreEntitySet="出差細項">
+          <ScalarProperty Name="審核狀態" ColumnName="審核狀態" />
           <ScalarProperty Name="備註" ColumnName="備註" />
           <ScalarProperty Name="預支費用" ColumnName="預支費用" />
           <ScalarProperty Name="住宿需求" ColumnName="住宿需求" />
@@ -174,6 +175,7 @@
     <EntitySetMapping Name="加班細項">
       <EntityTypeMapping TypeName="dbEIPModel.加班細項">
         <MappingFragment StoreEntitySet="加班細項">
+          <ScalarProperty Name="審核狀態" ColumnName="審核狀態" />
           <ScalarProperty Name="事由說明" ColumnName="事由說明" />
           <ScalarProperty Name="加班時數" ColumnName="加班時數" />
           <ScalarProperty Name="結束日期" ColumnName="結束日期" />
@@ -257,6 +259,14 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="假別">
+      <EntityTypeMapping TypeName="dbEIPModel.假別">
+        <MappingFragment StoreEntitySet="假別">
+          <ScalarProperty Name="假別1" ColumnName="假別" />
+          <ScalarProperty Name="假別ID" ColumnName="假別ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="通知">
       <EntityTypeMapping TypeName="dbEIPModel.通知">
         <MappingFragment StoreEntitySet="通知">
@@ -273,14 +283,6 @@
         <MappingFragment StoreEntitySet="通知類別">
           <ScalarProperty Name="通知類別1" ColumnName="通知類別" />
           <ScalarProperty Name="通知類別id" ColumnName="通知類別id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="假別">
-      <EntityTypeMapping TypeName="dbEIPModel.假別">
-        <MappingFragment StoreEntitySet="假別">
-          <ScalarProperty Name="假別1" ColumnName="假別" />
-          <ScalarProperty Name="假別ID" ColumnName="假別ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

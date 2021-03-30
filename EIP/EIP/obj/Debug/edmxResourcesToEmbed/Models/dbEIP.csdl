@@ -19,8 +19,10 @@
     <EntitySet Name="佈告欄" EntityType="dbEIPModel.佈告欄" />
     <EntitySet Name="表單類別" EntityType="dbEIPModel.表單類別" />
     <EntitySet Name="個人資料" EntityType="dbEIPModel.個人資料" />
+    <EntitySet Name="假別" EntityType="dbEIPModel.假別" />
     <EntitySet Name="通知" EntityType="dbEIPModel.通知" />
     <EntitySet Name="通知類別" EntityType="dbEIPModel.通知類別" />
+    <EntitySet Name="請假細項" EntityType="dbEIPModel.請假細項" />
     <AssociationSet Name="FK_pj總表_pj建立" Association="dbEIPModel.FK_pj總表_pj建立">
       <End Role="pj建立" EntitySet="pj建立" />
       <End Role="pj總表" EntitySet="pj總表" />
@@ -49,15 +51,13 @@
       <End Role="加班別" EntitySet="加班別" />
       <End Role="加班細項" EntitySet="加班細項" />
     </AssociationSet>
-    <AssociationSet Name="FK_通知_通知類別" Association="dbEIPModel.FK_通知_通知類別">
-      <End Role="通知類別" EntitySet="通知類別" />
-      <End Role="通知" EntitySet="通知" />
-    </AssociationSet>
-    <EntitySet Name="假別" EntityType="dbEIPModel.假別" />
-    <EntitySet Name="請假細項" EntityType="dbEIPModel.請假細項" />
     <AssociationSet Name="FK_請假細項_假別" Association="dbEIPModel.FK_請假細項_假別">
       <End Role="假別" EntitySet="假別" />
       <End Role="請假細項" EntitySet="請假細項" />
+    </AssociationSet>
+    <AssociationSet Name="FK_通知_通知類別" Association="dbEIPModel.FK_通知_通知類別">
+      <End Role="通知類別" EntitySet="通知類別" />
+      <End Role="通知" EntitySet="通知" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="MeetingRoom">
@@ -222,6 +222,7 @@
     <Property Name="住宿需求" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="預支費用" Type="Int32" />
     <Property Name="備註" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="審核狀態" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="加班別">
     <Key>
@@ -244,6 +245,7 @@
     <Property Name="結束日期" Type="DateTime" Precision="3" />
     <Property Name="加班時數" Type="Int32" />
     <Property Name="事由說明" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="審核狀態" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="加班別" Relationship="dbEIPModel.FK_加班細項_加班別" FromRole="加班細項" ToRole="加班別" />
   </EntityType>
   <EntityType Name="打卡系統">
@@ -312,6 +314,14 @@
     <Property Name="特休" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="權限" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
   </EntityType>
+  <EntityType Name="假別">
+    <Key>
+      <PropertyRef Name="假別ID" />
+    </Key>
+    <Property Name="假別ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="假別1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="請假細項" Relationship="dbEIPModel.FK_請假細項_假別" FromRole="假別" ToRole="請假細項" />
+  </EntityType>
   <EntityType Name="通知">
     <Key>
       <PropertyRef Name="通知流水號" />
@@ -330,6 +340,28 @@
     <Property Name="通知類別id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="通知類別1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="通知" Relationship="dbEIPModel.FK_通知_通知類別" FromRole="通知類別" ToRole="通知" />
+  </EntityType>
+  <EntityType Name="請假細項">
+    <Key>
+      <PropertyRef Name="申請表編號" />
+    </Key>
+    <Property Name="申請表編號" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EmployeeID" Type="Int32" Nullable="false" />
+    <Property Name="信箱" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="部門" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="假別ID" Type="Int32" />
+    <Property Name="請假班別" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="請假時數" Type="Int32" />
+    <Property Name="開始日期" Type="DateTime" Precision="3" />
+    <Property Name="結束日期" Type="DateTime" Precision="3" />
+    <Property Name="申請日期" Type="DateTime" Precision="3" />
+    <Property Name="代理人" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="審核狀態" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="中文姓名" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="職稱" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="已用可用" Type="Int32" />
+    <Property Name="圖片" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="假別" Relationship="dbEIPModel.FK_請假細項_假別" FromRole="請假細項" ToRole="假別" />
   </EntityType>
   <Association Name="FK_pj總表_pj建立">
     <End Type="dbEIPModel.pj建立" Role="pj建立" Multiplicity="0..1" />
@@ -415,48 +447,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_通知_通知類別">
-    <End Type="dbEIPModel.通知類別" Role="通知類別" Multiplicity="0..1" />
-    <End Type="dbEIPModel.通知" Role="通知" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="通知類別">
-        <PropertyRef Name="通知類別id" />
-      </Principal>
-      <Dependent Role="通知">
-        <PropertyRef Name="通知類別id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <EntityType Name="假別">
-    <Key>
-      <PropertyRef Name="假別ID" />
-    </Key>
-    <Property Name="假別ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="假別1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="請假細項" Relationship="dbEIPModel.FK_請假細項_假別" FromRole="假別" ToRole="請假細項" />
-  </EntityType>
-  <EntityType Name="請假細項">
-    <Key>
-      <PropertyRef Name="申請表編號" />
-    </Key>
-    <Property Name="申請表編號" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="EmployeeID" Type="Int32" Nullable="false" />
-    <Property Name="信箱" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="部門" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="假別ID" Type="Int32" />
-    <Property Name="請假班別" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="請假時數" Type="Int32" />
-    <Property Name="開始日期" Type="DateTime" Precision="3" />
-    <Property Name="結束日期" Type="DateTime" Precision="3" />
-    <Property Name="申請日期" Type="DateTime" Precision="3" />
-    <Property Name="代理人" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="審核狀態" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="中文姓名" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="職稱" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="已用可用" Type="Int32" />
-    <Property Name="圖片" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="假別" Relationship="dbEIPModel.FK_請假細項_假別" FromRole="請假細項" ToRole="假別" />
-  </EntityType>
   <Association Name="FK_請假細項_假別">
     <End Type="dbEIPModel.假別" Role="假別" Multiplicity="0..1" />
     <End Type="dbEIPModel.請假細項" Role="請假細項" Multiplicity="*" />
@@ -466,6 +456,18 @@
       </Principal>
       <Dependent Role="請假細項">
         <PropertyRef Name="假別ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_通知_通知類別">
+    <End Type="dbEIPModel.通知類別" Role="通知類別" Multiplicity="0..1" />
+    <End Type="dbEIPModel.通知" Role="通知" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="通知類別">
+        <PropertyRef Name="通知類別id" />
+      </Principal>
+      <Dependent Role="通知">
+        <PropertyRef Name="通知類別id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

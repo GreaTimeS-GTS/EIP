@@ -150,6 +150,7 @@
     <Property Name="住宿需求" Type="nvarchar" MaxLength="50" />
     <Property Name="預支費用" Type="int" />
     <Property Name="備註" Type="nvarchar" MaxLength="50" />
+    <Property Name="審核狀態" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="加班別">
     <Key>
@@ -171,6 +172,7 @@
     <Property Name="結束日期" Type="datetime" />
     <Property Name="加班時數" Type="int" />
     <Property Name="事由說明" Type="nvarchar" MaxLength="50" />
+    <Property Name="審核狀態" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="打卡系統">
     <Key>
