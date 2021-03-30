@@ -92,6 +92,7 @@ namespace EIP.Controllers
                 pj結束日期 = val.pj結束日期,
                 pj開始日期 = val.pj開始日期,
                 pj預估時間 = val.pj預估時間,
+                pjManagerId = val.pjManagerId,
             };
             db.pjProject.Add(x);
             db.SaveChanges();

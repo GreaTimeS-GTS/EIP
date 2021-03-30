@@ -531,7 +531,7 @@
             .sidebar('attach events', '.slidermenu');
 
         if (document.cookie != '') {
-            $('.CookieAuth').html(decodeURI(document.cookie.split('Auth=')[1].split('&')[0]));
+            $('.CookieAuth').html(decodeURI(document.cookie.split('Auth=')[1].split('&')[0]));            
             $('.CookieName').html(decodeURI(document.cookie.split('Name=')[1].split('&')[0]));
             $('.CookieID').html(decodeURI(document.cookie.split('id=')[1].split('&')[0]));
         } else {
