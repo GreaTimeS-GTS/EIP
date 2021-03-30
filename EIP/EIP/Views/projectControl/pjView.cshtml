@@ -1,0 +1,744 @@
+﻿
+<div class="ui pointing secondary menu">
+    <a class="item active" data-tab="first">專案列表</a>
+    <a class="item tab-tab-cr8pj" data-tab="second">建立專案</a>
+    <a class="item" data-tab="third">專案控管</a>
+</div>
+<div class="ui tab segment active" data-tab="first">
+    <table class="ui selectable celled table">
+        <thead>
+            <tr>
+                <th>專案名稱</th>
+                <th>負責人</th>
+                <th>概要</th>
+                <th>詳細</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>John</td>
+                <td>No Action</td>
+                <td>None</td>
+                <td class="selectable">
+                    <a href="#" class="woo">Edit</a>
+                </td>
+            </tr>
+            <tr>
+                <td>Jamie</td>
+                <td>Approved</td>
+                <td>Requires call</td>
+                <td class="selectable">
+                    <a href="#" class="sendInfo" data-id="1">Send</a>
+                </td>
+            </tr>
+            <tr>
+                <td>Jill</td>
+                <td>Denied</td>
+                <td>None</td>
+                <td class="selectable">
+                    <a href="#" class="tryyyy">Try</a>
+                </td>
+            </tr>
+            <tr class="warning">
+                <td>John</td>
+                <td>No Action</td>
+                <td>None</td>
+                <td class="selectable">
+                    <a href="#">Edit</a>
+                </td>
+            </tr>
+            <tr>
+                <td>Jamie</td>
+                <td class="positive">Approved</td>
+                <td class="warning">Requires call</td>
+                <td class="selectable">
+                    <a href="#">Edit</a>
+                </td>
+            </tr>
+            <tr>
+                <td>Jill</td>
+                <td class="negative">Denied</td>
+                <td>None</td>
+                <td class="selectable">
+                    <a href="#">Edit</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="ui tab segment " data-tab="second">
+    <div class="ui top attached tabular menu">
+        <a class="item active" data-tab="second/a" id="tab-pjCr8table">專案建立審核</a>
+        <a class="item" data-tab="second/b">建立初審</a>
+        <a class="item" data-tab="second/c" id="tab-appendCr8pjTeam" hidden>建立複審</a>
+    </div>
+    <div class="ui bottom attached tab segment active" data-tab="second/a" id="pjCr8table">
+        <table class="ui selectable celled table">
+            <thead>
+                <tr>
+                    <th>專案名稱</th>
+                    <th>審核階段</th>
+                    <th>審核結果</th>
+                    <th>詳細建議</th>
+                    <th>建立複審</th>
+                </tr>
+            </thead>
+            <tbody class="appendPjDataFromSql">
+                @*<tr>
+                    <td>Jamie</td>
+                    <td class="positive">Approved</td>
+                    <td class="positive">Approved</td>
+                    <td class="selectable positive">
+                        <a href="#">Approve</a>
+                    </td>
+                    <td class="selectable positive">
+                        <a href="#" class="testCCC">CCCCCC</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Jill</td>
+                    <td class="negative">Denied</td>
+                    <td class="positive">Approved</td>
+                    <td class="selectable negative">
+                        <a href="#">Remove</a>
+                    </td>
+                    <td class="selectable positive">
+                        <a href="#">Approve</a>
+                    </td>
+                </tr>
+                <tr class="warning">
+                    <td>John</td>
+                    <td>No Action</td>
+                    <td class="positive">Approved</td>
+                    <td class="selectable">
+                        <a href="#">Edit</a>
+                    </td>
+                    <td class="selectable positive">
+                        <a href="#">Approve</a>
+                    </td>
+                </tr>*@
+            </tbody>
+        </table>
+    </div>
+    <div class="ui bottom attached tab segment" data-tab="second/b">
+        <div class="ui form">
+            <div class="fields">
+                <div class="five wide field">
+                    <label>專案名稱</label>
+                    <input type="text" placeholder="" class="cr8專案名稱">
+                </div>
+                <div class="one wide field"></div>
+                <div class="five wide field">
+                    <label>專案預算</label>
+                    <input type="text" placeholder="" class="cr8專案預算">
+                </div>
+                <div class="five wide field"></div>
+            </div>
+            <div class="fields">
+                <div class="five wide field">
+                    <label>專案簡介</label>
+                    <input type="text" placeholder="" class="cr8專案簡介">
+                </div>
+                <div class="one wide field"></div>
+                <div class="five wide field">
+                    <label>專案成員數</label>
+                    <input type="text" placeholder="" class="cr8專案成員數">
+                </div>
+                <div class="five wide field"></div>
+            </div>
+            <div class="fields">
+                <div class="five wide field">
+                    <label>專案經理</label>
+                    <input type="text" placeholder="" class="cr8專案經理">
+                </div>
+                <div class="one wide field"></div>
+                <div class="two wide field">
+                    <label>開始日期</label>
+                    <input type="date" placeholder="" class="cr8開始日期">
+                </div>
+                <div class="two wide field">
+                    <label>結束日期</label>
+                    <input type="date" placeholder="" class="cr8結束日期">
+                </div>
+                <div class="one wide field">
+                    <label>預估時間</label>
+                    <input type="text" placeholder="" class="cr8預估時間">
+                </div>
+                <div class="five wide field"></div>
+            </div>
+            <div class="fields">
+                <div class="five wide field">
+                    <label>專案客戶</label>
+                    <input type="text" placeholder="" class="cr8專案客戶">
+                </div>
+                <div class="one wide field"></div>
+                <div class="five wide field"></div>
+                <div class="five wide field"></div>
+            </div>
+            <div class="fields mt-3">
+                <div class="eleven wide field d-flex justify-content-end">
+                    <button class="ui inverted red button">取消</button>
+                    <button class="ui inverted primary button cr8pjSubmit">確認</button>
+                </div>
+                <div class="five wide field d-flex"></div>
+            </div>
+        </div>
+    </div>
+    <div class="ui bottom attached tab segment appendCr8pjTeam" data-tab="second/c" id="appendCr8pjTeam">        
+        <form class="ui form">
+            <div class="fields">
+                <div class="two wide field">
+                    <label>部門</label>
+                    <input type="text" placeholder="First Name">
+                </div>
+                <div class="four wide field">
+                    <label>成員姓名</label>
+                    <input type="text" placeholder="Last Name">
+                </div>
+                <div class="five wide field">
+                    <label>專案項目</label>
+                    <input type="text" placeholder="Last Name">
+                </div>
+                <div class="five wide field"></div>
+            </div>
+        </form>
+        <form class="ui form">
+            <div class="eleven wide field d-flex justify-content-end">
+                <button class="ui inverted red button">取消</button>
+                <button class="ui inverted primary button">確認</button>
+            </div>
+            <div class="five wide field"></div>
+        </form>
+    </div>
+</div>
+<div class="ui tab segment" data-tab="third">
+    <div class="ui top attached tabular menu">
+        <a class="item active" data-tab="third/a">專案規劃</a>
+        <a class="item" data-tab="third/b">專案進度</a>
+        <a class="item" data-tab="third/c">每日進度</a>
+        <a class="item" data-tab="third/d">專案會議記錄</a>
+    </div>
+    <div class="ui bottom attached tab segment active" data-tab="third/a">
+        <div class="ui form">
+            <div class="fields">
+                <div class="three wide field">
+                    <label>專案名稱</label>
+                    <input type="text" placeholder="First Name">
+                </div>
+                <div class="two wide field">
+                    <label>專案階段</label>
+                    <input type="text" placeholder="First Name">
+                </div>
+                <div class="five wide field"></div>
+                <div class="six wide field"></div>
+            </div>
+            <div class="fields">
+                <div class="two wide field">
+                    <label>成員姓名</label>
+                    <input type="text" placeholder="Last Name">
+                </div>
+                <div class="one wide field">
+                    <label>部門</label>
+                    <input type="text" placeholder="First Name">
+                </div>
+                <div class="two wide field">
+                    <label>專案項目</label>
+                    <input type="text" placeholder="Last Name">
+                </div>
+                <div class="three wide field">
+                    <label>階段目標</label>
+                    <input type="text" placeholder="Last Name">
+                </div>
+                <div class="two wide field">
+                    <label>開始時間</label>
+                    <input type="date" placeholder="Last Name">
+                </div>
+                <div class="two wide field">
+                    <label>結束時間</label>
+                    <input type="date" placeholder="Last Name">
+                </div>
+                <div class="one wide field">
+                    <label>預估天數</label>
+                    <input type="text" placeholder="Last Name">
+                </div>
+                <div class="three wide field"></div>
+            </div>
+            <div class="fields">
+                <div class="two wide field">
+                    <label>成員姓名</label>
+                    <input type="text" placeholder="Last Name">
+                </div>
+                <div class="one wide field">
+                    <label>部門</label>
+                    <input type="text" placeholder="First Name">
+                </div>
+                <div class="two wide field">
+                    <label>專案項目</label>
+                    <input type="text" placeholder="Last Name">
+                </div>
+                <div class="three wide field">
+                    <label>階段目標</label>
+                    <input type="text" placeholder="Last Name">
+                </div>
+                <div class="two wide field">
+                    <label>開始時間</label>
+                    <input type="date" placeholder="Last Name">
+                </div>
+                <div class="two wide field">
+                    <label>結束時間</label>
+                    <input type="date" placeholder="Last Name">
+                </div>
+                <div class="one wide field">
+                    <label>預估天數</label>
+                    <input type="text" placeholder="Last Name">
+                </div>
+                <div class="three wide field"></div>
+            </div>
+            <div class="fields">
+                <div class="two wide field">
+                    <label>成員姓名</label>
+                    <input type="text" placeholder="Last Name">
+                </div>
+                <div class="one wide field">
+                    <label>部門</label>
+                    <input type="text" placeholder="First Name">
+                </div>
+                <div class="two wide field">
+                    <label>專案項目</label>
+                    <input type="text" placeholder="Last Name">
+                </div>
+                <div class="three wide field">
+                    <label>階段目標</label>
+                    <input type="text" placeholder="Last Name">
+                </div>
+                <div class="two wide field">
+                    <label>開始時間</label>
+                    <input type="date" placeholder="Last Name">
+                </div>
+                <div class="two wide field">
+                    <label>結束時間</label>
+                    <input type="date" placeholder="Last Name">
+                </div>
+                <div class="one wide field">
+                    <label>預估天數</label>
+                    <input type="text" placeholder="Last Name">
+                </div>
+                <div class="three wide field"></div>
+            </div>
+            <div class="fields mt-3">
+                <div class="thirteen wide field d-flex justify-content-end">
+                    <button class="ui inverted red button">取消</button>
+                    <button class="ui inverted primary button">確認</button>
+                </div>
+                <div class="three wide field d-flex"></div>
+            </div>
+        </div>
+
+    </div>
+    <div class="ui bottom attached tab segment" data-tab="third/b">
+        <table class="ui selectable celled table">
+            <thead>
+                <tr>
+                    <th>日期</th>
+                    <th>專案名稱</th>
+                    <th>成員姓名</th>
+                    <th>回報情況</th>
+                    <th>詳細</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Jamie</td>
+                    <td>Jamie</td>
+                    <td>Jamie</td>
+                    <td class="positive">Approved</td>
+                    <td class="selectable positive">
+                        <a href="#">Approve</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Jill</td>
+                    <td>Jamie</td>
+                    <td>Jamie</td>
+                    <td class="negative">Denied</td>
+                    <td class="selectable negative">
+                        <a href="#">Remove</a>
+                    </td>
+                </tr>
+                <tr class="warning">
+                    <td>John</td>
+                    <td>Jamie</td>
+                    <td>Jamie</td>
+                    <td>No Action</td>
+                    <td class="selectable">
+                        <a href="#">Edit</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="ui bottom attached tab segment" data-tab="third/c">
+        <div class="ui form">
+            <div class="fields">
+                <div class="four wide field">
+                    <label>日期</label>
+                    <input type="text" placeholder="First Name">
+                </div>
+                <div class="two wide field"></div>
+                <div class="five wide field"></div>
+                <div class="five wide field"></div>
+            </div>
+            <div class="fields">
+                <div class="four wide field">
+                    <label>專案名稱</label>
+                    <input type="text" placeholder="First Name">
+                </div>
+                <div class="two wide field"></div>
+                <div class="five wide field"></div>
+                <div class="five wide field"></div>
+            </div>
+            <div class="fields">
+                <div class="four wide field">
+                    <label>工作項目</label>
+                    <input type="text" placeholder="First Name">
+                </div>
+                <div class="two wide field"></div>
+                <div class="five wide field"></div>
+                <div class="five wide field"></div>
+            </div>
+            <div class="fields">
+                <div class="four wide field">
+                    <label>工作內容</label>
+                    <input type="text" placeholder="First Name">
+                </div>
+                <div class="two wide field"></div>
+                <div class="five wide field"></div>
+                <div class="five wide field"></div>
+            </div>
+            <div class="fields">
+                <div class="four wide field">
+                    <label>問題回報</label>
+                    <input type="text" placeholder="First Name">
+                </div>
+                <div class="two wide field"></div>
+                <div class="five wide field"></div>
+                <div class="five wide field"></div>
+            </div>
+            <div class="fields mt-3">
+                <div class="four wide field d-flex justify-content-end">
+                    <button class="ui inverted red button">取消</button>
+                    <button class="ui inverted primary button">確認</button>
+                </div>
+                <div class="twelve wide field d-flex"></div>
+            </div>
+        </div>
+    </div>
+    <div class="ui bottom attached tab segment" data-tab="third/d">
+        <div class="ui form">
+            <div class="fields">
+                <div class="four wide field">
+                    <label>開會日期</label>
+                    <input type="text" placeholder="First Name">
+                </div>
+                <div class="four wide field"></div>
+                <div class="four wide field"></div>
+                <div class="four wide field"></div>
+            </div>
+            <div class="fields">
+                <div class="four wide field">
+                    <label>專案名稱</label>
+                    <input type="text" placeholder="First Name">
+                </div>
+                <div class="four wide field"></div>
+                <div class="four wide field"></div>
+                <div class="four wide field"></div>
+            </div>
+            <div class="fields">
+                <div class="four wide field">
+                    <label>開會內容</label>
+                    <textarea type="text" placeholder="First Name"></textarea>
+                </div>
+                <div class="two wide field">
+                    <label>其他備註</label>
+                    <textarea type="text" placeholder="First Name"></textarea>
+                </div>
+                <div class="four wide field d-flex flex-column-reverse">
+                    <button class="ui inverted primary button mt-1">確認</button>
+                    <button class="ui inverted red button">取消</button>
+                </div>
+                <div class="six wide field"></div>
+            </div>
+            @*<div class="fields mt-3">
+                <div class="six wide field d-flex justify-content-end">
+                    <button class="ui inverted red button">取消</button>
+                    <button class="ui inverted primary button">確認</button>
+                </div>
+                <div class="six wide field d-flex"></div>
+            </div>*@
+        </div>
+    </div>
+</div>
+
+
+@*------------------------彈-----------------------------*@
+<div class="ui small modal centermodal" id="pjShowaaaaa">
+    <i class="close icon"></i>
+    <div class="header">
+        專案名稱
+    </div>
+    <div class="content">
+        <p>專案詳細內容</p>
+        <div class="ui form">
+            <div class="two fields">
+                <div class="field">
+                    <label>專案經理</label>
+                    <input placeholder="Read Only" readonly="" type="text">
+                </div>
+                <div class="field">
+                    <label>專案簡介</label>
+                    <input placeholder="Read Only" readonly="" type="text">
+                </div>
+            </div>
+            <div class="two fields">
+                <div class="field">
+                    <label>專案客戶</label>
+                    <input placeholder="Read Only" readonly="" type="text">
+                </div>
+                <div class="field">
+                    <label>專案預算</label>
+                    <input placeholder="Read Only" readonly="" type="text">
+                </div>
+            </div>
+            <div class="three fields">
+                <div class="field">
+                    <label>開始日期</label>
+                    <input placeholder="Read Only" readonly="" type="text">
+                </div>
+                <div class="field">
+                    <label>結束日期</label>
+                    <input placeholder="Read Only" readonly="" type="text">
+                </div>
+                <div class="field">
+                    <label>預估時間</label>
+                    <input placeholder="Read Only" readonly="" type="text">
+                </div>
+            </div>
+            <div class="fields">
+                <div class="four wide field">
+                    <label>專案成員</label>
+                    <input placeholder="Read Only" readonly="" type="text">
+                </div>
+                <div class="four wide field">
+                    <label>部門</label>
+                    <input placeholder="Read Only" readonly="" type="text">
+                </div>
+                <div class="eight wide field">
+                    <label>項目名稱</label>
+                    <input placeholder="Read Only" readonly="" type="text">
+                </div>
+            </div>
+            <div class="fields">
+                <div class="four wide field">
+                    <label>專案成員</label>
+                    <input placeholder="Read Only" readonly="" type="text">
+                </div>
+                <div class="four wide field">
+                    <label>部門</label>
+                    <input placeholder="Read Only" readonly="" type="text">
+                </div>
+                <div class="eight wide field">
+                    <label>項目名稱</label>
+                    <input placeholder="Read Only" readonly="" type="text">
+                </div>
+            </div>
+            <div class="fields">
+                <div class="four wide field">
+                    <label>專案成員</label>
+                    <input placeholder="Read Only" readonly="" type="text">
+                </div>
+                <div class="four wide field">
+                    <label>部門</label>
+                    <input placeholder="Read Only" readonly="" type="text">
+                </div>
+                <div class="eight wide field">
+                    <label>項目名稱</label>
+                    <input placeholder="Read Only" readonly="" type="text">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="actions d-flex justify-content-between">
+        <div>
+            <div class="ui primary button">規劃</div>
+            <div class="ui grey button ml-3">進度</div>
+        </div>
+        <div>
+            <div class="ui red deny button">取消</div>
+            <div class="ui positive right labeled icon button" style="width:135px">確認<i class="checkmark icon"></i></div>
+        </div>
+        @*<div class="ui approve button">Approve</div>
+        <div class="ui button">Neutral</div>
+        <div class="ui cancel button">Cancel</div>*@
+    </div>
+</div>
+
+
+@section script{
+    <script>
+
+
+
+        $('.menu .item').tab();
+
+
+        $('.woo').click(function () {
+            window.alert('woo');
+        });
+        $('.sendInfo').click(function () {
+            console.log($(event.currentTarget).data('id'));          
+            $.ajax({
+                url: "",
+                method: "post",
+                data: { 'id': $(event.currentTarget).data('id') },
+                success: function (data) {
+                    console.log('nice');
+                }
+            })
+        })
+        $('.tryyyy').click(function () {
+            $('#pjShowaaaaa').modal('show');
+        })
+        $('.testCCC').click(function () {
+            $('#tab-pjCr8table').removeClass('active');
+            $('#pjCr8table').removeClass('active');
+            $('#tab-appendCr8pjTeam').addClass('active');
+            $('#appendCr8pjTeam').addClass('active');
+            $('.appendCr8pjTeam').html(`Hello`);
+        })
+
+        $('.cr8pjSubmit').click(function () {
+            $.ajax({
+                url: "/projectControl/getCr8formVal",
+                method: "post",
+                data: {
+                    'pjName': $('.cr8專案名稱').val(),
+                    'pjBudget': $('.cr8專案預算').val(),
+                    'pjIntroduction': $('.cr8專案簡介').val(),
+                    'pjMemberCount': $('.cr8專案成員數').val(),
+                    'pjManager': $('.cr8專案經理').val(),
+                    'pj開始日期': $('.cr8開始日期').val(),
+                    'pj結束日期': $('.cr8結束日期').val(),
+                    'pj預估時間': $('.cr8預估時間').val(),
+                    'pjClient': $('.cr8專案客戶').val(),
+                },
+                success: function () {
+                    alert('成功新增資料');
+                }
+            });
+        })
+
+        $('.tab-tab-cr8pj').click(function () {
+            //$('.appendPjDataFromSql').html('wooow');
+            $.ajax({
+                url: "/projectControl/getPjProjectData",
+                method: "get",
+                success: function (data) {
+                    $('.appendPjDataFromSql').html("");
+                    $(data).each(function (index, item) {
+                        $('.appendPjDataFromSql').append(`
+                            <tr>
+                            <td>${item.pjName}</td>
+                            <td>為什麼不能用</td>
+                            <td>我快瘋掉了</td>
+                            <td class="selectable"><a href="#" onclick="showPjCr8Detail()" data-id="${item.pjId}">初審內容</a></td>
+                            <td class="selectable"><a href="#" class="pjCr8Preview" data-id="${item.pjId}">建立複審</a></td>    
+                            </tr>`
+                        )
+                    })
+                    $('.pjCr8Preview').click(function () {
+                        var id = $(event.currentTarget).data('id');
+                        //console.log(id);
+                        $.ajax({
+                            url: "/projectControl/getPjProjectDataFromId",
+                            method: "post",
+                            data: { "id": id },
+                            success: function (data) {
+                                //console.log(data.pjMemberCount);
+                                $('#tab-pjCr8table').removeClass('active');
+                                $('#pjCr8table').removeClass('active');
+                                $('#tab-appendCr8pjTeam').attr('hidden', false);
+                                $('#tab-appendCr8pjTeam').addClass('active');
+                                $('#appendCr8pjTeam').addClass('active');
+                                var membersCount = data.pjMemberCount;
+                                console.log(membersCount);
+                                $('#appendCr8pjTeam').html("");                                
+                                for (var i = 1; i <= membersCount; i++) {
+                                    $('#appendCr8pjTeam').append(`
+                                        <form class="ui form" id="cr8form${i}">
+                                            <div class="fields">
+                                                <div class="two wide field">
+                                                    <label>部門</label>
+                                                    <input type="text" placeholder="部門" name="pjMember部門">
+                                                </div>
+                                                <div class="four wide field">
+                                                    <label>成員姓名</label>
+                                                    <input type="text" placeholder="成員姓名" name="pjMemberName">
+                                                </div>
+                                                <div class="five wide field">
+                                                    <label>專案項目</label>
+                                                    <input type="text" placeholder="專案項目" name="pjTarget">
+                                                </div>
+                                                <div class="five wide field"></div>
+                                            </div>
+                                        </form>
+                                    `)
+                                }
+                                $('#appendCr8pjTeam').append(`
+                                    <div class="ui form">
+                                        <div class="eleven wide field d-flex justify-content-end">
+                                            <button class="ui inverted red button">取消</button>
+                                            <button class="ui inverted primary button" id="submitCr8preview2">確認</button>
+                                        </div>
+                                        <div class="five wide field"></div>
+                                    </div>
+                                `)
+                                $('#submitCr8preview2').click(function () {
+                                    for (var i = 1; i <= membersCount; i++) {                                        
+                                        console.log(document.querySelector(`#cr8form${i}`));
+                                        var formdata = new FormData(document.querySelector(`#cr8form${i}`));
+                                        $.ajax({
+                                            url: "/projectControl/savePreview2FormData",
+                                            method: "post",
+                                            data: formdata,
+                                            processData: false,
+                                            contentType: false,
+                                            success: function () {
+                                                window.alert('存進去了啦');
+                                            }
+                                        })
+                                    }
+                                    $('#tab-appendCr8pjTeam').removeClass('active');
+                                    $('#appendCr8pjTeam').removeClass('active');
+                                    $('#tab-pjCr8table').addClass('active');
+                                    $('#pjCr8table').addClass('active');
+                                    $('#tab-appendCr8pjTeam').attr('hidden', true);                                    
+                                })
+                            }
+                        })
+                    })
+                }
+            })
+        })
+
+        function showPjCr8Detail() {
+            var id = $(event.currentTarget).data('id');
+            //console.log(id);
+            $.ajax({
+                url: "",
+                method:"post",
+                data: { "id": id },
+                success: function () {}
+            })
+        }
+    </script>
+}
