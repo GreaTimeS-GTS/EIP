@@ -26,5 +26,6 @@ namespace EIP.Models
         public string 住宿需求 { get; set; }
         public Nullable<int> 預支費用 { get; set; }
         public string 備註 { get; set; }
+        public string 審核狀態 { get; set; }
     }
 }

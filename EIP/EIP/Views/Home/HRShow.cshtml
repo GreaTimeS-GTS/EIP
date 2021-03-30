@@ -60,7 +60,7 @@
     </div>
     <div class="actions">
         <div>
-            <button type="button" class="btn btn-secondary cancel ">Close</button>
+            <button type="button" class="btn btn-secondary cancel searchclose">Close</button>
         </div>
     </div>
 </div>
@@ -657,7 +657,7 @@
                             swal("查無會員資料", "請重新輸入", "error");
                         }
                         else {
-                            $("#searchinfo").modal('show');
+                            $("#searchinfo").modal('toggle');
                             $(".SearchShowTable").html("");
                             $(data).each(function (index, item) {
                                 $(".SearchShowTable").append(
@@ -679,10 +679,6 @@
 
         });
         //----------------------人事搜尋按鈕結束----------------------
-
-
-
-
         new TwCitySelector({
             el: ".CitySelect", // 同 DOM querySelector()
             elCounty: ".county",
