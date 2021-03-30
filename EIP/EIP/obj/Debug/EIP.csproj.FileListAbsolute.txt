@@ -1123,3 +1123,4 @@ D:\2021-03-25\EIP\EIP\obj\Debug\EIP.csproj.CoreCompileInputs.cache
 D:\2021-03-25\EIP\EIP\obj\Debug\EIP.csproj.CopyComplete
 D:\2021-03-25\EIP\EIP\obj\Debug\EIP.dll
 D:\2021-03-25\EIP\EIP\obj\Debug\EIP.pdb
+D:\MyEipFuck\EIP GITHUB\EIP\EIP\obj\Debug\EIP.csprojAssemblyReference.cache

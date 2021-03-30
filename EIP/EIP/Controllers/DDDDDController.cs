@@ -42,6 +42,7 @@ namespace EIP.Controllers
         }
         public string AskForAjax1(請假細項 k, HttpPostedFileBase upPhoto)  //
         {
+
             string filePath = "";
             if (upPhoto != null)
             {
