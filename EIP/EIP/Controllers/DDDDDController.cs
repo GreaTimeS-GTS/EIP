@@ -42,6 +42,7 @@ namespace EIP.Controllers
         }
         public string AskForAjax1(請假細項 k, HttpPostedFileBase upPhoto)  //
         {
+
             string filePath = "";
             if (upPhoto != null)
             {
@@ -301,6 +302,63 @@ namespace EIP.Controllers
             db.SaveChanges();
             return Json(updatebusiness, JsonRequestBehavior.AllowGet);
         }
-    }
+        //==================================搜尋=========================================
+        public JsonResult SearchAjax請假(string name)
+        {
+            var mlvm = db.請假細項.Where(m => m.中文姓名.Contains(name)).Select(m => new {
+                申請表編號 = m.申請表編號,
+                EmployeeID = m.EmployeeID,
+                信箱 = m.信箱,
+                部門 = m.部門,
+                假別ID = m.假別ID,
+                請假時數 = (int)m.請假時數,
+                開始日期 = m.開始日期,
+                結束日期 = m.結束日期,
+                申請日期 = m.申請日期,
+                中文姓名 = m.中文姓名,
+                職稱 = m.職稱,
+                請假班別 = m.請假班別,
+                代理人 = m.代理人,
+                審核狀態 = m.審核狀態,
+                假別1 = m.假別.假別1
+            }).OrderBy(g => g.EmployeeID).ToList();
+            return Json(mlvm.Take(10), JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult SearchAjax加班(string name)
+        {
+            var mlvm = db.加班細項.Where(m => m.中文姓名.Contains(name)).Select(n => new {
+                加班表編號 = n.加班表編號,
+                EmployeeID = n.EmployeeID,
+                中文姓名 = n.中文姓名,
+                部門 = n.部門,
+                開始日期 = n.開始日期,
+                結束日期 = n.結束日期,
+                加班時數 = n.加班時數,
+                加班ID = n.加班ID,
+                事由說明 = n.事由說明,
+                審核狀態 = n.審核狀態
+            }).OrderBy(g => g.EmployeeID).ToList();
+            return Json(mlvm.Take(10), JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult SearchAjax出差(string name)
+        {
+            var mlvm = db.出差細項.Where(m => m.中文姓名.Contains(name)).Select(x => new {
+                x.出差表編號,
+                x.EmployeeID,
+                x.中文姓名,
+                x.部門,
+                x.出差類型,
+                x.出差地點,
+                x.開始日期,
+                x.結束日期,
+                x.交通需求,
+                x.住宿需求,
+                x.預支費用,
+                x.備註,
+                x.審核狀態
+            }).OrderBy(g => g.EmployeeID).ToList();
+            return Json(mlvm.Take(10), JsonRequestBehavior.AllowGet);
+        }
 
+    }
 }
