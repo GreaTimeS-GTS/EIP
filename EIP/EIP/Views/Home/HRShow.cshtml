@@ -475,6 +475,7 @@
             }
             var form = document.querySelector(".EditUserProfile");
             var formData = new FormData(form);
+            console.log(formData);
             $.ajax({
                 url: "/Home/HREdit",
                 method: "Post",
