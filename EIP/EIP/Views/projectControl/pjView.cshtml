@@ -69,7 +69,7 @@
 <div class="ui tab segment " data-tab="second">
     <div class="ui top attached tabular menu">
         <a class="item active" data-tab="second/a" id="tab-pjCr8table">專案建立審核</a>
-        <a class="item" data-tab="second/b">建立初審</a>
+        <a class="item" data-tab="second/b" id="tab-pjCr8preview1">建立初審</a>
         <a class="item" data-tab="second/c" id="tab-appendCr8pjTeam" hidden>建立複審</a>
     </div>
     <div class="ui bottom attached tab segment active" data-tab="second/a" id="pjCr8table">
@@ -120,7 +120,7 @@
             </tbody>
         </table>
     </div>
-    <div class="ui bottom attached tab segment" data-tab="second/b">
+    <div class="ui bottom attached tab segment" data-tab="second/b" id="pjCr8preview1">
         <div class="ui form">
             <div class="fields">
                 <div class="five wide field">
@@ -585,7 +585,8 @@
 
 @section script{
     <script>
-
+        console.log(decodeURI(document.cookie.split('Name=')[1].split('&')[0]));
+        console.log(decodeURI(document.cookie.split('id=')[1].split('&')[0]))
 
 
         $('.menu .item').tab();
@@ -615,27 +616,103 @@
             $('#appendCr8pjTeam').addClass('active');
             $('.appendCr8pjTeam').html(`Hello`);
         })
-
-        $('.cr8pjSubmit').click(function () {
-            $.ajax({
-                url: "/projectControl/getCr8formVal",
-                method: "post",
-                data: {
-                    'pjName': $('.cr8專案名稱').val(),
-                    'pjBudget': $('.cr8專案預算').val(),
-                    'pjIntroduction': $('.cr8專案簡介').val(),
-                    'pjMemberCount': $('.cr8專案成員數').val(),
-                    'pjManager': $('.cr8專案經理').val(),
-                    'pj開始日期': $('.cr8開始日期').val(),
-                    'pj結束日期': $('.cr8結束日期').val(),
-                    'pj預估時間': $('.cr8預估時間').val(),
-                    'pjClient': $('.cr8專案客戶').val(),
-                },
-                success: function () {
-                    alert('成功新增資料');
-                }
-            });
-        })
+        $('#tab-pjCr8preview1').click(function () {
+            $('#pjCr8preview1').html("");
+            $('#pjCr8preview1').append(`
+               <form class="ui form pjCr8preview1Form">
+            <div class="fields">
+                <div class="five wide field">
+                    <label>專案名稱</label>
+                    <input type="text" placeholder="" class="cr8專案名稱">
+                </div>
+                <div class="one wide field"></div>
+                <div class="five wide field">
+                    <label>專案預算</label>
+                    <input type="text" placeholder="" class="cr8專案預算">
+                </div>
+                <div class="five wide field"></div>
+            </div>
+            <div class="fields">
+                <div class="five wide field">
+                    <label>專案簡介</label>
+                    <input type="text" placeholder="" class="cr8專案簡介">
+                </div>
+                <div class="one wide field"></div>
+                <div class="five wide field">
+                    <label>專案成員數</label>
+                    <input type="text" placeholder="" class="cr8專案成員數">
+                </div>
+                <div class="five wide field"></div>
+            </div>
+            <div class="fields">
+                <div class="five wide field">
+                    <label>專案經理</label>
+                    <input type="text" placeholder="" class="cr8專案經理" value="${ decodeURI(document.cookie.split('Name=')[1].split('&')[0])}">
+                </div>
+                <div class="one wide field"></div>
+                <div class="two wide field">
+                    <label>開始日期</label>
+                    <input type="date" placeholder="" class="cr8開始日期">
+                </div>
+                <div class="two wide field">
+                    <label>結束日期</label>
+                    <input type="date" placeholder="" class="cr8結束日期">
+                </div>
+                <div class="one wide field">
+                    <label>預估時間</label>
+                    <input type="text" placeholder="" class="cr8預估時間">
+                </div>
+                <div class="five wide field"></div>
+            </div>
+            <div class="fields">
+                <div class="five wide field">
+                    <label>專案客戶</label>
+                    <input type="text" placeholder="" class="cr8專案客戶">
+                </div>
+                <div class="one wide field">
+                    <input type="text" hidden class="cr8pjManagerId" value="${ decodeURI(document.cookie.split('id=')[1].split('&')[0])}">
+                </div>
+                <div class="five wide field"></div>
+                <div class="five wide field"></div>
+            </div>
+            <div class="fields mt-3">
+                <div class="eleven wide field d-flex justify-content-end">
+                    <button class="ui inverted red button" onclick="resetform()">重置</button>
+                    <button class="ui inverted primary button cr8pjSubmit">確認</button>
+                    <button type="reset" hidden id="theReset"></button>
+                </div>
+                <div class="five wide field d-flex"></div>
+            </div>
+        </form>
+            `);
+            $('.cr8pjSubmit').click(function () {
+                $.ajax({
+                    url: "/projectControl/getCr8formVal",
+                    method: "post",
+                    data: {
+                        'pjName': $('.cr8專案名稱').val(),
+                        'pjBudget': $('.cr8專案預算').val(),
+                        'pjIntroduction': $('.cr8專案簡介').val(),
+                        'pjMemberCount': $('.cr8專案成員數').val(),
+                        'pjManager': $('.cr8專案經理').val(),
+                        'pj開始日期': $('.cr8開始日期').val(),
+                        'pj結束日期': $('.cr8結束日期').val(),
+                        'pj預估時間': $('.cr8預估時間').val(),
+                        'pjClient': $('.cr8專案客戶').val(),
+                        'pjManagerId': $('.cr8pjManagerId').val(),
+                    },
+                    success: function () {
+                        alert('成功新增資料');
+                        $('#pjCr8preview1').toggleClass('active');
+                        $('#pjCr8table').toggleClass('active');
+                    }
+                });
+            })
+        });
+        function resetform() {
+            $('#theReset').click();
+        }
+        
 
         $('.tab-tab-cr8pj').click(function () {
             //$('.appendPjDataFromSql').html('wooow');
@@ -655,6 +732,16 @@
                             </tr>`
                         )
                     })
+                    function showPjCr8Detail() {
+                        var id = $(event.currentTarget).data('id');
+                        //console.log(id);
+                        $.ajax({
+                            url: "",
+                            method: "post",
+                            data: { "id": id },
+                            success: function () { }
+                        })
+                    }
                     $('.pjCr8Preview').click(function () {
                         var id = $(event.currentTarget).data('id');
                         //console.log(id);
@@ -712,11 +799,11 @@
                                             data: formdata,
                                             processData: false,
                                             contentType: false,
-                                            success: function () {
-                                                window.alert('存進去了啦');
+                                            success: function () {                                                
                                             }
                                         })
                                     }
+                                    window.alert('存進去了啦');
                                     $('#tab-appendCr8pjTeam').removeClass('active');
                                     $('#appendCr8pjTeam').removeClass('active');
                                     $('#tab-pjCr8table').addClass('active');
@@ -728,17 +815,6 @@
                     })
                 }
             })
-        })
-
-        function showPjCr8Detail() {
-            var id = $(event.currentTarget).data('id');
-            //console.log(id);
-            $.ajax({
-                url: "",
-                method:"post",
-                data: { "id": id },
-                success: function () {}
-            })
-        }
+        })        
     </script>
 }
