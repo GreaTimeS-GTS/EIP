@@ -6,6 +6,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Net.Mail;
 
 namespace EIP.Controllers
 {
@@ -273,6 +274,62 @@ namespace EIP.Controllers
                 return "員工編號與帳號不符合!,請重新輸入！";
             }
             else {
+                db.個人資料.FirstOrDefault(x => x.EmployeeID == 員工編號).EmployeePW = newpw;
+            }
+            db.SaveChanges();
+            return newpw;
+        }
+        public string sendGmail(int 員工編號, string 信箱)
+        {
+            var mmb = db.個人資料.FirstOrDefault(m => m.信箱 == 信箱 && m.EmployeeID == 員工編號);
+            Random Rdpw = new Random();
+
+            var newpw = Rdpw.Next(1, 10).ToString() + Rdpw.Next(1, 10).ToString() + Rdpw.Next(1, 10).ToString() + Rdpw.Next(1, 10).ToString() + Rdpw.Next(1, 10).ToString() + Rdpw.Next(1, 10).ToString();
+
+            if (mmb == null)
+            {
+                return "員工編號與帳號不符合!,請重新輸入！";
+            }
+            else {
+
+                MailMessage mail = new MailMessage();
+                //前面是發信email後面是顯示的名稱
+                mail.From = new MailAddress("hu999123000@gmail.com", "人資部");
+                //密碼:999123000hu
+                //收信者email
+                mail.To.Add(信箱);
+
+                //設定優先權
+                mail.Priority = MailPriority.Normal;
+
+                //標題
+                mail.Subject = "本信件由系統自動發送";
+
+                //內容
+                mail.Body = $"<h1>您好,{mmb.中文姓名}！</h1><p>系統已為您將您的登入密碼變更為「 {newpw} 」</p>";  
+
+                //內容使用html
+                mail.IsBodyHtml = true;
+
+                //設定gmail的smtp (這是google的)
+                SmtpClient MySmtp = new SmtpClient("smtp.gmail.com", 587);
+
+                MySmtp.Port = 25;
+                MySmtp.EnableSsl = true;
+                //您在gmail的帳號密碼
+                MySmtp.Credentials = new System.Net.NetworkCredential("hu999123000@gmail.com", "999123000hu");
+              
+                //開啟ssl
+                //MySmtp.EnableSsl = true;
+
+                //發送郵件
+                MySmtp.Send(mail);
+
+                //放掉宣告出來的MySmtp
+                MySmtp = null;
+
+                //放掉宣告出來的mail
+                mail.Dispose();
                 db.個人資料.FirstOrDefault(x => x.EmployeeID == 員工編號).EmployeePW = newpw;
             }
             db.SaveChanges();

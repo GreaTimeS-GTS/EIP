@@ -31,7 +31,8 @@
             </div>
             <div class="actions">
                 <div class="ui inverted red button cancel">取消</div>
-                <div class="ui inverted primary button" onclick="sendchpwreq()">確認發送</div>
+                <div class="ui inverted primary button reqsendpw" onclick="sendchpwreq()">確認發送</div>
+                @*<button class="ui inverted primary loading button reqsendpwloading" hidden>確認發送</button>*@
             </div>
         </form>
     </div>
@@ -151,19 +152,24 @@
 
         };
 
-        function sendchpwreq() {
+        function checkloading() {
+            if ($(".reqsendpw").click()) {
+                $(".reqsendpw").attr('hidden', true);
+                $(".reqsendpwloading").attr('hidden', false);
+            } else {
+                $(".reqsendpw").attr('hidden', false);
+                $(".reqsendpwloading").attr('hidden', true);
+            }
+
+        }
+        function sendchpwreq() {          
             if ($(".EmpEmail").val() == "" || $(".EmpID").val() == "") {
                 $(".EmpEmail").val("");
                 $(".EmpID").val("");
                 swal("密碼重置", "欄位請勿留空...", "error");
-            }   
-            if ($(".EmpEmail").val() != $(".EmpID").val()) {
-                swal("密碼重置", "編號與帳號有誤!請重新在試...", "error");
-                $(".EmpEmail").val("");
-                $(".EmpID").val("");
-            }
+            }    
                       $.ajax({
-                          url: "/Home/forgetpw",
+                          url: "/Home/sendGmail",
                           data: {
                               "信箱": $(".EmpEmail").val(),
                               "員工編號": $(".EmpID").val()                            
@@ -175,8 +181,8 @@
                                   $(".EmpEmail").val("");
                                   $(".EmpID").val("");
                                   $(".forgetpwmodal").modal('hide');
-                              } else {
-                                  swal('密碼重置', `密碼重置為'${data}',請於登入後盡速修改個人密碼!`, 'warning');
+                              } else {                    
+                                  swal('密碼重置', `密碼已為您變更並寄送至您的信箱',請於登入後盡速修改個人密碼!`, 'warning');
                                   $(".EmpEmail").val("");
                                   $(".EmpID").val("");
                                   $(".forgetpwmodal").modal('hide');
