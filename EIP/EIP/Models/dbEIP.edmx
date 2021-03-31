@@ -94,7 +94,7 @@
           <Property Name="pj開始日期" Type="date" />
           <Property Name="pj結束日期" Type="date" />
           <Property Name="pjManagerId" Type="nvarchar" MaxLength="50" />
-          <Property Name="pj預估時間" Type="int" />
+          <Property Name="pj預估時間" Type="nvarchar" MaxLength="50" />
           <Property Name="pj審核階段" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="pjReport">
@@ -128,7 +128,8 @@
           <Property Name="pjDuration" Type="nvarchar" MaxLength="50" />
           <Property Name="pjTask" Type="nvarchar" MaxLength="50" />
           <Property Name="pjFixedDuration" Type="nvarchar" MaxLength="50" />
-          <Property Name="pj所需時間" Type="nvarchar" MaxLength="50" />
+          <Property Name="pjTaskStartDate" Type="date" />
+          <Property Name="pjTaskEndDate" Type="date" />
         </EntityType>
         <EntityType Name="pj建立">
           <Key>
@@ -848,7 +849,7 @@
           <Property Name="pj開始日期" Type="DateTime" Precision="0" />
           <Property Name="pj結束日期" Type="DateTime" Precision="0" />
           <Property Name="pjManagerId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="pj預估時間" Type="Int32" />
+          <Property Name="pj預估時間" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="pj審核階段" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="pjAdvice" Relationship="dbEIPModel.FK_pjAdvice_pjProject" FromRole="pjProject" ToRole="pjAdvice" />
           <NavigationProperty Name="pjMeeting" Relationship="dbEIPModel.FK_pjMeeting_pjProject" FromRole="pjProject" ToRole="pjMeeting" />
@@ -888,7 +889,8 @@
           <Property Name="pjDuration" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="pjTask" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="pjFixedDuration" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="pj所需時間" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="pjTaskStartDate" Type="DateTime" Precision="0" />
+          <Property Name="pjTaskEndDate" Type="DateTime" Precision="0" />
           <NavigationProperty Name="pjProject" Relationship="dbEIPModel.FK_pjTeam_pjProject" FromRole="pjTeam" ToRole="pjProject" />
         </EntityType>
         <EntityType Name="pj建立">
@@ -1473,7 +1475,8 @@
           <EntitySetMapping Name="pjTeam">
             <EntityTypeMapping TypeName="dbEIPModel.pjTeam">
               <MappingFragment StoreEntitySet="pjTeam">
-                <ScalarProperty Name="pj所需時間" ColumnName="pj所需時間" />
+                <ScalarProperty Name="pjTaskEndDate" ColumnName="pjTaskEndDate" />
+                <ScalarProperty Name="pjTaskStartDate" ColumnName="pjTaskStartDate" />
                 <ScalarProperty Name="pjFixedDuration" ColumnName="pjFixedDuration" />
                 <ScalarProperty Name="pjTask" ColumnName="pjTask" />
                 <ScalarProperty Name="pjDuration" ColumnName="pjDuration" />

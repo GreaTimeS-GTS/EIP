@@ -121,7 +121,8 @@
     <EntitySetMapping Name="pjTeam">
       <EntityTypeMapping TypeName="dbEIPModel.pjTeam">
         <MappingFragment StoreEntitySet="pjTeam">
-          <ScalarProperty Name="pj所需時間" ColumnName="pj所需時間" />
+          <ScalarProperty Name="pjTaskEndDate" ColumnName="pjTaskEndDate" />
+          <ScalarProperty Name="pjTaskStartDate" ColumnName="pjTaskStartDate" />
           <ScalarProperty Name="pjFixedDuration" ColumnName="pjFixedDuration" />
           <ScalarProperty Name="pjTask" ColumnName="pjTask" />
           <ScalarProperty Name="pjDuration" ColumnName="pjDuration" />
