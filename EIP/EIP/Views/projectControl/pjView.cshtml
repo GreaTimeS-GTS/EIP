@@ -74,14 +74,14 @@
     </div>
     <div class="ui bottom attached tab segment active" data-tab="second/a" id="pjCr8table">
         <table class="ui selectable celled table">
-            <thead>
-                <tr>
+            <thead class="appendPjDataFromSql-th">
+                @*<tr>
                     <th>專案名稱</th>
                     <th>審核階段</th>
                     <th>審核結果</th>
                     <th>詳細建議</th>
                     <th>建立複審</th>
-                </tr>
+                </tr>*@
             </thead>
             <tbody class="appendPjDataFromSql">
                 @*<tr>
@@ -623,24 +623,24 @@
             <div class="fields">
                 <div class="five wide field">
                     <label>專案名稱</label>
-                    <input type="text" placeholder="" class="cr8專案名稱">
+                    <input type="text" placeholder="專案名稱" class="cr8專案名稱">
                 </div>
                 <div class="one wide field"></div>
                 <div class="five wide field">
                     <label>專案預算</label>
-                    <input type="text" placeholder="" class="cr8專案預算">
+                    <input type="text" placeholder="專案預算" class="cr8專案預算">
                 </div>
                 <div class="five wide field"></div>
             </div>
             <div class="fields">
                 <div class="five wide field">
                     <label>專案簡介</label>
-                    <input type="text" placeholder="" class="cr8專案簡介">
+                    <input type="text" placeholder="專案簡介" class="cr8專案簡介">
                 </div>
                 <div class="one wide field"></div>
                 <div class="five wide field">
                     <label>專案成員數</label>
-                    <input type="text" placeholder="" class="cr8專案成員數">
+                    <input type="text" placeholder="專案成員數" class="cr8專案成員數">
                 </div>
                 <div class="five wide field"></div>
             </div>
@@ -671,6 +671,8 @@
                 </div>
                 <div class="one wide field">
                     <input type="text" hidden class="cr8pjManagerId" value="${ decodeURI(document.cookie.split('id=')[1].split('&')[0])}">
+                    <input type="text" hidden class="cr8pj初審結果" value="待審核">
+                    <input type="text" hidden class="cr8pj審核階段" value="初審">
                 </div>
                 <div class="five wide field"></div>
                 <div class="five wide field"></div>
@@ -700,6 +702,8 @@
                         'pj預估時間': $('.cr8預估時間').val(),
                         'pjClient': $('.cr8專案客戶').val(),
                         'pjManagerId': $('.cr8pjManagerId').val(),
+                        'pj初審結果': $('.cr8pj初審結果').val(),
+                        'pj審核階段': $('.cr8pj審核階段').val(),
                     },
                     success: function () {
                         alert('成功新增資料');
@@ -720,99 +724,115 @@
                 url: "/projectControl/getPjProjectData",
                 method: "get",
                 success: function (data) {
-                    $('.appendPjDataFromSql').html("");
-                    $(data).each(function (index, item) {
-                        $('.appendPjDataFromSql').append(`
+                    if (data.length==0) {
+                        console.log('123');
+                    } else {
+                        $('.appendPjDataFromSql-th').html(`
                             <tr>
-                            <td>${item.pjName}</td>
-                            <td>為什麼不能用</td>
-                            <td>我快瘋掉了</td>
-                            <td class="selectable"><a href="#" onclick="showPjCr8Detail()" data-id="${item.pjId}">初審內容</a></td>
-                            <td class="selectable"><a href="#" class="pjCr8Preview" data-id="${item.pjId}">建立複審</a></td>    
-                            </tr>`
-                        )
-                    })
-                    function showPjCr8Detail() {
-                        var id = $(event.currentTarget).data('id');
-                        //console.log(id);
-                        $.ajax({
-                            url: "",
-                            method: "post",
-                            data: { "id": id },
-                            success: function () { }
+                                <th>專案名稱</th>
+                                <th>審核階段</th>
+                                <th>審核結果</th>
+                                <th>詳細建議</th>
+                                <th>建立複審</th>
+                            </tr>
+                        `);
+                        $('.appendPjDataFromSql').html("");
+                        $(data).each(function (index, item) {
+                            $('.appendPjDataFromSql').append(`
+                                <tr>
+                                <td>${item.pjName}</td>
+                                <td>${item.pj審核階段}</td>
+                                <td>${item.pj初審結果}</td>
+                                <td class="selectable"><a href="#" onclick="showPjCr8Detail()" data-id="${item.pjId}">查看更多</a></td>
+                                <td class="selectable"><a href="#" class="pjCr8Preview" data-id="${item.pjId}">建立複審</a></td>    
+                                </tr>`
+                            )
+                        })
+                        function showPjCr8Detail() {
+                            var id = $(event.currentTarget).data('id');
+                            //console.log(id);
+                            $.ajax({
+                                url: "",
+                                method: "post",
+                                data: { "id": id },
+                                success: function () { }
+                            })
+                        }
+                        $('.pjCr8Preview').click(function () {
+                            var id = $(event.currentTarget).data('id');
+                            //console.log(id);
+                            $.ajax({
+                                url: "/projectControl/getPjProjectDataFromId",
+                                method: "post",
+                                data: { "id": id },
+                                success: function (data) {
+                                    //console.log(data.pjMemberCount);
+                                    $('#tab-pjCr8table').toggleClass('active');
+                                    $('#pjCr8table').toggleClass('active');
+                                    $('#tab-appendCr8pjTeam').attr('hidden', false);
+                                    $('#tab-appendCr8pjTeam').toggleClass('active');
+                                    $('#appendCr8pjTeam').toggleClass('active');
+                                    var membersCount = data.pjMemberCount;
+                                    console.log(membersCount);
+                                    $('#appendCr8pjTeam').html("");                                
+                                    for (var i = 1; i <= membersCount; i++) {
+                                        $('#appendCr8pjTeam').append(`
+                                            <form class="ui form" id="cr8form${i}">
+                                                <div class="fields">
+                                                    <div class="two wide field">
+                                                        <label>部門</label>
+                                                        <input type="text" placeholder="部門" name="pjMember部門">
+                                                    </div>
+                                                    <div class="four wide field">
+                                                        <label>成員姓名</label>
+                                                        <input type="text" placeholder="成員姓名" name="pjMemberName">
+                                                    </div>
+                                                    <div class="five wide field">
+                                                        <label>專案項目</label>
+                                                        <input type="text" placeholder="專案項目" name="pjTarget">
+                                                    </div>
+                                                    <div class="five wide field"></div>
+                                                </div>
+                                            </form>
+                                        `)
+                                    }
+                                    $('#appendCr8pjTeam').append(`
+                                        <div class="ui form">
+                                            <div class="eleven wide field d-flex justify-content-end">
+                                                <button class="ui inverted red button">取消</button>
+                                                <button class="ui inverted primary button" id="submitCr8preview2">確認</button>
+                                            </div>
+                                            <div class="five wide field"></div>
+                                        </div>
+                                    `)
+                                    $('#submitCr8preview2').click(function () {
+                                        for (var i = 1; i <= membersCount; i++) {                                        
+                                            console.log(document.querySelector(`#cr8form${i}`));
+                                            var formdata = new FormData(document.querySelector(`#cr8form${i}`));
+                                            $.ajax({
+                                                url: "/projectControl/savePreview2FormData",
+                                                method: "post",
+                                                data: formdata,
+                                                processData: false,
+                                                contentType: false,
+                                                success: function () {                                                
+                                                }
+                                            })
+                                        }
+                                        window.alert('存進去了啦');
+                                        $('#tab-appendCr8pjTeam').toggleClass('active');
+                                        $('#appendCr8pjTeam').toggleClass('active');
+                                        $('#tab-pjCr8table').toggleClass('active');
+                                        $('#pjCr8table').toggleClass('active');
+                                        $('#tab-appendCr8pjTeam').attr('hidden', true);                                    
+                                    })
+                                    if () {
+
+                                    }
+                                }
+                            })
                         })
                     }
-                    $('.pjCr8Preview').click(function () {
-                        var id = $(event.currentTarget).data('id');
-                        //console.log(id);
-                        $.ajax({
-                            url: "/projectControl/getPjProjectDataFromId",
-                            method: "post",
-                            data: { "id": id },
-                            success: function (data) {
-                                //console.log(data.pjMemberCount);
-                                $('#tab-pjCr8table').removeClass('active');
-                                $('#pjCr8table').removeClass('active');
-                                $('#tab-appendCr8pjTeam').attr('hidden', false);
-                                $('#tab-appendCr8pjTeam').addClass('active');
-                                $('#appendCr8pjTeam').addClass('active');
-                                var membersCount = data.pjMemberCount;
-                                console.log(membersCount);
-                                $('#appendCr8pjTeam').html("");                                
-                                for (var i = 1; i <= membersCount; i++) {
-                                    $('#appendCr8pjTeam').append(`
-                                        <form class="ui form" id="cr8form${i}">
-                                            <div class="fields">
-                                                <div class="two wide field">
-                                                    <label>部門</label>
-                                                    <input type="text" placeholder="部門" name="pjMember部門">
-                                                </div>
-                                                <div class="four wide field">
-                                                    <label>成員姓名</label>
-                                                    <input type="text" placeholder="成員姓名" name="pjMemberName">
-                                                </div>
-                                                <div class="five wide field">
-                                                    <label>專案項目</label>
-                                                    <input type="text" placeholder="專案項目" name="pjTarget">
-                                                </div>
-                                                <div class="five wide field"></div>
-                                            </div>
-                                        </form>
-                                    `)
-                                }
-                                $('#appendCr8pjTeam').append(`
-                                    <div class="ui form">
-                                        <div class="eleven wide field d-flex justify-content-end">
-                                            <button class="ui inverted red button">取消</button>
-                                            <button class="ui inverted primary button" id="submitCr8preview2">確認</button>
-                                        </div>
-                                        <div class="five wide field"></div>
-                                    </div>
-                                `)
-                                $('#submitCr8preview2').click(function () {
-                                    for (var i = 1; i <= membersCount; i++) {                                        
-                                        console.log(document.querySelector(`#cr8form${i}`));
-                                        var formdata = new FormData(document.querySelector(`#cr8form${i}`));
-                                        $.ajax({
-                                            url: "/projectControl/savePreview2FormData",
-                                            method: "post",
-                                            data: formdata,
-                                            processData: false,
-                                            contentType: false,
-                                            success: function () {                                                
-                                            }
-                                        })
-                                    }
-                                    window.alert('存進去了啦');
-                                    $('#tab-appendCr8pjTeam').removeClass('active');
-                                    $('#appendCr8pjTeam').removeClass('active');
-                                    $('#tab-pjCr8table').addClass('active');
-                                    $('#pjCr8table').addClass('active');
-                                    $('#tab-appendCr8pjTeam').attr('hidden', true);                                    
-                                })
-                            }
-                        })
-                    })
                 }
             })
         })        

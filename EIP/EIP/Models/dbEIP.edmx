@@ -95,6 +95,7 @@
           <Property Name="pj結束日期" Type="date" />
           <Property Name="pjManagerId" Type="nvarchar" MaxLength="50" />
           <Property Name="pj預估時間" Type="int" />
+          <Property Name="pj審核階段" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="pjReport">
           <Key>
@@ -848,6 +849,7 @@
           <Property Name="pj結束日期" Type="DateTime" Precision="0" />
           <Property Name="pjManagerId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="pj預估時間" Type="Int32" />
+          <Property Name="pj審核階段" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="pjAdvice" Relationship="dbEIPModel.FK_pjAdvice_pjProject" FromRole="pjProject" ToRole="pjAdvice" />
           <NavigationProperty Name="pjMeeting" Relationship="dbEIPModel.FK_pjMeeting_pjProject" FromRole="pjProject" ToRole="pjMeeting" />
           <NavigationProperty Name="pjOverall" Relationship="dbEIPModel.FK_pjOverall_pjProject" FromRole="pjProject" ToRole="pjOverall" />
@@ -1433,6 +1435,7 @@
           <EntitySetMapping Name="pjProject">
             <EntityTypeMapping TypeName="dbEIPModel.pjProject">
               <MappingFragment StoreEntitySet="pjProject">
+                <ScalarProperty Name="pj審核階段" ColumnName="pj審核階段" />
                 <ScalarProperty Name="pj預估時間" ColumnName="pj預估時間" />
                 <ScalarProperty Name="pjManagerId" ColumnName="pjManagerId" />
                 <ScalarProperty Name="pj結束日期" ColumnName="pj結束日期" />

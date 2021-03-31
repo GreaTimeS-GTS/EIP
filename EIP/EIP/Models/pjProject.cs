@@ -37,6 +37,7 @@ namespace EIP.Models
         public Nullable<System.DateTime> pj結束日期 { get; set; }
         public string pjManagerId { get; set; }
         public Nullable<int> pj預估時間 { get; set; }
+        public string pj審核階段 { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<pjAdvice> pjAdvice { get; set; }

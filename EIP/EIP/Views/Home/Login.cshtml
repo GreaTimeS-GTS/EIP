@@ -157,11 +157,11 @@
                 $(".EmpID").val("");
                 swal("密碼重置", "欄位請勿留空...", "error");
             }   
-            if ($(".EmpEmail").val() != $(".EmpID").val()) {
-                swal("密碼重置", "編號與帳號有誤!請重新在試...", "error");
-                $(".EmpEmail").val("");
-                $(".EmpID").val("");
-            }
+            //if ($(".EmpEmail").val() != $(".EmpID").val()) {
+            //    swal("密碼重置", "編號與帳號有誤!請重新在試...", "error");
+            //    $(".EmpEmail").val("");
+            //    $(".EmpID").val("");
+            //}
                       $.ajax({
                           url: "/Home/forgetpw",
                           data: {

@@ -83,6 +83,7 @@
     <EntitySetMapping Name="pjProject">
       <EntityTypeMapping TypeName="dbEIPModel.pjProject">
         <MappingFragment StoreEntitySet="pjProject">
+          <ScalarProperty Name="pj審核階段" ColumnName="pj審核階段" />
           <ScalarProperty Name="pj預估時間" ColumnName="pj預估時間" />
           <ScalarProperty Name="pjManagerId" ColumnName="pjManagerId" />
           <ScalarProperty Name="pj結束日期" ColumnName="pj結束日期" />

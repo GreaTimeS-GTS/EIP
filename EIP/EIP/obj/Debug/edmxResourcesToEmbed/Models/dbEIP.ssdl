@@ -90,6 +90,7 @@
     <Property Name="pj結束日期" Type="date" />
     <Property Name="pjManagerId" Type="nvarchar" MaxLength="50" />
     <Property Name="pj預估時間" Type="int" />
+    <Property Name="pj審核階段" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="pjReport">
     <Key>
