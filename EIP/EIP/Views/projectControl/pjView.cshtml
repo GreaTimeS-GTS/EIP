@@ -77,8 +77,8 @@
             <thead>
                 <tr>
                     <th>專案名稱</th>
+                    <th>負責人</th>                 
                     <th>審核階段</th>
-                    <th>審核結果</th>
                     <th>詳細建議</th>
                     <th>建立複審</th>
                 </tr>
@@ -725,7 +725,8 @@
                         $('.appendPjDataFromSql').append(`
                             <tr>
                             <td>${item.pjName}</td>
-                            <td>為什麼不能用</td>
+                            <td>${item.pj開始日期}</td>
+                            <td>${item.pj結束日期}</td>
                             <td>我快瘋掉了</td>
                             <td class="selectable"><a href="#" onclick="showPjCr8Detail()" data-id="${item.pjId}">初審內容</a></td>
                             <td class="selectable"><a href="#" class="pjCr8Preview" data-id="${item.pjId}">建立複審</a></td>    

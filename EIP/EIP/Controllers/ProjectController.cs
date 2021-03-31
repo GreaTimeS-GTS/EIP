@@ -43,7 +43,7 @@ namespace EIP.Controllers
                 pjManager = a.pjManager,
                 pjBudget = a.pj建立.pjBudget,
                 pj初審意見 = a.pj建立.pj初審意見,
-                pj初審狀態 = a.pj建立.pj審核狀態,
+                pj審核狀態 = a.pj建立.pj審核狀態,
                 pj成員數 = a.pj建立.pj成員數,
 
                 pj簡介 = a.pj建立.pj簡介,
@@ -61,15 +61,18 @@ namespace EIP.Controllers
 
         public JsonResult PJShowEdit初審未通過()
         {
-            var pjm = dbEIP.pj總表.Select(a => new
-            {
+            
+             var pjm = from a in dbEIP.pj總表
+                       where a.pj建立.pj審核狀態 == "初審未審核"
+                       select new
+                       {
                 pjName = a.pjName,
                 pjCreateId = a.pjCreateId,
                 pjId = a.pjId,
                 pjManager = a.pjManager,
                 pjBudget = a.pj建立.pjBudget,
                 pj初審意見 = a.pj建立.pj初審意見,
-                pj初審狀態 = a.pj建立.pj審核狀態,
+                           pj審核狀態 = a.pj建立.pj審核狀態,
                 pj成員數 = a.pj建立.pj成員數,
 
                 pj簡介 = a.pj建立.pj簡介,
@@ -77,7 +80,7 @@ namespace EIP.Controllers
                 pj複審意見 = a.pj建立.pj複審意見
 
 
-            });
+            };
 
 
             return Json(pjm, JsonRequestBehavior.AllowGet);
@@ -87,16 +90,18 @@ namespace EIP.Controllers
 
         public JsonResult PJShowEdit初審通過()
         {
-            
-            var pjm = dbEIP.pj總表.Select(a => new
-            {
+
+            var pjm = from a in dbEIP.pj總表
+                      where a.pj建立.pj審核狀態 == "初審未通過"
+                      select new
+                      {
                 pjName = a.pjName,
                 pjCreateId = a.pjCreateId,
                 pjId = a.pjId,
                 pjManager = a.pjManager,
                 pjBudget = a.pj建立.pjBudget,
                 pj初審意見 = a.pj建立.pj初審意見,
-                pj初審狀態 = a.pj建立.pj審核狀態,
+                          pj審核狀態 = a.pj建立.pj審核狀態,
                 pj成員數 = a.pj建立.pj成員數,
 
                 pj簡介 = a.pj建立.pj簡介,
@@ -104,7 +109,7 @@ namespace EIP.Controllers
                 pj複審意見 = a.pj建立.pj複審意見
 
 
-            });
+            };
 
 
             return Json(pjm, JsonRequestBehavior.AllowGet);
@@ -112,15 +117,17 @@ namespace EIP.Controllers
 
         public JsonResult PJShowEdit複審未通過()
         {
-            var pjm = dbEIP.pj總表.Select(a => new
-            {
+            var pjm = from a in dbEIP.pj總表
+                      where a.pj建立.pj審核狀態 == "初審通過"
+                      select new
+                      {
                 pjName = a.pjName,
                 pjCreateId = a.pjCreateId,
                 pjId = a.pjId,
                 pjManager = a.pjManager,
                 pjBudget = a.pj建立.pjBudget,
                 pj初審意見 = a.pj建立.pj初審意見,
-                pj初審狀態 = a.pj建立.pj審核狀態,
+                          pj審核狀態 = a.pj建立.pj審核狀態,
                 pj成員數 = a.pj建立.pj成員數,
 
                 pj簡介 = a.pj建立.pj簡介,
@@ -128,7 +135,7 @@ namespace EIP.Controllers
                 pj複審意見 = a.pj建立.pj複審意見
 
 
-            });
+            };
 
 
             return Json(pjm, JsonRequestBehavior.AllowGet);
@@ -137,15 +144,17 @@ namespace EIP.Controllers
 
         public JsonResult PJShowEdit複審通過()
         {
-            var pjm = dbEIP.pj總表.Select(a => new
-            {
+            var pjm = from a in dbEIP.pj總表
+                      where a.pj建立.pj審核狀態 == "複審未通過"
+                      select new
+                      {
                 pjName = a.pjName,
                 pjCreateId = a.pjCreateId,
                 pjId = a.pjId,
                 pjManager = a.pjManager,
                 pjBudget = a.pj建立.pjBudget,
                 pj初審意見 = a.pj建立.pj初審意見,
-                pj初審狀態 = a.pj建立.pj審核狀態,
+                          pj審核狀態 = a.pj建立.pj審核狀態,
                 pj成員數 = a.pj建立.pj成員數,
 
                 pj簡介 = a.pj建立.pj簡介,
@@ -153,7 +162,7 @@ namespace EIP.Controllers
                 pj複審意見 = a.pj建立.pj複審意見
 
 
-            });
+            };
 
 
             return Json(pjm, JsonRequestBehavior.AllowGet);
