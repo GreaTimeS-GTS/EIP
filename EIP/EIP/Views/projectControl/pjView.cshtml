@@ -2,10 +2,10 @@
 <div class="ui pointing secondary menu">
     <a class="item active" data-tab="first">專案列表</a>
     <a class="item tab-tab-cr8pj" data-tab="second">建立專案</a>
-    <a class="item" data-tab="third">專案控管</a>
+    <a class="item" data-tab="third" hidden>專案控管</a>
 </div>
-<div class="ui tab segment active" data-tab="first">
-    <table class="ui selectable celled table">
+<div class="ui tab segment active" data-tab="first" id="pjListView">
+    @*<table class="ui selectable celled table">
         <thead>
             <tr>
                 <th>專案名稱</th>
@@ -64,7 +64,7 @@
                 </td>
             </tr>
         </tbody>
-    </table>
+    </table>*@
 </div>
 <div class="ui tab segment " data-tab="second">
     <div class="ui top attached tabular menu">
@@ -73,15 +73,16 @@
         <a class="item" data-tab="second/c" id="tab-appendCr8pjTeam" hidden>建立複審</a>
     </div>
     <div class="ui bottom attached tab segment active" data-tab="second/a" id="pjCr8table">
+        <div class="appendPjCr8Info"></div>
         <table class="ui selectable celled table">
-            <thead>
-                <tr>
+            <thead class="appendPjDataFromSql-th">
+                @*<tr>
                     <th>專案名稱</th>
                     <th>審核階段</th>
                     <th>審核結果</th>
                     <th>詳細建議</th>
                     <th>建立複審</th>
-                </tr>
+                </tr>*@
             </thead>
             <tbody class="appendPjDataFromSql">
                 @*<tr>
@@ -213,12 +214,12 @@
 </div>
 <div class="ui tab segment" data-tab="third">
     <div class="ui top attached tabular menu">
-        <a class="item active" data-tab="third/a">專案規劃</a>
-        <a class="item" data-tab="third/b">專案進度</a>
-        <a class="item" data-tab="third/c">每日進度</a>
-        <a class="item" data-tab="third/d">專案會議記錄</a>
+        <a class="item active" data-tab="third/a" id="tab-pjPlanForm">專案規劃</a>
+        <a class="item" data-tab="third/b" id="tab-pjPlanTable">專案進度</a>
+        <a class="item" data-tab="third/c" id="tab-pjPlanMemberReport">每日進度</a>
+        <a class="item" data-tab="third/d" id="pjMeetingRecord">專案會議記錄</a>
     </div>
-    <div class="ui bottom attached tab segment active" data-tab="third/a">
+    <div class="ui bottom attached tab segment active" data-tab="third/a" id="pjPlanForm">
         <div class="ui form">
             <div class="fields">
                 <div class="three wide field">
@@ -240,6 +241,14 @@
                 <div class="one wide field">
                     <label>部門</label>
                     <input type="text" placeholder="First Name">
+                    @*<select class="ui dropdown">
+                        <option value="">部門</option>
+                        <option value="資訊部">資訊部</option>
+                        <option value="人事部">人事部</option>
+                        <option value="總務部">總務部</option>
+                        <option value="財務部">財務部</option>
+                        <option value="業務部">業務部</option>
+                    </select>*@
                 </div>
                 <div class="two wide field">
                     <label>專案項目</label>
@@ -258,7 +267,49 @@
                     <input type="date" placeholder="Last Name">
                 </div>
                 <div class="one wide field">
-                    <label>預估天數</label>
+                    <label>工作天數</label>
+                    <input type="text" placeholder="Last Name">
+                </div>                
+                <div class="three wide field">
+                    @*<label>預估天數</label>
+                    <select class="ui search dropdown">
+                        <option value="">部門</option>
+                        <option value="資訊部">資訊部</option>
+                        <option value="人事部">人事部</option>
+                        <option value="總務部">總務部</option>
+                        <option value="財務部">財務部</option>
+                        <option value="業務部">業務部</option>
+                    </select>*@
+                </div>
+                @*<div class="two wide field"></div>*@
+            </div>
+            <div class="fields">
+                <div class="two wide field">
+                    <label>成員姓名</label>
+                    <input type="text" placeholder="Last Name">
+                </div>
+                <div class="one wide field">
+                    <label>部門</label>
+                    <input type="text" placeholder="First Name">
+                </div>
+                <div class="two wide field">
+                    <label>專案項目</label>
+                    <input type="text" placeholder="Last Name">
+                </div>
+                <div class="three wide field">
+                    <label>階段目標</label>
+                    <input type="text" placeholder="Last Name">
+                </div>
+                <div class="two wide field">
+                    <label>開始時間</label>
+                    <input type="date" placeholder="Last Name">
+                </div>
+                <div class="two wide field">
+                    <label>結束時間</label>
+                    <input type="date" placeholder="Last Name">
+                </div>
+                <div class="one wide field">
+                    <label>工作天數</label>
                     <input type="text" placeholder="Last Name">
                 </div>
                 <div class="three wide field"></div>
@@ -289,38 +340,7 @@
                     <input type="date" placeholder="Last Name">
                 </div>
                 <div class="one wide field">
-                    <label>預估天數</label>
-                    <input type="text" placeholder="Last Name">
-                </div>
-                <div class="three wide field"></div>
-            </div>
-            <div class="fields">
-                <div class="two wide field">
-                    <label>成員姓名</label>
-                    <input type="text" placeholder="Last Name">
-                </div>
-                <div class="one wide field">
-                    <label>部門</label>
-                    <input type="text" placeholder="First Name">
-                </div>
-                <div class="two wide field">
-                    <label>專案項目</label>
-                    <input type="text" placeholder="Last Name">
-                </div>
-                <div class="three wide field">
-                    <label>階段目標</label>
-                    <input type="text" placeholder="Last Name">
-                </div>
-                <div class="two wide field">
-                    <label>開始時間</label>
-                    <input type="date" placeholder="Last Name">
-                </div>
-                <div class="two wide field">
-                    <label>結束時間</label>
-                    <input type="date" placeholder="Last Name">
-                </div>
-                <div class="one wide field">
-                    <label>預估天數</label>
+                    <label>工作天數</label>
                     <input type="text" placeholder="Last Name">
                 </div>
                 <div class="three wide field"></div>
@@ -335,7 +355,7 @@
         </div>
 
     </div>
-    <div class="ui bottom attached tab segment" data-tab="third/b">
+    <div class="ui bottom attached tab segment" data-tab="third/b" id="pjPlanTable">
         <table class="ui selectable celled table">
             <thead>
                 <tr>
@@ -377,7 +397,7 @@
             </tbody>
         </table>
     </div>
-    <div class="ui bottom attached tab segment" data-tab="third/c">
+    <div class="ui bottom attached tab segment" data-tab="third/c" id="pjPlanMemberReport">
         <div class="ui form">
             <div class="fields">
                 <div class="four wide field">
@@ -433,7 +453,7 @@
             </div>
         </div>
     </div>
-    <div class="ui bottom attached tab segment" data-tab="third/d">
+    <div class="ui bottom attached tab segment" data-tab="third/d" id="pjMeetingRecord">
         <div class="ui form">
             <div class="fields">
                 <div class="four wide field">
@@ -585,18 +605,18 @@
 
 @section script{
     <script>
-        console.log(decodeURI(document.cookie.split('Name=')[1].split('&')[0]));
-        console.log(decodeURI(document.cookie.split('id=')[1].split('&')[0]))
-
+        //console.log(decodeURI(document.cookie.split('Name=')[1].split('&')[0]));
+        //console.log(decodeURI(document.cookie.split('id=')[1].split('&')[0]));
+        
+       
 
         $('.menu .item').tab();
-
-
+       
         $('.woo').click(function () {
             window.alert('woo');
         });
         $('.sendInfo').click(function () {
-            console.log($(event.currentTarget).data('id'));          
+            console.log($(event.currentTarget).data('id'));
             $.ajax({
                 url: "",
                 method: "post",
@@ -619,73 +639,97 @@
         $('#tab-pjCr8preview1').click(function () {
             $('#pjCr8preview1').html("");
             $('#pjCr8preview1').append(`
-               <form class="ui form pjCr8preview1Form">
-            <div class="fields">
-                <div class="five wide field">
-                    <label>專案名稱</label>
-                    <input type="text" placeholder="" class="cr8專案名稱">
+                   <form class="ui form pjCr8preview1Form">
+                <div class="fields">
+                    <div class="five wide field">
+                        <label>專案名稱</label>
+                        <input type="text" placeholder="專案名稱" class="cr8專案名稱">
+                    </div>
+                    <div class="one wide field"></div>
+                    <div class="five wide field">
+                        <label>專案預算</label>
+                        <input type="text" placeholder="專案預算" class="cr8專案預算">
+                    </div>
+                    <div class="five wide field"></div>
                 </div>
-                <div class="one wide field"></div>
-                <div class="five wide field">
-                    <label>專案預算</label>
-                    <input type="text" placeholder="" class="cr8專案預算">
+                <div class="fields">
+                    <div class="five wide field">
+                        <label>專案簡介</label>
+                        <input type="text" placeholder="專案簡介" class="cr8專案簡介">
+                    </div>
+                    <div class="one wide field"></div>
+                    <div class="five wide field">
+                        <label>專案成員數</label>
+                        <input type="text" placeholder="專案成員數" class="cr8專案成員數">
+                    </div>
+                    <div class="five wide field"></div>
                 </div>
-                <div class="five wide field"></div>
-            </div>
-            <div class="fields">
-                <div class="five wide field">
-                    <label>專案簡介</label>
-                    <input type="text" placeholder="" class="cr8專案簡介">
+                <div class="fields">
+                    <div class="five wide field">
+                        <label>專案經理</label>
+                        <input type="text" placeholder="" class="cr8專案經理" value="${decodeURI(document.cookie.split('Name=')[1].split('&')[0])}">
+                    </div>
+                    <div class="one wide field"></div>
+                    <div class="two wide field">
+                        <label>開始日期</label>
+                        <input type="date" placeholder="" class="cr8開始日期" id="pj初審Cr8startDate">
+                    </div>
+                    <div class="two wide field">
+                        <label>結束日期</label>
+                        <input type="date" placeholder="" class="cr8結束日期" id="pj初審Cr8endDate">
+                    </div>
+                    <div class="one wide field">
+                        <label>預估時間</label>
+                        <input type="text" placeholder="" class="cr8預估時間" readonly>
+                    </div>
+                    <div class="five wide field"></div>
                 </div>
-                <div class="one wide field"></div>
-                <div class="five wide field">
-                    <label>專案成員數</label>
-                    <input type="text" placeholder="" class="cr8專案成員數">
+                <div class="fields">
+                    <div class="five wide field">
+                        <label>專案客戶</label>
+                        <input type="text" placeholder="" class="cr8專案客戶">
+                    </div>
+                    <div class="one wide field">
+                        <input type="text" hidden class="cr8pjManagerId" value="${decodeURI(document.cookie.split('id=')[1].split('&')[0])}">
+                        <input type="text" hidden class="cr8pj初審結果" value="待審核">
+                        <input type="text" hidden class="cr8pj審核階段" value="初審">
+                    </div>
+                    <div class="five wide field"></div>
+                    <div class="five wide field"></div>
                 </div>
-                <div class="five wide field"></div>
-            </div>
-            <div class="fields">
-                <div class="five wide field">
-                    <label>專案經理</label>
-                    <input type="text" placeholder="" class="cr8專案經理" value="${ decodeURI(document.cookie.split('Name=')[1].split('&')[0])}">
+                <div class="fields mt-3">
+                    <div class="eleven wide field d-flex justify-content-end">
+                        <button class="ui inverted red button" onclick="resetform()">重置</button>
+                        <button class="ui inverted primary button cr8pjSubmit">確認</button>
+                        <button type="reset" hidden id="theReset"></button>
+                    </div>
+                    <div class="five wide field d-flex"></div>
                 </div>
-                <div class="one wide field"></div>
-                <div class="two wide field">
-                    <label>開始日期</label>
-                    <input type="date" placeholder="" class="cr8開始日期">
-                </div>
-                <div class="two wide field">
-                    <label>結束日期</label>
-                    <input type="date" placeholder="" class="cr8結束日期">
-                </div>
-                <div class="one wide field">
-                    <label>預估時間</label>
-                    <input type="text" placeholder="" class="cr8預估時間">
-                </div>
-                <div class="five wide field"></div>
-            </div>
-            <div class="fields">
-                <div class="five wide field">
-                    <label>專案客戶</label>
-                    <input type="text" placeholder="" class="cr8專案客戶">
-                </div>
-                <div class="one wide field">
-                    <input type="text" hidden class="cr8pjManagerId" value="${ decodeURI(document.cookie.split('id=')[1].split('&')[0])}">
-                </div>
-                <div class="five wide field"></div>
-                <div class="five wide field"></div>
-            </div>
-            <div class="fields mt-3">
-                <div class="eleven wide field d-flex justify-content-end">
-                    <button class="ui inverted red button" onclick="resetform()">重置</button>
-                    <button class="ui inverted primary button cr8pjSubmit">確認</button>
-                    <button type="reset" hidden id="theReset"></button>
-                </div>
-                <div class="five wide field d-flex"></div>
-            </div>
-        </form>
-            `);
+            </form>
+                `);
+            $('#pj初審Cr8startDate,#pj初審Cr8endDate').blur(function () {
+                if ($('#pj初審Cr8startDate').val() != '' && $('#pj初審Cr8endDate').val() != '') {
+                    //sDate = new Date($('#pj初審Cr8startDate').val());
+                    //eDate = new Date($('#pj初審Cr8endDate').val());
+                    //days初審 = eDate.getTime() - sDate.getTime();
+                    days初審 = new Date($('#pj初審Cr8startDate').val()).getTime() - new Date($('#pj初審Cr8endDate').val()).getTime();
+                    //console.log(days初審);
+                    var dateDiff初審 = Math.floor(days初審 / 1000 / 60 / 60 / 24 - 1); //floor,ceil
+                    //console.log(dateDiff初審);
+                    if (dateDiff初審 < 0) {
+                        //Math.abs(dateDiff初審)
+                        //console.log(Math.abs(dateDiff初審))
+                        $('.cr8預估時間').val(`${Math.abs(dateDiff初審)}天`);
+                    }
+                    else {
+                        //console.log('123');
+                        $('.cr8預估時間').val('');
+                        window.alert('請選擇正確的日期');
+                    }
+                }
+            });
             $('.cr8pjSubmit').click(function () {
+                console.log($('.cr8預估時間').val());
                 $.ajax({
                     url: "/projectControl/getCr8formVal",
                     method: "post",
@@ -700,11 +744,16 @@
                         'pj預估時間': $('.cr8預估時間').val(),
                         'pjClient': $('.cr8專案客戶').val(),
                         'pjManagerId': $('.cr8pjManagerId').val(),
+                        'pj初審結果': $('.cr8pj初審結果').val(),
+                        'pj審核階段': $('.cr8pj審核階段').val(),
                     },
                     success: function () {
                         alert('成功新增資料');
                         $('#pjCr8preview1').toggleClass('active');
+                        $('#tab-pjCr8preview1').toggleClass('active');
+                        $('#tab-pjCr8table').toggleClass('active');
                         $('#pjCr8table').toggleClass('active');
+                        //refresh(); 做一個刷新頁面仔入新增的資料
                     }
                 });
             })
@@ -712,7 +761,7 @@
         function resetform() {
             $('#theReset').click();
         }
-        
+
 
         $('.tab-tab-cr8pj').click(function () {
             //$('.appendPjDataFromSql').html('wooow');
@@ -720,101 +769,144 @@
                 url: "/projectControl/getPjProjectData",
                 method: "get",
                 success: function (data) {
-                    $('.appendPjDataFromSql').html("");
-                    $(data).each(function (index, item) {
-                        $('.appendPjDataFromSql').append(`
-                            <tr>
-                            <td>${item.pjName}</td>
-                            <td>為什麼不能用</td>
-                            <td>我快瘋掉了</td>
-                            <td class="selectable"><a href="#" onclick="showPjCr8Detail()" data-id="${item.pjId}">初審內容</a></td>
-                            <td class="selectable"><a href="#" class="pjCr8Preview" data-id="${item.pjId}">建立複審</a></td>    
-                            </tr>`
-                        )
-                    })
-                    function showPjCr8Detail() {
-                        var id = $(event.currentTarget).data('id');
-                        //console.log(id);
-                        $.ajax({
-                            url: "",
-                            method: "post",
-                            data: { "id": id },
-                            success: function () { }
+                    if (data.length == 0) {
+                        console.log('123');
+                        $('.appendPjCr8Info').html(`
+                            <div class="d-flex justify-content-center mt-5 mb-5">
+                                <p>目前沒有建立中的專案</p>
+                            </div>
+                        `);
+                    } else {
+                        $('.appendPjDataFromSql-th').html(`
+                                <tr>
+                                    <th>專案名稱</th>
+                                    <th>審核階段</th>
+                                    <th>審核結果</th>
+                                    <th>詳細建議</th>
+                                    <th>建立複審</th>
+                                </tr>
+                            `);
+                        $('.appendPjDataFromSql').html("");
+                        $(data).each(function (index, item) {
+                            $('.appendPjDataFromSql').append(`
+                                    <tr>
+                                    <td>${item.pjName}</td>
+                                    <td>${item.pj審核階段}</td>
+                                    <td>${item.pj初審結果}</td>
+                                    <td class="selectable"><a href="#" onclick="showPjCr8Detail()" data-id="${item.pjId}">查看更多</a></td>
+                                    <td class="selectable"><a href="#" class="pjCr8Preview" data-id="${item.pjId}">建立複審</a></td>
+                                    </tr>`
+                            )
                         })
-                    }
-                    $('.pjCr8Preview').click(function () {
-                        var id = $(event.currentTarget).data('id');
-                        //console.log(id);
-                        $.ajax({
-                            url: "/projectControl/getPjProjectDataFromId",
-                            method: "post",
-                            data: { "id": id },
-                            success: function (data) {
-                                //console.log(data.pjMemberCount);
-                                $('#tab-pjCr8table').removeClass('active');
-                                $('#pjCr8table').removeClass('active');
-                                $('#tab-appendCr8pjTeam').attr('hidden', false);
-                                $('#tab-appendCr8pjTeam').addClass('active');
-                                $('#appendCr8pjTeam').addClass('active');
-                                var membersCount = data.pjMemberCount;
-                                console.log(membersCount);
-                                $('#appendCr8pjTeam').html("");                                
-                                for (var i = 1; i <= membersCount; i++) {
+                        function showPjCr8Detail() {
+                            var id = $(event.currentTarget).data('id');
+                            //console.log(id);
+                            $.ajax({
+                                url: "",
+                                method: "post",
+                                data: { "id": id },
+                                success: function () { }
+                            })
+                        }
+                        $('.pjCr8Preview').click(function () {
+                            var id = $(event.currentTarget).data('id');
+                            //console.log(id);
+                            $.ajax({
+                                url: "/projectControl/getPjProjectDataFromId",
+                                method: "post",
+                                data: { "id": id },
+                                success: function (data) {
+                                    //console.log(data.pjMemberCount);
+                                    $('#tab-pjCr8table').toggleClass('active');
+                                    $('#pjCr8table').toggleClass('active');
+                                    $('#tab-appendCr8pjTeam').attr('hidden', false);
+                                    $('#tab-appendCr8pjTeam').toggleClass('active');
+                                    $('#appendCr8pjTeam').toggleClass('active');
+                                    var membersCount = data.pjMemberCount;
+                                    console.log(membersCount);
+                                    $('#appendCr8pjTeam').html("");
+                                    for (var i = 1; i <= membersCount; i++) {
+                                        $('#appendCr8pjTeam').append(`
+                                                <form class="ui form" id="cr8form${i}">
+                                                    <div class="fields">
+                                                        <div class="two wide field">
+                                                            <label>部門</label>
+                                                            <select class="ui search dropdown" id="pjCr8複審部門${i}" name="pjMember部門">
+                                                                <option value="">部門</option>
+                                                                <option value="資訊部">資訊部</option>
+                                                                <option value="人事部">人事部</option>
+                                                                <option value="總務部">總務部</option>
+                                                                <option value="財務部">財務部</option>
+                                                                <option value="業務部">業務部</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="four wide field">
+                                                            <label>成員姓名</label>
+                                                            <input type="text" placeholder="成員姓名" name="pjMemberName">
+                                                        </div>
+                                                        <div class="five wide field">
+                                                            <label>專案項目</label>
+                                                            <input type="text" placeholder="專案項目" name="pjTarget">
+                                                        </div>
+                                                        <div class="one wide field">
+                                                            <input type="text" hidden name="pjId" value="${data.pjId}">
+                                                        </div>
+                                                        <div class="four wide field"></div>
+                                                    </div>
+                                                </form>
+                                            `)
+                                    }
                                     $('#appendCr8pjTeam').append(`
-                                        <form class="ui form" id="cr8form${i}">
-                                            <div class="fields">
-                                                <div class="two wide field">
-                                                    <label>部門</label>
-                                                    <input type="text" placeholder="部門" name="pjMember部門">
-                                                </div>
-                                                <div class="four wide field">
-                                                    <label>成員姓名</label>
-                                                    <input type="text" placeholder="成員姓名" name="pjMemberName">
-                                                </div>
-                                                <div class="five wide field">
-                                                    <label>專案項目</label>
-                                                    <input type="text" placeholder="專案項目" name="pjTarget">
+                                            <div class="ui form">
+                                                <div class="eleven wide field d-flex justify-content-end">
+                                                    <button class="ui inverted red button">取消</button>
+                                                    <button class="ui inverted primary button" id="submitCr8preview2">確認</button>
                                                 </div>
                                                 <div class="five wide field"></div>
                                             </div>
-                                        </form>
-                                    `)
-                                }
-                                $('#appendCr8pjTeam').append(`
-                                    <div class="ui form">
-                                        <div class="eleven wide field d-flex justify-content-end">
-                                            <button class="ui inverted red button">取消</button>
-                                            <button class="ui inverted primary button" id="submitCr8preview2">確認</button>
-                                        </div>
-                                        <div class="five wide field"></div>
-                                    </div>
-                                `)
-                                $('#submitCr8preview2').click(function () {
-                                    for (var i = 1; i <= membersCount; i++) {                                        
-                                        console.log(document.querySelector(`#cr8form${i}`));
-                                        var formdata = new FormData(document.querySelector(`#cr8form${i}`));
-                                        $.ajax({
-                                            url: "/projectControl/savePreview2FormData",
-                                            method: "post",
-                                            data: formdata,
-                                            processData: false,
-                                            contentType: false,
-                                            success: function () {                                                
-                                            }
-                                        })
+                                        `)
+                                    $('#submitCr8preview2').click(function () {
+                                        for (var i = 1; i <= membersCount; i++) {
+                                            console.log($(`#pjCr8複審部門${i} option:selected`).val());
+                                            console.log(document.querySelector(`#cr8form${i}`));
+                                            var formdata = new FormData(document.querySelector(`#cr8form${i}`));
+                                            $.ajax({
+                                                url: "/projectControl/savePreview2FormData",
+                                                method: "post",
+                                                data: formdata,
+                                                processData: false,
+                                                contentType: false,
+                                                success: function () {
+                                                }
+                                            })
+                                        }
+                                        window.alert('存進去了啦');
+                                        $('#tab-appendCr8pjTeam').toggleClass('active');
+                                        $('#tab-appendCr8pjTeam').attr('hidden', true);
+                                        $('#appendCr8pjTeam').toggleClass('active');
+                                        $('#tab-pjCr8table').toggleClass('active');
+                                        $('#pjCr8table').toggleClass('active');                                        
+                                    })
+                                    $(document).on('click', 'div', function () {
+                                        if ($('#appendCr8pjTeam .active').attr('data-tab') != 'second/c') {
+                                        console.log($('.active ').attr('data-tab'));
+                                        $('#tab-appendCr8pjTeam').attr('hidden', true);
+                                        //$('#appendCr8pjTeam').toggleClass('active');
+                                        //$('#tab-appendCr8pjTeam').toggleClass('active');
                                     }
-                                    window.alert('存進去了啦');
-                                    $('#tab-appendCr8pjTeam').removeClass('active');
-                                    $('#appendCr8pjTeam').removeClass('active');
-                                    $('#tab-pjCr8table').addClass('active');
-                                    $('#pjCr8table').addClass('active');
-                                    $('#tab-appendCr8pjTeam').attr('hidden', true);                                    
-                                })
-                            }
+                                    else {        
+                                        console.log($('.active ').attr('data-tab'));
+                                        //$('#appendCr8pjTeam').toggleClass('active');
+                                        //$('#tab-appendCr8pjTeam').toggleClass('active');
+                                        $('#tab-appendCr8pjTeam').attr('hidden', false);
+                                    }
+                                    })
+                                }
+                            })
                         })
-                    })
+                    }
                 }
             })
-        })        
+        })
     </script>
 }
