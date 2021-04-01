@@ -5,8 +5,8 @@
 
     .佈告欄總表外框 {
         background-color: white;
-        height: 75%;
-        width: 75%;
+        height: 200px;
+        width: 300px;
         padding-left: 30px;
         padding-right: 30px;
         padding-bottom: 30px;
@@ -16,59 +16,25 @@
     }
 
     .佈告欄列表 {
-        width: 75%;
+        width: 200px;
         box-shadow: 3px 3px 9px black;
     }
 
         .佈告欄列表 th {
-            padding: 10px 10px;
+            padding: 5px 5px;
             text-align: center;
             background-color: #444444;
         }
 
         .佈告欄列表 td {
-            padding: 10px 10px;
+            padding: 5px 5px;
             text-align: center;
         }
 
     .文字 {
-        font-size: 25px;
+        font-size: 15px;
         font-weight: 900;
         text-align: center;
-    }
-
-    .文字2 {
-        font-size: 25px;
-        font-weight: 900;
-    }
-
-    .新增按鈕 {
-        margin-top: 30px;
-        margin-bottom: 30px;
-        margin-left: -30px;
-        width: 120px;
-        font-size: 20px;
-        font-weight: 900;
-        display: inline-block;
-        box-shadow: 3px 3px 9px black;
-    }
-
-    .詳細按鈕 {
-        font-size: 20px;
-        font-weight: 900;
-    }
-
-    .addTitle {
-        max-width: 460PX;
-        width: 460px;
-        height: 30px;
-    }
-
-    .addContent {
-        max-width: 460PX;
-        width: 460px;
-        height: 150px;
-        resize: none;
     }
 
     .txt樣式 {
@@ -78,53 +44,18 @@
     }
 
     .外框 {
-        overflow-x: scroll;
-        width:100%;
+        width: 100%;
+        border: 3px solid black;
+        border-radius: 10px;
+        padding: 10px;
     }
 
-    .updateContent {
-        resize: none;
-        width: 460px;
-        height: 200px;
-        max-width: 460px;
+    .佈告欄分頁 {
+        height: 100%;
     }
 
-    .搜尋 {
-        width: 400px;
-        margin-top: 30px;
-    }
-
-    .搜尋框 {
-        width: 400px;
-        font-size: 18px;
-        font-weight: 900;
-        margin-left: 100px;
-        margin-bottom: 5px;
-        height: 40px;
-    }
-
-    .搜尋按鈕 {
-        height: 40px;
-        width: 100px;
-        font-size: 18px;
-        font-weight: 900;
-        display: inline-block;
-        margin-left: 10px;
-        margin-bottom: 5px;
-        box-shadow: 3px 3px 9px black;
-    }
-
-    .打卡日曆 {
-        width: 800px;
-        height: 900px;
-    }
-
-    .搜尋彈跳視窗Table {
-        text-align: center;
-    }
-
-    .跳轉頁面框 {
-        margin-left: 180px;
+    .更多公告 {
+        padding-left: 0%;
     }
 
     .行事曆彈出視窗按鈕 {
@@ -156,57 +87,6 @@
         font-weight: 900;
         font-size: 25px;
     }
-
-    .signincalender {
-        padding-top: 50px;
-    }
-
-    .打卡按鈕 {
-        height: 80px;
-        width: 200px;
-        font-size: 30px;
-        font-weight: 900;
-        display: inline-block;
-        box-shadow: 3px 3px 9px black;
-        margin-left: 60px;
-        margin-top: 40px;
-    }
-
-    .模擬打卡按鈕 {
-        height: 80px;
-        width: 200px;
-        font-size: 26px;
-        font-weight: 900;
-        display: inline-block;
-        box-shadow: 3px 3px 9px black;
-        margin-left: 60px;
-        margin-top: 40px;
-    }
-
-    .時鐘 {
-        padding-top: 30px;
-        padding-left: 180px;
-        font-size: 30px;
-        font-weight: 900;
-    }
-
-    .按鈕大小 {
-        font-weight: 900;
-        font-size: 25px;
-    }
-
-    .打卡按鈕樣式 {
-        margin-left: 50px;
-    }
-
-    .佈告欄分頁 {
-        height: 100%;
-    }
-
-    .更多公告{
-        padding-left:0%;
-    }
-
 </style>
 
 
@@ -216,22 +96,76 @@
         <img class="w-100 h-100 container-fluid" src="~/images/NewLogoImg2.png" />
     </div>
 </div>
-<div class="mt-5 w-100">
-    <div class="d-flex bottomdiv">
-        <div class="外框">
-            <table class="table-hover w-100 table table-striped text-nowrap 佈告欄列表">
-                <thead class="THeadAdd 文字">
-                </thead>
-                <tbody class="TBodyAdd 文字">
-                </tbody>
-            </table>
-            <div class="更多公告">
-                <a type="button" class="ui inverted secondary massive button text-nowrap w-100" href="@Url.Action("BulletinBoard","BulletinBoard")">更多公告</a>
+
+<div class="下方快捷選項 d-flex justify-content-between">
+
+    @*-----------第一個快捷選項-----------*@
+    <div class="mt-5 w-100">
+        <div class="d-flex bottomdiv">
+            <div class="外框">
+                <table class="table-hover w-100 table table-striped text-nowrap 佈告欄列表">
+                    <thead class="THeadAdd 文字">
+                    </thead>
+                    <tbody class="TBodyAdd 文字">
+                    </tbody>
+                </table>
+                <div class="更多公告">
+                    <a type="button" class="ui inverted secondary massive button text-nowrap w-100" href="@Url.Action("BulletinBoard","BulletinBoard")">更多公告</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*-----------第二個快捷選項-----------*@
+    <div class="mt-5 w-100">
+        <div class="d-flex bottomdiv">
+            <div class="外框">
+                <table class="table-hover w-100 table table-striped text-nowrap 佈告欄列表">
+                    <thead class="THeadAdd 文字">
+                    </thead>
+                    <tbody class="TBodyAdd 文字">
+                    </tbody>
+                </table>
+                <div class="更多公告">
+                    <a type="button" class="ui inverted secondary massive button text-nowrap w-100" href="@Url.Action("BulletinBoard","BulletinBoard")">更多公告</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*-----------第三個快捷選項-----------*@
+    <div class="mt-5 w-100">
+        <div class="d-flex bottomdiv">
+            <div class="外框">
+                <table class="table-hover w-100 table table-striped text-nowrap 佈告欄列表">
+                    <thead class="THeadAdd 文字">
+                    </thead>
+                    <tbody class="TBodyAdd 文字">
+                    </tbody>
+                </table>
+                <div class="更多公告">
+                    <a type="button" class="ui inverted secondary massive button text-nowrap w-100" href="@Url.Action("BulletinBoard","BulletinBoard")">更多公告</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*-----------第四個快捷選項-----------*@
+    <div class="mt-5 w-100">
+        <div class="d-flex bottomdiv">
+            <div class="外框">
+                <table class="table-hover w-100 table table-striped text-nowrap 佈告欄列表">
+                    <thead class="THeadAdd 文字">
+                    </thead>
+                    <tbody class="TBodyAdd 文字">
+                    </tbody>
+                </table>
+                <div class="更多公告">
+                    <a type="button" class="ui inverted secondary massive button text-nowrap w-100" href="@Url.Action("BulletinBoard","BulletinBoard")">更多公告</a>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
+@*-----------重要布告欄快捷選項詳細彈跳視窗-----------*@
 <div id="ShowBulletinBoard" class="ui modal centermodal" tabindex="-1" role="dialog">
     <div class="header" style="background-color: #00CACA">
         <i class="close icon"></i>
@@ -252,13 +186,12 @@
             method: "get",
             success: function (data) {
                 $(".THeadAdd").html(`
-                                                                                                                <tr>
-                                                                                                                <th>發佈人</th>
-                                                                                                                <th>標題</th>
-                                                                                                                <th>發佈日期</th>
-                                                                                                                <th>詳細</th>
-                                                                                                                </tr>
-                                                                                                                `)
+                                                                                                                    <tr>
+                                                                                                                    <th>標題</th>
+                                                                                                                    <th>發佈日期</th>
+                                                                                                                    <th>詳細</th>
+                                                                                                                    </tr>
+                                                                                                                    `)
                 var a = "";  // 使用一個空字串
                 $(data).each(function (index, item) {
                     var datetime = parseInt(item.發布日期.replace(/\D/igm, ""));
@@ -278,11 +211,10 @@
                         y = datetime1.getMinutes();
                     }
                     a += ` <tr>
-                                                                                                    <td>${item.中文姓名}</td>
-                                                                                                    <td>${item.佈告欄標題}</td>
-                                                                                                    <td>${datetime1.getFullYear() + "/" + (datetime1.getMonth() + 1) + "/" + datetime1.getDate() + " " + x + ":" + y}</td>
-                                                                                                    <td><a class="ui inverted teal big button text-dark empedit 詳細按鈕" data-id="${item.佈告欄ID}" data-toggle="modal" data-target="#ShowBulletinBoard" onclick="SearchThis()">詳細</a></td>
-                                                                                                </tr>`;
+                                                                                                        <td>${item.佈告欄標題}</td>
+                                                                                                        <td>${datetime1.getFullYear() + "/" + (datetime1.getMonth() + 1) + "/" + datetime1.getDate() + " " + x + ":" + y}</td>
+                                                                                                        <td><a class="ui inverted teal big button text-dark empedit 詳細按鈕" data-id="${item.佈告欄ID}" data-toggle="modal" data-target="#ShowBulletinBoard" onclick="SearchThis()">詳細</a></td>
+                                                                                                    </tr>`;
                 })
                 $(".TBodyAdd").html(a); // 取代原本內容
             },
@@ -333,47 +265,34 @@
                         min = datetime1.getMinutes();
                     }
                     $(".ShowUserProfile").html(`
-                                                                            <div class="d-flex justify-content-center">
-                                                                                <div class="mr-1">
-                                                                                    <div class="文字2">佈告欄編號：</div>
-                                                                                    <input name="BulletinBoardID" type="text" class="updateBBID txt樣式 行事曆事項名稱輸入框" disabled value="${data.佈告欄ID}"/>
+                                                                                <div class="d-flex justify-content-center">
+                                                                                    <div class="mr-1">
+                                                                                        <div class="文字2">佈告欄編號：</div>
+                                                                                        <input name="BulletinBoardID" type="text" class="updateBBID txt樣式 行事曆事項名稱輸入框" disabled value="${data.佈告欄ID}"/>
+                                                                                            <br>
+                                                                                            <br>
+                                                                                        <input name="EmployeeID" type="hidden" class="updateEPID txt樣式 行事曆事項名稱輸入框" disabled value="${data.EmployeeID}"/>
+                                                                                        <div class="文字2">發佈人：</div>
+                                                                                        <input name="發佈人姓名" type="text" class="updateBBName txt樣式 行事曆事項名稱輸入框" disabled value="${data.中文姓名}" disabled/>
                                                                                         <br>
                                                                                         <br>
-                                                                                    <input name="EmployeeID" type="hidden" class="updateEPID txt樣式 行事曆事項名稱輸入框" disabled value="${data.EmployeeID}"/>
-                                                                                    <div class="文字2">發佈人：</div>
-                                                                                    <input name="發佈人姓名" type="text" class="updateBBName txt樣式 行事曆事項名稱輸入框" disabled value="${data.中文姓名}" disabled/>
-                                                                                    <br>
-                                                                                    <br>
-                                                                                    <div class="文字2">標題：</div>
-                                                                                    <input name="Title" type="text" class="updateTitle txt樣式 行事曆事項名稱輸入框" disabled value="${data.佈告欄標題}"/>
-                                                                                    <br>
-                                                                                    <br>
-                                                                                    <div class="文字2">內容:   </div>
-                                                                                    <textarea name="Content" class="updateContent 行事曆描述輸入框" disabled>${data.佈告欄內容}</textarea>
-                                                                                    <br>
-                                                                                    <br>
-                                                                                    <div class="文字2">發佈日期:  </div>
-                                                                                    <input name="Date" type="text" class="updateTime txt樣式 行事曆事項名稱輸入框" disabled value="${datetime1.getFullYear() + " / " + m + " / " + d + "   " + h + ":" + min + ":00"}"/>
-                                                                                    <br>
-                                                                                    <br>
-                                                                                </div>
-                                                                            </div>`);
+                                                                                        <div class="文字2">標題：</div>
+                                                                                        <input name="Title" type="text" class="updateTitle txt樣式 行事曆事項名稱輸入框" disabled value="${data.佈告欄標題}"/>
+                                                                                        <br>
+                                                                                        <br>
+                                                                                        <div class="文字2">內容:   </div>
+                                                                                        <textarea name="Content" class="updateContent 行事曆描述輸入框" disabled>${data.佈告欄內容}</textarea>
+                                                                                        <br>
+                                                                                        <br>
+                                                                                        <div class="文字2">發佈日期:  </div>
+                                                                                        <input name="Date" type="text" class="updateTime txt樣式 行事曆事項名稱輸入框" disabled value="${datetime1.getFullYear() + " / " + m + " / " + d + "   " + h + ":" + min + ":00"}"/>
+                                                                                        <br>
+                                                                                        <br>
+                                                                                    </div>
+                                                                                </div>`);
                 }
             });
         };
-
-        // 首頁打卡方法
-        //function IndexSignInSave(data) {
-        //    $.ajax({
-        //        type: "POST",
-        //        url: '/BulletinBoard/SignInSave',
-        //        data: data,
-        //        success: function () {
-        //            swal("打卡成功!", "你已成功打卡!", "success");
-        //            ShowCalendar();
-        //        }
-        //    })
-        //}
 
         function IndexSignInSave(data) {
             swal({
@@ -398,7 +317,7 @@
                         swal("打卡動作已取消!", "", "success");
                     }
                 });
-            }
-        
+        }
+
     </script>
 }

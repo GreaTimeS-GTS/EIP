@@ -53,7 +53,7 @@ namespace EIP.Controllers
                      where b.訊息重要度=="1"
                      orderby b.佈告欄ID descending
                      select b;
-            return Json(mhbb.ToList().Take(10), JsonRequestBehavior.AllowGet);
+            return Json(mhbb.ToList().Take(3), JsonRequestBehavior.AllowGet);
         }
 
         // 新增佈告欄
