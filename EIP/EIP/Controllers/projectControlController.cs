@@ -93,6 +93,8 @@ namespace EIP.Controllers
                 pj開始日期 = val.pj開始日期,
                 pj預估時間 = val.pj預估時間,
                 pjManagerId = val.pjManagerId,
+                pj初審結果 = val.pj初審結果,
+                pj審核階段 = val.pj審核階段,
             };
             db.pjProject.Add(x);
             db.SaveChanges();
@@ -103,6 +105,8 @@ namespace EIP.Controllers
             {
                 pjId = m.pjId,
                 pjName = m.pjName,
+                pj審核階段 = m.pj審核階段,
+                pj初審結果 = m.pj初審結果,
                 pjMemberCount = m.pjMemberCount,
             });
             return Json(data, JsonRequestBehavior.AllowGet);

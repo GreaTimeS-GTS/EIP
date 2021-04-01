@@ -1178,7 +1178,6 @@ C:\Users\User\Documents\eippj0330\EIP\EIP\obj\Debug\EIP.dll
 C:\Users\User\Documents\eippj0330\EIP\EIP\obj\Debug\EIP.pdb
 C:\Users\User\Documents\eippj0330\EIP\EIP\bin\roslyn\csc.exe
 C:\Users\User\Documents\eippj0330\EIP\EIP\bin\roslyn\csi.exe
-C:\Users\User\Documents\eippj0330\EIP\EIP\bin\roslyn\System.Net.Http.dll
 C:\Users\User\Documents\eippj0330\EIP\EIP\bin\roslyn\vbc.exe
 C:\Users\User\Documents\eippj0330\EIP\EIP\bin\roslyn\VBCSCompiler.exe
 C:\Users\User\Documents\eippj0330\EIP\EIP\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
