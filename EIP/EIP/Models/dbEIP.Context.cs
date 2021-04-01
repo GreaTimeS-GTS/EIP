@@ -28,6 +28,13 @@ namespace EIP.Models
     
         public virtual DbSet<MeetingRoom> MeetingRoom { get; set; }
         public virtual DbSet<MeetingRoomBooking> MeetingRoomBooking { get; set; }
+        public virtual DbSet<pjAdvice> pjAdvice { get; set; }
+        public virtual DbSet<pjHandOverList> pjHandOverList { get; set; }
+        public virtual DbSet<pjMeeting> pjMeeting { get; set; }
+        public virtual DbSet<pjOverall> pjOverall { get; set; }
+        public virtual DbSet<pjProject> pjProject { get; set; }
+        public virtual DbSet<pjReport> pjReport { get; set; }
+        public virtual DbSet<pjTeam> pjTeam { get; set; }
         public virtual DbSet<pj建立> pj建立 { get; set; }
         public virtual DbSet<pj控管> pj控管 { get; set; }
         public virtual DbSet<pj結案> pj結案 { get; set; }
@@ -44,9 +51,9 @@ namespace EIP.Models
         public virtual DbSet<佈告欄> 佈告欄 { get; set; }
         public virtual DbSet<表單類別> 表單類別 { get; set; }
         public virtual DbSet<個人資料> 個人資料 { get; set; }
+        public virtual DbSet<假別> 假別 { get; set; }
         public virtual DbSet<通知> 通知 { get; set; }
         public virtual DbSet<通知類別> 通知類別 { get; set; }
-        public virtual DbSet<假別> 假別 { get; set; }
         public virtual DbSet<請假細項> 請假細項 { get; set; }
     }
 }

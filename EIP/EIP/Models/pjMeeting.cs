@@ -12,14 +12,14 @@ namespace EIP.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class 佈告欄
+    public partial class pjMeeting
     {
-        public int 佈告欄ID { get; set; }
-        public int EmployeeID { get; set; }
-        public string 中文姓名 { get; set; }
-        public string 佈告欄標題 { get; set; }
-        public string 佈告欄內容 { get; set; }
-        public System.DateTime 發布日期 { get; set; }
-        public string 訊息重要度 { get; set; }
+        public int pjMeetingId { get; set; }
+        public Nullable<System.DateTime> pjMeetingDate { get; set; }
+        public Nullable<int> pjId { get; set; }
+        public string pjContent { get; set; }
+        public string pjMemo { get; set; }
+    
+        public virtual pjProject pjProject { get; set; }
     }
 }

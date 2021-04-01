@@ -1,4 +1,5 @@
 ﻿using EIP.Models;
+using EIP.Models.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,12 @@ namespace EIP.Controllers
 
 
 
+        public ActionResult pjView()
+        {
+            return View();
+        }
+
+
         //找所有專案資料from總表
         public JsonResult getMainData()
         {
@@ -34,10 +41,7 @@ namespace EIP.Controllers
             });
             return Json(pjMainData, JsonRequestBehavior.AllowGet);
         }
-        public ActionResult pjView()
-        {
-            return View();
-        }
+   
 
 
         //總表 有View
@@ -72,5 +76,50 @@ namespace EIP.Controllers
         }
 
 
+
+
+        //---------- T E S T -----------------
+        public void getCr8formVal(pjProject val)
+        {
+            var x = new pjProject
+            {
+                pjName = val.pjName,
+                pjIntroduction = val.pjIntroduction,
+                pjManager = val.pjManager,
+                pjClient = val.pjClient,
+                pjBudget = val.pjBudget,
+                pjMemberCount = val.pjMemberCount,
+                pj結束日期 = val.pj結束日期,
+                pj開始日期 = val.pj開始日期,
+                pj預估時間 = val.pj預估時間,
+            };
+            db.pjProject.Add(x);
+            db.SaveChanges();
+        }
+        public JsonResult getPjProjectData()
+        {
+            var data = db.pjProject.Select(m => new
+            {
+                pjId = m.pjId,
+                pjName = m.pjName,
+                pjMemberCount = m.pjMemberCount,
+            });
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult getPjProjectDataFromId(int id)
+        {
+            var d = db.pjProject.FirstOrDefault(m => m.pjId == id);
+            var getPjProjectDataFromId = new
+            {
+                pjId = d.pjId,
+                pjMemberCount = d.pjMemberCount,
+            };
+            return Json(getPjProjectDataFromId, JsonRequestBehavior.AllowGet);
+        }
+        public void savePreview2FormData(pjTeam formdata)
+        {
+            db.pjTeam.Add(formdata);
+            db.SaveChanges();
+        }
     }
 }

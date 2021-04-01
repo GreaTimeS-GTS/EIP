@@ -40,12 +40,21 @@ namespace EIP.Controllers
                             佈告欄標題 = b.佈告欄標題,
                             佈告欄內容 = b.佈告欄內容,
                             發布日期 = b.發布日期,
-                            總比數 = db.佈告欄.Count()
+                            訊息重要度=b.訊息重要度
                         });
 
             return Json(佈告欄, JsonRequestBehavior.AllowGet);
         }
 
+        // 訊息強度高的佈告欄總表
+        public JsonResult MessegeHighBulletinBoardList()
+        {
+            var mhbb = from b in db.佈告欄
+                     where b.訊息重要度=="1"
+                     orderby b.佈告欄ID descending
+                     select b;
+            return Json(mhbb.ToList().Take(10), JsonRequestBehavior.AllowGet);
+        }
 
         // 新增佈告欄
         public JsonResult CreateBulletinBoard(BulletinBoardViewModel CBB)
@@ -57,6 +66,7 @@ namespace EIP.Controllers
                 佈告欄標題 = CBB.佈告欄標題,
                 佈告欄內容 = CBB.佈告欄內容,
                 發布日期 = CBB.發布日期,
+                訊息重要度 = CBB.訊息重要度
             };
             er.Create(BB);
             return Json(BB, JsonRequestBehavior.AllowGet);
@@ -76,7 +86,8 @@ namespace EIP.Controllers
                 中文姓名 = sobb.中文姓名,
                 佈告欄標題 = sobb.佈告欄標題,
                 佈告欄內容 = sobb.佈告欄內容,
-                發布日期 = sobb.發布日期
+                發布日期 = sobb.發布日期,
+                訊息重要度 = sobb.訊息重要度
             };
             return Json(bb, JsonRequestBehavior.AllowGet);
         }
@@ -93,7 +104,8 @@ namespace EIP.Controllers
                 中文姓名 = bbvm.中文姓名,
                 佈告欄標題 = bbvm.佈告欄標題,
                 佈告欄內容 = bbvm.佈告欄內容,
-                發布日期 = bbvm.發布日期
+                發布日期 = bbvm.發布日期,
+                訊息重要度 = bbvm.訊息重要度
             };
             er.Update(bb);
             return Json(bb, JsonRequestBehavior.AllowGet);
@@ -120,26 +132,6 @@ namespace EIP.Controllers
                      select b;
             return Json(bb.ToList().Take(10), JsonRequestBehavior.AllowGet);
         }
-
-        // 佈告欄分頁方法
-        public JsonResult BBPage(int arrow)
-        {
-
-            var bb = from b in db.佈告欄
-                     orderby b.佈告欄ID descending
-                      select new BulletinBoardViewModel
-                      {
-                          佈告欄ID = b.佈告欄ID,
-                          EmployeeID = b.EmployeeID,
-                          中文姓名 = b.中文姓名,
-                          佈告欄標題 = b.佈告欄標題,
-                          佈告欄內容 = b.佈告欄內容,
-                          發布日期 = b.發布日期
-                      };
-            var bbvm = bb.Skip((arrow - 1) * 10).Take(10);
-            return Json(bbvm, JsonRequestBehavior.AllowGet);
-        }
-
 
         // ---------------------------以下Fullcalendar方法----------------------------//
 

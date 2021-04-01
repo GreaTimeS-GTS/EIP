@@ -23,6 +23,7 @@ namespace EIP.Models
         public Nullable<System.DateTime> 結束日期 { get; set; }
         public Nullable<int> 加班時數 { get; set; }
         public string 事由說明 { get; set; }
+        public string 審核狀態 { get; set; }
     
         public virtual 加班別 加班別 { get; set; }
     }
