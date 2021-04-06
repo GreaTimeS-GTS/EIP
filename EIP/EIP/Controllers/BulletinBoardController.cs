@@ -30,7 +30,7 @@ namespace EIP.Controllers
         // 佈告欄總表
         public JsonResult BulletinBoardList()
         {
-            var 佈告欄 = (from b in db.佈告欄
+            var 佈告欄 = from b in db.佈告欄
                         orderby b.佈告欄ID descending
                         select new
                         {
@@ -41,7 +41,7 @@ namespace EIP.Controllers
                             佈告欄內容 = b.佈告欄內容,
                             發布日期 = b.發布日期,
                             總比數 = db.佈告欄.Count()
-                        });
+                        };
 
             return Json(佈告欄, JsonRequestBehavior.AllowGet);
         }

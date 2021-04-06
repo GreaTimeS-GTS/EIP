@@ -2,6 +2,7 @@
 using EIP.Models.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -111,13 +112,33 @@ namespace EIP.Controllers
             });
             return Json(data, JsonRequestBehavior.AllowGet);
         }
+        public JsonResult getPjTeamDataFromId(int id)
+        {
+            var teamData = from cc in db.pjTeam
+                    where cc.pjId == id
+                    select cc;
+            //var team = t.Where(s => s.pjId == d.pjId);
+            return Json(teamData, JsonRequestBehavior.AllowGet);
+        }
         public JsonResult getPjProjectDataFromId(int id)
         {
-            var d = db.pjProject.FirstOrDefault(m => m.pjId == id);
+            var d = db.pjProject.FirstOrDefault(m => m.pjId == id);            
             var getPjProjectDataFromId = new
             {
                 pjId = d.pjId,
+                pjName = d.pjName,
+                pjManager = d.pjManager,
+                pjBudget = d.pjBudget,
+                pjIntroduction = d.pjIntroduction,
                 pjMemberCount = d.pjMemberCount,
+                pjClient = d.pjClient,
+                pj初審結果 = d.pj初審結果,
+                pj複審結果 = d.pj複審結果,
+                pj開始日期 = d.pj開始日期,
+                pj結束日期 = d.pj結束日期,
+                pjManagerId = d.pjManagerId,
+                pj預估時間 = d.pj預估時間,
+                pj審核階段 = d.pj審核階段,             
             };
             return Json(getPjProjectDataFromId, JsonRequestBehavior.AllowGet);
         }
@@ -125,6 +146,26 @@ namespace EIP.Controllers
         {
             db.pjTeam.Add(formdata);
             db.SaveChanges();
+        }
+        public void pj審核結果儲存(pjProject data)
+        {
+            //db.Entry<pjProject>(data).State = EntityState.Modified; //整筆資料全部覆寫
+            //db.SaveChanges();
+        }
+        public JsonResult pj專案列表()
+        {
+            var pj專案列表Data = from x in db.pjProject
+                             where x.pj初審結果 == "通過" && x.pj複審結果 == "通過"
+                             //select new {
+                             //    pjId = x.pjId,
+                             //    pjName = x.pjName,
+                             //    pjIntroduction = x.pjIntroduction,
+                             //    pjManager = x.pjManager,
+                             //};
+                             select x;
+
+                             
+            return Json(pj專案列表Data, JsonRequestBehavior.AllowGet);
         }
     }
 }
