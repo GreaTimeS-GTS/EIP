@@ -18,14 +18,14 @@ namespace EIP.Models
         public Nullable<int> EmployeeID { get; set; }
         public string 中文姓名 { get; set; }
         public Nullable<System.DateTime> BookingDate { get; set; }
-        public string BookingStartTime { get; set; }
-        public string BookingEndTime { get; set; }
+        public Nullable<System.DateTime> BookingStartTime { get; set; }
+        public Nullable<System.DateTime> BookingEndTime { get; set; }
         public Nullable<int> MeetingRoomId { get; set; }
         public string MeetingRoomName { get; set; }
         public string MeetingRemark { get; set; }
         public string MeetingSubject { get; set; }
         public string MeetingAttentee { get; set; }
-        public Nullable<int> IsAllDay { get; set; }
+        public Nullable<bool> IsAllDay { get; set; }
         public Nullable<int> Status { get; set; }
     }
 }

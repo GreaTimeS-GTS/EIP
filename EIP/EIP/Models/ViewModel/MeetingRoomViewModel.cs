@@ -9,8 +9,8 @@ namespace EIP.Models.ViewModel
     {
         public int BookingId { get; set; }
         public DateTime BookingDate { get; set; }
-        public string BookingStartTime { get; set; }
-        public string BookingEndTime { get; set; }
+        public DateTime BookingStartTime { get; set; }
+        public DateTime BookingEndTime { get; set; }
         public string MeetingRemark { get; set; }
         public string MeetingSubject { get; set; }
         public string MeetingAttentee { get; set; }
@@ -19,7 +19,7 @@ namespace EIP.Models.ViewModel
         public string Description { get; set; }
         public string 中文姓名 { get; set; }
         public int EmployeeID { get; set; }
-        public int IsAllDay { get; set; }
+        public bool IsAllDay { get; set; }
         public int Status { get; set; }
 
     }

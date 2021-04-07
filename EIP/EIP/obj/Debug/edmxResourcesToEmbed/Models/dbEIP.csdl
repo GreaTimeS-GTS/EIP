@@ -108,14 +108,14 @@
     <Property Name="EmployeeID" Type="Int32" />
     <Property Name="中文姓名" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="BookingDate" Type="DateTime" Precision="3" />
-    <Property Name="BookingStartTime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="BookingEndTime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="BookingStartTime" Type="DateTime" Precision="3" />
+    <Property Name="BookingEndTime" Type="DateTime" Precision="3" />
     <Property Name="MeetingRoomId" Type="Int32" />
     <Property Name="MeetingRoomName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="MeetingRemark" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="MeetingSubject" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="MeetingAttentee" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="IsAllDay" Type="Int32" />
+    <Property Name="IsAllDay" Type="Boolean" />
     <Property Name="Status" Type="Int32" />
   </EntityType>
   <EntityType Name="pjAdvice">

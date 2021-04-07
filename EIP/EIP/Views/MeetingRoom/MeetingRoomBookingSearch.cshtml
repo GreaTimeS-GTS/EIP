@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "BookingView";
+    ViewBag.Title = "資源預約";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -15,26 +15,26 @@
         left: auto;
         bottom: auto;
         right: auto;
-        transform-origin: center !important;
-        margin: 0 auto !important;
     }
 </style>
-@*<h2>BookingView</h2>*@
+
 
 
 <div class="subheader md-4">
-    <h4 class="subheader-title p-4">
+    <h2 class="subheader-title p-4">
         <i class="bookmark outline icon"></i>
         <span data-id="text">資源預約</span>
-    </h4>
+    </h2>
 </div>
 
 @*modal +Add Calendar-modal*@
+
 <div class="ui modal centermodal" id="Calendar-modal">
     <i class="ui-icon cancel"></i>
     <h1 class="ui header modelHeader">Booking Resource</h1>
     <div class="content">
-        <form class="ui form Booking-modal" name="bookingModal">
+        <form class="ui form Booking-modal" name="bookingModal" id="Booking-modal">
+            <input type="hidden" id="hdeventID" value="0" />
             <div class="two fields">
                 <div class="field">
                     <label for="name">中文姓名</label>
@@ -50,7 +50,7 @@
                     <label for="MeetingRoomName">Resource</label>
                     @*<input type="text" name="MeetingRoomName" id="MeetingRoomName" >*@
                     <select class="ui search dropdown" name="MeetingRoomName" id="MeetingRoomName">
-                        <option value=""></option>
+                        <option value="">資源名稱</option>
                         <option value="601會議室">601會議室-4人</option>
                         <option value="602會議室">602會議室-6人</option>
                         <option value="603會議室">603會議室-8人</option>
@@ -63,38 +63,59 @@
                 </div>
                 <div class="field">
                     <label for="MeetingSubject">主旨</label>
-                    <input type="text" name="MeetingSubject" id="MeetingSubject" value="">
+                    <input type="text" name="MeetingSubject" id="MeetingSubject" placeholder="主旨">
                 </div>
             </div>
             <div class="field">
-                <div class="ui checked checkbox">
+                <div class="ui checkbox">
                     <input type="checkbox" id="chboxisAllday" checked="checked">
                     <label for="isAllday"><i class="tasks icon"></i>All day</label>
                 </div>
             </div>
-            <div class="two fields">
-                <div class="field">
-                    <label for="BookingStartTime"><i class="calendar check icon"></i>開始時間</label>
-                    @*<input type="text" name="BookingStartTime" id="BookingStartTime">*@
-                    <div class="ui calendar" id="example13" data-position="fixed">
-                        <div class="ui input left icon">
-                            @*<i class="calendar icon"></i>*@
-                            <input type="text" placeholder="@DateTime.Now" id="startTime">
+            <div class="ui form">
+                <div class="two fields">
+                    <div class="field">
+                        <label>Start date</label>
+                        <div class="ui calendar" id="example13">
+                            <div class="ui input left icon">
+                                <i class="calendar icon"></i>
+                                <input type="text" placeholder="@DateTime.Now Start" id="startTime" data-position="right center" data-variation="mini">
+                            </div>
                         </div>
                     </div>
-                </div>
-
-                <div class="field" id="divEndDate">
-                    <label for="BookingEndTime"><i class="calendar check icon"></i>結束時間</label>
-                    @*<input type="text" name="BookingEndTime" id="BookingEndTime">*@
-                    <div class="ui calendar" id="example14" data-position="fixed">
-                        <div class="ui input left icon">
-                            @*<i class="calendar icon"></i>*@
-                            <input type="text" placeholder="@DateTime.Now" id="endTime">
+                    <div class="field" id="divEndDate" style="display:none">
+                        <label>End date</label>
+                        <div class="ui  calendar" id="example14">
+                            <div class="ui input left icon">
+                                <i class="calendar icon"></i>
+                                <input type="text" placeholder=" @DateTime.Now End" id="endTime" data-position="left center" data-variation="mini">
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <!--<div class="two fields">
+        <div class="field">
+            <label for="BookingStartTime"><i class="calendar check icon"></i>開始時間</label>-->
+            @*<input type="text" name="BookingStartTime" id="BookingStartTime">*@
+            <!--<div class="ui calendar" id="example13" data-position="fixed">
+        <div class="ui input left icon">-->
+            @*<i class="calendar icon"></i>*@
+            <!--<input type="text" placeholder="@DateTime.Now" id="startTime">
+            </div>
+        </div>
+    </div>
+    <div class="field" id="divEndDate">
+        <label for="BookingEndTime"><i class="calendar check icon"></i>結束時間</label>-->
+            @*<input type="text" name="BookingEndTime" id="BookingEndTime">*@
+            <!--<div class="ui calendar" id="example14" data-position="fixed">
+        <div class="ui input left icon">-->
+            @*<i class="calendar icon"></i>*@
+            <!--<input type="text" placeholder="@DateTime.Now" id="endTime">
+                </div>
+            </div>
+        </div>
+    </div>-->
             <h4 class="ui dividing header">參與人員</h4>
             <div class="field">
                 <label>E-Mail To</label>
@@ -104,27 +125,27 @@
                     <div class="default text">Saved Contacts</div>
                     <div class="menu">
                         <div class="item" data-value="jenny" data-text="Jenny">
-                            <img class="ui mini avatar image" src="~/images/20210318041939IU001.jpg">
+                            <img class="ui mini avatar image" src="~/images/iconfinder_letter_J_red_1553101.png" />
                             Jenny Hess
                         </div>
                         <div class="item" data-value="elliot" data-text="Elliot">
-                            <img class="ui mini avatar image" src="~/images/20210316073259鍋爐爺爺.jpg">
+                            <img class="ui mini avatar image" src="~/images/iconfinder_letter_E_blue_1553095.png" />
                             Elliot Fu
                         </div>
                         <div class="item" data-value="stevie" data-text="Stevie">
-                            <img class="ui mini avatar image" src="~/images/20210324052859images.jpg">
+                            <img class="ui mini avatar image" src="~/images/iconfinder_letter_S_blue_1553065.png" />
                             Stevie Feliciano
                         </div>
                         <div class="item" data-value="christian" data-text="Christian">
-                            <img class="ui mini avatar image" src="~/images/20210318042333IU002.jpg">
+                            <img class="ui mini avatar image" src="~/images/iconfinder_letter_C_red_1553060.png" />
                             Christian
                         </div>
                         <div class="item" data-value="matt" data-text="Matt">
-                            <img class="ui mini avatar image" src="~/images/20210324052859images.jpg">
+                            <img class="ui mini avatar image" src="~/images/iconfinder_letter_M_blue_1553077.png" />
                             Matt
                         </div>
                         <div class="item" data-value="justen" data-text="Justen">
-                            <img class="ui mini avatar image" src="~/images/20210318030645白龍.jpeg">
+                            <img class="ui mini avatar image" src="~/images/iconfinder_letter_J_blue_1553054.png" />
                             Justen Kitsune
                         </div>
                     </div>
@@ -132,34 +153,35 @@
             </div>
             <div class="field">
                 <label for="Description">Description</label>
-                <textarea rows="2" id="Description"></textarea>
+                <textarea rows="2" id="Description" placeholder="描述"></textarea>
             </div>
         </form>
     </div>
     <div class="actions">
-        <button class="ui toggle primary basic button" id="txtSend">
+        <button class="ui primary button" id="txtSend">
             <i class="save icon"></i>Send
         </button>
-        <button class="ui toggle negative basic button" id="txtCancel">Cancel</button>
+        <button class="ui negative button" id="txtCancel">Cancel</button>
     </div>
 </div>
 @*End +Add modal*@
 
 @*modal start Edit*@
-<div class="ui tiny modal" id="dataEdit">
-    <h1 class="ui header  modelHeader">Modify Booking data</h1>
+<div class="ui small modal centermodal" id="dataEdit">
+    <h1 class="ui header  modelHeader" id="editTitle">Modify Booking data</h1>
     <div class="content">
-        <div class="editbody">
+        <p id="editbody" class="editbody"></p>
+        @*<div class="editbody">
             <h3 class="ui header">Resource Name: <span id="editRoom"></span></h3>
             <h3 class="ui header">開始時間:<span id="editStart"></span></h3>
             <h3 class="ui header">結束時間:<span id="editEnd"></span></h3>
-        </div>
+        </div>*@
     </div>
     <div class="actions">
-        <div class="ui toggle olive basic button" id="btnEdit">
+        <div class="ui  olive  button" id="btnEdit">
             <i class="edit icon"></i>Edit
         </div>
-        <div class="ui toggle negative basic button" id="btnDelete">Delete</div>
+        <div class="ui  negative  button" id="btnDelete">Delete</div>
     </div>
 </div>
 @*checkbox*@
@@ -174,62 +196,124 @@
                         <i class="search icon"></i>
                     </div>
                 </div>
-                <div class="inline">
-                    <div class="field">
-                        <div class="ui checked checkbox" >
-                            <input type="checkbox" checked="" id="searchAll">
-                            <label for="searchAll">CheckAll</label>
+                <div class="ui form">
+                    <div class="grouped fields">
+                        <div class="field">
+                            <div class="ui radio checkbox">
+                                <input type="radio"  name="example2" checked="checked" id="searchAll" value="1">
+                                <label>Check All</label>
+                            </div>
                         </div>
-                    </div>
-                    <div class="field">
-                        <div class="ui checkbox">
-                            <input type="checkbox" id="check601">
-                            <label for="check601">601會議室-4人</label>
+                        <div class="field">
+                            <div class="ui radio checkbox">
+                                <input type="radio" name="example2" id="check601" value="601會議室">
+                                <label>601會議室-4人</label>
+                            </div>
                         </div>
-                    </div>
-                    <div class="field">
-                        <div class="ui checkbox">
-                            <input type="checkbox" id="check602">
-                            <label for="check602">602會議室-6人</label>
+                        <div class="field">
+                            <div class="ui radio checkbox">
+                                <input type="radio" name="example2" id="check602" value="602會議室">
+                                <label>602會議室-6人</label>
+                            </div>
                         </div>
-                    </div>
-                    <div class="field">
-                        <div class="ui checkbox">
-                            <input type="checkbox" id="check603">
-                            <label for="check603">603會議室-8人</label>
+                        <div class="field">
+                            <div class="ui radio checkbox">
+                                <input type="radio" name="example2" id="check603" value="603會議室">
+                                <label>603會議室-8人</label>
+                            </div>
                         </div>
-                    </div>
-                    <div class="field">
-                        <div class="ui checkbox">
-                            <input type="checkbox" id="check604">
-                            <label for="check604">604會議室-10人</label>
+                        <div class="field">
+                            <div class="ui radio checkbox">
+                                <input type="radio" name="example2" id="check604" value="604會議室">
+                                <label>604會議室-10人</label>
+                            </div>
                         </div>
-                    </div>
-                    <div class="field">
-                        <div class="ui checkbox">
-                            <input type="checkbox" id="check605">
-                            <label for="check605">605會議室-10人</label>
+                        <div class="field">
+                            <div class="ui radio checkbox">
+                                <input type="radio"  name="example2" id="check605" value="605會議室">
+                                <label>605會議室-10人</label>
+                            </div>
                         </div>
-                    </div>
-                    <div class="field">
-                        <div class="ui checkbox">
-                            <input type="checkbox" id="check606">
-                            <label for="check606">訓練教室-30人</label>
+                        <div class="field">
+                            <div class="ui radio checkbox">
+                                <input type="radio"  name="example2" id="check606" value="606訓練教室">
+                                <label>訓練教室-30人</label>
+                            </div>
                         </div>
-                    </div>
-                    <div class="field">
-                        <div class="ui checkbox">
-                            <input type="checkbox" id="car01">
-                            <label for="car01">公務車-4人</label>
+                        <div class="field">
+                            <div class="ui radio checkbox">
+                                <input type="radio" name="example2" id="car01" value="公務車01">
+                                <label>公務車-4人</label>
+                            </div>
                         </div>
-                    </div>
-                    <div class="field">
-                        <div class="ui checkbox">
-                            <input type="checkbox" id="car02">
-                            <label for="car02">公務車-6人箱型</label>
+                        <div class="field">
+                            <div class="ui radio checkbox">
+                                <input type="radio"  name="example2" id="car02" value="公務車02">
+                                <label>公務車-6人箱型</label>
+                            </div>
                         </div>
                     </div>
                 </div>
+                @*<div class="inline">*@
+                @*<div class="parent-radio">
+            <div class="field">
+                <div class="ui checked checkbox">
+                    <input type="radio"  id="searchAll" checked>
+                    <label for="searchAll">CheckAll</label>
+                </div>
+            </div>
+        </div>*@
+                @*<div class="child-radio">*@
+                @*<div class="field">
+            <div class="ui checkbox">
+                <input type="radio" id="check601" value="601會議室">
+                <label for="check601">601會議室-4人</label>
+            </div>
+        </div>*@
+                @*<div class="field">
+            <div class="ui checkbox">
+                <input type="radio" id="check602" value="602會議室">
+                <label for="check602">602會議室-6人</label>
+            </div>
+        </div>*@
+                @*<div class="field">
+            <div class="ui checkbox">
+                <input type="radio" id="check603" value="603會議室">
+                <label for="check603">603會議室-8人</label>
+            </div>
+        </div>*@
+                @*<div class="field">
+            <div class="ui checkbox">
+                <input type="radio" id="check604" value="604會議室">
+                <label for="check604">604會議室-10人</label>
+            </div>
+        </div>*@
+                @*<div class="field">
+            <div class="ui checkbox">
+                <input type="radio" id="check605" value="605會議室">
+                <label for="check605">605會議室-10人</label>
+            </div>
+        </div>*@
+                @*<div class="field">
+            <div class="ui checkbox">
+                <input type="radio" id="check606" value="606訓練教室">
+                <label for="check606">訓練教室-30人</label>
+            </div>
+        </div>*@
+                @*<div class="field">
+            <div class="ui checkbox">
+                <input type="radio" id="car01" value="公務車01">
+                <label for="car01">公務車-4人</label>
+            </div>
+        </div>*@
+                @*<div class="field">
+            <div class="ui checkbox">
+                <input type="radio" id="car02"  value="公務車02">
+                <label for="car02">公務車-6人箱型</label>
+            </div>
+        </div>*@
+                @*</div>*@
+                @*</div>*@
             </div>
         </div>
         <div class="thirteen wide column">
@@ -238,33 +322,87 @@
     </div>
 </div>
 
+
 <link href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.css" rel="stylesheet" />
 <link href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.print.css" rel="stylesheet" media="print" />
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+
+@*<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.min.css" integrity="sha512-PIAUVU8u1vAd0Sz1sS1bFE5F1YjGqm/scQJ+VIUJL9kNa8jtAWFUDMu5vynXPDprRRBqHrE8KKEsjA7z22J1FA==" crossorigin="anonymous" />*@
+<link href="https://cdn.rawgit.com/mdehoog/Semantic-UI/6e6d051d47b598ebab05857545f242caf2b4b48c/dist/semantic.min.css" rel="stylesheet" type="text/css" />
+
 @section script{
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+
     <script src="https://cdn.rawgit.com/mdehoog/Semantic-UI/6e6d051d47b598ebab05857545f242caf2b4b48c/dist/semantic.min.js"></script>
+
 
 
     <script>
 
         $(document).ready(() => {
 
-            //var userId = document.cookie.split('id=')[1].split('&')[0];
-            //var userName = decodeURI(document.cookie.split('Name=')[1].split('&')[0]);
+            var nowUserId = document.cookie.split('id=')[1].split('&')[0];
+            var nowUserName = decodeURI(document.cookie.split('Name=')[1].split('&')[0]);
 
             var userId = $('#emId').attr('value', document.cookie.split('id=')[1].split('&')[0]);
             var userName = $('#emNname').attr('value', decodeURI(document.cookie.split('Name=')[1].split('&')[0]));
 
-
- 
-            var _this = this;
             var events = [];
             var selectedEvent = null;
+            var double = null;
+
             EventRefresh();
+
+            //checkbox status          
+            $('[name=example2]').change(function () {
+                var checked = $('[name=example2]:checked');
+                var x = checked.val();
+                if (x == 1) {
+                    console.log('All', x)
+                    EventRefresh();  
+                } else {
+                    checkboxstatus(x);
+                  /*  console.log('else',x)*/
+              }
+            })
+
+             //checkbox status 
+
+            //checkbox status  function
+            function checkboxstatus(x) {    
+                events = [];
+              /*  var moment = new Date();*/
+                $.ajax({
+                    url: "/MeetingRoom/checkBoxStatus",
+                    type: "GET",
+                    data: {"Room":x},
+                    success: function (data) {
+                      /*  console.log(data);*/
+                        $.each(data, function (i, v) {
+                            events.push({
+                                eventID: v.BookingId,
+                                title: v.MeetingRoomName,
+                                description: v.MeetingRemark,
+                                start: moment(v.BookingStartTime).toDate(),
+                                end: v.BookingEndTime != null ? moment(v.BookingEndTime).toDate() : null,
+                                allDay: v.IsAllDay,
+                                subject: v.MeetingSubject,
+                                bookingEmID: v.EmployeeID,
+                                bookingEmName: v.中文姓名,
+                                attendee: v.MeetingAttentee,
+                                status: v.Status,
+                            });        
+                        })
+                       /* console.log(events)*/
+                        GenerateCal(events);
+                        },  error: function (error) {
+                        alert("Reading failed")
+                    },
+                })
+            }
 
             function EventRefresh() {
                 events = [];
@@ -274,17 +412,12 @@
                     url: "/MeetingRoom/GetBooking",
                     success: function (data) {
                         //console.log(data.BookingId)
-                        //alert(data.BookingId)
-
+                       /* alert(data.BookingId)*/
                         $.each(data, function (i, v) {
-
-                            /*console.log(i.BookingId)*/
-                            /*  alert(v.BookingId)*/
-
                             events.push({
                                 eventID: v.BookingId,
                                 title: v.MeetingRoomName,
-                                descrtiption: v.MeetingRemark,
+                                description: v.MeetingRemark,
                                 start: moment(v.BookingStartTime),
                                 end: v.BookingEndTime != null ? moment(v.BookingEndTime) : null,
                                 allDay: v.IsAllDay,
@@ -293,11 +426,10 @@
                                 bookingEmName: v.中文姓名,
                                 attendee: v.MeetingAttentee,
                                 status: v.Status,
-                            });
+                            }); 
                         })
                         GenerateCal(events);
                     },
-
                     error: function (error) {
                         alert("Reading failed")
                     },
@@ -312,45 +444,48 @@
                     defaultDate: new Date(),
                     slotDuration: '00:30:00',
                     snapDuration: '00:30:00',
-                    slotMinTime: '08:30:00',
-                    slotMaxTime: '20:00:00',
+                    minTime: '08:30:00',
+                    maxTime: '20:00:00',
                     nowIndicator: true,
                     /*locale: 'zh-tw',*/
-                    timeFormat: 'h:mmA',
+                    timeFormat: 'HH:mm a',
                     editable: true,
                     eventDrop: function (event) {
-                        alert(event)
-                        //var data = {
-                        //    eventID: event.BookingId,
-                        //    title: event.MeetingRoomName,
-                        //    start: event.BookingStarTime.format('YYYY-MM-DD h:mmA'),
-                        //    end: event.BookingEnd != null ? event.BookingEndTime.format('YYYY-MM-DD h:mmA') : null,
-                        //    subject: event.MeetingSubject,       
-                        //}
+                        var data = {
+                            BookingId: event.eventID,
+                            MeetingRoomName: event.title,
+                            BookingStartTime: event.start.format('YYYY-MM-DD HH:mm a'),
+                            BookingEndTime: event.end != null ? event.end.format('YYYY-MM-DD HH:mm a') : null,
+                            MeetingRemark: event.description,
+                            IsAllDay: event.allDay,
+                            EmployeeID: event.bookingEmID,
+                            中文姓名: event.bookingEmName,
+                            MeetingAttentee: event.attendee,
+                            MeetingSubject: event.subject,
+                        }; alert(event.bookingEmID + "use" + nowUserId)
+                        if (event.bookingEmID == nowUserId) {
+                            SaveEvent(data);
+                        } else {
+                            EventRefresh();
+                            alert("您無法修改非本人預約")
+                        }                        
                     },
                     selectable: true,
                     selectHelper: true,
                     select: function (start, end) {
-                        //selectedEvent = {
-                        //    eventID: 0,
-                        //    title: '',
-                        //    descrtiption: '',
-                        //    start: start,
-                        //    end: end,
-                        //    allDay: false,
-                        ///*   color:'',*/
-                        //    MeetingRoomName:'',
-                        //    MeetingRemark: '',
-                        //    BookingStartTime: start,
-                        //    BookingEndTime: end,
-                        //    MeetingSubject: '',
-                        //    MeetingAttentee: '',
-                        //    EmployeeID: null,
-                        //    中文姓名:'',
-                    
-                     /*   };*/
+                /*        alert(selectedEvent + 'selectedEvent')*/
+                        selectedEvent = {
+                            eventID: 0,
+                            title: '',
+                            description: '',
+                            start: start,
+                            end: end,
+                            allDay: false,
+                            subject: '',
+                            attendee: '',
+                        };
                         oopenAddEditForm();
-                        $('#calendar').fullCalendar('unselect');
+                        $('#calender').fullCalendar('unselect');
                     },
                     eventLimit: true,
                     views: {
@@ -362,222 +497,244 @@
                         Add: {
                             text: '+ Add',
                             click: function () {
-                                /*    alert('clicked the custom button!');*/
-                                /*  $('#emNname').attr(value, userName).append(,this.text);*/
-                                //$('#emId').attr(value, userId).append(this.text);
+                                clearAlltxt();
                                 $('#Calendar-modal').modal('toggle');
                             }
                         }
-
                     }, //customBtnEnd
+
                     header: {
                         left: 'Add, prev,next, today,',
                         right: 'month, agendaWeek, agendaDay, listWeek',
                         center: 'title'
                     },
                     events: events,
-
-                    //    [
-                    //    {
-                    //        title: 'All Day Event',
-                    //        start: '2021-03-24',
-                    //    },
-                    //    {
-                    //        title: 'Long Event',
-                    //        start: '2021-03-25',
-                    //        end: '2021-03-26',
-                    //    },
-                    //    {
-                    //        title: 'Room601',
-                    //        start: '2021-03-25',
-                    //        end: '2021-03-25',
-                    //    },
-
-                    //],
                     eventClick: function (calEvent, jsEvent, view) {
-
                         selectedEvent = calEvent;
-                        $('#editRoom').text(calEvent.title);
-                        $('#editStart').text(calEvent.start.format("YYYY-MM-DD h:mmA"));
-                        $('#editEnd').text(calEvent.end.format("YYYY-MM-DD h:mmA"));
-                        /* alert(calEvent.start.format("YYYY-MM-DD h:mmA"))*/
+                        $('#dataEdit #editTitle').text(calEvent.title);
+                        var $description = $('<div/>');
+                        $description.append($('<p/>').html('<b  class="ui header">開始時間 :</b>' + "    " + calEvent.start.format("YYYY-MM-DD HH:mm a")));
+                        if (calEvent.end != null) {
+                            $description.append($('<p/>').html('<b  class="ui header">結束時間 :</b>' + "    " + calEvent.end.format("YYYY-MM-DD HH:mm a")));
+                        } else { $description.append($('<p/>').html('<b  class="ui header">資源為全日預約</b>'));}
+                       /* $description.append($('<p/>').html('<b  class="ui header">Resource Name:</b>' + "<br/>" + "<br/>" + calEvent.description));*/
+                        $('#dataEdit #editbody').empty().html($description);
 
-                        /*$('#Calendar-modal .modelHeader').text(calEvent.title);*/
-                        //var htmldiv = $('<div>');
-                        //htmldiv.append($('<p>').html('<b>開始時間:</b>' + calEvent.start.format("MM-DD-YYYY h:mmA")));
-                        //if (calEvent.end != null) {
-                        //    htmldiv.append($('<p>').html('<b>結束時間:</b>' + calEvent.end.format("MM-DD-YYYY h:mmA")));
-                        //}
-                        //$('#dataEdit').empty().html(htmldiv);
-                        //    alert('Event: ' + calEvent.title);
-                        //    alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
-                        //alert('View: ' + view.name);
-                        //alert('start: ' + calEvent.start.format("MM-DD-YYYY h:mmA"));
-                        //alert('end: ' + calEvent.end.format("MM-DD-YYYY h:mmA"));
-
-                        /* change the border color just for fun*/
                         $(this).css('border-color', 'red');
-
                         $('#dataEdit').modal('toggle');
                     },
                 });
             }
 
-   /*         $('#example13 #example14').moment().format('YYYY/MM/DD HH:mm A');*/
-
+            //modal calendar setup
             $('#example13').calendar({
-                on: 'hover',              
                 monthFirst: false,
-                formatter: {
-                    Date: function (date, settings) {
-                        if (!date) return '';
-                        var day = date.getDate();
-                        var month = date.getMonth() + 1;
-                        var year = date.getFullYear();
-                        return year + '/' + month + '/' + day;
-                    }
-                },
-                //popupOptions: {
-                //    position: 'bottom left', lastResort: 'bottom left', prefer: 'opposite', hideOnScroll: false
-                //},
-                today: true,
-            });
-
-            $('#example14').calendar({
-                on: 'hover',
-                monthFirst: false,
+                contantHeight: true,
+                popupPosition: 'top center',
                 formatter: {
                     date: function (date, settings) {
                         if (!date) return '';
                         var day = date.getDate();
                         var month = date.getMonth() + 1;
                         var year = date.getFullYear();
-                        return year + '/' + month + '/' + day;
-                    }
+                        return year + '-' + month + '-' + day;
+                    },
                 }
             });
 
-
-            //function ReloadModal() {
-            //    /*var bookingId = event.id;*/
-            //    alert(_this)
-            //    $.ajax({
-            //        url: "/MeetingRoom/ReloadModal",
-            //        type: "POST",
-            //        data: { "eventID": selectedEvent.eventID },
-            //        success: function (data) {
-            //            alert(data.emId)
-            //        },
-            //        error: function () { alert('failed'); },
-            //    })
-            //}
-
-            $('#btnEdit').click(function () {
-                oopenAddEditForm()
-                /*   ReloadModal();*/
-                $('#dataEdit').modal('hide');
-                $('#Calendar-modal').modal('show');
-            })
-
-            $('#btnDelete').click(function () {
-                if (selectedEvent != null && confirm('Are you sure?')) {
-                    /* alert(selectedEvent.eventID)*/
-
-                    $.ajax({
-                        url: "/MeetingRoom/DeleteEvent",
-                        data: { 'eventID': selectedEvent.eventID },
-                        method: "POST",
-                        success: function (data) {
-                            if (data.status) {
-                                //refresh the calendar
-                                EventRefresh();
-                                $('#dataEdit').modal('hide'); //toDo F12 calendarList
-
-                            }
-                        },
-                        error: function () { alert('failed'); },
-                    })
+            $('#example14').calendar({
+                monthFirst: false,
+                contantHeight: true,
+                popupPosition: 'top center',
+                formatter: {
+                    date: function (date, settings) {
+                        if (!date) return '';
+                        var day = date.getDate();
+                        var month = date.getMonth() + 1;
+                        var year = date.getFullYear();
+                        return year + '-' + month + '-' + day;
+                    },
                 }
+            });
+            //end modal calendar setup
+
+            //clear modal Add+ data
+            function clearAlltxt() {
+                $('#MeetingRoomName').val('');
+                $('#MeetingSubject').val('');
+                $('#chboxisAllday').val('');
+                $('#startTime').val('');
+                $('#endTime').val('');
+                $('#attendee').val('');
+                $('#Description').val('');           
+            };
+
+            // edit Btn
+            $('#btnEdit').click(function () {
+              /*  alert(selectedEvent.bookingEmID + "EmID" + nowUserId + 'UsrID')*/
+                if (selectedEvent.bookingEmID == nowUserId) {
+                    oopenAddEditForm()
+                    /*   ReloadModal();*/
+                    $('#dataEdit').modal('hide');
+                    $('#Calendar-modal').modal('show');
+                } else {
+                    alert("您無法修改非本人預約")
+                }              
             })
 
+            //edit delete
+            $('#btnDelete').click(function () {
+
+                if (selectedEvent.bookingEmID == nowUserId) {
+                    if (selectedEvent != null && confirm('Are you sure?')) {
+                        /* alert(selectedEvent.eventID)*/
+
+                        $.ajax({
+                            url: "/MeetingRoom/DeleteEvent",
+                            data: { 'eventID': selectedEvent.eventID },
+                            method: "POST",
+                            success: function (data) {
+                                if (data.status) {
+                                    //refresh the calendar
+                                    EventRefresh();
+                                    $('#dataEdit').modal('hide'); //toDo F12 calendarList
+                                }
+                            },
+                            error: function () { alert('failed'); },
+                        })
+                    }
+                } else { alert("您無法刪除非本人預約") }               
+            })
+
+            //check allday event change
             $('#chboxisAllday').change(function () {
                 if ($(this).is(':checked')) {
                     $('#divEndDate').hide();
+                    /*  $('#startTime').; */
                 } else {
                     $('#divEndDate').show();
                 }
             });
 
+
+            // open Edit Form
             function oopenAddEditForm() {
                 if (selectedEvent != null) {
-               /*     alert(selectedEvent.start.format("YYYY-MM-DD h:mmA"))*/
+                    $('#hdeventID').val(selectedEvent.eventID);
                     $('#MeetingRoomName').val(selectedEvent.title);
-                    $('#startTime').val(selectedEvent.start.format("YYYY-MM-DD h:mmA"));
-                    $('#endTime').val(selectedEvent.end != null ? selectedEvent.end.format("YYYY-MM-DD h:mmA") : '');
+                    $('#startTime').val(selectedEvent.start.format('YYYY-MM-DD HH:mm a'));
 
                     $('#MeetingSubject').val(selectedEvent.subject);
-
+                      
                     $('#chboxisAllday').prop("checked", selectedEvent.allDay || false);
                     $('#chboxisAllday').change();
 
-                    $('#Description').val(selectedEvent.descrtiption);
+                    $('#endTime').val(selectedEvent.end != null ? selectedEvent.end.format('YYYY-MM-DD HH:mm a') : '');
+
+                    $('#Description').val(selectedEvent.description);
                     $('#attendee').val(selectedEvent.attendee);
-                    //            id="emNname"
-                    //            id="emId"
-                    //            id="MeetingRoomName"
-                    //            id="MeetingSubject"
-                    //            id="startTime"
-                    //            id="endTime"
-                    //            id="attendee"
-                    //            id="Description"
-                    //eventID: v.BookingId,
-                    //    title: v.MeetingRoomName,
-                    //        descrtiption: v.MeetingRemark,
-                    //            start: moment(v.BookingStartTime),
-                    //                end: v.BookingEndTime != null ? moment(v.BookingEndTime) : null,
-                    //                    allDay: v.IsAllDay,
-                    //                        subject: v.MeetingSubject,
-                    //                            bookingEmID: v.EmployeeID,
-                    //                                bookingEmName: v.中文姓名,
-                    //                                    attendee: v.MeetingAttentee,
-                    //                                        status: v.Status,
                 }
+
+                /*alert(selectedEvent.allDay)*/
                 $('#dataEdit').modal('hide');
-                $('#Calendar-modal').modal();
+                $('#Calendar-modal').modal('show');
             }
+
+            //Send//
             $('#txtSend').click(function () {
+                events = [];
+                $.ajax({
+                    type: "GET",
+                    url: "/MeetingRoom/GetBooking",
+                    success: function (data) {
+                    /*    console.log('txtSendcheckdatalengt',data.length)*/
+                        //console.log(data.BookingId)
+                    /* alert(data.BookingId)*/       
+
+                        $.each(data, function (i, v) {
+                            events.push({
+                                eventID: v.BookingId,
+                                title: v.MeetingRoomName,
+                                description: v.MeetingRemark,
+                                start: moment(v.BookingStartTime).toDate(),
+                                end: v.BookingEndTime != null ? moment(v.BookingEndTime).toDate() : null,
+                                allDay: v.IsAllDay,
+                                subject: v.MeetingSubject,
+                                bookingEmID: v.EmployeeID,
+                                bookingEmName: v.中文姓名,
+                                attendee: v.MeetingAttentee,
+                                status: v.Status,
+                            });
+                        })                
+                    },
+                    error: function (error) {
+                        alert("Reading failed")
+                    },
+                })
+
+             /*   console.log('txtSendcheckevents',events)*/
+
+                if ($('#chboxisAllday').is(':checked')) {
+                    console.log('txtSendcheckevents', events)
+                  
+                    for (var i = 0; i < events.length; i++) {
+                        console.log('events.start[i]', events.length)
+                    }
+                }
+
+                //var getResourceName = $('#MeetingRoomName').val();
+                //var getSYear = $('#startTime').val().split('-')[0];
+                //var getSMonth = $('#startTime').val().split('-')[1];
+                //var getSDate = moment($('#startTime').val(), 'YYYY-MM-DD HH:mm a').get('date');
+                //var getSHour = moment($('#startTime').val(), 'YYYY-MM-DD HH:mm a').get('hour');
+                //var getSMin = moment($('#startTime').val(), 'YYYY-MM-DD HH:mm a').get('minute');
+                //var getEYear = moment($('#endTime').val(), 'YYYY-MM-DD HH:mm a').get('year');
+                //var getEMonth = $('#endTime').val().split('-')[1];
+                //var getEDate = moment($('#endTime').val(), 'YYYY-MM-DD HH:mm a').get('date');
+                //var getEHour = moment($('#endTime').val(), 'YYYY-MM-DD HH:mm a').get('hour');
+                //var getEMin = moment($('#endTime').val(), 'YYYY-MM-DD HH:mm a').get('minute');
+                //var getAllDay = $('#chboxisAllday').is(':checked');
+                //alert('getAllDay' + getAllDay)              
+
                 if ($('#MeetingRoomName').val().trim() == "") {
-                    alert('Subject required');
+                    alert('請選擇要預約的項目');
                     return;
                 }
                 if ($('#startTime').val().trim() == "") {
-                    alert('Start Time required');
+                    alert('請選擇開始時間');
                     return;
                 }
-                if ($('#chboxisAllday').is(':checked') == false && $('#startTime').val().trim() == "") {
-                    alert('End Time required');
+                if ($('#chboxisAllday').is(':checked') == false && $('#endTime').val().trim() == "") {
+                    alert('請選擇結束時間');
                     return;
-                } else {
-                    var startDate = moment($('#startTime').val(), "YYYY-MM-DD h:mmA").toDate();
-                    var endDate = moment($('#endTime').val(), "YYYY-MM-DD h:mmA").toDate();
-                    if (startDate > endDate) {
+                }
+                else {
+                    var startDate = moment($('#startTime').val(), 'YYYY-MM-DD HH:mm a').toDate();
+                    var endDate = moment($('#endTime').val(), 'YYYY-MM-DD HH:mm a').toDate();                  
+
+                    if (startDate > endDate) {                        
                         alert('開始時間晚於結束時間, 請重新預訂');
                         return;
-                    }
+                    }              
                 }
+
+       /*         swal("開始時間晚於結束時間", "請重新預訂", "error");*/
                 var data = {
                     MeetingRoomName: $('#MeetingRoomName').val(),
-                    MeetingRemark: $('#MeetingRemark').val(),
+                    MeetingRemark: $('#Description').val(),
                     BookingStartTime: $('#startTime').val().trim(),
                     BookingEndTime: $('#chboxisAllday').is(':checked') ? null : $('#endTime').val().trim(),
                     MeetingSubject: $('#MeetingSubject').val().trim(),
-                    MeetingAttentee:$('#attendee').val().trim(),
+                    MeetingAttentee: $('#attendee').val().trim(),
                     EmployeeID: $('#emId').val(),
                     中文姓名: $('#emNname').val(),
+                    IsAllDay: $('#chboxisAllday').is(':checked'),
+                    BookingId: $('#hdeventID').val(),
                     // status: v.Status,
                     //eventID: v.BookingId,
                 }
                 SaveEvent(data);
+                clearAlltxt();
             })
 
             function SaveEvent(data) {
@@ -588,16 +745,18 @@
                     success: function (data) {
                         if (data.status) {
                             //refresh the calendar
-                            
+                            EventRefresh();
+                            $('#searchAll').prop('checked', true); //radiocheckboxAll
                             $('#Calendar-modal').modal('hide'); //toDo F12 calendarList
                             swal("編輯成功！", "更新會議資訊", "success");
-                            EventRefresh()
                         }
                     },
-                    error: function () { swal("編輯失敗！", "請重新更新會議資訊", "failed") },
+                    error: function () { swal("編輯失敗！", "請重新更新會議資訊", "error") },
                 })
             }
-            $('#searchAll').change(":checked", )
+
+              
+
         });
 
     </script>

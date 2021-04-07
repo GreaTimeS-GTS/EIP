@@ -22,14 +22,14 @@
           <Property Name="EmployeeID" Type="int" />
           <Property Name="中文姓名" Type="nvarchar" MaxLength="50" />
           <Property Name="BookingDate" Type="datetime" />
-          <Property Name="BookingStartTime" Type="nvarchar" MaxLength="50" />
-          <Property Name="BookingEndTime" Type="nvarchar" MaxLength="50" />
+          <Property Name="BookingStartTime" Type="datetime" />
+          <Property Name="BookingEndTime" Type="datetime" />
           <Property Name="MeetingRoomId" Type="int" />
           <Property Name="MeetingRoomName" Type="nvarchar" MaxLength="50" />
           <Property Name="MeetingRemark" Type="nvarchar(max)" />
           <Property Name="MeetingSubject" Type="nvarchar(max)" />
           <Property Name="MeetingAttentee" Type="nvarchar(max)" />
-          <Property Name="IsAllDay" Type="int" />
+          <Property Name="IsAllDay" Type="bit" />
           <Property Name="Status" Type="int" />
         </EntityType>
         <EntityType Name="pjAdvice">
@@ -772,14 +772,14 @@
           <Property Name="EmployeeID" Type="Int32" />
           <Property Name="中文姓名" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="BookingDate" Type="DateTime" Precision="3" />
-          <Property Name="BookingStartTime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="BookingEndTime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BookingStartTime" Type="DateTime" Precision="3" />
+          <Property Name="BookingEndTime" Type="DateTime" Precision="3" />
           <Property Name="MeetingRoomId" Type="Int32" />
           <Property Name="MeetingRoomName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="MeetingRemark" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="MeetingSubject" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="MeetingAttentee" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="IsAllDay" Type="Int32" />
+          <Property Name="IsAllDay" Type="Boolean" />
           <Property Name="Status" Type="Int32" />
         </EntityType>
         <EntityType Name="pjAdvice">

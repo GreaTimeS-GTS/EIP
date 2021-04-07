@@ -17,14 +17,14 @@
     <Property Name="EmployeeID" Type="int" />
     <Property Name="中文姓名" Type="nvarchar" MaxLength="50" />
     <Property Name="BookingDate" Type="datetime" />
-    <Property Name="BookingStartTime" Type="nvarchar" MaxLength="50" />
-    <Property Name="BookingEndTime" Type="nvarchar" MaxLength="50" />
+    <Property Name="BookingStartTime" Type="datetime" />
+    <Property Name="BookingEndTime" Type="datetime" />
     <Property Name="MeetingRoomId" Type="int" />
     <Property Name="MeetingRoomName" Type="nvarchar" MaxLength="50" />
     <Property Name="MeetingRemark" Type="nvarchar(max)" />
     <Property Name="MeetingSubject" Type="nvarchar(max)" />
     <Property Name="MeetingAttentee" Type="nvarchar(max)" />
-    <Property Name="IsAllDay" Type="int" />
+    <Property Name="IsAllDay" Type="bit" />
     <Property Name="Status" Type="int" />
   </EntityType>
   <EntityType Name="pjAdvice">

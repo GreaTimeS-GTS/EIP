@@ -3,6 +3,7 @@ using EIP.Models.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 
@@ -14,52 +15,60 @@ namespace EIP.Controllers
 
         dbEIPEntities db = new dbEIPEntities();
         public ActionResult MeetingRoomBookingSearch()
-        {           
+        {
             return View();
         }
 
-        public ActionResult BookingView() {
+        public ActionResult BookingView()
+        {
 
             return View();
 
         }
 
-        public JsonResult GetBooking() {
+        public JsonResult GetBooking()
+        {
 
             var events = db.MeetingRoomBooking.ToList();
             Console.WriteLine(events);
             return Json(events, JsonRequestBehavior.AllowGet);
         }
-                        
-        public JsonResult ReloadModal(int eventID) {
-            Console.WriteLine(eventID);
-            MeetingRoomBooking editevent= db.MeetingRoomBooking.Where(a=>a.BookingId==eventID).FirstOrDefault();
-            var editByeventId = new
-            {
-                emId=editevent.EmployeeID,
-                emName=editevent.中文姓名,                MeetingRoomName=editevent.MeetingRoomName,
-                MeetingSubject=editevent.MeetingSubject,
-                startTime=editevent.BookingStartTime,
-                endTime=editevent.BookingEndTime,
-                attendee=editevent.MeetingAttentee,
-                Description=editevent.MeetingRemark,
-                isAllday=editevent.IsAllDay,
-                //id="emNname"
-                //id="emId"
-                //id="MeetingRoomName"
-                //id="MeetingSubject" 
-                //id="startTime" 
-                //id="endTime"
-                //id="attendee"
-                //id="Description"
-                //id="isAllday"
-            };
-            return Json(editByeventId, JsonRequestBehavior.AllowGet);
-        }
-        [HttpPost]
-        public JsonResult SaveEvent(MeetingRoomBooking e) {
 
+        public JsonResult checkBoxStatus(string Room)
+        {
+            var bb = db.MeetingRoomBooking.Where(a => a.MeetingRoomName == Room).Select(editevent => new
+            {
+                BookingId=editevent.BookingId,
+                MeetingRoomName = editevent.MeetingRoomName,
+                MeetingRemark = editevent.MeetingRemark,
+                BookingStartTime = editevent.BookingStartTime,
+                BookingEndTime = editevent.BookingEndTime,
+                isAllday = editevent.IsAllDay,
+                MeetingSubject = editevent.MeetingSubject,
+                EmployeeID = editevent.EmployeeID,
+                中文姓名 = editevent.中文姓名,
+                MeetingAttentee = editevent.MeetingAttentee,            
+            });
+            //var getByRoomName = new
+            //{
+            //    emId=editevent.EmployeeID,
+            //    emName=editevent.中文姓名,
+            //    MeetingRoomName=editevent.MeetingRoomName,
+            //    MeetingSubject=editevent.MeetingSubject,
+            //    startTime=editevent.BookingStartTime,
+            //    endTime=editevent.BookingEndTime,
+            //    attendee=editevent.MeetingAttentee,
+            //    Description=editevent.MeetingRemark,
+            //    isAllday=editevent.IsAllDay,       
+            //};
+            return Json(bb, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult SaveEvent(MeetingRoomBooking e)
+        {
             var status = false;
+
             if (e.BookingId > 0)
             {
                 var v = db.MeetingRoomBooking.Where(a => a.BookingId == e.BookingId).FirstOrDefault();
@@ -76,15 +85,15 @@ namespace EIP.Controllers
                     v.IsAllDay = e.IsAllDay;
                 }
             }
-            else {db.MeetingRoomBooking.Add(e);}
+            else { db.MeetingRoomBooking.Add(e); }
             db.SaveChanges();
             status = true;
             return new JsonResult { Data = new { status = status } };
         }
 
-    
-        public JsonResult DeleteEvent(int eventID) {
-
+        [HttpPost]
+        public JsonResult DeleteEvent(int eventID)
+        {
             //MeetingRoomBooking v = db.MeetingRoomBooking.Find(bockingId);
             //db.MeetingRoomBooking.Remove(v);
             //db.SaveChanges();
@@ -100,6 +109,6 @@ namespace EIP.Controllers
                 status = true;
             }
             return new JsonResult { Data = new { status = status } };
-        }
+        }       
     }
 }
