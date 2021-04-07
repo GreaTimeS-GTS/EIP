@@ -323,7 +323,7 @@
     <EntitySetMapping Name="佈告欄">
       <EntityTypeMapping TypeName="dbEIPModel.佈告欄">
         <MappingFragment StoreEntitySet="佈告欄">
-          <ScalarProperty Name="總筆數" ColumnName="總筆數" />
+          <ScalarProperty Name="訊息重要度" ColumnName="訊息重要度" />
           <ScalarProperty Name="發布日期" ColumnName="發布日期" />
           <ScalarProperty Name="佈告欄內容" ColumnName="佈告欄內容" />
           <ScalarProperty Name="佈告欄標題" ColumnName="佈告欄標題" />
