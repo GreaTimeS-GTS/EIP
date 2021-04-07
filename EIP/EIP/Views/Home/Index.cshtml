@@ -1,104 +1,323 @@
 ﻿@{
     ViewBag.Title = "首頁";
 }
+<style>
+
+    .佈告欄總表外框 {
+        background-color: white;
+        height: 200px;
+        width: 300px;
+        padding-left: 30px;
+        padding-right: 30px;
+        padding-bottom: 30px;
+        padding-top: 0;
+        box-shadow: 3px 3px 9px black;
+        margin: auto;
+    }
+
+    .佈告欄列表 {
+        width: 200px;
+        box-shadow: 3px 3px 9px black;
+    }
+
+        .佈告欄列表 th {
+            padding: 5px 5px;
+            text-align: center;
+            background-color: #444444;
+        }
+
+        .佈告欄列表 td {
+            padding: 5px 5px;
+            text-align: center;
+        }
+
+    .文字 {
+        font-size: 15px;
+        font-weight: 900;
+        text-align: center;
+    }
+
+    .txt樣式 {
+        max-width: 460PX;
+        width: 460px;
+        height: 30px;
+    }
+
+    .外框 {
+        width: 100%;
+        border: 3px solid black;
+        border-radius: 10px;
+        padding: 10px;
+    }
+
+    .佈告欄分頁 {
+        height: 100%;
+    }
+
+    .更多公告 {
+        padding-left: 0%;
+    }
+
+    .行事曆彈出視窗按鈕 {
+        font-size: 25px;
+        font-weight: 900;
+    }
+
+    .行事曆事項名稱輸入框 {
+        max-width: 1000px;
+        width: 880px;
+        font-weight: 900;
+        font-size: 25px;
+        height: 40px;
+    }
+
+    .行事曆時間輸入框 {
+        max-width: 1000px;
+        width: 880px;
+        font-weight: 900;
+        font-size: 25px;
+    }
+
+    .行事曆描述輸入框 {
+        max-width: 900px;
+        width: 880px;
+        max-height: 300px;
+        height: 250px;
+        resize: none;
+        font-weight: 900;
+        font-size: 25px;
+    }
+</style>
+
 
 <div class="HomePic">
     <div class="w-75 h-75 container">
-        <img class="w-100 h-100 container-fluid" src="~/images/Logo.png" />
+        <div type="button" class="position-absolute" style="min-width:350px; min-height:350px;" onclick="IndexSignInSave()"></div>
+        <img class="w-100 h-100 container-fluid" src="~/images/NewLogoImg2.png" />
     </div>
 </div>
-<div class="mt-5 w-100">
-    <div class="d-flex bottomdiv">
-        <div class="ui card " data-html="<div class='header'>User Rating</div><div class='content'><div class='ui star rating'><i class='active icon'></i><i class='active icon'></i><i class='active icon'></i><i class='active icon'></i><i class='active icon'></i></div></div>">
-            <div class="image">
-                <img src="~/images/20210318041939IU001.jpg">
-            </div>
-            <div class="content">
-                <div class="header">My Neighbor Totoro</div>
-                <div class="description">
-                    Two sisters move to the country with their father in order to be closer to their hospitalized mother, and discover the surrounding trees are inhabited by magical spirits.
-                </div>
-            </div>
-            <div class="ui two bottom attached buttons">
-                <div class="ui button">
-                    <i class="add icon"></i>
-                    Queue
-                </div>
-                <div class="ui primary button">
-                    <i class="play icon"></i>
-                    Watch
-                </div>
-            </div>
-        </div>
-        <div class="ui card" data-html="<div class='header'>User Rating</div><div class='content'><div class='ui star rating'><i class='active icon'></i><i class='active icon'></i><i class='active icon'></i><i class='active icon'></i><i class='active icon'></i></div></div>">
-            <div class="image">
-                <img src="~/images/20210318041939IU001.jpg">
-            </div>
-            <div class="content">
-                <div class="header">My Neighbor Totoro</div>
-                <div class="description">
-                    Two sisters move to the country with their father in order to be closer to their hospitalized mother, and discover the surrounding trees are inhabited by magical spirits.
-                </div>
-            </div>
-            <div class="ui two bottom attached buttons">
-                <div class="ui button">
-                    <i class="add icon"></i>
-                    Queue
-                </div>
-                <div class="ui primary button">
-                    <i class="play icon"></i>
-                    Watch
-                </div>
-            </div>
-        </div>
-        <div class="ui card" data-html="<div class='header'>User Rating</div><div class='content'><div class='ui star rating'><i class='active icon'></i><i class='active icon'></i><i class='active icon'></i><i class='active icon'></i><i class='active icon'></i></div></div>">
-            <div class="image">
-                <img src="~/images/20210318041939IU001.jpg">
-            </div>
-            <div class="content">
-                <div class="header">My Neighbor Totoro</div>
-                <div class="description">
-                    Two sisters move to the country with their father in order to be closer to their hospitalized mother, and discover the surrounding trees are inhabited by magical spirits.
-                </div>
-            </div>
-            <div class="ui two bottom attached buttons">
-                <div class="ui button">
-                    <i class="add icon"></i>
-                    Queue
-                </div>
-                <div class="ui primary button">
-                    <i class="play icon"></i>
-                    Watch
-                </div>
-            </div>
-        </div>
-        <div class="ui card" data-html="<div class='header'>User Rating</div><div class='content'><div class='ui star rating'><i class='active icon'></i><i class='active icon'></i><i class='active icon'></i><i class='active icon'></i><i class='active icon'></i></div></div>">
-            <div class="image">
-                <img src="~/images/20210318041939IU001.jpg">
-            </div>
-            <div class="content">
-                <div class="header">My Neighbor Totoro</div>
-                <div class="description">
-                    Two sisters move to the country with their father in order to be closer to their hospitalized mother, and discover the surrounding trees are inhabited by magical spirits.
-                </div>
-            </div>
-            <div class="ui two bottom attached buttons">
-                <div class="ui button">
-                    <i class="add icon"></i>
-                    Queue
-                </div>
-                <div class="ui primary button">
-                    <i class="play icon"></i>
-                    Watch
+
+<div class="下方快捷選項 d-flex justify-content-between">
+
+    @*-----------第一個快捷選項-----------*@
+    <div class="mt-5 w-100">
+        <div class="d-flex bottomdiv">
+            <div class="外框">
+                <table class="table-hover w-100 table table-striped text-nowrap 佈告欄列表">
+                    <thead class="THeadAdd 文字">
+                    </thead>
+                    <tbody class="TBodyAdd 文字">
+                    </tbody>
+                </table>
+                <div class="更多公告">
+                    <a type="button" class="ui inverted secondary massive button text-nowrap w-100" href="@Url.Action("BulletinBoard","BulletinBoard")">更多公告</a>
                 </div>
             </div>
         </div>
     </div>
-
-
-
+    @*-----------第二個快捷選項-----------*@
+    <div class="mt-5 w-100">
+        <div class="d-flex bottomdiv">
+            <div class="外框">
+                <table class="table-hover w-100 table table-striped text-nowrap 佈告欄列表">
+                    <thead class="THeadAdd 文字">
+                    </thead>
+                    <tbody class="TBodyAdd 文字">
+                    </tbody>
+                </table>
+                <div class="更多公告">
+                    <a type="button" class="ui inverted secondary massive button text-nowrap w-100" href="@Url.Action("BulletinBoard","BulletinBoard")">更多公告</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*-----------第三個快捷選項-----------*@
+    <div class="mt-5 w-100">
+        <div class="d-flex bottomdiv">
+            <div class="外框">
+                <table class="table-hover w-100 table table-striped text-nowrap 佈告欄列表">
+                    <thead class="THeadAdd 文字">
+                    </thead>
+                    <tbody class="TBodyAdd 文字">
+                    </tbody>
+                </table>
+                <div class="更多公告">
+                    <a type="button" class="ui inverted secondary massive button text-nowrap w-100" href="@Url.Action("BulletinBoard","BulletinBoard")">更多公告</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*-----------第四個快捷選項-----------*@
+    <div class="mt-5 w-100">
+        <div class="d-flex bottomdiv">
+            <div class="外框">
+                <table class="table-hover w-100 table table-striped text-nowrap 佈告欄列表">
+                    <thead class="THeadAdd 文字">
+                    </thead>
+                    <tbody class="TBodyAdd 文字">
+                    </tbody>
+                </table>
+                <div class="更多公告">
+                    <a type="button" class="ui inverted secondary massive button text-nowrap w-100" href="@Url.Action("BulletinBoard","BulletinBoard")">更多公告</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+@*-----------重要布告欄快捷選項詳細彈跳視窗-----------*@
+<div id="ShowBulletinBoard" class="ui modal centermodal" tabindex="-1" role="dialog">
+    <div class="header" style="background-color: #00CACA">
+        <i class="close icon"></i>
+        <h1>佈告欄資訊</h1>
+    </div>
+    <div class="content">
+        <form class="ShowUserProfile"></form>
+    </div>
+    <div class="actions">
+        <button type="button" class="ui inverted secondary big button ClearModal cancel">關閉</button>
+    </div>
+</div>
+
 @section script{
     <script>
+        $.ajax({
+            url: "/BulletinBoard/MessegeHighBulletinBoardList",
+            method: "get",
+            success: function (data) {
+                $(".THeadAdd").html(`
+                                                                                                                    <tr>
+                                                                                                                    <th>標題</th>
+                                                                                                                    <th>發佈日期</th>
+                                                                                                                    <th>詳細</th>
+                                                                                                                    </tr>
+                                                                                                                    `)
+                var a = "";  // 使用一個空字串
+                $(data).each(function (index, item) {
+                    var datetime = parseInt(item.發布日期.replace(/\D/igm, ""));
+                    var datetime1 = new Date(datetime);
+
+                    if (datetime1.getHours() < 10) {
+                        x = "0" + datetime1.getHours();
+                    }
+                    else {
+                        x = datetime1.getHours();
+                    }
+
+                    if (datetime1.getMinutes() < 10) {
+                        y = "0" + datetime1.getMinutes();
+                    }
+                    else {
+                        y = datetime1.getMinutes();
+                    }
+                    a += ` <tr>
+                                                                                                        <td>${item.佈告欄標題}</td>
+                                                                                                        <td>${datetime1.getFullYear() + "/" + (datetime1.getMonth() + 1) + "/" + datetime1.getDate() + " " + x + ":" + y}</td>
+                                                                                                        <td><a class="ui inverted teal big button text-dark empedit 詳細按鈕" data-id="${item.佈告欄ID}" data-toggle="modal" data-target="#ShowBulletinBoard" onclick="SearchThis()">詳細</a></td>
+                                                                                                    </tr>`;
+                })
+                $(".TBodyAdd").html(a); // 取代原本內容
+            },
+        })
+
+
+        // 指定單筆資料(詳細)
+
+        function SearchThis() {
+            $("#ShowBulletinBoard").modal('toggle');
+            $.ajax({
+                url: "/BulletinBoard/SearchOneBulletinBoard",
+                method: "Get",
+                data: { "id": $(event.currentTarget).data("id") },
+                success: function (data) {
+                    var datetime = parseInt(data.發布日期.replace(/\D/igm, ""));
+                    var datetime1 = new Date(datetime);
+
+                    // 月
+                    if ((datetime1.getMonth() + 1) < 10) {
+                        m = "0" + (datetime1.getMonth() + 1);
+                    }
+                    else {
+                        m = datetime1.getDate();
+                    }
+
+                    // 日
+                    if (datetime1.getDate() < 10) {
+                        d = "0" + datetime1.getDate();
+                    }
+                    else {
+                        d = datetime1.getDate();
+                    }
+
+                    // 時
+                    if (datetime1.getHours() < 10) {
+                        h = "0" + datetime1.getHours();
+                    }
+                    else {
+                        h = datetime1.getHours();
+                    }
+
+                    // 分
+                    if (datetime1.getMinutes() < 10) {
+                        min = "0" + datetime1.getMinutes();
+                    }
+                    else {
+                        min = datetime1.getMinutes();
+                    }
+                    $(".ShowUserProfile").html(`
+                                                                                <div class="d-flex justify-content-center">
+                                                                                    <div class="mr-1">
+                                                                                        <div class="文字2">佈告欄編號：</div>
+                                                                                        <input name="BulletinBoardID" type="text" class="updateBBID txt樣式 行事曆事項名稱輸入框" disabled value="${data.佈告欄ID}"/>
+                                                                                            <br>
+                                                                                            <br>
+                                                                                        <input name="EmployeeID" type="hidden" class="updateEPID txt樣式 行事曆事項名稱輸入框" disabled value="${data.EmployeeID}"/>
+                                                                                        <div class="文字2">發佈人：</div>
+                                                                                        <input name="發佈人姓名" type="text" class="updateBBName txt樣式 行事曆事項名稱輸入框" disabled value="${data.中文姓名}" disabled/>
+                                                                                        <br>
+                                                                                        <br>
+                                                                                        <div class="文字2">標題：</div>
+                                                                                        <input name="Title" type="text" class="updateTitle txt樣式 行事曆事項名稱輸入框" disabled value="${data.佈告欄標題}"/>
+                                                                                        <br>
+                                                                                        <br>
+                                                                                        <div class="文字2">內容:   </div>
+                                                                                        <textarea name="Content" class="updateContent 行事曆描述輸入框" disabled>${data.佈告欄內容}</textarea>
+                                                                                        <br>
+                                                                                        <br>
+                                                                                        <div class="文字2">發佈日期:  </div>
+                                                                                        <input name="Date" type="text" class="updateTime txt樣式 行事曆事項名稱輸入框" disabled value="${datetime1.getFullYear() + " / " + m + " / " + d + "   " + h + ":" + min + ":00"}"/>
+                                                                                        <br>
+                                                                                        <br>
+                                                                                    </div>
+                                                                                </div>`);
+                }
+            });
+        };
+
+        function IndexSignInSave(data) {
+            swal({
+                title: "確定要打卡嗎?",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        $.ajax({
+                            type: "POST",
+                            url: '/BulletinBoard/SignInSave',
+                            data: data,
+                            success: function () {
+                                swal("打卡成功!", "", "success");
+                                ShowCalendar();
+                            }
+                        })
+                    }
+                    else {
+                        swal("打卡動作已取消!", "", "success");
+                    }
+                });
+        }
+
     </script>
-    }
+}
