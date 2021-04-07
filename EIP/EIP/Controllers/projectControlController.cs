@@ -80,7 +80,7 @@ namespace EIP.Controllers
         public JsonResult getPjProjectDatat2()
         {
             var pjm = from m in db.pjProject
-                      where m.pj複審結果 == "不通過" || m.pj複審結果 == "未審核" && m.pj審核階段 == "複審"
+                      where m.pj複審結果 == "不通過" || m.pj複審結果 == "待審核" && m.pj審核階段 == "複審"
 
                       select new
                       {
@@ -99,7 +99,7 @@ namespace EIP.Controllers
         public JsonResult getPjProjectDatat3()
         {
             var pjm = from m in db.pjProject
-                      where m.pj初審結果 == "不通過" || m.pj初審結果 == "未審核" && m.pj審核階段 == "初審"
+                      where m.pj初審結果 == "不通過" || m.pj初審結果 == "待審核" && m.pj審核階段 == "初審"
                       select new
                       {
                           pjId = m.pjId,
@@ -137,7 +137,7 @@ namespace EIP.Controllers
             var d = db.pjProject.FirstOrDefault(m => m.pjId == id);
             {
                 d.pj審核階段 = "複審";
-                d.pj複審結果 = "未審核";
+                d.pj複審結果 = "待審核";
             }
             db.SaveChanges();
         }
