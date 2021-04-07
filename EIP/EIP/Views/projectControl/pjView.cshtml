@@ -7,17 +7,51 @@
 <div class="ui tab segment active" data-tab="first" id="pjListView"></div>
 <div class="ui tab segment " data-tab="second">
     <div class="ui top attached tabular menu">
-        <a class="item active" data-tab="second/a" id="tab專案建立審核">專案建立審核</a>
+        @*<a class="item active" data-tab="second/a" id="tab專案建立審核">專案建立審核</a>
+            <a class="item" data-tab="second/b" id="tab建立初審">建立初審</a>
+            <a class="item" data-tab="second/c" id="tab建立複審" hidden>建立複審</a>*@
+        <a class="item active" data-tab="second/a" id="tab總表">總表</a>
         <a class="item" data-tab="second/b" id="tab建立初審">建立初審</a>
         <a class="item" data-tab="second/c" id="tab建立複審" hidden>建立複審</a>
+        <a class="item active" data-tab="second/e" id="tab專案初審審核">專案初審審核</a>
+        <a class="item" data-tab="second/f" id="tab專案初審通過">專案初審通過</a>
+        <a class="item" data-tab="second/d" id="tab專案複審審核">專案複審審核</a>
     </div>
-    <div class="ui bottom attached tab segment active" data-tab="second/a" id="content專案建立審核">
+    <div class="ui bottom attached tab segment active" data-tab="second/a" id="content總表">
         <div class="pj專案建立審核沒有建立中專案"></div>
         <table class="ui selectable celled table">
             <thead class="appendPjDataFromSql-th"></thead>
             <tbody class="appendPjDataFromSql-tb"></tbody>
         </table>
     </div>
+    <div class="ui bottom attached tab segment " data-tab="second/d" id="content專案複審審核">
+        <div class="pj專案建立審核沒有建立中專案"></div>
+        <table class="ui selectable celled table">
+            <thead class="appendPjDataFromSql-th2"></thead>
+            <tbody class="appendPjDataFromSql-tb2"></tbody>
+        </table>
+    </div>
+    <div class="ui bottom attached tab segment " data-tab="second/e" id="content專案初審審核">
+        <div class="pj專案建立審核沒有建立中專案"></div>
+        <table class="ui selectable celled table">
+            <thead class="appendPjDataFromSql-th3"></thead>
+            <tbody class="appendPjDataFromSql-tb3"></tbody>
+        </table>
+    </div>
+    <div class="ui bottom attached tab segment " data-tab="second/f" id="content專案初審通過">
+        <div class="pj專案建立審核沒有建立中專案"></div>
+        <table class="ui selectable celled table">
+            <thead class="appendPjDataFromSql-th4"></thead>
+            <tbody class="appendPjDataFromSql-tb4"></tbody>
+        </table>
+    </div>
+    @*<div class="ui bottom attached tab segment active" data-tab="second/a" id="content專案建立審核">
+            <div class="pj專案建立審核沒有建立中專案"></div>
+            <table class="ui selectable celled table">
+                <thead class="appendPjDataFromSql-th"></thead>
+                <tbody class="appendPjDataFromSql-tb"></tbody>
+            </table>
+        </div>*@
     <div class="ui bottom attached tab segment" data-tab="second/b" id="content建立初審"></div>
     <div class="ui bottom attached tab segment" data-tab="second/c" id="content建立複審"></div>
 </div>
@@ -1290,6 +1324,265 @@
             }
 
 
+            //$('.bigTab建立專案').click(function () {
+            //    //$('.appendPjDataFromSql-tb').html('wooow');
+            //    $.ajax({
+            //        url: "/projectControl/getPjProjectData",
+            //        method: "get",
+            //        success: function (data) {
+            //            if (data.length == 0) {
+            //                console.log('123');
+            //                $('.pj專案建立審核沒有建立中專案').html(`
+            //                        <div class="d-flex justify-content-center mt-5 mb-5">
+            //                            <p>目前沒有建立中的專案</p>
+            //                        </div>
+            //                    `);
+            //            } else {
+            //                $('.appendPjDataFromSql-th').html(`
+            //                            <tr>
+            //                                <th>專案名稱</th>
+            //                                <th>審核階段</th>
+            //                                <th>審核結果</th>
+            //                                <th>初審審核</th>
+            //                                <th>建立複審</th>
+            //                                <th>複審審核</th>
+            //                            </tr>
+            //                        `);
+            //                $('.appendPjDataFromSql-tb').html("");
+            //                $(data).each(function (index, item) {
+            //                    $('.appendPjDataFromSql-tb').append(`
+            //                                <tr>
+            //                                    <td>${item.pjName}</td>
+            //                                    <td>${item.pj審核階段}</td>
+            //                                    <td>${item.pj初審結果}</td>
+            //                                    <td class="selectable"><a href="#" onclick="pj初審審核()" data-id="${item.pjId}">查看更多</a></td>
+            //                                    <td class="selectable"><a href="#" class="pj建立複審" data-id="${item.pjId}">建立複審</a></td>
+            //                                    <td class="selectable"><a href="#" onclick="pj複審審核()" data-id="${item.pjId}">查看更多</a></td>
+            //                                </tr>`
+            //                    )                                                              
+            //                })
+            //                pj初審審核 = function () {
+            //                    var id = $(event.currentTarget).data('id');
+            //                    console.log(id);
+            //                    //$('#pj初審單').modal('show');
+            //                    $.ajax({
+            //                        url: "/projectControl/getPjProjectDataFromId",
+            //                        method: "post",
+            //                        data: { 'id': id },
+            //                        success: function (data) {
+            //                            console.log(data.pjId);
+            //                            //console.log(data.pj開始日期);
+            //                            //var a = new Date(1618761600000);
+            //                            //console.log(a);
+            //                            //var b = data.pj開始日期.replace(/[^0-9]/ig, "");
+            //                            //console.log(b);
+            //                            var return開始日期 = new Date(parseInt(data.pj開始日期.replace(/[^0-9]/ig, "")));
+            //                            //console.log(return開始日期.getFullYear());
+            //                            //console.log(return開始日期.getMonth());
+            //                            //console.log(return開始日期.getDay());
+            //                            //console.log(return開始日期.getDate());
+            //                            var retuenEndDate = new Date(parseInt(data.pj結束日期.replace(/[^0-9]/ig, "")));
+            //                            var return結束日期 = `${retuenEndDate.getFullYear()}/${retuenEndDate.getMonth() + 1}/${retuenEndDate.getDate()}`;
+            //                            $('.pj初審單header').html(`${data.pjName}`);
+            //                            $('.pj初審單資料').html(`
+            //                                <div class="ui form">
+            //                                    <div class="two fields">
+            //                                        <div class="field">
+            //                                            <label>專案經理</label>
+            //                                            <input value="${data.pjManager}" readonly type="text">
+            //                                        </div>
+            //                                        <div class="field">
+            //                                            <label>專案簡介</label>
+            //                                            <input value="${data.pjIntroduction}" readonly type="text">
+            //                                        </div>
+            //                                    </div>
+            //                                    <div class="two fields">
+            //                                        <div class="field">
+            //                                            <label>專案客戶</label>
+            //                                            <input value="${data.pjClient}" readonly type="text">
+            //                                        </div>
+            //                                        <div class="field">
+            //                                            <label>專案預算</label>
+            //                                            <input value="${data.pjBudget}" readonly type="text">
+            //                                        </div>
+            //                                    </div>
+            //                                    <div class="three fields">
+            //                                        <div class="field">
+            //                                            <label>開始日期</label>
+            //                                            <input value="${return開始日期.getFullYear()}/${return開始日期.getMonth() + 1}/${return開始日期.getDate()}" readonly type="text">
+            //                                        </div>
+            //                                        <div class="field">
+            //                                            <label>結束日期</label>
+            //                                            <input value="${return結束日期}" readonly type="text">
+            //                                        </div>
+            //                                        <div class="field">
+            //                                            <label>預估時間</label>
+            //                                            <input value="${data.pj預估時間}" readonly type="text">
+            //                                        </div>
+            //                                    </div>            
+            //                                </div>
+            //                                <div class="ui form">
+            //                                    <div class="field">
+            //                                        <label>意見內容</label>
+            //                                        <textarea type="text" placeholder="First Name"></textarea>
+            //                                    </div>
+            //                                    <div class="three fields mb-5">
+            //                                        <div class="field">
+            //                                            <label>審核結果</label>
+            //                                            <select class="ui dropdown" name="pj初審結果" id="pj初審結果">
+            //                                                <option value="" hidden>待審核</option>
+            //                                                <option value="通過">通過</option>
+            //                                                <option value="不通過">不通過</option>
+            //                                            </select>
+            //                                        </div>
+            //                                        <div class="field">
+            //                                            <label>審核人員</label>
+            //                                            <input type="text"/>
+            //                                        </div>
+            //                                        <div class="field"></div>                
+            //                                    </div>
+            
+            //                                    <div class="d-flex justify-content-end">
+            //                                        <div>
+            //                                            <button class="ui inverted red button">取消</button>
+
+            //                                            <button class="ui inverted primary button mt-1 pj初審結果" data-id="${data.pjId}">確認</button>
+            //                                        </div>
+            //                                    </div>
+            //                                </div>
+            //                            `);
+            //                            $('#pj初審單').modal('show');
+            //                            $('.pj初審結果').click(function () {    
+            //                                var id = $(event.currentTarget).data('id');
+            //                                console.log(id);
+            //                                console.log($(`#pj初審結果 option:selected`).val());
+            //                                $.ajax({
+            //                                    url: '/projectControl/pj審核結果儲存',
+            //                                    method: 'post',
+            //                                    data: {
+            //                                        'pjId': id,
+            //                                        'pj初審結果': $(`#pj初審結果 option:selected`).val(),
+            //                                    },
+            //                                    success: function () {
+            //                                        window.alert('success')
+            //                                    }
+            //                                });
+            //                            })
+            //                        }
+            //                    })
+            //                }  
+            //                pj複審審核 = function () {
+            //                    var id = $(event.currentTarget).data('id');
+            //                    console.log(id);
+            //                    $('#pj複審單').modal('show');
+            //                    //$.ajax({
+            //                    //    url: "",
+            //                    //    method: "post",
+            //                    //    data: { "id": id },
+            //                    //    success: function () { }
+            //                    //})
+            //                }
+                            
+            //                $('.pj建立複審').click(function () {
+            //                    var id = $(event.currentTarget).data('id');
+            //                    console.log(id);
+            //                    $.ajax({
+            //                        url: "/projectControl/getPjProjectDataFromId",
+            //                        method: "post",
+            //                        data: { "id": id },
+            //                        success: function (data) {
+            //                            //console.log(data.pjMemberCount);
+            //                            $('#tab專案建立審核').toggleClass('active');
+            //                            $('#content專案建立審核').toggleClass('active');
+            //                            $('#tab建立複審').toggleClass('active');
+            //                            $('#content建立複審').toggleClass('active');
+            //                            $('#tab建立複審').attr('hidden', false);
+            //                            var membersCount = data.pjMemberCount;
+            //                            //console.log(membersCount);
+            //                            $('#content建立複審').html("");
+            //                            for (var i = 1; i <= membersCount; i++) {
+            //                                $('#content建立複審').append(`
+            //                                            <form class="ui form" id="cr8form${i}">
+            //                                                <div class="fields">
+            //                                                    <div class="two wide field">
+            //                                                        <label>部門</label>
+            //                                                        <select class="ui search dropdown" id="pjCr8複審部門${i}" name="pjMember部門">
+            //                                                            <option value="">部門</option>
+            //                                                            <option value="資訊部">資訊部</option>
+            //                                                            <option value="人事部">人事部</option>
+            //                                                            <option value="總務部">總務部</option>
+            //                                                            <option value="財務部">財務部</option>
+            //                                                            <option value="業務部">業務部</option>
+            //                                                        </select>
+            //                                                    </div>
+            //                                                    <div class="four wide field">
+            //                                                        <label>成員姓名</label>
+            //                                                        <input type="text" placeholder="成員姓名" name="pjMemberName">
+            //                                                    </div>
+            //                                                    <div class="five wide field">
+            //                                                        <label>專案項目</label>
+            //                                                        <input type="text" placeholder="專案項目" name="pjTarget">
+            //                                                    </div>
+            //                                                    <div class="one wide field">
+            //                                                        <input type="text" hidden name="pjId" value="${data.pjId}">
+            //                                                    </div>
+            //                                                    <div class="four wide field"></div>
+            //                                                </div>
+            //                                            </form>
+            //                                        `)
+            //                            }
+            //                            $('#content建立複審').append(`
+            //                                        <div class="ui form">
+            //                                            <div class="eleven wide field d-flex justify-content-end">
+            //                                                <button class="ui inverted red button">取消</button>
+            //                                                <button class="ui inverted primary button" id="submitCr8preview2">確認</button>
+            //                                            </div>
+            //                                            <div class="five wide field"></div>
+            //                                        </div>
+            //                                    `)
+            //                            $('#submitCr8preview2').click(function () {
+            //                                for (var i = 1; i <= membersCount; i++) {
+            //                                    console.log($(`#pjCr8複審部門${i} option:selected`).val());
+            //                                    console.log(document.querySelector(`#cr8form${i}`));
+            //                                    var formdata = new FormData(document.querySelector(`#cr8form${i}`));
+            //                                    $.ajax({
+            //                                        url: "/projectControl/savePreview2FormData",
+            //                                        method: "post",
+            //                                        data: formdata,
+            //                                        processData: false,
+            //                                        contentType: false,
+            //                                        success: function () {
+            //                                        }
+            //                                    })
+            //                                }
+            //                                window.alert('存進去了啦');
+            //                                $('#tab建立複審').attr('hidden', true);
+            //                                $('#tab建立複審').toggleClass('active');
+            //                                $('#content建立複審').toggleClass('active');
+            //                                $('#tab專案建立審核').toggleClass('active');
+            //                                $('#content專案建立審核').toggleClass('active');
+            //                            })
+            //                            $(document).on('click', 'div', function () {
+            //                                if ($('#content建立複審 .active').attr('data-tab') != 'second/c') {
+            //                                    //console.log($('.active ').attr('data-tab'));
+            //                                    $('#tab建立複審').attr('hidden', true);
+            //                                    //$('#content建立複審').toggleClass('active');
+            //                                    //$('#tab建立複審').toggleClass('active');
+            //                                }
+            //                                else {
+            //                                    //console.log($('.active ').attr('data-tab'));
+            //                                    //$('#content建立複審').toggleClass('active');
+            //                                    //$('#tab建立複審').toggleClass('active');
+            //                                    $('#tab建立複審').attr('hidden', false);
+            //                                }
+            //                            })
+            //                        }
+            //                    })
+            //                })
+            //            }
+            //        }
+            //    })
+            //})
             $('.bigTab建立專案').click(function () {
                 //$('.appendPjDataFromSql-tb').html('wooow');
                 $.ajax({
@@ -1304,29 +1597,353 @@
                                     </div>
                                 `);
                         } else {
-                            $('.appendPjDataFromSql-th').html(`
+
+                            $.ajax({//總表
+                                url: "/projectControl/getPjProjectData",
+                                method: "get",
+                                success: function (data) {
+                                    $('.appendPjDataFromSql-th').html(`
                                         <tr>
                                             <th>專案名稱</th>
+                                            <th>專案負責人</th>
+
                                             <th>審核階段</th>
                                             <th>審核結果</th>
-                                            <th>初審審核</th>
-                                            <th>建立複審</th>
+                                            <th>詳細資訊</th>
+                                 
+                                      
+                                        </tr>
+                                    `);
+                                    $('.appendPjDataFromSql-tb').html("");
+                                    $(data).each(function (index, item) {
+                                        $('.appendPjDataFromSql-tb').append(`
+                                            <tr>
+                                                <td>${item.pjName}</td>
+                                                <td>${item.pjManager}</td>
+                                                <td>${item.pj審核階段}</td>
+                                                <td>${item.pj初審結果}</td>
+                           <td class="selectable"><a href="#" onclick="pj初審詳細()" data-id="${item.pjId}">初審詳細</a></td>
+                                                
+                                            </tr>`
+                                        )
+                                    })
+
+                                }
+
+                            })
+
+                            $.ajax({ //複審審核
+                                url: "/projectControl/getPjProjectDatat2",
+                                method: "get",
+                                success: function (data) {
+                                    $('.appendPjDataFromSql-th2').html(`
+                                        <tr>
+                                            <th>專案名稱</th>
+         <th>專案負責人</th>
+                                            <th>審核階段</th>
+                                            <th>審核結果</th>
+                                       
+                                          
                                             <th>複審審核</th>
                                         </tr>
                                     `);
-                            $('.appendPjDataFromSql-tb').html("");
-                            $(data).each(function (index, item) {
-                                $('.appendPjDataFromSql-tb').append(`
+                                    $('.appendPjDataFromSql-tb2').html("");
+                                    $(data).each(function (index, item) {
+                                        $('.appendPjDataFromSql-tb2').append(`
                                             <tr>
                                                 <td>${item.pjName}</td>
+        <td>${item.pjManager}</td>
                                                 <td>${item.pj審核階段}</td>
                                                 <td>${item.pj初審結果}</td>
-                                                <td class="selectable"><a href="#" onclick="pj初審審核()" data-id="${item.pjId}">查看更多</a></td>
-                                                <td class="selectable"><a href="#" class="pj建立複審" data-id="${item.pjId}">建立複審</a></td>
-                                                <td class="selectable"><a href="#" onclick="pj複審審核()" data-id="${item.pjId}">查看更多</a></td>
+                                                
+                                               
+                                                <td class="selectable"><a href="#" onclick="pj複審審核()" data-id="${item.pjId}">複審審核</a></td>
                                             </tr>`
-                                )                                                              
+                                        )
+                                    })
+                                }
+
                             })
+                            $.ajax({ //初審審核
+                                url: "/projectControl/getPjProjectDatat3",
+                                method: "get",
+                                success: function (data) {
+
+
+                                    $('.appendPjDataFromSql-th3').html(`
+                                        <tr>
+                                            <th>專案名稱</th>
+         <th>專案負責人</th>
+                                            <th>審核階段</th>
+                                            <th>審核結果</th>
+                                            <th>重新送審</th>
+                                            <th>初審審核</th>
+                                      
+                                        </tr>
+                                    `);
+                                    $('.appendPjDataFromSql-tb3').html("");
+                                    $(data).each(function (index, item) {
+                                        $('.appendPjDataFromSql-tb3').append(`
+                                            <tr>
+                                                <td>${item.pjName}</td>
+        <td>${item.pjManager}</td>
+                                                <td>${item.pj審核階段}</td>
+                                                <td>${item.pj初審結果}</td>
+                                          <td class="selectable"><a href="#" onclick="pj重新送審()" data-id="${item.pjId}">重新送審</a></td>
+                                                  <td class="selectable"><a href="#" onclick="pj初審審核()" data-id="${item.pjId}">查看更多</a></td>
+                                                
+                                            </tr>`
+                                        )
+                                    })
+
+                                }
+
+                            })
+
+                            $.ajax({//初審ok
+                                url: "/projectControl/getPjProjectDatat4",
+                                method: "get",
+                                success: function (data) {
+
+                                    $('.appendPjDataFromSql-th4').html(`
+                                        <tr>
+                                            <th>專案名稱</th>
+         <th>專案負責人</th>
+                                            <th>審核階段</th>
+                                            <th>審核結果</th>
+                                          
+                                            <th>建立複審</th>
+                                      
+                                        </tr>
+                                    `);
+                                    $('.appendPjDataFromSql-tb4').html("");
+                                    $(data).each(function (index, item) {
+                                        $('.appendPjDataFromSql-tb4').append(`
+                                            <tr>
+                                                <td>${item.pjName}</td>
+        <td>${item.pjManager}</td>
+                                                <td>${item.pj審核階段}</td>
+                                                <td>${item.pj初審結果}</td>
+                                               
+                                                <td class="selectable"><a href="#" class="pj建立複審" data-id="${item.pjId}">建立複審</a></td>
+                                                
+                                            </tr>`
+                                        )
+                                    })
+
+                                    $('.pj建立複審').click(function () {
+                                        var id = $(event.currentTarget).data('id');
+                                        console.log(id);
+                                        $.ajax({
+                                            url: "/projectControl/getPjProjectDataFromId",
+                                            method: "post",
+                                            data: { "id": id },
+                                            success: function (data) {
+                                                //console.log(data.pjMemberCount);
+                                                $('#tab專案建立審核').toggleClass('active');
+                                                $('#content專案建立審核').toggleClass('active');
+                                                $('#tab建立複審').toggleClass('active');
+                                                $('#content建立複審').toggleClass('active');
+                                                $('#tab建立複審').attr('hidden', false);
+                                                var membersCount = data.pjMemberCount;
+                                                //console.log(membersCount);
+                                                $('#content建立複審').html("");
+
+                                                for (var i = 1; i <= membersCount; i++) {
+                                                    $('#content建立複審').append(`
+                                                        <form class="ui form" id="cr8form${i}">
+                                                            <div class="fields">
+                                                                <div class="two wide field">
+                                                                    <label>部門</label>
+                                                                    <select class="ui search dropdown" id="pjCr8複審部門${i}" name="pjMember部門">
+                                                                        <option value="">部門</option>
+                                                                        <option value="資訊部">資訊部</option>
+                                                                        <option value="人事部">人事部</option>
+                                                                        <option value="總務部">總務部</option>
+                                                                        <option value="財務部">財務部</option>
+                                                                        <option value="業務部">業務部</option>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="four wide field">
+                                                                    <label>成員姓名</label>
+                                                                    <input type="text" placeholder="成員姓名" name="pjMemberName">
+                                                                </div>
+                                                                <div class="five wide field">
+                                                                    <label>專案項目</label>
+                                                                    <input type="text" placeholder="專案項目" name="pjTarget">
+                                                                </div>
+                                                                <div class="one wide field">
+                                                                    <input type="text" hidden id="審核階段" value="複審">
+                                                                </div>
+                                                                <div class="one wide field">
+                                                                    <input type="text" hidden name="pjId" value="${data.pjId}">
+                                                                </div>
+                                                                <div class="four wide field"></div>
+                                                            </div>
+                                                        </form>
+                                                    `)
+                                                }
+                                                $('.change審核階段').click(function () {
+
+                                                })
+                                                $('#content建立複審').append(`
+                                                    <div class="ui form">
+                                                        <div class="eleven wide field d-flex justify-content-end">
+                                                            <button class="ui inverted red button">取消</button>
+                                                            <button class="ui inverted primary button" id="submitCr8preview2">確認</button>
+                                                        </div>
+                                                        <div class="five wide field"></div>
+                                                    </div>
+                                                `)
+                                                $('#submitCr8preview2').click(function () {
+                                                    $.ajax({
+                                                        url: "/projectControl/getPjProjectDataFromIdto2",
+                                                        method: "get",
+                                                        data: {
+                                                            "id": id,
+                                                        },
+                                                        success: function () {
+                                                            console.log('47438');
+                                                        }
+                                                    })
+                                                    for (var i = 1; i <= membersCount; i++) {
+                                                        console.log($(`#pjCr8複審部門${i} option:selected`).val());
+                                                        console.log(document.querySelector(`#cr8form${i}`));
+                                                        var formdata = new FormData(document.querySelector(`#cr8form${i}`));
+                                                        $.ajax({
+                                                            url: "/projectControl/savePreview2FormData",
+                                                            method: "post",
+                                                            data: formdata,
+                                                            processData: false,
+                                                            contentType: false,
+                                                            success: function () {
+                                                            }
+                                                        })
+                                                    }
+                                                    window.alert('存進去了啦');
+                                                    $('#tab建立複審').attr('hidden', true);
+                                                    $('#tab建立複審').toggleClass('active');
+                                                    $('#content建立複審').toggleClass('active');
+                                                    $('#tab專案建立審核').toggleClass('active');
+                                                    $('#content專案建立審核').toggleClass('active');
+                                                })
+                                                $(document).on('click', 'div', function () {
+                                                    if ($('#content建立複審 .active').attr('data-tab') != 'second/c') {
+                                                        //console.log($('.active ').attr('data-tab'));
+                                                        $('#tab建立複審').attr('hidden', true);
+                                                        //$('#content建立複審').toggleClass('active');
+                                                        //$('#tab建立複審').toggleClass('active');
+                                                    }
+                                                    else {
+                                                        //console.log($('.active ').attr('data-tab'));
+                                                        //$('#content建立複審').toggleClass('active');
+                                                        //$('#tab建立複審').toggleClass('active');
+                                                        $('#tab建立複審').attr('hidden', false);
+                                                    }
+                                                })
+                                            }
+                                        })
+                                    })
+
+
+                                }
+
+                            })
+                            pj初審詳細 = function () {
+                                var id = $(event.currentTarget).data('id');
+                                console.log(id);
+                                //$('#pj初審單').modal('show');
+                                $.ajax({
+                                    url: "/projectControl/getPjProjectDataFromId",
+                                    method: "post",
+                                    data: { 'id': id },
+                                    success: function (data) {
+                                        console.log(data.pjId);
+                                        //console.log(data.pj開始日期);
+                                        //var a = new Date(1618761600000);
+                                        //console.log(a);
+                                        //var b = data.pj開始日期.replace(/[^0-9]/ig, "");
+                                        //console.log(b);
+                                        var return開始日期 = new Date(parseInt(data.pj開始日期.replace(/[^0-9]/ig, "")));
+                                        //console.log(return開始日期.getFullYear());
+                                        //console.log(return開始日期.getMonth());
+                                        //console.log(return開始日期.getDay());
+                                        //console.log(return開始日期.getDate());
+                                        var retuenEndDate = new Date(parseInt(data.pj結束日期.replace(/[^0-9]/ig, "")));
+                                        var return結束日期 = `${retuenEndDate.getFullYear()}/${retuenEndDate.getMonth() + 1}/${retuenEndDate.getDate()}`;
+                                        $('.pj初審單header').html(`${data.pjName}`);
+                                        $('.pj初審單資料').html(`
+                                            <div class="ui form">
+                                                <div class="two fields">
+                                                    <div class="field">
+                                                        <label>專案經理</label>
+                                                        <input value="${data.pjManager}" readonly type="text"id="pjManager">
+                                                    </div>
+                                                    <div class="field">
+                                                        <label>專案簡介</label>
+                                                        <input value="${data.pjIntroduction}" readonly type="text" id="pjIntroduction">
+                                                    </div>
+                                                </div>
+                                                <div class="two fields">
+                                                    <div class="field">
+                                                        <label>專案客戶</label>
+                                                        <input value="${data.pjClient}" readonly type="text"id="pjClient">
+                                                    </div>
+                                                    <div class="field">
+                                                        <label>專案預算</label>
+                                                        <input value="${data.pjBudget}" readonly type="text"id="pjBudget">
+                                                    </div>
+                                                </div>
+                                                <div class="three fields">
+                                                    <div class="field">
+                                                        <label>開始日期</label>
+                                                        <input value="${return開始日期.getFullYear()}/${return開始日期.getMonth() + 1}/${return開始日期.getDate()}" readonly type="text"id="開始日期">
+                                                    </div>
+                                                    <div class="field">
+                                                        <label>結束日期</label>
+                                                        <input value="${return結束日期}" readonly type="text"id="結束日期">
+                                                    </div>
+                                                    <div class="field">
+                                                        <label>預估時間</label>
+                                                        <input value="${data.pj預估時間}" readonly type="text"id="pj預估時間">
+                                                    </div>
+                                                    <div class="field">
+                                                        <label>專案成員數</label>
+                                                        <input value="${data.pjMemberCount}" readonly type="text"id="pjMemberCount">
+                                                    </div>
+                                                    <div class="field" hidden>
+                                                        <label></label>
+                                                        <input value="${data.pjManagerId}" readonly type="text"id="pjManagerId">
+                                                    </div>
+                                                     <div class="field" hidden>
+                                                        <label></label>
+                                                        <input value="${data.pj審核階段}" readonly type="text"id="pj審核階段">
+                                                    </div>
+                                                </div>            
+                                            </div>
+                                            <div class="ui form">
+                                              
+                                                <div class="three fields mb-5">
+                                                    
+                                                 
+                                                    <div class="field"></div>                
+                                                </div>
+            
+                                                <div class="d-flex justify-content-end">
+                                                    <div>
+                                                     
+
+                                                        <button class="ui inverted primary button mt-1 " data-id="${data.pjId}">確認</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        `);
+                                        $('#pj初審單').modal('show');
+
+
+                                    }
+                                })
+                            }
                             pj初審審核 = function () {
                                 var id = $(event.currentTarget).data('id');
                                 console.log(id);
@@ -1355,42 +1972,54 @@
                                                 <div class="two fields">
                                                     <div class="field">
                                                         <label>專案經理</label>
-                                                        <input value="${data.pjManager}" readonly type="text">
+                                                        <input value="${data.pjManager}" readonly type="text"id="pjManager">
                                                     </div>
                                                     <div class="field">
                                                         <label>專案簡介</label>
-                                                        <input value="${data.pjIntroduction}" readonly type="text">
+                                                        <input value="${data.pjIntroduction}" readonly type="text" id="pjIntroduction">
                                                     </div>
                                                 </div>
                                                 <div class="two fields">
                                                     <div class="field">
                                                         <label>專案客戶</label>
-                                                        <input value="${data.pjClient}" readonly type="text">
+                                                        <input value="${data.pjClient}" readonly type="text"id="pjClient">
                                                     </div>
                                                     <div class="field">
                                                         <label>專案預算</label>
-                                                        <input value="${data.pjBudget}" readonly type="text">
+                                                        <input value="${data.pjBudget}" readonly type="text"id="pjBudget">
                                                     </div>
                                                 </div>
                                                 <div class="three fields">
                                                     <div class="field">
                                                         <label>開始日期</label>
-                                                        <input value="${return開始日期.getFullYear()}/${return開始日期.getMonth() + 1}/${return開始日期.getDate()}" readonly type="text">
+                                                        <input value="${return開始日期.getFullYear()}/${return開始日期.getMonth() + 1}/${return開始日期.getDate()}" readonly type="text"id="開始日期">
                                                     </div>
                                                     <div class="field">
                                                         <label>結束日期</label>
-                                                        <input value="${return結束日期}" readonly type="text">
+                                                        <input value="${return結束日期}" readonly type="text"id="結束日期">
                                                     </div>
                                                     <div class="field">
                                                         <label>預估時間</label>
-                                                        <input value="${data.pj預估時間}" readonly type="text">
+                                                        <input value="${data.pj預估時間}" readonly type="text"id="pj預估時間">
+                                                    </div>
+                                                    <div class="field">
+                                                        <label>專案成員數</label>
+                                                        <input value="${data.pjMemberCount}" readonly type="text"id="pjMemberCount">
+                                                    </div>
+                                                    <div class="field" hidden>
+                                                        <label></label>
+                                                        <input value="${data.pjManagerId}" readonly type="text"id="pjManagerId">
+                                                    </div>
+                                                     <div class="field" hidden>
+                                                        <label></label>
+                                                        <input value="${data.pj審核階段}" readonly type="text"id="pj審核階段">
                                                     </div>
                                                 </div>            
                                             </div>
                                             <div class="ui form">
                                                 <div class="field">
                                                     <label>意見內容</label>
-                                                    <textarea type="text" placeholder="First Name"></textarea>
+                                                    <textarea type="text" placeholder="First Name" id="pj意見內容"></textarea>
                                                 </div>
                                                 <div class="three fields mb-5">
                                                     <div class="field">
@@ -1412,13 +2041,13 @@
                                                     <div>
                                                         <button class="ui inverted red button">取消</button>
 
-                                                        <button class="ui inverted primary button mt-1 pj初審結果" data-id="${data.pjId}">確認</button>
+                                                        <button class="ui inverted primary button mt-1 pj初審結果 初審審核" data-id="${data.pjId}">確認</button>
                                                     </div>
                                                 </div>
                                             </div>
                                         `);
                                         $('#pj初審單').modal('show');
-                                        $('.pj初審結果').click(function () {    
+                                        $('.pj初審結果').click(function () {
                                             var id = $(event.currentTarget).data('id');
                                             console.log(id);
                                             console.log($(`#pj初審結果 option:selected`).val());
@@ -1428,6 +2057,36 @@
                                                 data: {
                                                     'pjId': id,
                                                     'pj初審結果': $(`#pj初審結果 option:selected`).val(),
+                                                    'pjManager': $(`#pjManager`).val(),
+                                                    'pjIntroduction': $(`#pjIntroduction`).val(),
+                                                    'pjClient': $(`#pjClient`).val(),
+                                                    'pjBudget': $(`#pjBudget`).val(),
+                                                    'pj開始日期': $(`#開始日期`).val(),
+                                                    'pj結束日期': $(`#結束日期`).val(),
+                                                    'pjadvice': $(`#pjadvice`).val(),
+                                                    'pj預估時間': $(`#pj預估時間`).val(),
+                                                    'pjName': `${data.pjName}`,
+                                                    'pjManagerId': $(`#pjManagerId`).val(),
+
+                                                    'pjMemberCount': $(`#pjMemberCount`).val(),
+                                                    'pj審核階段': $(`#pj審核階段`).val(),
+
+                                                },
+                                                success: function () {
+                                                    window.alert('success')
+                                                }
+                                            });
+                                        })
+                                        $('.初審審核').click(function () {
+                                            $.ajax({
+                                                url: '/projectControl/pj審核意見',
+                                                method: 'post',
+                                                data: {
+                                                    'pjId': id,
+
+                                                    'pj審核階段': `${data.pj審核階段}`,
+                                                    'pj意見內容': $(`#pj意見內容`).val(),
+
                                                 },
                                                 success: function () {
                                                     window.alert('success')
@@ -1436,7 +2095,7 @@
                                         })
                                     }
                                 })
-                            }  
+                            }
                             pj複審審核 = function () {
                                 var id = $(event.currentTarget).data('id');
                                 console.log(id);
@@ -1448,7 +2107,176 @@
                                 //    success: function () { }
                                 //})
                             }
+                            pj重新送審 = function () {
+                                var id = $(event.currentTarget).data('id');
+                                console.log(id);
+                                //$('#pj初審單').modal('show');
+                                $.ajax({
+                                    url: "/projectControl/getPjProjectDataFromId",
+                                    method: "post",
+                                    data: { 'id': id },
+                                    success: function (data) {
+                                        console.log(data.pjId);
+                                        //console.log(data.pj開始日期);
+                                        //var a = new Date(1618761600000);
+                                        //console.log(a);
+                                        //var b = data.pj開始日期.replace(/[^0-9]/ig, "");
+                                        //console.log(b);
+                                        var return開始日期 = new Date(parseInt(data.pj開始日期.replace(/[^0-9]/ig, "")));
+                                        //console.log(return開始日期.getFullYear());
+                                        //console.log(return開始日期.getMonth());
+                                        //console.log(return開始日期.getDay());
+                                        //console.log(return開始日期.getDate());
+                                        var retuenEndDate = new Date(parseInt(data.pj結束日期.replace(/[^0-9]/ig, "")));
+                                        var return結束日期 = `${retuenEndDate.getFullYear()}/${retuenEndDate.getMonth() + 1}/${retuenEndDate.getDate()}`;
+                                        $('.pj初審單header').html(`${data.pjName}`);
+                                        $('.pj初審單資料').html(`
+                                            <div class="ui form">
+                                                <div class="two fields">
+                                                    <div class="field">
+                                                        <label>專案經理</label>
+                                                        <input value="${data.pjManager}"  type="text"id="pjManager">
+                                                    </div>
+                                                    <div class="field">
+                                                        <label>專案簡介</label>
+                                                        <input value="${data.pjIntroduction}"  type="text" id="pjIntroduction">
+                                                    </div>
+                                                </div>
+                                                <div class="two fields">
+                                                    <div class="field">
+                                                        <label>專案客戶</label>
+                                                        <input value="${data.pjClient}"  type="text"id="pjClient">
+                                                    </div>
+                                                    <div class="field">
+                                                        <label>專案預算</label>
+                                                        <input value="${data.pjBudget}"  type="text"id="pjBudget">
+                                                    </div>
+                                                </div>
+                                                <div class="three fields">
+                                                    <div class="field">
+                                                        <label>開始日期</label>
+                                                        <input value="${return開始日期.getFullYear()}/${return開始日期.getMonth() + 1}/${return開始日期.getDate()}"  type="date" id=" pj初審Cr8startDate" class="開始日期">
+                                                    </div>
+                                                    <div class="field">
+                                                        <label>結束日期</label>
+                                                        <input value="${return結束日期}"  type="text"id="結束日期">
+                                                    </div>
+                                                    <div class="field">
+                                                        <label>預估時間</label>
+                                                        <input value="${data.pj預估時間}"  type="text"id="pj預估時間">
+                                                    </div>
+                                                    <div class="field">
+                                                        <label>專案成員數</label>
+                                                        <input value="${data.pjMemberCount}"  type="text"id="pjMemberCount">
+                                                    </div>
+                                                    <div class="field" hidden>
+                                                        <label></label>
+                                                        <input value="${data.pjManagerId}"  type="text"id="pjManagerId">
+                                                    </div>
+                                                     <div class="field" hidden>
+                                                        <label></label>
+                                                        <input value="${data.pj審核階段}"  type="text"id="pj審核階段">
+                                                    </div>
+                                                </div>            
+                                            </div>
+                                 
+                                          
+                              
+                                           
+                                                    
+                                  
                             
+                              
+            
+                                                <div class="d-flex justify-content-end">
+                                                    <div>
+                                                        <button class="ui inverted red button">取消</button>
+
+                                                        <button class="ui inverted primary button mt-1 pj重新送審 " data-id="${data.pjId}">確認</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        `);
+                                        $('#pj初審單').modal('show');
+                                        $('.pj重新送審').click(function () {
+                                            var id = $(event.currentTarget).data('id');
+                                            console.log(id);
+                                            console.log($(`#pj初審結果 option:selected`).val());
+                                            $.ajax({
+                                                url: '/projectControl/pj審核結果儲存',
+                                                method: 'post',
+                                                data: {
+                                                    'pjId': id,
+                                                    'pj初審結果': "未審核",
+                                                    'pjManager': $(`#pjManager`).val(),
+                                                    'pjIntroduction': $(`#pjIntroduction`).val(),
+                                                    'pjClient': $(`#pjClient`).val(),
+                                                    'pjBudget': $(`#pjBudget`).val(),
+                                                    'pj開始日期': $(`.開始日期`).val(),
+                                                    'pj結束日期': $(`#結束日期`).val(),
+                                                    'pjadvice': $(`#pjadvice`).val(),
+                                                    'pj預估時間': $(`#pj預估時間`).val(),
+                                                    'pjName': `${data.pjName}`,
+                                                    'pjManagerId': $(`#pjManagerId`).val(),
+
+                                                    'pjMemberCount': $(`#pjMemberCount`).val(),
+                                                    'pj審核階段': "初審",
+
+                                                },
+                                                success: function () {
+                                                    window.alert('success')
+                                                }
+                                            });
+                                        })
+                                        $('.pj初審結果').click(function () {
+                                            var id = $(event.currentTarget).data('id');
+                                            console.log(id);
+                                            console.log($(`#pj初審結果 option:selected`).val());
+                                            $.ajax({
+                                                url: '/projectControl/pj審核結果儲存',
+                                                method: 'post',
+                                                data: {
+                                                    'pjId': id,
+                                                    'pj初審結果': $(`#pj初審結果 option:selected`).val(),
+                                                    'pjManager': $(`#pjManager`).val(),
+                                                    'pjIntroduction': $(`#pjIntroduction`).val(),
+                                                    'pjClient': $(`#pjClient`).val(),
+                                                    'pjBudget': $(`#pjBudget`).val(),
+                                                    'pj開始日期': $(`#開始日期`).val(),
+                                                    'pj結束日期': $(`#結束日期`).val(),
+                                                    'pjadvice': $(`#pjadvice`).val(),
+                                                    'pj預估時間': $(`#pj預估時間`).val(),
+                                                    'pjName': `${data.pjName}`,
+                                                    'pjManagerId': $(`#pjManagerId`).val(),
+
+                                                    'pjMemberCount': $(`#pjMemberCount`).val(),
+                                                    'pj審核階段': $(`#pj審核階段`).val(),
+
+                                                },
+                                                success: function () {
+                                                    window.alert('success')
+                                                }
+                                            });
+                                        })
+                                        $('.初審審核').click(function () {
+                                            $.ajax({
+                                                url: '/projectControl/pj審核意見',
+                                                method: 'post',
+                                                data: {
+                                                    'pjId': id,
+
+                                                    'pj審核階段': `${data.pj審核階段}`,
+                                                    'pj意見內容': $(`#pj意見內容`).val(),
+
+                                                },
+                                                success: function () {
+                                                    window.alert('success')
+                                                }
+                                            });
+                                        })
+                                    }
+                                })
+                            }
                             $('.pj建立複審').click(function () {
                                 var id = $(event.currentTarget).data('id');
                                 console.log(id);
@@ -1488,6 +2316,10 @@
                                                                 <div class="five wide field">
                                                                     <label>專案項目</label>
                                                                     <input type="text" placeholder="專案項目" name="pjTarget">
+                                                                </div>
+                                                                   <div class="four wide field" hidden>
+                                                                    <label>成員姓名</label>
+                                                                    <input type="text" placeholder="審核階段" name="pjMemberName" id="pj審核階段">
                                                                 </div>
                                                                 <div class="one wide field">
                                                                     <input type="text" hidden name="pjId" value="${data.pjId}">

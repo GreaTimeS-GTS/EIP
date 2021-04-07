@@ -75,6 +75,96 @@ namespace EIP.Controllers
             };
             return Json(qPjData, JsonRequestBehavior.AllowGet);
         }
+        //----------------------YOOOOOOO--------
+
+        public JsonResult getPjProjectDatat2()
+        {
+            var pjm = from m in db.pjProject
+                      where m.pj複審結果 == "不通過" || m.pj複審結果 == "未審核" && m.pj審核階段 == "複審"
+
+                      select new
+                      {
+                          pjId = m.pjId,
+                          pjName = m.pjName,
+                          pj審核階段 = m.pj審核階段,
+                          pj初審結果 = m.pj初審結果,
+                          pjMemberCount = m.pjMemberCount,
+                          pjManager = m.pjManager,
+                      };
+            return Json(pjm, JsonRequestBehavior.AllowGet);
+        }
+        //複審審核
+
+        //初審審核
+        public JsonResult getPjProjectDatat3()
+        {
+            var pjm = from m in db.pjProject
+                      where m.pj初審結果 == "不通過" || m.pj初審結果 == "未審核" && m.pj審核階段 == "初審"
+                      select new
+                      {
+                          pjId = m.pjId,
+                          pjName = m.pjName,
+                          pj審核階段 = m.pj審核階段,
+                          pj初審結果 = m.pj初審結果,
+                          pjMemberCount = m.pjMemberCount,
+                          pjManager = m.pjManager,
+                      };
+            return Json(pjm, JsonRequestBehavior.AllowGet);
+        }
+        //初審審核
+
+        //初審審核
+        public JsonResult getPjProjectDatat4()
+        {
+            var pjm = from m in db.pjProject
+                      where m.pj初審結果 == "通過" && m.pj審核階段 == "初審"
+                      select new
+                      {
+                          pjId = m.pjId,
+                          pjName = m.pjName,
+                          pj審核階段 = m.pj審核階段,
+                          pj初審結果 = m.pj初審結果,
+                          pjMemberCount = m.pjMemberCount,
+                          pjManager = m.pjManager,
+                      };
+            return Json(pjm, JsonRequestBehavior.AllowGet);
+        }
+        //初審審核
+
+
+        public void getPjProjectDataFromIdto2(int id)
+        {
+            var d = db.pjProject.FirstOrDefault(m => m.pjId == id);
+            {
+                d.pj審核階段 = "複審";
+                d.pj複審結果 = "未審核";
+            }
+            db.SaveChanges();
+        }
+
+        public void pj審核結果儲存(pjProject data)
+        {
+            db.Entry<pjProject>(data).State = EntityState.Modified; //整筆資料全部覆寫
+            db.SaveChanges();
+        }
+
+
+        public void pj審核意見(pjAdvice ad)
+        {
+            var a = new pjAdvice
+
+            {
+                pjId = ad.pjId,
+                pj意見內容 = ad.pj意見內容,
+                pj審核階段 = ad.pj審核階段,
+            };
+
+
+            db.pjAdvice.Add(a);
+            db.SaveChanges();
+        }
+
+
 
 
 
@@ -147,11 +237,11 @@ namespace EIP.Controllers
             db.pjTeam.Add(formdata);
             db.SaveChanges();
         }
-        public void pj審核結果儲存(pjProject data)
-        {
-            //db.Entry<pjProject>(data).State = EntityState.Modified; //整筆資料全部覆寫
-            //db.SaveChanges();
-        }
+        //public void pj審核結果儲存(pjProject data)
+        //{
+        //    //db.Entry<pjProject>(data).State = EntityState.Modified; //整筆資料全部覆寫
+        //    //db.SaveChanges();
+        //}
         public JsonResult pj專案列表()
         {
             var pj專案列表Data = from x in db.pjProject
