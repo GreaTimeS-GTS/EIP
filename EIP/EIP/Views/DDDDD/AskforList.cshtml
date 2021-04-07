@@ -894,6 +894,10 @@
                             ReFresh請假總表()
                         }, 2000);
                         swal("成功", "新增成功", "success");
+                        $.connection.hub.start()
+                            .done(function () {
+                                bell.server.sendGroup(`${1}`, `${decodeURI(document.cookie.split('Auth=')[1].split('&')[0])}`, `有新的請假申請,請前往審核！`, 權限陣列);   //傳值到hub
+                            });
                         $(".resetform").click();
                         $("#請假EmployeeID").val(`${document.cookie.split('id=')[1].split('&')[0]}`);
                         $("#請假中文姓名").val(`${decodeURI(document.cookie.split('Name=')[1].split('&')[0])}`);
