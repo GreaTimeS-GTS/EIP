@@ -89,7 +89,8 @@
     <Property Name="pj開始日期" Type="date" />
     <Property Name="pj結束日期" Type="date" />
     <Property Name="pjManagerId" Type="nvarchar" MaxLength="50" />
-    <Property Name="pj預估時間" Type="int" />
+    <Property Name="pj預估時間" Type="nvarchar" MaxLength="50" />
+    <Property Name="pj審核階段" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="pjReport">
     <Key>
@@ -106,7 +107,7 @@
     <Property Name="pjReportPreview" Type="nvarchar" MaxLength="50" />
     <Property Name="pjLag" Type="nvarchar" MaxLength="50" />
     <Property Name="pjEstimation" Type="money" />
-    <Property Name="pjReportDate" Type="date" />
+    <Property Name="pjReportDate" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="pjTeam">
     <Key>
@@ -122,7 +123,8 @@
     <Property Name="pjDuration" Type="nvarchar" MaxLength="50" />
     <Property Name="pjTask" Type="nvarchar" MaxLength="50" />
     <Property Name="pjFixedDuration" Type="nvarchar" MaxLength="50" />
-    <Property Name="pj所需時間" Type="nvarchar" MaxLength="50" />
+    <Property Name="pjTaskStartDate" Type="date" />
+    <Property Name="pjTaskEndDate" Type="date" />
   </EntityType>
   <EntityType Name="pj建立">
     <Key>

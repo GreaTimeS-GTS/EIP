@@ -83,6 +83,7 @@
     <EntitySetMapping Name="pjProject">
       <EntityTypeMapping TypeName="dbEIPModel.pjProject">
         <MappingFragment StoreEntitySet="pjProject">
+          <ScalarProperty Name="pj審核階段" ColumnName="pj審核階段" />
           <ScalarProperty Name="pj預估時間" ColumnName="pj預估時間" />
           <ScalarProperty Name="pjManagerId" ColumnName="pjManagerId" />
           <ScalarProperty Name="pj結束日期" ColumnName="pj結束日期" />
@@ -120,7 +121,8 @@
     <EntitySetMapping Name="pjTeam">
       <EntityTypeMapping TypeName="dbEIPModel.pjTeam">
         <MappingFragment StoreEntitySet="pjTeam">
-          <ScalarProperty Name="pj所需時間" ColumnName="pj所需時間" />
+          <ScalarProperty Name="pjTaskEndDate" ColumnName="pjTaskEndDate" />
+          <ScalarProperty Name="pjTaskStartDate" ColumnName="pjTaskStartDate" />
           <ScalarProperty Name="pjFixedDuration" ColumnName="pjFixedDuration" />
           <ScalarProperty Name="pjTask" ColumnName="pjTask" />
           <ScalarProperty Name="pjDuration" ColumnName="pjDuration" />

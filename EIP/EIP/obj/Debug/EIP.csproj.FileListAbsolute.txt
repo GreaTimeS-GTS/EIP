@@ -1110,7 +1110,6 @@ D:\GitHubEIP\EIP\EIP\bin\roslyn\System.IO.Compression.dll
 D:\GitHubEIP\EIP\EIP\bin\roslyn\System.IO.Compression.ZipFile.dll
 D:\GitHubEIP\EIP\EIP\bin\roslyn\System.IO.FileSystem.dll
 D:\GitHubEIP\EIP\EIP\bin\roslyn\System.IO.FileSystem.Primitives.dll
-D:\GitHubEIP\EIP\EIP\bin\roslyn\System.Net.Http.dll
 D:\GitHubEIP\EIP\EIP\bin\roslyn\System.Net.Sockets.dll
 D:\GitHubEIP\EIP\EIP\bin\roslyn\System.Runtime.InteropServices.RuntimeInformation.dll
 D:\GitHubEIP\EIP\EIP\bin\roslyn\System.Security.Cryptography.Algorithms.dll

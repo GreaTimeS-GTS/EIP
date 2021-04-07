@@ -25,7 +25,7 @@ namespace EIP.Models
         public string pjReportPreview { get; set; }
         public string pjLag { get; set; }
         public Nullable<decimal> pjEstimation { get; set; }
-        public Nullable<System.DateTime> pjReportDate { get; set; }
+        public string pjReportDate { get; set; }
     
         public virtual pjProject pjProject { get; set; }
     }

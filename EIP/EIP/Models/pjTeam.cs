@@ -24,7 +24,8 @@ namespace EIP.Models
         public string pjDuration { get; set; }
         public string pjTask { get; set; }
         public string pjFixedDuration { get; set; }
-        public string pj所需時間 { get; set; }
+        public Nullable<System.DateTime> pjTaskStartDate { get; set; }
+        public Nullable<System.DateTime> pjTaskEndDate { get; set; }
     
         public virtual pjProject pjProject { get; set; }
     }
