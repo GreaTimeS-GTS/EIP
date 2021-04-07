@@ -3678,6 +3678,15 @@
                         ReFresh出差總表();
                         swal("成功", "新增成功", "success");
                         出差清空();
+                        var 權限陣列 = [];
+                        if (decodeURI(document.cookie.split('Auth=')[1].split('&')[0]) == "主管" || decodeURI(document.cookie.split('Auth=')[1].split('&')[0]) == "人事" || decodeURI(document.cookie.split('Auth=')[1].split('&')[0]) == "員工") {
+                            權限陣列.push('總經理');
+                            權限陣列.push('主管');
+                        }
+                        $.connection.hub.start()
+                            .done(function () {
+                                bell.server.sendGroup(`${1}`, `${decodeURI(document.cookie.split('Auth=')[1].split('&')[0])}`, `有新的出差申請,請前往審核！`, 權限陣列);   //傳值到hub
+                            });
                     }
                 }
             })
