@@ -112,7 +112,7 @@
           <Property Name="pjReportPreview" Type="nvarchar" MaxLength="50" />
           <Property Name="pjLag" Type="nvarchar" MaxLength="50" />
           <Property Name="pjEstimation" Type="money" />
-          <Property Name="pjReportDate" Type="date" />
+          <Property Name="pjReportDate" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="pjTeam">
           <Key>
@@ -872,7 +872,7 @@
           <Property Name="pjReportPreview" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="pjLag" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="pjEstimation" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="pjReportDate" Type="DateTime" Precision="0" />
+          <Property Name="pjReportDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="pjProject" Relationship="dbEIPModel.FK_pjReport_pjProject" FromRole="pjReport" ToRole="pjProject" />
         </EntityType>
         <EntityType Name="pjTeam">
