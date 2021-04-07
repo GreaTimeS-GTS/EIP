@@ -20,6 +20,6 @@ namespace EIP.Models
         public string 佈告欄標題 { get; set; }
         public string 佈告欄內容 { get; set; }
         public System.DateTime 發布日期 { get; set; }
-        public string 總筆數 { get; set; }
+        public string 訊息重要度 { get; set; }
     }
 }

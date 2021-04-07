@@ -60,6 +60,7 @@ namespace EIP.Controllers
                 Response.Cookies["AutoLg"]["id"] = mmb.EmployeeID.ToString();
                 Response.Cookies["AutoLg"]["Name"] = Server.UrlEncode(mmb.中文姓名);
                 Response.Cookies["AutoLg"]["Auth"] = Server.UrlEncode(mmb.職稱);
+                Response.Cookies["AutoLg"]["Hire"] = mmb.受雇日期;
                 if (LoginVM.RememberMe)
                 {
                     Response.Cookies["AutoLg"].Expires = DateTime.Now.AddDays(30);
@@ -317,8 +318,8 @@ namespace EIP.Controllers
                 MySmtp.Port = 25;
                 MySmtp.EnableSsl = true;
                 //您在gmail的帳號密碼
-                MySmtp.Credentials = new System.Net.NetworkCredential("hu999123000@gmail.com", "999123000hu");
-              
+                MySmtp.Credentials = new System.Net.NetworkCredential("hu999123000@gmail.com", "ruvqfsrxlhebqxrz");
+                //999123000hu
                 //開啟ssl
                 //MySmtp.EnableSsl = true;
 

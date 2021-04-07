@@ -194,6 +194,7 @@ namespace EIP.Controllers
         {
             var data = db.pjProject.Select(m => new
             {
+                pjManager = m.pjManager,
                 pjId = m.pjId,
                 pjName = m.pjName,
                 pj審核階段 = m.pj審核階段,

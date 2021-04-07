@@ -232,6 +232,7 @@
     <Compile Include="Models\ViewModel\AskForLeave.cs" />
     <Compile Include="Models\ViewModel\AskForViewModel.cs" />
     <Compile Include="Models\ViewModel\BulletinBoardViewModel.cs" />
+    <Compile Include="Models\ViewModel\BusinessTripViewModel.cs" />
     <Compile Include="Models\ViewModel\Fullcalender.cs" />
     <Compile Include="Models\ViewModel\GenericRepository\EIPRepository.cs" />
     <Compile Include="Models\ViewModel\GenericRepository\IRepository.cs" />

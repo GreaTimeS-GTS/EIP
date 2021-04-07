@@ -66,16 +66,16 @@
 
 
 @*------------------------------搜尋框結束------------------------------*@
-<div class="ui pointing secondary menu">
+<div class="ui pointing secondary menu w-75 mx-auto">
     <a class="item active tabMenu" data-tab="first">註冊員工</a>
     <a class="item tabMenu" data-tab="second">員工資訊總表</a>
 </div>
 
-<div class="ui tab segment active " data-tab="first">
+<div class="ui tab segment active w-75 mx-auto" data-tab="first">
     <h4 class="ui horizontal divider header mb-0">
         <i class="user icon"></i>註冊員工
     </h4>
-    <form class="ui form px-5 pb-3 pt-5 font-weight-bolder" id="AddEMPForm">
+    <form class="ui form px-5 pb-3 pt-5 font-weight-bolder w-75 mx-auto" id="AddEMPForm">
         <input type="hidden" class="addempid" />
         <div class="field">
             <div class="two fields">
@@ -106,11 +106,8 @@
 
                 </div>
                 <div class="four wide field">
-                    <label class="formlbl">電話：</label>
+                    <label class="formlbl">電話：  <span class="ErrorPhone"></span></label>
                     <input type="text" class="addphone formlbl" placeholder="Phone" onkeyup="return ValidateNumber($(this),value)" maxlength="10" />
-                </div>
-                <div class="one wide field d-flex flex-column-reverse">
-                    <label class="ErrorPhpne"></label>
                 </div>
             </div>
         </div>
@@ -139,20 +136,46 @@
             </div>
         </div>
         <div class="field">
-            <label class="formlbl">居住地：</label>
-            <input type="text" class="addlive formlbl" hidden />
-
-            <div class="CitySelect d-flex">
-                <div class="mt-2 mb-3">
+            <div class="three fields">
+                <div class="eight wide field">
+                    <label class="formlbl">居住地：</label>        
+                </div>
+                <div class="four wide field">
+                    <label class="formlbl">薪資：<span class="ErrorSalery"></span></label>
+                </div>
+                <div class="four wide field">
+                    <label class="formlbl">特休：<span class="ErrorVacation"></span></label>
+                </div>
+        </div>
+            </div>
+        <div class="field">
+            <div class="CitySelect seven fields">
+                <div class="three wide field">
+                    <input type="text" class="addlive formlbl" hidden />
                     <select class="county formlbl"></select>
                 </div>
-                <div class="ml-3 mt-2 mb-3">
+                <div class="three wide field ">
                     <select class="district formlbl"></select>
                 </div>
-                <div class="ml-3 mt-2 mb-3">
+                <div class="two wide field ">
                     <input type="text" readonly class="zipcode formlbl">
                 </div>
+                <div class="three wide field ">                 
+                    <input type="text" class="addpayment  formlbl" placeholder="$" onkeyup="return ValidateSalery($(this),value)" maxlength="7" />
+                </div>
+                <div class="one wide field d-flex flex-column-reverse ">
+                    <label class="formlbl ">元 </label>
+                </div>
+                <div class="three wide field">             
+                    <input type="text" class="addspvaction formlbl" placeholder="days" onkeyup="return ValidateVacation($(this),value)" maxlength="2" />
+                </div>
+                <div class="one wide field d-flex flex-column-reverse ">
+                    <label class="formlbl">天</label>
+                </div>
+
             </div>
+
+         
             <input type="text" class="live formlbl" placeholder="Address">
         </div>
         <div class="field">
@@ -192,27 +215,12 @@
                 </div>
             </div>
         </div>
-        <div class="field">
-            <div class="six fields">
-                <div class="seven wide field">
-                    <label class="formlbl">薪資：</label>
-                    <input type="text" class="addpayment  formlbl" placeholder="$" onkeyup="return ValidateSalery($(this),value)" maxlength="7" />
-                </div>
-                <div class="one wide field d-flex flex-column-reverse">
-                    <label class="formlbl ">元 <span class="ErrorSalery"></span></label>
 
+            <div class="field">
+                <div class="four fields">
+                  
                 </div>
-                <div class="seven wide field">
-                    <label class="formlbl">特休：</label>
-                    <input type="text" class="addspvaction formlbl" placeholder="days" onkeyup="return ValidateVacation($(this),value)" maxlength="2" />
-                </div>
-                <div class="one wide field d-flex flex-column-reverse">
-                    <label class="formlbl">天 <span class="ErrorVacation"></span></label>
-                </div>
-
-
             </div>
-        </div>
 
         <div class="field d-flex justify-content-center">
 
@@ -236,7 +244,7 @@
         </div>
     </form>
 </div>
-<div class="ui tab segment " data-tab="second">
+<div class="ui tab segment w-75 mx-auto" data-tab="second">
     <h4 class="ui horizontal divider header">
         <i class="user icon"></i>員工資訊總表
     </h4>
@@ -258,7 +266,7 @@
             </tbody>
         </table>
     </div>
-    <div class="d-flex justify-content-center">
+    <div class="d-flex justify-content-center pb-1 pt-3">
         <div id="PageNumber"></div>
     </div>
 </div>
@@ -287,10 +295,10 @@
         function ValidateNumber(e, pnumber) {
             if (!/^\d+$/.test(pnumber)) {
                 $(e).val(/^\d+/.exec($(e).val()));
-                $('.ErrorPhpne').html('<span class="text-danger">請輸入數字<i class="exclamation icon red"></i></span>');
+                $('.ErrorPhone').html('<span class="text-danger">請輸入數字<i class="exclamation icon red"></i></span>');
             }
             else {
-                $('.ErrorPhpne').html('');
+                $('.ErrorPhone').html('');
                 return false;
             }
         }
@@ -484,7 +492,6 @@
             }
             var form = document.querySelector(".EditUserProfile");
             var formData = new FormData(form);
-            console.log(formData);
             $.ajax({
                 url: "/Home/HREdit",
                 method: "Post",

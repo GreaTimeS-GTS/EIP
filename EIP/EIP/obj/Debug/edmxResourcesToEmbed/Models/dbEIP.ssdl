@@ -307,7 +307,7 @@
     <Property Name="佈告欄標題" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="佈告欄內容" Type="nvarchar(max)" Nullable="false" />
     <Property Name="發布日期" Type="datetime" Nullable="false" />
-    <Property Name="總筆數" Type="nvarchar" MaxLength="50" />
+    <Property Name="訊息重要度" Type="nvarchar" MaxLength="50" Nullable="false" />
   </EntityType>
   <EntityType Name="表單類別">
     <Key>

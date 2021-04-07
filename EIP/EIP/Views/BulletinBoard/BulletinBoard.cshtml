@@ -4,20 +4,24 @@
 }
 
 <style>
+    .searchbox:focus{
+        outline:none;
+    }
 
     .佈告欄總表外框 {
         background-color: white;
-        height: 100%;
-        width: 100%;
+        height: 75%;
+        width: 75%;
         padding-left: 30px;
         padding-right: 30px;
         padding-bottom: 30px;
         padding-top: 0;
         box-shadow: 3px 3px 9px black;
+        margin: auto;
     }
 
     .佈告欄列表 {
-        width: 100%;
+        width: 75%;
         box-shadow: 3px 3px 9px black;
     }
 
@@ -95,20 +99,22 @@
     }
 
     .搜尋框 {
-        height: 50px;
-        max-width: 1000px;
         width: 400px;
         font-size: 18px;
         font-weight: 900;
-        margin-left: 760px;
+        margin-left: 100px;
+        margin-bottom: 5px;
+        height: 40px;
     }
 
     .搜尋按鈕 {
-        height: 50px;
-        width: 100px;
+        height: 40px;
+        width:100px;
         font-size: 18px;
         font-weight: 900;
         display: inline-block;
+        margin-left: 10px;
+        margin-bottom: 5px;
         box-shadow: 3px 3px 9px black;
     }
 
@@ -182,7 +188,8 @@
     }
 
     .時鐘 {
-        margin-left: 350px;
+        padding-top: 30px;
+        padding-left: 180px;
         font-size: 30px;
         font-weight: 900;
     }
@@ -193,7 +200,7 @@
     }
 
     .打卡按鈕樣式 {
-        margin-left: 20px;
+        margin-left: 50px;
     }
 
     .佈告欄分頁{
@@ -203,12 +210,21 @@
 
 
 @*------------------------------資料夾Model起始------------------------------*@
-<nav class="mt-5 文字">
-    <div class="nav nav-tabs font-weight-bolder" id="nav-tab">
+<nav class="mt-5 文字 ">
+    <div class="nav nav-tabs font-weight-bolder w-75 mx-auto" id="nav-tab">
         <a class="nav-item nav-link active text-dark" id="nav-home-tab" data-toggle="tab" href="#nav-1">佈告欄</a>
         <a class="nav-item nav-link text-dark" id="nav-profile-tab" data-toggle="tab" href="#nav-2">行事曆</a>
         <a class="nav-item nav-link text-dark" id="nav-profile1-tab" data-toggle="tab" href="#nav-3">打卡系統</a>
-        <a id='clock' class="nav-item nav-link text-dark 時鐘"></a>
+        @*------------------------------搜尋框起始------------------------------*@
+        <div class="ml-5 d-flex justify-content-center align-items-center">
+            <div>
+                <input type="search" name="searchbox" class="searchbox rounded-pill border-info pl-3 搜尋框" placeholder="搜尋發佈人姓名" />
+            </div>
+            <div class="ml-3">
+                <button class="btn btn-primary rounded-pill searchbtn 搜尋按鈕"><i class="fa fa-search mr-2"></i>搜尋</button>
+            </div>
+        </div>
+        @*------------------------------搜尋框結束------------------------------*@
     </div>
 </nav>
 @*------------------------------資料夾Model結束------------------------------*@
@@ -221,16 +237,7 @@
                     <a class="btn btn-primary empedit 新增按鈕" data-id="" data-toggle="modal" data-target="#CreateBulletinBoardList">新增</a>
                 </div>
                 <div class="col-6">
-                    @*------------------------------搜尋框起始------------------------------*@
-                    <div class="ml-5 d-flex justify-content-center align-items-center 搜尋">
-                        <div>
-                            <input type="search" name="searchbox" class="searchbox rounded-pill border-info pl-3 搜尋框" placeholder="搜尋發佈人姓名" />
-                        </div>
-                        <div class="ml-3">
-                            <button class="btn btn-primary rounded-pill searchbtn 搜尋按鈕"><i class="fa fa-search mr-2"></i>搜尋</button>
-                        </div>
-                    </div>
-                    @*------------------------------搜尋框結束------------------------------*@
+                    <p id='clock' class="時鐘"></p>
                 </div>
             </div>
             @*------------------------------佈告欄起始------------------------------*@
@@ -254,13 +261,13 @@
         </div>
         <div id="nav-3" class="tab-pane fade active ">
             <div class="col-12 d-flex justify-content-between">
-                <div class="col-10 mt-5">
+                <div class="col-9 mt-5">
                     <h2 style="font-weight:900; color:blue;">打卡規則如下 :</h2>
-                    <p style="font-weight:900;font-size:20px;">1. 每當上班打卡成功時會出現  <a style="height:10px; width:40px; background-color:gray; color:gray; border-radius:5px;">1111111111111111</a>  ，並在其上方顯示上班打卡時間與打卡人姓名。</p>
-                    <p style="font-weight:900;font-size:20px;">2. 第二次打卡為下班打卡，當上班打卡在早上9點以前並下班打卡在6點以後時，會顯示  <a style="height:10px; width:40px; background-color:green; color:green;border-radius:5px">1111111111111111</a>  ，表示今天上下班的時間正常。</p>
-                    <p style="font-weight:900;font-size:20px;">3. 若是上班打卡不再早上9點以前或下班打卡在6點以前任意一個條件達成時，會顯示  <a style="height:10px; width:40px; background-color:red; color:red;border-radius:5px">1111111111111111</a>  ，表示今天上下班的時間不正常。</p>
+                    <p style="font-weight: 900; font-size: 20px; display:inline-block;" >1. 每當上班打卡成功時會出現<a style="height:15px; width:150px; background-color:gray; color:gray; border-radius:5px; display:inline-block;margin-left:20px;"></a>  ，並在其上方顯示上班打卡時間與打卡人姓名。</p>
+                    <p style="font-weight:900;font-size:20px; display:inline-block;">2. 第二次打卡為下班打卡，當上班打卡在早上9點以前並下班打卡在6點以後時，會顯示  <a style="height: 15px; width: 150px; background-color: green; color: green; border-radius: 5px; display: inline-block; margin-left: 20px;"></a>  ，表示今天上下班的時間正常。</p>
+                    <p style="font-weight:900;font-size:20px; display:inline-block;">3. 若是上班打卡不再早上9點以前或下班打卡在6點以前任意一個條件達成時，會顯示  <a style="height: 15px; width: 150px; background-color: red; color: red; border-radius: 5px; display: inline-block; margin-left: 20px;"></a>  ，表示今天上下班的時間不正常。</p>
                 </div>
-                <div class="col-2 打卡按鈕樣式">
+                <div class="col-3 打卡按鈕樣式">
                     <button type="button" class="btn btn-primary 模擬打卡按鈕" onclick="SignInDemoSave()">模擬成功打卡</button>
                     <button type="button" class="btn btn-danger 打卡按鈕" onclick="SignInSave()">現在打卡</button>
                 </div>
@@ -293,8 +300,9 @@
 
 @*佈告欄新增彈跳視窗*@
 <div id="CreateBulletinBoardList" class="ui modal centermodal">
+    <i class="close icon 關閉"></i>
     <div class="header" style="background-color: deepskyblue">
-        <i class="close icon"></i>
+        <i class="close icon" onclick='$(".關閉").click()'></i>
         <h1>新增佈告欄</h1>
     </div>
     <div class="content">
@@ -314,10 +322,17 @@
             <input name="Date" type="datetime-local" class="addDate 行事曆事項名稱輸入框" />
             <br>
             <br>
+            <label class="文字2">訊息重要度:</label>
+            <br>
+            <select class="訊息重要度 行事曆事項名稱輸入框" required>
+                <option value="1">高</option>
+                <option value="2">低</option>
+            </select>
         </form>
     </div>
     <div class="actions">
-        <button type="button" class="ui inverted teal big button text-dark mr-3" onclick="BulletinBoardDemoAdd()">Demo</button>
+        <button type="button" class="ui inverted teal big button text-dark mr-3" onclick="BulletinBoardDemoAddOne()">訊高</button>
+        <button type="button" class="ui inverted teal big button text-dark mr-3" onclick="BulletinBoardDemoAddTwo()">訊低</button>
         <button type="button" class="ui inverted blue big button text-dark mr-3" onclick="BulletinBoardAdd()">送出</button>
         <button type="button" class="ui inverted secondary big button ClearModal cancel">取消</button>
     </div>
@@ -325,8 +340,9 @@
 
 @*佈告欄詳細彈跳視窗*@
 <div id="ShowBulletinBoard" class="ui modal centermodal" tabindex="-1" role="dialog">
+    <i class="close icon 關閉"></i>
     <div class="header" style="background-color: #00CACA">
-        <i class="close icon"></i>
+        <i class="close icon" onclick='$(".關閉").click()'></i>
         <h1>佈告欄資訊</h1>
     </div>
     <div class="content">
@@ -339,8 +355,9 @@
 
 @*佈告欄修改尋彈跳視窗*@
 <div id="EditBulletinBoard" class="ui modal centermodal" tabindex="-1" role="dialog">
+    <i class="close icon 關閉"></i>
     <div class="header" style="background-color: gold">
-        <i class="close icon"></i>
+        <i class="close icon" onclick='$(".關閉").click()'></i>
         <h1>編輯佈告欄</h1>
     </div>
     <div class="content">
@@ -354,8 +371,9 @@
 
 @*FullCalender修改彈跳視窗起始*@
 <div id="myModal" class="ui modal centermodal" tabindex="-1" role="dialog">
+    <i class="close icon 關閉"></i>
     <div class="header" style=" background-color: #00CACA">
-        <i class="close icon"></i>
+        <i class="close icon" onclick='$(".關閉").click()'></i>
         <h1><span id="eventTitle"></span></h1>
     </div>
     <div class="content">
@@ -375,8 +393,9 @@
 
 @*FullCalender新增彈跳視窗起始*@
 <div id="myModalSave" class="ui modal centermodal" tabindex="-1" role="dialog">
+    <i class="close icon 關閉"></i>
     <div class="header" style="background-color: deepskyblue">
-        <i class="close icon"></i>
+        <i class="close icon" onclick='$(".關閉").click()'></i>
         <h1>新增事項</h1>
     </div>
     <div class="content">
@@ -443,6 +462,9 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
 
     <script>
+        console.log(document.cookie.split('Auth=')[1].split('&')[0]);
+
+        if (decodeURI(document.cookie.split('Auth=')[1].split('&')[0])!='主管') { $(".新增按鈕").attr('hidden',true)}
         // 刷新
 
         $(".empedit").click(function () { $("#CreateBulletinBoardList").modal('toggle') });
@@ -591,7 +613,8 @@
                     data: {
                         "佈告欄標題": $(".addTitle").val(),
                         "佈告欄內容": $(".addContent").val(),
-                        "發布日期": $(".addDate").val()
+                        "發布日期": $(".addDate").val(),
+                        "訊息重要度": $(".訊息重要度").val()
                     },
                     method: "Get",
                     success: function (data) {
@@ -604,6 +627,7 @@
                         $(".addTitle").val('');
                         $(".addContent").val('');
                         $(".addDate").val('');
+                        $(".訊息重要度").val("");
                         $(".ClearModal").click();
                         refresh();
                     }
@@ -611,11 +635,20 @@
             }
         };
 
-        // 佈告欄Demo
-        function BulletinBoardDemoAdd() {
-            $(".addTitle").val("開會"),
-                $(".addContent").val("跟老闆開會"),
-                $(".addDate").val("2021-03-24T09:00:00")
+        // 佈告欄Demo( 訊息強度高 )
+        function BulletinBoardDemoAddOne() {
+            $(".addTitle").val("放假通知"),
+                $(".addContent").val("因氣象預報播報明日天氣達到可放颱風價標準，故明日放假一天。請各位同仁注意自身安全。"),
+                $(".addDate").val("2021-03-30T22:00:00"),
+                $(".訊息重要度").val("1")
+        }
+
+        // 佈告欄Demo( 訊息強度低 )
+        function BulletinBoardDemoAddTwo() {
+            $(".addTitle").val("聚餐通知"),
+                $(".addContent").val("於2021-04-02晚上7點在圓山飯店聚餐，想參加的同僚請於櫃台作登記，謝謝!"),
+                $(".addDate").val("2021-03-30T09:12:00"),
+                $(".訊息重要度").val("2")
         }
 
         // 編輯按鈕彈出來的方法
@@ -684,6 +717,11 @@
                                                                 <input name="Date" type="datetime-local" class="updateTime txt樣式 行事曆事項名稱輸入框" value="${datetime1.getFullYear() + "-" + m + "-" + d + "T" + h + ":" + min + ":00"}"/>
                                                                 <br>
                                                                 <br>
+                                                                <div class="文字2">訊息重要度:  </div>
+                                                                <select class="w-100 訊息重要度 文字2" required>
+                                                                <option value="1">高</option>
+                                                                <option value="2">低</option>
+                                                                </select>
                                                             </div>
                                                         </div>`);
                 }
@@ -781,7 +819,8 @@
                     "中文姓名": $(".updateBBName").val(),
                     "佈告欄標題": $(".updateTitle").val(),
                     "佈告欄內容": $(".updateContent").val(),
-                    "發布日期": $(".updateTime").val()
+                    "發布日期": $(".updateTime").val(),
+                    "訊息重要度": $(".訊息重要度").val()
                 },
                 success: function (data) {
                     let EditTitle = $(".updateTitle").val();
@@ -864,7 +903,6 @@
                                                                 <th>佈告欄編號</th>
                                                                 <th>發佈人</th>
                                                                 <th>標題</th>
-                                                                <th>內容</th>
                                                                 <th>發佈日期</th>
                                                                 <th>詳細</th>
                                                             </tr>
@@ -889,7 +927,6 @@
                                                     <td>${item.佈告欄ID}</td>
                                                     <td>${item.中文姓名}</td>
                                                     <td>${item.佈告欄標題}</td>
-                                                    <td>${item.佈告欄內容}</td>
                                                     <td>${datetime1.getFullYear() + "/" + (datetime1.getMonth() + 1) + "/" + datetime1.getDate() + " " + x + ":" + y}</td>
                                                     <td><a class="ui inverted teal big button text-dark empedit 詳細按鈕" data-id="${item.佈告欄ID}" data-toggle="modal" data-target="#ShowBulletinBoard" onclick="SearchThis()">詳細</a></td>
                                                     </tr>`;
@@ -920,7 +957,6 @@
                                                                 <th>佈告欄編號</th>
                                                                 <th>發佈人</th>
                                                                 <th>標題</th>
-                                                                <th>內容</th>
                                                                 <th>發佈日期</th>
                                                                 <th>編輯</th>
                                                                 <th>刪除</th>
@@ -946,7 +982,6 @@
                                                     <td>${item.佈告欄ID}</td>
                                                     <td>${item.中文姓名}</td>
                                                     <td>${item.佈告欄標題}</td>
-                                                    <td>${item.佈告欄內容}</td>
                                                     <td>${datetime1.getFullYear() + "/" + (datetime1.getMonth() + 1) + "/" + datetime1.getDate() + " " + x + ":" + y}</td>
                                                     <td><a class="ui inverted yellow big button text-dark empedit 詳細按鈕" data-id="${item.佈告欄ID}" data-toggle="modal" data-target="#EditBulletinBoard" onclick="startedit()">編輯</a></td>
                                                     <td><a class="ui inverted red big button text-dark empedit 詳細按鈕" data-id="${item.佈告欄ID}" data-toggle="modal" onclick="DeleteBB()">刪除</a></td>

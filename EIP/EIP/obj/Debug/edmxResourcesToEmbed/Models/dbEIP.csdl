@@ -424,7 +424,7 @@
     <Property Name="佈告欄標題" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="佈告欄內容" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="發布日期" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="總筆數" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="訊息重要度" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="表單類別">
     <Key>

@@ -19,22 +19,6 @@ namespace EIP.Controllers
             return View();
         }
 
-        //public string PhotoAjax(請假細項 inputdata, HttpPostedFileBase upPhoto)
-        //{
-        //    string filePath = "";
-        //    if (upPhoto != null)
-        //    {
-        //        filePath = DateTime.Now.ToString("yyyyMMddhhmmss") + upPhoto.FileName;
-        //        upPhoto.SaveAs(Server.MapPath("~/images/") + filePath);
-        //    }
-
-        //    inputdata.圖片 = filePath;
-
-        //    db.請假細項.Add(inputdata);
-        //    db.SaveChanges();
-        //    return "Success";
-        //}
-
         //=============================新增=============================//
         public ActionResult AskFor()
         {
@@ -60,9 +44,37 @@ namespace EIP.Controllers
         {
             return View();
         }
+        public JsonResult AskForList1()
+        {
+            var fjf = from m in db.請假細項
+                      orderby m.申請表編號 descending
+                      select new
+                      {
+                          申請表編號 = m.申請表編號,
+                          EmployeeID = m.EmployeeID,
+                          信箱 = m.信箱,
+                          部門 = m.部門,
+                          假別ID = m.假別ID,
+                          請假時數 = (int)m.請假時數,
+                          開始日期 = m.開始日期,
+                          結束日期 = m.結束日期,
+                          申請日期 = m.申請日期,
+                          中文姓名 = m.中文姓名,
+                          職稱 = m.職稱,
+                          請假班別 = m.請假班別,
+                          代理人 = m.代理人,
+                          審核狀態 = m.審核狀態,
+                          假別1 = m.假別.假別1
+                      };
+            return Json(fjf, JsonRequestBehavior.AllowGet);
+        }
+        //==============================請假未審核==================================
         public JsonResult AskForListAjax()
         {
-            var leaveform = db.請假細項.Select(m => new
+            var leaveform = from m in db.請假細項 
+                            where m.審核狀態 == "未審核"
+                            orderby m.申請表編號 descending
+                            select new
                             {
                                 申請表編號 = m.申請表編號,
                                 EmployeeID = m.EmployeeID,
@@ -79,11 +91,11 @@ namespace EIP.Controllers
                                 代理人 = m.代理人,
                                 審核狀態 = m.審核狀態,
                                 假別1 = m.假別.假別1
-                            });
+                            };
             return Json(leaveform, JsonRequestBehavior.AllowGet);
         }
         //=============================刪除=============================//
-        public string DeleteData(int id)
+        public string DeleteData(int? id)
         {
             var deleteuser = db.請假細項.FirstOrDefault(m => m.申請表編號 == id);
             db.請假細項.Remove(deleteuser);
@@ -113,7 +125,7 @@ namespace EIP.Controllers
                 請假班別 = x.請假班別,
                 代理人 = x.代理人,
                 審核狀態 = x.審核狀態,
-                x.圖片,
+                圖片 = x.圖片,
             }).FirstOrDefault(C => C.申請表編號 == id);
             return Json(mm, JsonRequestBehavior.AllowGet);
         }
@@ -158,9 +170,33 @@ namespace EIP.Controllers
 
             return View();
         }
+        public JsonResult OverTimeList1()
+        {
+            var dhdhd = from m in db.加班細項
+                        orderby m.加班表編號 descending
+                      select new
+                      {
+                          加班表編號 = m.加班表編號,
+                          EmployeeID = m.EmployeeID,
+                          中文姓名 = m.中文姓名,
+                          部門 = m.部門,
+                          開始日期 = m.開始日期,
+                          結束日期 = m.結束日期,
+                          加班時數 = m.加班時數,
+                          加班ID = m.加班ID,
+                          事由說明 = m.事由說明,
+                          加班類別 = m.加班別.加班類別,
+                          審核狀態 = m.審核狀態
+                      };
+            return Json(dhdhd, JsonRequestBehavior.AllowGet);
+        }
+        //==============================加班未審核==================================
         public JsonResult OverTimeListAjax()
         {
-            var test = db.加班細項.Select(m => new
+            var test = from m in db.加班細項
+                       where m.審核狀態 == "未審核"
+                       orderby m.加班表編號 descending
+                       select new
             {
                 加班表編號 = m.加班表編號,
                 EmployeeID = m.EmployeeID,
@@ -173,13 +209,13 @@ namespace EIP.Controllers
                 事由說明 = m.事由說明,
                 加班類別 = m.加班別.加班類別,
                 審核狀態 = m.審核狀態
-            });
+            };
             return Json(test, JsonRequestBehavior.AllowGet);
         }
 
         //=============================刪除=============================//
 
-        public JsonResult DeleteOverTimeData(int id)
+        public JsonResult DeleteOverTimeData(int? id)
         {
             var deletedata = db.加班細項.FirstOrDefault(m => m.加班表編號 == id);
             db.加班細項.Remove(deletedata);
@@ -239,24 +275,50 @@ namespace EIP.Controllers
         {
             return View();
         }
+        public JsonResult BusinessTripList1()
+        {
+            var ada = from x in db.出差細項
+                       orderby x.出差表編號 descending
+                       select new
+                       {
+                           x.出差表編號,
+                           x.EmployeeID,
+                           x.中文姓名,
+                           x.部門,
+                           x.出差類型,
+                           x.出差地點,
+                           x.開始日期,
+                           x.結束日期,
+                           x.交通需求,
+                           x.住宿需求,
+                           x.預支費用,
+                           x.備註,
+                           x.審核狀態
+                       };
+            return Json(ada, JsonRequestBehavior.AllowGet);
+        }
+        //==============================出差未審核==================================
         public JsonResult BusinessTripListAjax()
         {
-            var btla = db.出差細項.Select(x => new
-            {
-                x.出差表編號,
-                x.EmployeeID,
-                x.中文姓名,
-                x.部門,
-                x.出差類型,
-                x.出差地點,
-                x.開始日期,
-                x.結束日期,
-                x.交通需求,
-                x.住宿需求,
-                x.預支費用,
-                x.備註,
-                x.審核狀態
-            });
+            var btla = from x in db.出差細項
+                       where x.審核狀態 == "未審核"
+                       orderby x.出差表編號 descending
+                       select new
+                       {          
+                            x.出差表編號,
+                            x.EmployeeID,
+                            x.中文姓名,
+                            x.部門,
+                            x.出差類型,
+                            x.出差地點,
+                            x.開始日期,
+                            x.結束日期,
+                            x.交通需求,
+                            x.住宿需求,
+                            x.預支費用,
+                            x.備註,
+                            x.審核狀態
+            };
             return Json(btla, JsonRequestBehavior.AllowGet);
         }
 
@@ -359,6 +421,149 @@ namespace EIP.Controllers
             }).OrderBy(g => g.EmployeeID).ToList();
             return Json(mlvm.Take(10), JsonRequestBehavior.AllowGet);
         }
+        public JsonResult 請假未審核Ajax()
+        {
 
+            var 請假未審核 = from m in db.請假細項
+                      where m.審核狀態 == "未審核"
+                      orderby m.申請表編號 descending
+                      select new
+                      {
+                          申請表編號 = m.申請表編號,
+                          EmployeeID = m.EmployeeID,
+                          信箱 = m.信箱,
+                          部門 = m.部門,
+                          假別ID = m.假別ID,
+                          請假時數 = (int)m.請假時數,
+                          開始日期 = m.開始日期,
+                          結束日期 = m.結束日期,
+                          申請日期 = m.申請日期,
+                          中文姓名 = m.中文姓名,
+                          職稱 = m.職稱,
+                          請假班別 = m.請假班別,
+                          代理人 = m.代理人,
+                          審核狀態 = m.審核狀態,
+                          假別1 = m.假別.假別1,
+                          圖片 = m.圖片
+                      };
+            return Json(請假未審核, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult 請假已審核Ajax()
+        {
+            
+            var 已審核 = from m in db.請假細項
+                            where m.審核狀態 == "通過" || m.審核狀態 == "未通過"
+                      orderby m.申請表編號 descending
+                      select new
+               {
+                   申請表編號 = m.申請表編號,
+                   EmployeeID = m.EmployeeID,
+                   信箱 = m.信箱,
+                   部門 = m.部門,
+                   假別ID = m.假別ID,
+                   請假時數 = (int)m.請假時數,
+                   開始日期 = m.開始日期,
+                   結束日期 = m.結束日期,
+                   申請日期 = m.申請日期,
+                   中文姓名 = m.中文姓名,
+                   職稱 = m.職稱,
+                   請假班別 = m.請假班別,
+                   代理人 = m.代理人,
+                   審核狀態 = m.審核狀態,
+                   假別1 = m.假別.假別1,
+                   圖片 = m.圖片
+               };
+            return Json(已審核, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult 加班未審核Ajax()
+        {
+            var 加班未審核 = from m in db.加班細項
+                        where m.審核狀態 == "未審核"
+                        orderby m.加班表編號 descending
+                        select new
+                        {
+                            加班表編號 = m.加班表編號,
+                            EmployeeID = m.EmployeeID,
+                            中文姓名 = m.中文姓名,
+                            部門 = m.部門,
+                            開始日期 = m.開始日期,
+                            結束日期 = m.結束日期,
+                            加班時數 = m.加班時數,
+                            加班ID = m.加班ID,
+                            事由說明 = m.事由說明,
+                            加班類別 = m.加班別.加班類別,
+                            審核狀態 = m.審核狀態
+                        };
+            return Json(加班未審核, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult 加班已審核Ajax()
+        {
+            var 加班已審核 = from m in db.加班細項
+                        where m.審核狀態 == "通過" || m.審核狀態 == "未通過"
+                        orderby m.加班表編號 descending
+                        select new
+                        {                        
+                            加班表編號 = m.加班表編號,
+                            EmployeeID = m.EmployeeID,
+                            中文姓名 = m.中文姓名,
+                            部門 = m.部門,
+                            開始日期 = m.開始日期,
+                            結束日期 = m.結束日期,
+                            加班時數 = m.加班時數,
+                            加班ID = m.加班ID,
+                            事由說明 = m.事由說明,
+                            加班類別 = m.加班別.加班類別,
+                            審核狀態 = m.審核狀態
+                            };
+            return Json(加班已審核, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult 出差未審核Ajax()
+        {
+
+            var 出差未審核 = from x in db.出差細項
+                        where x.審核狀態 == "未審核"
+                        orderby x.出差表編號 descending
+                        select new
+                        {
+                            x.出差表編號,
+                            x.EmployeeID,
+                            x.中文姓名,
+                            x.部門,
+                            x.出差類型,
+                            x.出差地點,
+                            x.開始日期,
+                            x.結束日期,
+                            x.交通需求,
+                            x.住宿需求,
+                            x.預支費用,
+                            x.備註,
+                            x.審核狀態
+                        };
+            return Json(出差未審核, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult 出差已審核Ajax()
+        {
+
+            var 出差已審核 = from x in db.出差細項
+                        where x.審核狀態 == "通過" ||x.審核狀態  == "未通過"
+                        orderby x.出差表編號 descending
+                        select new
+                      {
+                              x.出差表編號,
+                              x.EmployeeID,
+                              x.中文姓名,
+                              x.部門,
+                              x.出差類型,
+                              x.出差地點,
+                              x.開始日期,
+                              x.結束日期,
+                              x.交通需求,
+                              x.住宿需求,
+                              x.預支費用,
+                              x.備註,
+                              x.審核狀態
+                          };
+            return Json(出差已審核, JsonRequestBehavior.AllowGet);
+        }
     }
 }
