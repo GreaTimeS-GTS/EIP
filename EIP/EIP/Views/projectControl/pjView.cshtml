@@ -1309,6 +1309,15 @@
                             'pj審核階段': $('.cr8pj審核階段').val(),
                         },
                         success: function () {
+                            var 權限陣列 = [];
+                            if (decodeURI(document.cookie.split('Auth=')[1].split('&')[0]) == "主管" || decodeURI(document.cookie.split('Auth=')[1].split('&')[0]) == "人事" || decodeURI(document.cookie.split('Auth=')[1].split('&')[0]) == "員工") {
+                                權限陣列.push('總經理');
+                                權限陣列.push('主管');
+                            }
+                            $.connection.hub.start()
+                                .done(function () {
+                                    bell.server.sendGroup(`${3}`, `${decodeURI(document.cookie.split('Auth=')[1].split('&')[0])}`, `有專案建立初審,請前往審核！`, 權限陣列);   //傳值到hub
+                                });
                             alert('成功新增資料');
                             $('#tab建立初審').toggleClass('active');
                             $('#content建立初審').toggleClass('active');
@@ -1841,6 +1850,15 @@
                                                         $('#tab建立複審').attr('hidden', false);
                                                     }
                                                 })
+                                                var 權限陣列 = [];
+                                                if (decodeURI(document.cookie.split('Auth=')[1].split('&')[0]) == "主管" || decodeURI(document.cookie.split('Auth=')[1].split('&')[0]) == "人事" || decodeURI(document.cookie.split('Auth=')[1].split('&')[0]) == "員工") {
+                                                    權限陣列.push('總經理');
+                                                    權限陣列.push('主管');
+                                                }
+                                                $.connection.hub.start()
+                                                    .done(function () {
+                                                        bell.server.sendGroup(`${3}`, `${decodeURI(document.cookie.split('Auth=')[1].split('&')[0])}`, `有專案建立複審,請前往審核！`, 權限陣列);   //傳值到hub
+                                                    });
                                             }
                                         })
                                     })

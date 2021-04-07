@@ -894,6 +894,11 @@
                             ReFresh請假總表()
                         }, 2000);
                         swal("成功", "新增成功", "success");
+                        var 權限陣列 = [];
+                        if (decodeURI(document.cookie.split('Auth=')[1].split('&')[0]) == "主管" || decodeURI(document.cookie.split('Auth=')[1].split('&')[0]) == "人事" || decodeURI(document.cookie.split('Auth=')[1].split('&')[0]) == "員工") {
+                            權限陣列.push('總經理');
+                            權限陣列.push('主管');
+                        }
                         $.connection.hub.start()
                             .done(function () {
                                 bell.server.sendGroup(`${1}`, `${decodeURI(document.cookie.split('Auth=')[1].split('&')[0])}`, `有新的請假申請,請前往審核！`, 權限陣列);   //傳值到hub
@@ -2237,6 +2242,15 @@
                     "審核狀態": $("#加班審核狀態").val(),
                 },
                 success: function (result) {
+                    var 權限陣列 = [];
+                    if (decodeURI(document.cookie.split('Auth=')[1].split('&')[0]) == "主管" || decodeURI(document.cookie.split('Auth=')[1].split('&')[0]) == "人事" || decodeURI(document.cookie.split('Auth=')[1].split('&')[0]) == "員工") {
+                        權限陣列.push('總經理');
+                        權限陣列.push('主管');
+                    }
+                    $.connection.hub.start()
+                        .done(function () {
+                            bell.server.sendGroup(`${1}`, `${decodeURI(document.cookie.split('Auth=')[1].split('&')[0])}`, `有新的加班申請,請前往審核！`, 權限陣列);   //傳值到hub
+                        });
                     if (result != null) {
                         setTimeout(function () {
                             //window.location.href = "/DDDDD/OverTimeList";

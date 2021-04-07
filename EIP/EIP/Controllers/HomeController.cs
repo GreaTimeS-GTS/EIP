@@ -60,6 +60,7 @@ namespace EIP.Controllers
                 Response.Cookies["AutoLg"]["id"] = mmb.EmployeeID.ToString();
                 Response.Cookies["AutoLg"]["Name"] = Server.UrlEncode(mmb.中文姓名);
                 Response.Cookies["AutoLg"]["Auth"] = Server.UrlEncode(mmb.職稱);
+                Response.Cookies["AutoLg"]["Hire"] = mmb.受雇日期;
                 if (LoginVM.RememberMe)
                 {
                     Response.Cookies["AutoLg"].Expires = DateTime.Now.AddDays(30);
