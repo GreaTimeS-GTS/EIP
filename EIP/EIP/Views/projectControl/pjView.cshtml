@@ -9,7 +9,7 @@
     <div class="ui top attached tabular menu">
         <a class="item active" data-tab="second/a" id="tab總表">總表</a>
         <a class="item" data-tab="second/b" id="tab建立初審">建立初審</a>
-        <a class="item" data-tab="second/c" id="tab建立複審" hidden>建立複審</a>
+        <a class="item" data-tab="second/c" id="tab建立複審" >建立複審</a>
         <a class="item" data-tab="second/e" id="tab專案初審審核">專案初審審核</a>
         <a class="item" data-tab="second/f" id="tab專案初審通過">專案初審通過</a>
         <a class="item" data-tab="second/d" id="tab專案複審審核">專案複審審核</a>
@@ -575,6 +575,8 @@
                             <div class="eleven wide field d-flex justify-content-end">
                                 <button class="ui inverted red button" onclick="resetform()">重置</button>
                                 <button class="ui inverted primary button cr8pjSubmit">確認</button>
+                                <button class="ui inverted primary button pj1stDemo">DEMO</button>
+
                                 <button type="reset" hidden id="theReset"></button>
                             </div>
                             <div class="five wide field d-flex"></div>
@@ -631,11 +633,29 @@
                         }
                     });
                 })
+
+
+                
+
+                $('.pj1stDemo').click(function () {
+                    console.log("111");
+                    $(".cr8開始日期").val("2021-03-21")
+                    $(".cr8結束日期").val("2021-04-21")
+                    $(".cr8專案名稱").val("青龍旅行社網頁開發")
+                    $(".cr8專案預算").val("500000")
+                    $(".cr8專案簡介").val("青龍旅行社委託行銷網頁開發")
+                    $(".cr8專案成員數").val("4")
+                    $(".cr8專案客戶").val("青龍旅行社")
+                    $(".cr8預估時間").val("32天")
+                    //$(".cr8pjManagerId").val("${decodeURI(document.cookie.split('id=')[1].split('&')[0])}")
+                })
             });
             function resetform() {
                 $('#theReset').click();
             }
 
+
+        
             //--------------------------------------------吳冠翰--------------------------------------------------------------------------
             $('.bigTab建立專案').click(function () {
                 //$('.appendPjDataFromSql-tb').html('wooow');
@@ -708,7 +728,7 @@
                                                 <td>${item.pjName}</td>
         <td>${item.pjManager}</td>
                                                 <td>${item.pj審核階段}</td>
-                                                <td>${item.pj初審結果}</td>
+                                                <td>${item.pj複審結果}</td>
                                                 
                                                
                                                 <td class="selectable"><a href="#" onclick="pj複審審核()" data-id="${item.pjId}">複審審核</a></td>
@@ -785,6 +805,10 @@
                                 )
                             })
 
+                                
+
+
+
                                     $('.pj建立複審').click(function () {
                                         var id = $(event.currentTarget).data('id');
                                         console.log(id);
@@ -820,7 +844,7 @@
                                                                 </div>
                                                                 <div class="four wide field">
                                                                     <label>成員姓名</label>
-                                                                    <input type="text" placeholder="成員姓名" name="pjMemberName">
+                                                                    <input type="text" placeholder="成員姓名" name="pjMemberName" id="pjname${i}">
                                                                 </div>
                                                                 <div class="five wide field">
                                                                     <label>專案項目</label>
@@ -845,10 +869,21 @@
                                                         <div class="eleven wide field d-flex justify-content-end">
                                                             <button class="ui inverted red button">取消</button>
                                                             <button class="ui inverted primary button" id="submitCr8preview2">確認</button>
+                                                            <button class="ui inverted primary button  pj2ndDemo" >DEMO</button>
                                                         </div>
                                                         <div class="five wide field"></div>
                                                     </div>
                                                 `)
+                                                $('.pj2ndDemo').click(function () {
+                                                    console.log("12312131");
+                                                
+                                                    $("#pjname1").val("777")
+                                                    $("#pjname2").val("555")
+                                                
+                                                    $("#pjCr8複審部門1").val("資訊部")
+                                                    $("#pjCr8複審部門2").val("總務部")
+
+                                                })
                                                 $('#submitCr8preview2').click(function () {
                                                     $.ajax({
                                                         url: "/projectControl/getPjProjectDataFromIdto2",
@@ -1153,13 +1188,69 @@
                             pj複審審核 = function () {
                                 var id = $(event.currentTarget).data('id');
                                 console.log(id);
-                                $('#pj複審單').modal('show');
-                                //$.ajax({
-                                //    url: "",
-                                //    method: "post",
-                                //    data: { "id": id },
-                                //    success: function () { }
-                                //})
+                                //$('#pj複審單').modal('show');
+                                $.ajax({
+                                    url: "/projectControl/getMainData1",
+                                    method: "post",
+                                    data: { "id": id },
+                                    success: function () {
+
+                                        $.ajax({
+                                            url: "/projectControl/getteamData1",
+                                            method: "post",
+                                            data: { "id": id },
+                                            success: function () {
+
+                                                for (var i = 1; i <= membersCount; i++) {
+                                                    $('#content複審審核').append(`
+                                                        <form class="ui form" id="cr8form${i}">
+                                                            <div class="fields">
+                                                                <div class="two wide field">
+                                                                    <label>部門</label>
+                                                                    <select class="ui search dropdown" id="pjCr8複審部門${i}" name="pjMember部門" value="${data.pjMember部門}">
+                                                                        <option value="">部門</option>
+                                                                        <option value="資訊部">資訊部</option>
+                                                                        <option value="人事部">人事部</option>
+                                                                        <option value="總務部">總務部</option>
+                                                                        <option value="財務部">財務部</option>
+                                                                        <option value="業務部">業務部</option>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="four wide field">
+                                                                    <label>成員姓名</label>
+                                                                    <input type="text" placeholder="成員姓名" name="pjMemberName" value="${data.pjMemberName}>
+                                                                </div>
+                                                                <div class="five wide field">
+                                                                    <label>專案項目</label>
+                                                                    <input type="text" placeholder="專案項目" name="pjTarget">
+                                                                </div>
+                                                                   <div class="four wide field" hidden>
+                                                                    <label>成員姓名</label>
+                                                                    <input type="text" placeholder="審核階段" name="pjMemberName" id="pj審核階段">
+                                                                </div>
+                                                                <div class="one wide field">
+                                                                    <input type="text" hidden name="pjId" value="${data.pjId}">
+                                                                </div>
+                                                                <div class="four wide field"></div>
+                                                            </div>
+                                                        </form>
+                                                    `)
+                                                }
+                                                $('#content複審審核').append(`
+                                                    <div class="ui form">
+                                                        <div class="eleven wide field d-flex justify-content-end">
+                                                            <button class="ui inverted red button">取消</button>
+                                                            <button class="ui inverted primary button" id="submitCr8preview2">確認</button>
+                                                        </div>
+                                                        <div class="five wide field"></div>
+                                                    </div>
+                                                `)
+
+
+                                            }
+                                        })
+                                    }
+                                })
                             }
                             pj重新送審 = function () {
                                 var id = $(event.currentTarget).data('id');
