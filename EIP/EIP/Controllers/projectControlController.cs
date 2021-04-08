@@ -64,28 +64,31 @@ namespace EIP.Controllers
         //找一筆專案資料from總表
         public JsonResult getMainData1(int id)
         {
-            var pjMainData1 = db.pj總表.FirstOrDefault(m => m.pjId == id);
-            var k = db.pj建立.FirstOrDefault(n => n.pjCreateId == pjMainData1.pjCreateId);
+            var pjMainData1 = db.pjProject.FirstOrDefault(m => m.pjId == id);
+           
             var qPjData = new
             {
                 pjId = pjMainData1.pjId,
                 pjName = pjMainData1.pjName,
                 pjManager = pjMainData1.pjManager,
-                pj成員數 = k.pj成員數,
+                pjMemberCount = pjMainData1.pjMemberCount,
             };
             return Json(qPjData, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult getteamData1(int id)
         {
-            var pjMainData1 = db.pjTeam.FirstOrDefault(m => m.pjId == id);
-           
-            var qPjData = new
+            var qPjData =
+                 from m in db.pjTeam
+                 where m.pjId == id
+                 select new
+
+
             {
-                pjId = pjMainData1.pjId,
-                pjMemberName = pjMainData1.pjMemberName,
-                pjMember部門 = pjMainData1.pjMember部門,
-                pjTarget = pjMainData1.pjTarget,
+                pjId = m.pjId,
+                pjMemberName = m.pjMemberName,
+                pjMember部門 = m.pjMember部門,
+                pjTarget = m.pjTarget,
                
             };
             return Json(qPjData, JsonRequestBehavior.AllowGet);
@@ -126,6 +129,7 @@ namespace EIP.Controllers
                 pjName = m.pjName,
                 pj審核階段 = m.pj審核階段,
                 pj初審結果 = m.pj初審結果,
+                pj複審結果 =  m.pj複審結果,
                 pjMemberCount = m.pjMemberCount,
                 pjManager = m.pjManager,
             });
@@ -235,6 +239,8 @@ namespace EIP.Controllers
             db.SaveChanges(); 
         }
 
+
+    
 
         public void savePreview2FormData(pjTeam formdata)
         {
