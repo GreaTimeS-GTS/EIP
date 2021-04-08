@@ -129,6 +129,7 @@
             <div class="pj會議記錄Btn"></div>
         </div>
         <div class="pj會議記錄總表"></div>
+        <div class="pj此專案的會議紀錄"></div>
         @*<div class="ui form">
                 <div class="fields">
                     <div class="four wide field">
@@ -315,6 +316,8 @@
 <div class="append專案詳細Form"></div>
 <div class="ui small modal centermodal" id="append專案會議Form"></div>
 <div class="ui small modal centermodal pj單筆會議資料" id="pj單筆會議資料"></div>
+<div class="ui small modal centermodal" id="pj每日回報"></div>
+<div  class="ui small modal centermodal" id="pj新增會議"></div>
 @section script{
     <script>
         //console.log(decodeURI(document.cookie.split('Name=')[1].split('&')[0]));
@@ -341,35 +344,35 @@
                 success: function (data) {
                     $('#content專案進度').html('');
                     $('#content專案進度').html(`
-                                <div class="ui icon input mx-2 my-2">
-                                    <input type="text" placeholder="Search...">
-                                    <i class="inverted circular search link icon"></i>
-                                </div>
-                                <table class="ui selectable celled table">
-                                    <thead>
-                                        <tr>
-                                            <th>日期</th>
-                                            <th>專案名稱</th>
-                                            <th>成員姓名</th>
-                                            <th>工作內容</th>
-                                            <th>問題回報</th>
-                                            <th>其他</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="pj顯示所有回報單內容"></tbody>
-                                </div>
-                            `);
+                                    <div class="ui icon input mx-2 my-2">
+                                        <input type="text" placeholder="Search...">
+                                        <i class="inverted circular search link icon"></i>
+                                    </div>
+                                    <table class="ui selectable celled table">
+                                        <thead>
+                                            <tr>
+                                                <th>日期</th>
+                                                <th>專案名稱</th>
+                                                <th>成員姓名</th>
+                                                <th>工作內容</th>
+                                                <th>問題回報</th>
+                                                <th>其他</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="pj顯示所有回報單內容"></tbody>
+                                    </div>
+                                `);
                     $(data).each(function (index, item) {
                         $('.pj顯示所有回報單內容').append(`
-                                                    <tr>
-                                                        <td>${item.pjReportDate}</td>
-                                                        <td>${item.pjName}</td>
-                                                        <td>${item.pjMemberName}</td>
-                                                        <td>${item.pjReportContent}</td>
-                                                        <td>${item.pjIssuelog}</td>
-                                                        <td class="selectable"><a href="#" onclick="" data-id="${item.pjId}">查看更多</a></td>
-                                                    </tr>
-                                                `);
+                                                        <tr>
+                                                            <td>${item.pjReportDate}</td>
+                                                            <td>${item.pjName}</td>
+                                                            <td>${item.pjMemberName}</td>
+                                                            <td>${item.pjReportContent}</td>
+                                                            <td>${item.pjIssuelog}</td>
+                                                            <td class="selectable"><a href="#" onclick="" data-id="${item.pjId}">查看更多</a></td>
+                                                        </tr>
+                                                    `);
                     })
                 }
             })
@@ -378,16 +381,16 @@
             $('#tab專案會議記錄').click(function () {
                 $('.pj會議記錄Btn').html('');
                 $('.pj會議Searchbar').html(`
-                        <div class="ui icon input mx-2 my-2">
-                            <input type="text" placeholder="Search...">
-                            <i class="inverted circular search link icon"></i>
-                        </div>
-                    `);
+                            <div class="ui icon input mx-2 my-2">
+                                <input type="text" placeholder="Search...">
+                                <i class="inverted circular search link icon"></i>
+                            </div>
+                        `);
                 $.ajax({
                     url: '/projectControl/pj篩選出自己的專案',
                     data: {
-                        'pjMemberId': decodeURI(document.cookie.split('id=')[1].split('&')[0]),
-                        'pjMemberName': decodeURI(document.cookie.split('Name=')[1].split('&')[0]),
+                        'id': decodeURI(document.cookie.split('id=')[1].split('&')[0]),
+                        'name': decodeURI(document.cookie.split('Name=')[1].split('&')[0]),
                     },
                     success: function (data) {
                         $(data).each(function (index, item) {
@@ -398,41 +401,42 @@
                                 data: { 'id': id },
                                 success: function (data) {
                                     $('.pj會議記錄總表').html(`
-                                                <table class="ui selectable celled table">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>日期</th>
-                                                            <th>專案名稱</th>
-                                                            <th>專案經理</th>
-                                                            <th>會議記錄</th>
-                                                            <th>備忘錄</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody class="pj會議記錄內容"></tbody>
-                                                </div>
-                                            `)
+                                        <table class="ui selectable celled table">
+                                            <thead>
+                                                <tr>
+                                                    <th>日期</th>
+                                                    <th>專案名稱</th>
+                                                    <th>專案經理</th>
+                                                    <th>會議記錄</th>
+                                                    <th>備忘錄</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="pj會議記錄內容"></tbody>
+                                        </table>
+                                    `)
                                     $(data).each(function (index, item) {
+                                        $('.pj此專案的會議紀錄').html('');
                                         var pjMeetingDate = new Date(parseInt(item.pjMeetingDate.replace(/[^0-9]/ig, "")));
                                         var getReturnDate = `${pjMeetingDate.getFullYear()}/${pjMeetingDate.getMonth() + 1}/${pjMeetingDate.getDate()}`;
                                         $('.pj會議記錄內容').append(`
-                                                    <tr>
-                                                        <td>${getReturnDate}</td>
-                                                        <td>${item.pjName}</td>
-                                                        <td>${item.pjManager}</td>
-                                                        <td class="selectable"><a href="#" onclick="pj檢視詳細會議內容()" data-id="${item.pjMeetingId}">${item.pjContent}</a></td>
-                                                        <td>${item.pjMemo}</td>
-                                                    </tr>
-                                                `);
+                                                        <tr>
+                                                            <td>${getReturnDate}</td>
+                                                            <td>${item.pjName}</td>
+                                                            <td>${item.pjManager}</td>
+                                                            <td class="selectable"><a href="#" onclick="pj檢視詳細會議內容()" data-id="${item.pjMeetingId}">${item.pjContent}</a></td>
+                                                            <td>${item.pjMemo}</td>
+                                                        </tr>
+                                                    `);
                                         pj檢視詳細會議內容 = function () {
                                             $.ajax({
                                                 url: '/projectControl/pj找單筆會議資料',
                                                 data: { 'id': $(event.currentTarget).data('id'), },
                                                 success: function (data) {
                                                     $('.pj單筆會議資料').html(`
-                                                                <div class="my-5 d-flex justify-content-center">
-                                                                    <div>${data.pjContent}</div>
-                                                                </div>
-                                                            `)
+                                                                    <div class="my-5 d-flex justify-content-center">
+                                                                        <div>${data.pjContent}</div>
+                                                                    </div>
+                                                                `)
                                                     $('.pj單筆會議資料').modal('show');
                                                 }
                                             })
@@ -448,154 +452,325 @@
                 url: '/projectControl/pj篩選出自己的專案',
                 method: 'get',
                 data: {
-                    'pjMemberId': decodeURI(document.cookie.split('id=')[1].split('&')[0]),
-                    'pjMemberName': decodeURI(document.cookie.split('Name=')[1].split('&')[0]),
+                    'id': decodeURI(document.cookie.split('id=')[1].split('&')[0]),
+                    'name': decodeURI(document.cookie.split('Name=')[1].split('&')[0]),
                 },
                 success: function (data) {
+                    console.log(data);
                     $('#pjListView').html(`
-                                <div class="d-flex justify-content-between">
-                                    <div class="ui icon input">
-                                        <input type="text" placeholder="Search..." id="pj主管列表SearchInput">
-                                        <i class="inverted circular search link icon" id="pj主管列表SearchBtn"></i>
-                                    </div>
-                                    <div class="pj主管列表Return"></div>
-                                </div>
-                                <table class="ui selectable celled table">
-                                    <thead>
-                                        <tr>
-                                            <th>專案名稱</th>
-                                            <th>專案經理</th>
-                                            <th>概要</th>
-                                            <th>詳細</th>
-                                            <th>每日進度</th>
-                                            <th>開會紀錄</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="append專案列表內容"></tbody>
-                                </table>
-                            `);
-                    $('#pj主管列表SearchBtn').click(function () {
-                        console.log($('#pj主管列表SearchInput').val());
-                        $.ajax({
-                            url: '/projectControl/pj成員搜尋專案列表',
-                            data: {
-                                'searchVal': $('#pj主管列表SearchInput').val(),
-                                'pjMemberId': decodeURI(document.cookie.split('id=')[1].split('&')[0]),
-                                'pjMemberName': decodeURI(document.cookie.split('Name=')[1].split('&')[0]),
-                            },
-                            success: function (data) {
-                                $('.pj主管列表Return').html(`
-                                            <button class="ui inverted red button" id="btn返回專案列表">返回</button>
-                                        `)
-                                $('#btn返回專案列表').click(function () { appendPjList成員(); })
-                                $('.append專案列表內容').html('')
-                                console.log(data.length);
-                                if (data.length == 0) {
-                                    window.alert('沒有搜尋的相關內容，請重新輸入關鍵字');
-                                }
-                                else {
-                                    $(data).each(function (index, item) {
-                                        $('.append專案列表內容').append(`
-                                                <tr>
-                                                    <td>${item.pjName}</td>
-                                                    <td>${item.pjManager}</td>
-                                                    <td>${item.pjIntroduction}</td>
-                                                    <td class="selectable">
-                                                        <a href="#" onclick="show專案細項()">Edit</a>
-                                                    </td>
-                                                    <td class="selectable">
-                                                        <a href="#" onclick="pj進度()" data-id="${item.pjId}">Edit</a>
-                                                    </td>
-                                                    <td class="selectable">
-                                                        <a href="#" onclick="" data-id="${item.pjId}">Edit</a>
-                                                    </td>
-                                                </tr>
-                                            `)
-                                    })
-                                }
-                            }
-                        })
-                    })
+                        <div class="d-flex justify-content-between">
+                            <div class="ui icon input">
+                                <input type="text" placeholder="Search..." id="pj主管列表SearchInput">
+                                <i class="inverted circular search link icon" id="pj主管列表SearchBtn"></i>
+                            </div>
+                            <div class="pj主管列表Return"></div>
+                        </div>
+                        <table class="ui selectable celled table">
+                            <thead>
+                                <tr>
+                                    <th>專案名稱</th>
+                                    <th>專案經理</th>
+                                    <th>概要</th>
+                                    <th>詳細</th>
+                                    <th>每日進度</th>
+                                    <th>新增開會紀錄</th>
+                                    <th>開會紀錄檢視</th>
+                                </tr>
+                            </thead>
+                            <tbody class="append專案列表內容"></tbody>
+                        </table>
+                    `);
                     $(data).each(function (index, item) {
                         console.log(item.pjId);
                         $('.append專案列表內容').append(`
-                                    <tr>
-                                        <td>${item.pjName}</td>
-                                        <td>${item.pjManager}</td>
-                                        <td>${item.pjIntroduction}</td>
-                                        <td class="selectable">
-                                            <a href="#" onclick="show專案細項()">Edit</a>
-                                        </td>
-                                        <td class="selectable">
-                                            <a href="#" onclick="pj進度()" data-id="${item.pjId}">Edit</a>
-                                        </td>
-                                        <td class="selectable">
-                                            <a href="#" onclick="" data-id="${item.pjId}">Edit</a>
-                                        </td>
-                                    </tr>
-                                `)
-                        pj進度 = function () {
+                            <tr>
+                                <td>${item.pjName}</td>
+                                <td>${item.pjManager}</td>
+                                <td>${item.pjIntroduction}</td>
+                                <td class="selectable">
+                                    <a href="#" onclick="show專案細項()">Edit</a>
+                                </td>
+                                <td class="selectable">
+                                    <a href="#" onclick="pj進度()" data-id="${item.pjId}">Edit</a>
+                                </td>
+                                <td class="selectable">
+                                    <a href="#" onclick="pj主管新增開會()" data-id="${item.pjId}">Edit</a>
+                                </td>
+                                <td class="selectable">
+                                    <a href="#" onclick="pj跳轉單筆會議()" data-id="${item.pjId}">Edit</a>
+                                </td>
+                            </tr>
+                        `)
+                        $('#pj主管列表SearchBtn').click(function () {
+                            console.log($('#pj主管列表SearchInput').val());
+                            $.ajax({
+                                url: '/projectControl/pj成員搜尋專案列表',
+                                data: {
+                                    'searchVal': $('#pj主管列表SearchInput').val(),
+                                    'pjMemberId': decodeURI(document.cookie.split('id=')[1].split('&')[0]),
+                                    'pjMemberName': decodeURI(document.cookie.split('Name=')[1].split('&')[0]),
+                                },
+                                success: function (data) {
+                                    $('.pj主管列表Return').html(`
+                                                <button class="ui inverted red button" id="btn返回專案列表">返回</button>
+                                            `)
+                                    $('#btn返回專案列表').click(function () { appendPjList成員(); })
+                                    $('.append專案列表內容').html('')
+                                    console.log(data.length);
+                                    if (data.length == 0) {
+                                        window.alert('沒有搜尋的相關內容，請重新輸入關鍵字');
+                                    }
+                                    else {
+                                        $(data).each(function (index, item) {
+                                            $('.append專案列表內容').append(`
+                                                    <tr>
+                                                        <td>${item.pjName}</td>
+                                                        <td>${item.pjManager}</td>
+                                                        <td>${item.pjIntroduction}</td>
+                                                        <td class="selectable">
+                                                            <a href="#" onclick="show專案細項()">Edit</a>
+                                                        </td>
+                                                        <td class="selectable">
+                                                            <a href="#" onclick="pj進度()" data-id="${item.pjId}">Edit</a>
+                                                        </td>
+                                                        <td class="selectable">
+                                                            <a href="#" onclick="pj跳轉單筆會議()" data-id="${item.pjId}">Edit</a>
+                                                        </td>
+                                                    </tr>
+                                                `)
+                                        })
+                                    }
+                                }
+                            })
+                        })
+                        pj主管新增開會 = function () {
+                            console.log('12345676543');
                             var id = $(event.currentTarget).data('id');
+                            $.ajax({
+                                url: '/projectControl/getPjProjectDataFromId',
+                                data: { 'id': id },
+                                success: function (data) {
+                                    console.log('56678857687989');
+                                    $('#pj新增會議').html(`
+                                        <i class="close icon"></i>
+                                        <div class="header">
+                                            會議記錄
+                                        </div>
+                                        <div class="content">
+                                            <p>新增</p>
+                                            <div class="ui form">
+                                                <div class="fields">
+                                                    <div class="four wide field">
+                                                        <label>會議日期</label>
+                                                        <input placeholder="" type="date" id="pj會議記錄日期">
+                                                    </div>
+                                                    <div class="four wide field">
+                                                        <label>專案名稱</label>
+                                                        <input placeholder="" type="text" readonly value="${data.pjName}">
+                                                    </div>
+                                                    <div class="four wide field">
+                                                        <label>專案經理</label>
+                                                        <input placeholder="" type="text" readonly value="${data.pjManager}">
+                                                    </div>
+                                                    <div class="four wide field">
+                                                        <input placeholder="" type="text" hidden value="${data.pjId}" id="pjIdIn會議">
+                                                    </div>
+                                                </div>
+                                                <div class="fields">
+                                                    <div class="eight wide field">
+                                                        <label>開會紀錄</label>
+                                                        <textarea placeholder="" type="text" id="pj會議開會紀錄"></textarea>
+                                                    </div>
+                                                    <div class="four wide field">
+                                                        <label>備忘錄</label>
+                                                        <textarea placeholder="" type="text" id="pj會議備忘錄"></textarea>
+                                                    </div>
+                                                    <div class="actions four wide field d-flex flex-column-reverse">
+                                                        <div class="actions">
+                                                            <button class="ui green button" id="demo新增會議">Demo</button>
+                                                            <button class="ui deny inverted red button mt-2" id="close新增會議form">取消</button>
+                                                            <button class="ui inverted primary button mt-2" id="send會議記錄">確認</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    `);
+                                    $('#pj新增會議').modal('toggle');
+                                    $('#demo新增會議').click(function () {
+                                        $('#pj會議記錄日期').val('2021-04-14');
+                                        $('#pj會議開會紀錄').val('各成員回報進度。新增人事系統、通知系統。');
+                                        $('#pj會議備忘錄').val('無');
+                                    })
+                                    $('#send會議記錄').click(function () {
+                                        $.ajax({
+                                            url: '/projectControl/pj會議記錄表save',
+                                            data: {
+                                                'pjId': $('#pjIdIn會議').val(),
+                                                'pjMeetingDate': $('#pj會議記錄日期').val(),
+                                                'pjContent': $('#pj會議開會紀錄').val(),
+                                                'pjMemo': $('#pj會議備忘錄').val(),
+                                            },
+                                            success: function () {
+                                                console.log(data.pjId);
+                                                window.alert('success');
+                                                $('#close新增會議form').click();
+                                                $.ajax({
+                                                    url: '/projectControl/pj找此專案的會議紀錄',
+                                                    data: { 'id': data.pjId },
+                                                    success: function (會議data) {
+                                                        $('.bigTab專案列表').toggleClass('active');
+                                                        $('#pjListView').toggleClass('active');
+                                                        $('.bigTab專案控管').toggleClass('active');
+                                                        $('#tab專案控管').toggleClass('active');
+                                                        $('#tab專案會議記錄').addClass('active').siblings().removeClass('active');
+                                                        $('#content專案會議記錄').addClass('active').siblings().removeClass('active');
+                                                        $('.pj此專案的會議紀錄').html(`
+                                                            <table class= "ui selectable celled table">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>日期</th>
+                                                                        <th>專案名稱</th>
+                                                                        <th>專案經理</th>
+                                                                        <th>會議記錄</th>
+                                                                        <th>備忘錄</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody class="pj此專案會議記錄內容"></tbody>
+                                                            </table>
+                                                        `);
+                                                        $(會議data).each(function (index, x) {
+                                                            $('.pj會議記錄總表').html('');
+                                                            var pjMeetingDate = new Date(parseInt(x.pjMeetingDate.replace(/[^0-9]/ig, "")));
+                                                            var getReturnDate = `${pjMeetingDate.getFullYear()}/${pjMeetingDate.getMonth() + 1}/${pjMeetingDate.getDate()}`;
+                                                            $('.pj此專案會議記錄內容').append(`
+                                                                <tr>
+                                                                    <td>${getReturnDate}</td>
+                                                                    <td>${x.pjName}</td>
+                                                                    <td>${x.pjManager}</td>
+                                                                    <td>${x.pjContent}</td>
+                                                                    <td>${x.pjMemo}</td>
+                                                                </tr>
+                                                            `)
+                                                        })
+                                                    }
+                                                })
+                                            }
+                                        })
+                                    })
+                                }
+                            })
+                        }                        
+                        pj跳轉單筆會議 = function () {
+                            var id = $(event.currentTarget).data('id');
+                            //console.log('1234');
+                            //$('#tab專案會議記錄').click();
                             $('.bigTab專案列表').toggleClass('active');
                             $('#pjListView').toggleClass('active');
                             $('.bigTab專案控管').toggleClass('active');
                             $('#tab專案控管').toggleClass('active');
-                            $('#tab每日進度').addClass('active').siblings().removeClass('active');
-                            $('#content每日進度').addClass('active').siblings().removeClass('active');
+                            $('#tab專案會議記錄').addClass('active').siblings().removeClass('active');
+                            $('#content專案會議記錄').addClass('active').siblings().removeClass('active');
                             $.ajax({
-                                url: "/projectControl/getPjProjectDataFromId",
+                                url: '/projectControl/pj搜尋單筆會議',
                                 data: { 'id': id },
                                 success: function (data) {
+                                    //console.log('erty');
+                                    $('.pj會議記錄總表').html(`
+                                                    <table class="ui selectable celled table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>日期</th>
+                                                                <th>專案名稱</th>
+                                                                <th>專案經理</th>
+                                                                <th>會議記錄</th>
+                                                                <th>備忘錄</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody class="pj會議記錄內容"></tbody>
+                                                    </div>
+                                                `)
+                                    $(data).each(function (index, item) {
+                                        var pjMeetingDate = new Date(parseInt(item.pjMeetingDate.replace(/[^0-9]/ig, "")));
+                                        var getReturnDate = `${pjMeetingDate.getFullYear()}/${pjMeetingDate.getMonth() + 1}/${pjMeetingDate.getDate()}`;
+                                        $('.pj會議記錄內容').append(`
+                                                        <tr>
+                                                            <td>${getReturnDate}</td>
+                                                            <td>${item.pjName}</td>
+                                                            <td>${item.pjManager}</td>
+                                                            <td class="selectable"><a href="#" onclick="pj檢視詳細會議內容()" data-id="${item.pjMeetingId}">${item.pjContent}</a></td>
+                                                            <td>${item.pjMemo}</td>
+                                                        </tr>
+                                                    `);
+                                        pj檢視詳細會議內容 = function () {
+                                            $.ajax({
+                                                url: '/projectControl/pj找單筆會議資料',
+                                                data: { 'id': $(event.currentTarget).data('id'), },
+                                                success: function (data) {
+                                                    $('.pj單筆會議資料').html(`
+                                                                    <div class="my-5 d-flex justify-content-center">
+                                                                        <div>${data.pjContent}</div>
+                                                                    </div>
+                                                                `)
+                                                    $('.pj單筆會議資料').modal('show');
+                                                }
+                                            })
+                                        }
+                                    })
+                                }
+                            })
+                        }
+                        pj進度 = function() {
+                            var id = $(event.currentTarget).data('id');
+                            $.ajax({
+                                url: "/projectControl/getPjTeamDataFromId個人",
+                                data: {
+                                    'id': id,
+                                    'name': decodeURI(document.cookie.split('Name=')[1].split('&')[0]),
+                                },
+                                success: function (data) {
+                                    console.log(data[0].pjMemberName);
                                     var yy = new Date().getFullYear();
                                     var mm = new Date().getMonth() + 1;
                                     var dd = new Date().getDate();
                                     var date = yy + '/' + mm + '/' + dd;
-                                    $('#content每日進度').html('');
-                                    $('#content每日進度').html(`
+                                    $('#pj每日回報').html(`
+                                            <i class="close icon"></i>
+                                            <div class="header">
+                                                ${data[0].pjName} 進度回報單 -- ${data[0].pjTask}
+                                            </div>
+                                            <div class="content">
+                                                <h5>日期: ${date}</h5> <input type="text" value="${date}" id="pj回報日期" hidden/>
                                                 <div class="ui form">
-            <div class="fields">
-                    <div class="four wide field">
-                        <label>日期</label>
-                        <input type="text" placeholder="" id="pj回報日期" value="${date}" readonly>
-                    </div>
-                    <div class="twelve wide field"></div>
-                </div>
                                                     <div class="fields">
-                                                        <div class="four wide field">
-                                                            <label>專案名稱</label>
-                                                            <input type="text" placeholder="" value="${data.pjName}" readonly>
+                                                        <div class="ten wide field">
+                                                            <label>工作內容</label>
+                                                            <textarea type="text" placeholder="First Name" id="pj工作內容"></textarea>
                                                         </div>
-                                                        <div class="two wide field"></div>
-                                                        <div class="five wide field"></div>
-                                                        <div class="five wide field"></div>
+                                                        <div class="six wide field">
+                                                            <label>問題回報</label>
+                                                            <textarea type="text" placeholder="First Name" id="pj問題回報"></textarea>
+                                                        </div>
                                                     </div>
-            <div class="fields">
-                    <div class="four wide field">
-                        <label>工作內容</label>
-                        <textarea type="text" placeholder="First Name" id="pj工作內容"></textarea>
-                    </div>
-                    <div class="two wide field"></div>
-                    <div class="five wide field"></div>
-                    <div class="five wide field"></div>
-                </div>
-                <div class="fields">
-                    <div class="four wide field">
-                        <label>問題回報</label>
-                        <textarea type="text" placeholder="First Name" id="pj問題回報"></textarea>
-                    </div>
-                    <div class="two wide field"></div>
-                    <div class="five wide field"></div>
-                    <div class="five wide field"></div>
-                </div>
-                <div class="fields mt-3">
-                    <div class="four wide field d-flex justify-content-end">
-                        <button class="ui inverted red button">取消</button>
-                        <button class="ui inverted primary button" onclick="pj送出每日進度()"data-id="${data.pjId}">確認</button>
-                    </div>
-                    <div class="twelve wide field d-flex"></div>
-                </div>
+                                                    <div class="fields mt-3">
+                                                        <div class="ten wide field">
+                                                            <button class="ui green button" id="pj每日回報Demo">Demo</button>
+                                                        </div>
+                                                        <div class="actions six wide field d-flex justify-content-end">
+                                                            
+                                                                <button class="ui deny red button" id="close每日回報Form">取消</button>
+                                                                <button class="ui primary button" onclick="pj送出每日進度()"data-id="${data[0].pjId}">確認</button>
+                                                            
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            `);
+                                            </div>
+                                        `)
+                                    $('#pj每日回報').modal('toggle');
+                                    $('#pj每日回報Demo').click(function () {
+                                        $('#pj工作內容').val('完善登入系統功能並美化介面，修正密碼驗證失敗問題。');
+                                        $('#pj問題回報').val('無');
+                                    })
                                     pj送出每日進度 = function () {
                                         console.log('234');
                                         $.ajax({
@@ -610,6 +785,14 @@
                                             },
                                             success: function () {
                                                 window.alert('good');
+                                                $('#close每日回報Form').click();
+                                                $('.bigTab專案列表').toggleClass('active');
+                                                $('#pjListView').toggleClass('active');
+                                                $('.bigTab專案控管').toggleClass('active');
+                                                $('#tab專案控管').toggleClass('active');
+                                                $('#tab專案進度').addClass('active').siblings().removeClass('active');
+                                                $('#content專案進度').addClass('active').siblings().removeClass('active');
+                                                $('.bigTab專案控管').click();
                                             }
                                         });
                                     }
@@ -635,21 +818,21 @@
                                     var id = data.pjId;
                                     //var memberCount = data.pjMemberCount;
                                     $('.addPlan').html(`
-                                                <div class="ui form">
-                                                    <div class="fields">
-                                                        <div class="three wide field">
-                                                            <label>專案名稱</label>
-                                                            <input type="text" placeholder="First Name" value="${data.pjName}">
+                                                    <div class="ui form">
+                                                        <div class="fields">
+                                                            <div class="three wide field">
+                                                                <label>專案名稱</label>
+                                                                <input type="text" placeholder="First Name" value="${data.pjName}">
+                                                            </div>
+                                                            <div class="two wide field">
+                                                            </div>
+                                                            <div class="five wide field"></div>
+                                                            <div class="six wide field"></div>
                                                         </div>
-                                                        <div class="two wide field">
-                                                        </div>
-                                                        <div class="five wide field"></div>
-                                                        <div class="six wide field"></div>
                                                     </div>
-                                                </div>
-                                                <div class="appendPjMemberJob"></div>
-                                                <div class="pj專案規劃btn"></div>
-                                            `);
+                                                    <div class="appendPjMemberJob"></div>
+                                                    <div class="pj專案規劃btn"></div>
+                                                `);
                                     //for (var i = 1; i <= memberCount; i++) {
                                     //     $('.appendPjMemberJob').append(`
 
@@ -669,14 +852,14 @@
                                         data: { 'id': id },
                                         success: function (data) {
                                             $('.pj專案規劃btn').append(`
-                                                        <div class="ui form">
-                                                            <div class="thirteen wide field d-flex justify-content-end">
-                                                                <button class="ui inverted red button">取消</button>
-                                                                <button class="ui inverted primary button" id="pj專案規劃確認">確認</button>
+                                                            <div class="ui form">
+                                                                <div class="thirteen wide field d-flex justify-content-end">
+                                                                    <button class="ui inverted red button">取消</button>
+                                                                    <button class="ui inverted primary button" id="pj專案規劃確認">確認</button>
+                                                                </div>
+                                                                <div class="three wide field d-flex"></div>
                                                             </div>
-                                                            <div class="three wide field d-flex"></div>
-                                                        </div>
-                                                    `);
+                                                        `);
                                             var i = 0;
                                             $(data).each(function (index, item) {
                                                 //console.log(item.pjId);
@@ -685,42 +868,42 @@
                                                 console.log(item.pjTeamId);
                                                 //$('.pjMemberName規劃').val(item.pjMemberName);
                                                 $('.appendPjMemberJob').append(`
-                                                            <form class="ui form pj規劃表單" id="pj規劃form${i}">
-                                                                <div class="fields" id="appendMemberJobInfo">
-                                                                    <div class="two wide field">
-                                                                        <label>成員姓名</label>
-                                                                        <input type="text" class="pjMemberName規劃" id="pjMemberName規劃${i}" value="${item.pjMemberName}" name="pjMemberName">
+                                                                <form class="ui form pj規劃表單" id="pj規劃form${i}">
+                                                                    <div class="fields" id="appendMemberJobInfo">
+                                                                        <div class="two wide field">
+                                                                            <label>成員姓名</label>
+                                                                            <input type="text" class="pjMemberName規劃" id="pjMemberName規劃${i}" value="${item.pjMemberName}" name="pjMemberName">
+                                                                        </div>
+                                                                        <div class="one wide field">
+                                                                            <label>部門</label>
+                                                                            <input type="text" value="${item.pjMember部門}" name="pjMember部門">
+                                                                        </div>
+                                                                        <div class="two wide field">
+                                                                            <label>專案項目</label>
+                                                                            <input type="text" value="${item.pjTarget}" name="pjTarget">
+                                                                        </div>
+                                                                        <div class="three wide field">
+                                                                            <label>階段目標</label>
+                                                                            <input type="text" name="pjTask">
+                                                                        </div>
+                                                                        <div class="two wide field">
+                                                                            <label>開始時間</label>
+                                                                            <input type="date" name="pjTaskStartDate">
+                                                                        </div>
+                                                                        <div class="two wide field">
+                                                                            <label>結束時間</label>
+                                                                            <input type="date" name="pjTaskEndDate">
+                                                                        </div>
+                                                                        <div class="one wide field">
+                                                                            <label>工作天數</label>
+                                                                            <input type="text" name="pjFixedDuration">
+                                                                        </div>
+                                                                        <div class="three wide field">
+                                                                            <input type="text" class="pjTeamId" value="${item.pjTeamId}" hidden name="pjTeamId">
+                                                                        </div>
                                                                     </div>
-                                                                    <div class="one wide field">
-                                                                        <label>部門</label>
-                                                                        <input type="text" value="${item.pjMember部門}" name="pjMember部門">
-                                                                    </div>
-                                                                    <div class="two wide field">
-                                                                        <label>專案項目</label>
-                                                                        <input type="text" value="${item.pjTarget}" name="pjTarget">
-                                                                    </div>
-                                                                    <div class="three wide field">
-                                                                        <label>階段目標</label>
-                                                                        <input type="text" name="pjTask">
-                                                                    </div>
-                                                                    <div class="two wide field">
-                                                                        <label>開始時間</label>
-                                                                        <input type="date" name="pjTaskStartDate">
-                                                                    </div>
-                                                                    <div class="two wide field">
-                                                                        <label>結束時間</label>
-                                                                        <input type="date" name="pjTaskEndDate">
-                                                                    </div>
-                                                                    <div class="one wide field">
-                                                                        <label>工作天數</label>
-                                                                        <input type="text" name="pjFixedDuration">
-                                                                    </div>
-                                                                    <div class="three wide field">
-                                                                        <input type="text" class="pjTeamId" value="${item.pjTeamId}" hidden name="pjTeamId">
-                                                                    </div>
-                                                                </div>
-                                                             </form>
-                                                        `)
+                                                                 </form>
+                                                            `)
                                                 //var formdata = new FormData(document.querySelector(`#pj規劃form${i}`));
                                                 //a.push(formdata);
                                                 console.log(i);
@@ -761,50 +944,50 @@
             $('#tab專案會議記錄').click(function () {
                 $('.pj會議記錄Btn').html('');
                 $('.pj會議Searchbar').html(`
-                        <div class="ui icon input mx-2 my-2">
-                            <input type="text" placeholder="Search...">
-                            <i class="inverted circular search link icon"></i>
-                        </div>
-                    `);
+                            <div class="ui icon input mx-2 my-2">
+                                <input type="text" placeholder="Search...">
+                                <i class="inverted circular search link icon"></i>
+                            </div>
+                        `);
                 $.ajax({
                     url: '/projectControl/pjGetAll會議記錄',
                     success: function (data) {
                         $('.pj會議記錄總表').html(`
-                                <table class="ui selectable celled table">
-                                    <thead>
-                                        <tr>
-                                            <th>日期</th>
-                                            <th>專案名稱</th>
-                                            <th>專案經理</th>
-                                            <th>會議記錄</th>
-                                            <th>備忘錄</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="pj會議記錄內容"></tbody>
-                                </div>
-                            `)
+                                    <table class="ui selectable celled table">
+                                        <thead>
+                                            <tr>
+                                                <th>日期</th>
+                                                <th>專案名稱</th>
+                                                <th>專案經理</th>
+                                                <th>會議記錄</th>
+                                                <th>備忘錄</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="pj會議記錄內容"></tbody>
+                                    </div>
+                                `)
                         $(data).each(function (index, item) {
                             var pjMeetingDate = new Date(parseInt(item.pjMeetingDate.replace(/[^0-9]/ig, "")));
                             var getReturnDate = `${pjMeetingDate.getFullYear()}/${pjMeetingDate.getMonth() + 1}/${pjMeetingDate.getDate()}`;
                             $('.pj會議記錄內容').append(`
-                                    <tr>
-                                        <td>${getReturnDate}</td>
-                                        <td>${item.pjName}</td>
-                                        <td>${item.pjManager}</td>
-                                        <td class="selectable"><a href="#" onclick="pj檢視詳細會議內容()" data-id="${item.pjMeetingId}">${item.pjContent}</a></td>
-                                        <td>${item.pjMemo}</td>
-                                    </tr>
-                                `);
+                                        <tr>
+                                            <td>${getReturnDate}</td>
+                                            <td>${item.pjName}</td>
+                                            <td>${item.pjManager}</td>
+                                            <td class="selectable"><a href="#" onclick="pj檢視詳細會議內容()" data-id="${item.pjMeetingId}">${item.pjContent}</a></td>
+                                            <td>${item.pjMemo}</td>
+                                        </tr>
+                                    `);
                             pj檢視詳細會議內容 = function () {
                                 $.ajax({
                                     url: '/projectControl/pj找單筆會議資料',
                                     data: { 'id': $(event.currentTarget).data('id'), },
                                     success: function (data) {
                                         $('.pj單筆會議資料').html(`
-                                                <div class="my-5 d-flex justify-content-center">
-                                                    <div>${data.pjContent}</div>
-                                                </div>
-                                            `)
+                                                    <div class="my-5 d-flex justify-content-center">
+                                                        <div>${data.pjContent}</div>
+                                                    </div>
+                                                `)
                                         $('.pj單筆會議資料').modal('show');
                                     }
                                 })
@@ -820,28 +1003,29 @@
                 method: 'get',
                 success: function (data) {
                     $('#pjListView').html(`
-                                <div class="d-flex justify-content-between">
-                                    <div class="ui icon input">
-                                        <input type="text" placeholder="Search..." id="pj主管列表SearchInput">
-                                        <i class="inverted circular search link icon" id="pj主管列表SearchBtn"></i>
+                                    <div class="d-flex justify-content-between">
+                                        <div class="ui icon input">
+                                            <input type="text" placeholder="Search..." id="pj主管列表SearchInput">
+                                            <i class="inverted circular search link icon" id="pj主管列表SearchBtn"></i>
+                                        </div>
+                                        <div class="pj主管列表Return"></div>
                                     </div>
-                                    <div class="pj主管列表Return"></div>
-                                </div>
-                                <table class="ui selectable celled table">
-                                    <thead>
-                                        <tr>
-                                            <th>專案名稱</th>
-                                            <th>專案經理</th>
-                                            <th>概要</th>
-                                            <th>詳細</th>
-                                            <th>規劃</th>
-                                            <th>進度表</th>
-                                            <th>開會紀錄</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="append專案列表內容"></tbody>
-                                </table>
-                            `);
+                                    <table class="ui selectable celled table">
+                                        <thead>
+                                            <tr>
+                                                <th>專案名稱</th>
+                                                <th>專案經理</th>
+                                                <th>概要</th>
+                                                <th>詳細</th>
+                                                <th>規劃</th>
+                                                <th>進度表</th>
+                                                <th>新增開會紀錄</th>
+                                                <th>開會紀錄檢視</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="append專案列表內容"></tbody>
+                                    </table>
+                                `);
                     $('#pj主管列表SearchBtn').click(function () {
                         console.log($('#pj主管列表SearchInput').val());
                         $.ajax({
@@ -849,8 +1033,8 @@
                             data: { 'searchVal': $('#pj主管列表SearchInput').val() },
                             success: function (data) {
                                 $('.pj主管列表Return').html(`
-                                            <button class="ui inverted red button" id="btn返回專案列表">返回</button>
-                                        `)
+                                                <button class="ui inverted red button" id="btn返回專案列表">返回</button>
+                                            `)
                                 $('#btn返回專案列表').click(function () { appendPjList主管(); })
                                 $('.append專案列表內容').html('')
                                 console.log(data.length);
@@ -860,24 +1044,27 @@
                                 else {
                                     $(data).each(function (index, item) {
                                         $('.append專案列表內容').append(`
-                                                <tr>
-                                                    <td>${item.pjName}</td>
-                                                    <td>${item.pjManager}</td>
-                                                    <td>${item.pjIntroduction}</td>
-                                                    <td class="selectable">
-                                                        <a href="#" onclick="show專案細項()">Edit</a>
-                                                    </td>
-                                                    <td class="selectable">
-                                                        <a href="#" onclick="pj規劃()" data-id="${item.pjId}">Edit</a>
-                                                    </td>
-                                                    <td class="selectable">
-                                                        <a href="#" onclick="pj進度()" data-id="${item.pjId}">Edit</a>
-                                                    </td>
-                                                    <td class="selectable">
-                                                        <a href="#" onclick="" data-id="${item.pjId}">Edit</a>
-                                                    </td>
-                                                </tr>
-                                            `)
+                                                    <tr>
+                                                        <td>${item.pjName}</td>
+                                                        <td>${item.pjManager}</td>
+                                                        <td>${item.pjIntroduction}</td>
+                                                        <td class="selectable">
+                                                            <a href="#" onclick="show專案細項()">Edit</a>
+                                                        </td>
+                                                        <td class="selectable">
+                                                            <a href="#" onclick="pj規劃()" data-id="${item.pjId}">Edit</a>
+                                                        </td>
+                                                        <td class="selectable">
+                                                            <a href="#" onclick="pj進度()" data-id="${item.pjId}">Edit</a>
+                                                        </td>
+                                                        <td class="selectable">
+                                                            <a href="#" onclick="pj主管新增開會()" data-id="${item.pjId}">Edit</a>
+                                                        </td>
+                                                        <td class="selectable">
+                                                            <a href="#" onclick="pj跳轉單筆會議()" data-id="${item.pjId}">Edit</a>
+                                                        </td>
+                                                    </tr>
+                                                `)
                                     })
                                 }
                             }
@@ -886,109 +1073,203 @@
                     $(data).each(function (index, item) {
                         //console.log(item.pjId);
                         $('.append專案列表內容').append(`
-                                    <tr>
-                                        <td>${item.pjName}</td>
-                                        <td>${item.pjManager}</td>
-                                        <td>${item.pjIntroduction}</td>
-                                        <td class="selectable">
-                                            <a href="#" onclick="show專案細項()">Edit</a>
-                                        </td>
-                                        <td class="selectable">
-                                            <a href="#" onclick="pj規劃()" data-id="${item.pjId}">Edit</a>
-                                        </td>
-                                        <td class="selectable">
-                                            <a href="#" onclick="pj進度()" data-id="${item.pjId}">Edit</a>
-                                        </td>
-                                        <td class="selectable">
-                                            <a href="#" onclick="pj開會()" data-id="${item.pjId}">Edit</a>
-                                        </td>
-                                    </tr>
-                                `)
-                        pj開會 = function () {
+                                        <tr>
+                                            <td>${item.pjName}</td>
+                                            <td>${item.pjManager}</td>
+                                            <td>${item.pjIntroduction}</td>
+                                            <td class="selectable">
+                                                <a href="#" onclick="show專案細項()">Edit</a>
+                                            </td>
+                                            <td class="selectable">
+                                                <a href="#" onclick="pj規劃()" data-id="${item.pjId}">Edit</a>
+                                            </td>
+                                            <td class="selectable">
+                                                <a href="#" onclick="pj進度()" data-id="${item.pjId}">Edit</a>
+                                            </td>
+                                            <td class="selectable">
+                                                <a href="#" onclick="pj主管新增開會()" data-id="${item.pjId}">Edit</a>
+                                            </td>
+                                            <td class="selectable">
+                                                <a href="#" onclick="pj跳轉單筆會議()" data-id="${item.pjId}">Edit</a>
+                                            </td>
+                                        </tr>
+                                    `)
+                        pj跳轉單筆會議 = function () {
                             var id = $(event.currentTarget).data('id');
-                            console.log(id);
+                            //console.log('1234');
+                            //$('#tab專案會議記錄').click();
                             $('.bigTab專案列表').toggleClass('active');
                             $('#pjListView').toggleClass('active');
                             $('.bigTab專案控管').toggleClass('active');
                             $('#tab專案控管').toggleClass('active');
                             $('#tab專案會議記錄').addClass('active').siblings().removeClass('active');
                             $('#content專案會議記錄').addClass('active').siblings().removeClass('active');
-                            $('.pj會議Searchbar').html(`
-                                        <div class="ui icon input mx-2 my-2">
-                                          <input type="text" placeholder="Search...">
-                                          <i class="inverted circular search link icon"></i>
-                                        </div>
-                                    `);
-                            $('.pj會議記錄Btn').html(`
-                                        <div class="mx-2 my-2">
-                                            <button class="ui inverted green button" id="新增會議紀錄">新增</button>
-                                        </div>
-                                    `);
-                            $('#新增會議紀錄').click(function () {
-                                $.ajax({
-                                    url: '/projectControl/getPjProjectDataFromId',
-                                    data: { 'id': id },
-                                    success: function (data) {
-                                        $('#append專案會議Form').html(`
-                                                    <i class="close icon"></i>
-                                                    <div class="header">
-                                                        會議記錄
-                                                    </div>
-                                                    <div class="content">
-                                                        <p>新增</p>
-                                                        <div class="ui form">
-                                                            <div class="fields">
-                                                                <div class="four wide field">
-                                                                    <label>會議日期</label>
-                                                                    <input placeholder="" type="date" id="pj會議記錄日期">
-                                                                </div>
-                                                                <div class="four wide field">
-                                                                    <label>專案名稱</label>
-                                                                    <input placeholder="" type="text" readonly value="${data.pjName}">
-                                                                </div>
-                                                                <div class="four wide field">
-                                                                    <label>專案經理</label>
-                                                                    <input placeholder="" type="text" readonly value="${data.pjManager}">
-                                                                </div>
-                                                                <div class="four wide field">
-                                                                    <input placeholder="" type="text" hidden value="${data.pjId}" id="pjIdIn會議">
-                                                                </div>
-                                                            </div>
-                                                            <div class="fields">
-                                                                <div class="eight wide field">
-                                                                    <label>開會紀錄</label>
-                                                                    <textarea placeholder="" type="text" id="pj會議開會紀錄"></textarea>
-                                                                </div>
-                                                                <div class="four wide field">
-                                                                    <label>備忘錄</label>
-                                                                    <textarea placeholder="" type="text" id="pj會議備忘錄"></textarea>
-                                                                </div>
-                                                                <div class="four wide field d-flex flex-column-reverse">
-                                                                    <div>
-                                                                        <button class="ui inverted red button">取消</button>
-                                                                        <button class="ui inverted primary button mt-2" id="send會議記錄">確認</button>
+                            $.ajax({
+                                url: '/projectControl/pj搜尋單筆會議',
+                                data: { 'id': id },
+                                success: function (data) {
+                                    //console.log('erty');
+                                    $('.pj會議記錄總表').html(`
+                                                    <table class="ui selectable celled table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>日期</th>
+                                                                <th>專案名稱</th>
+                                                                <th>專案經理</th>
+                                                                <th>會議記錄</th>
+                                                                <th>備忘錄</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody class="pj會議記錄內容"></tbody>
+                                                    </table>
+                                                `)
+                                    $(data).each(function (index, item) {
+                                        var pjMeetingDate = new Date(parseInt(item.pjMeetingDate.replace(/[^0-9]/ig, "")));
+                                        var getReturnDate = `${pjMeetingDate.getFullYear()}/${pjMeetingDate.getMonth() + 1}/${pjMeetingDate.getDate()}`;
+                                        $('.pj會議記錄內容').append(`
+                                                        <tr>
+                                                            <td>${getReturnDate}</td>
+                                                            <td>${item.pjName}</td>
+                                                            <td>${item.pjManager}</td>
+                                                            <td class="selectable"><a href="#" onclick="pj檢視詳細會議內容()" data-id="${item.pjMeetingId}">${item.pjContent}</a></td>
+                                                            <td>${item.pjMemo}</td>
+                                                        </tr>
+                                                    `);
+                                        pj檢視詳細會議內容 = function () {
+                                            $.ajax({
+                                                url: '/projectControl/pj找單筆會議資料',
+                                                data: { 'id': $(event.currentTarget).data('id'), },
+                                                success: function (data) {
+                                                    $('.pj單筆會議資料').html(`
+                                                                    <div class="my-5 d-flex justify-content-center">
+                                                                        <div>${data.pjContent}</div>
                                                                     </div>
-                                                                </div>
-                                                            </div>
+                                                                `)
+                                                    $('.pj單筆會議資料').modal('show');
+                                                }
+                                            })
+                                        }
+                                    })
+                                }
+                            })
+                        }
+                        pj主管新增開會 = function () {
+                            console.log('12345676543');
+                            var id = $(event.currentTarget).data('id');
+                            $.ajax({
+                                url: '/projectControl/getPjProjectDataFromId',
+                                data: { 'id': id },
+                                success: function (data) {
+                                    console.log('56678857687989');
+                                    $('#pj新增會議').html(`
+                                        <i class="close icon"></i>
+                                        <div class="header">
+                                            會議記錄
+                                        </div>
+                                        <div class="content">
+                                            <p>新增</p>
+                                            <div class="ui form">
+                                                <div class="fields">
+                                                    <div class="four wide field">
+                                                        <label>會議日期</label>
+                                                        <input placeholder="" type="date" id="pj會議記錄日期">
+                                                    </div>
+                                                    <div class="four wide field">
+                                                        <label>專案名稱</label>
+                                                        <input placeholder="" type="text" readonly value="${data.pjName}">
+                                                    </div>
+                                                    <div class="four wide field">
+                                                        <label>專案經理</label>
+                                                        <input placeholder="" type="text" readonly value="${data.pjManager}">
+                                                    </div>
+                                                    <div class="four wide field">
+                                                        <input placeholder="" type="text" hidden value="${data.pjId}" id="pjIdIn會議">
+                                                    </div>
+                                                </div>
+                                                <div class="fields">
+                                                    <div class="eight wide field">
+                                                        <label>開會紀錄</label>
+                                                        <textarea placeholder="" type="text" id="pj會議開會紀錄"></textarea>
+                                                    </div>
+                                                    <div class="four wide field">
+                                                        <label>備忘錄</label>
+                                                        <textarea placeholder="" type="text" id="pj會議備忘錄"></textarea>
+                                                    </div>
+                                                    <div class="actions four wide field d-flex flex-column-reverse">
+                                                        <div class="actions">
+                                                            <button class="ui green button" id="demo新增會議">Demo</button>
+                                                            <button class="ui deny inverted red button mt-2" id="close新增會議form">取消</button>
+                                                            <button class="ui inverted primary button mt-2" id="send會議記錄">確認</button>
                                                         </div>
                                                     </div>
-                                                `);
-                                        $('#append專案會議Form').modal('show');
-                                        $('#send會議記錄').click(function () {
-                                            $.ajax({
-                                                url: '/projectControl/pj會議記錄表save',
-                                                data: {
-                                                    'pjId': $('#pjIdIn會議').val(),
-                                                    'pjMeetingDate': $('#pj會議記錄日期').val(),
-                                                    'pjContent': $('#pj會議開會紀錄').val(),
-                                                    'pjMemo': $('#pj會議備忘錄').val(),
-                                                },
-                                                success: function () { window.alert('success'); }
-                                            })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    `);
+                                    $('#pj新增會議').modal('toggle');
+                                    $('#demo新增會議').click(function () {
+                                        $('#pj會議記錄日期').val('2021-04-14');
+                                        $('#pj會議開會紀錄').val('各成員回報進度。新增人事系統、通知系統。');
+                                        $('#pj會議備忘錄').val('無');
+                                    })
+                                    $('#send會議記錄').click(function () {
+                                        $.ajax({
+                                            url: '/projectControl/pj會議記錄表save',
+                                            data: {
+                                                'pjId': $('#pjIdIn會議').val(),
+                                                'pjMeetingDate': $('#pj會議記錄日期').val(),
+                                                'pjContent': $('#pj會議開會紀錄').val(),
+                                                'pjMemo': $('#pj會議備忘錄').val(),
+                                            },
+                                            success: function () {
+                                                console.log(data.pjId);
+                                                window.alert('success');
+                                                $('#close新增會議form').click();
+                                                $.ajax({
+                                                    url: '/projectControl/pj找此專案的會議紀錄',
+                                                    data: { 'id': data.pjId },
+                                                    success: function (會議data) {
+                                                        $('.bigTab專案列表').toggleClass('active');
+                                                        $('#pjListView').toggleClass('active');
+                                                        $('.bigTab專案控管').toggleClass('active');
+                                                        $('#tab專案控管').toggleClass('active');
+                                                        $('#tab專案會議記錄').addClass('active').siblings().removeClass('active');
+                                                        $('#content專案會議記錄').addClass('active').siblings().removeClass('active');
+                                                        $('.pj此專案的會議紀錄').html(`
+                                                            <table class= "ui selectable celled table">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>日期</th>
+                                                                        <th>專案名稱</th>
+                                                                        <th>專案經理</th>
+                                                                        <th>會議記錄</th>
+                                                                        <th>備忘錄</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody class="pj此專案會議記錄內容"></tbody>
+                                                            </table>
+                                                        `);
+                                                        $(會議data).each(function (index, x) {
+                                                            $('.pj會議記錄總表').html('');
+                                                            var pjMeetingDate = new Date(parseInt(x.pjMeetingDate.replace(/[^0-9]/ig, "")));
+                                                            var getReturnDate = `${pjMeetingDate.getFullYear()}/${pjMeetingDate.getMonth() + 1}/${pjMeetingDate.getDate()}`;
+                                                            $('.pj此專案會議記錄內容').append(`
+                                                                <tr>
+                                                                    <td>${getReturnDate}</td>
+                                                                    <td>${x.pjName}</td>
+                                                                    <td>${x.pjManager}</td>
+                                                                    <td>${x.pjContent}</td>
+                                                                    <td>${x.pjMemo}</td>
+                                                                </tr>
+                                                            `)
+                                                        })
+                                                    }
+                                                })
+                                            }
                                         })
-                                    }
-                                })
-                            });
+                                    })
+                                }
+                            })
                         }
                         pj進度 = function () {
                             var id = $(event.currentTarget).data('id');
@@ -1004,31 +1285,31 @@
                                 success: function (data) {
                                     $('#content專案進度').html('');
                                     $('#content專案進度').html(`
-                                                <table class="ui selectable celled table">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>日期</th>
-                                                            <th>專案名稱</th>
-                                                            <th>成員姓名</th>
-                                                            <th>工作內容</th>
-                                                            <th>問題回報</th>
-                                                            <th>其他</th>
-                                                        </tr>
-                                                    </thead>
-                                                 <tbody class="pj顯示所有回報單內容"></tbody>
-                                                </div>
-                                            `);
+                                                    <table class="ui selectable celled table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>日期</th>
+                                                                <th>專案名稱</th>
+                                                                <th>成員姓名</th>
+                                                                <th>工作內容</th>
+                                                                <th>問題回報</th>
+                                                                <th>其他</th>
+                                                            </tr>
+                                                        </thead>
+                                                     <tbody class="pj顯示所有回報單內容"></tbody>
+                                                    </div>
+                                                `);
                                     $(data).each(function (index, item) {
                                         $('.pj顯示所有回報單內容').append(`
-                                                    <tr>
-                                                        <td>${item.pjReportDate}</td>
-                                                        <td>${item.pjName}</td>
-                                                        <td>${item.pjMemberName}</td>
-                                                        <td>${item.pjReportContent}</td>
-                                                        <td>${item.pjIssuelog}</td>
-                                                        <td class="selectable"><a href="#" onclick="" data-id="${item.pjId}">查看更多</a></td>
-                                                    </tr>
-                                                `);
+                                                        <tr>
+                                                            <td>${item.pjReportDate}</td>
+                                                            <td>${item.pjName}</td>
+                                                            <td>${item.pjMemberName}</td>
+                                                            <td>${item.pjReportContent}</td>
+                                                            <td>${item.pjIssuelog}</td>
+                                                            <td class="selectable"><a href="#" onclick="" data-id="${item.pjId}">查看更多</a></td>
+                                                        </tr>
+                                                    `);
                                     })
                                 }
                             })
@@ -1048,25 +1329,26 @@
                                 method: "get",
                                 data: { 'id': id },
                                 success: function (data) {
-                                    console.log(data.pjMemberCount);
+                                    //console.log(data.pjMemberCount);
                                     var id = data.pjId;
                                     //var memberCount = data.pjMemberCount;
                                     $('.addPlan').html(`
-                                                <div class="ui form">
-                                                    <div class="fields">
-                                                        <div class="three wide field">
-                                                            <label>專案名稱</label>
-                                                            <input type="text" placeholder="First Name" value="${data.pjName}">
+                                                    <div class="ui form">
+                                                        <div class="fields">
+                                                            <div class="three wide field">
+                                                                <label>專案名稱</label>
+                                                                <input type="text" placeholder="First Name" value="${data.pjName}">
+                                                            </div>
+                                                            <div class="two wide field">
+                                                            </div>
+                                                            <div class="five wide field"></div>
+                                                            <div class="six wide field"></div>
                                                         </div>
-                                                        <div class="two wide field">
-                                                        </div>
-                                                        <div class="five wide field"></div>
-                                                        <div class="six wide field"></div>
                                                     </div>
-                                                </div>
-                                                <div class="appendPjMemberJob"></div>
-                                                <div class="pj專案規劃btn"></div>
-                                            `);
+                                                    <div class="appendPjMemberJob"></div>
+                                                    <div class="pj專案規劃btn"></div>
+                                                `);
+
                                     //for (var i = 1; i <= memberCount; i++) {
                                     //     $('.appendPjMemberJob').append(`
 
@@ -1086,71 +1368,134 @@
                                         data: { 'id': id },
                                         success: function (data) {
                                             $('.pj專案規劃btn').append(`
-                                                        <div class="ui form">
-                                                            <div class="thirteen wide field d-flex justify-content-end">
-                                                                <button class="ui inverted red button">取消</button>
-                                                                <button class="ui inverted primary button" id="pj專案規劃確認">確認</button>
+                                                            <div class="ui form">
+                                                                <div class="fields">
+                                                                    <div class="three wide field ml-3">
+                                                                        <button class="ui green button" id="pj專案規劃Demo">Demo</button>
+                                                                    </div>
+                                                                    <div class="ten wide field d-flex justify-content-end">
+                                                                        <button class="ui inverted red button">取消</button>
+                                                                        <button class="ui inverted primary button" id="pj專案規劃確認">確認</button>
+                                                                    </div>
+                                                                    <div class="three wide field"></div>
+                                                                </div>
                                                             </div>
-                                                            <div class="three wide field d-flex"></div>
-                                                        </div>
-                                                    `);
+                                                        `);
                                             var i = 0;
                                             $(data).each(function (index, item) {
                                                 //console.log(item.pjId);
                                                 //console.log(memberCount);
                                                 //console.log(item.pjMemberName);
-                                                console.log(item.pjTeamId);
+                                                //console.log(item.pjTeamId);
                                                 //$('.pjMemberName規劃').val(item.pjMemberName);
                                                 $('.appendPjMemberJob').append(`
-                                                            <form class="ui form pj規劃表單" id="pj規劃form${i}">
-                                                                <div class="fields" id="appendMemberJobInfo">
-                                                                    <div class="two wide field">
-                                                                        <label>成員姓名</label>
-                                                                        <input type="text" class="pjMemberName規劃" id="pjMemberName規劃${i}" value="${item.pjMemberName}" name="pjMemberName">
-                                                                    </div>
-                                                                    <div class="one wide field">
-                                                                        <label>部門</label>
-                                                                        <input type="text" value="${item.pjMember部門}" name="pjMember部門">
-                                                                    </div>
-                                                                    <div class="two wide field">
-                                                                        <label>專案項目</label>
-                                                                        <input type="text" value="${item.pjTarget}" name="pjTarget">
-                                                                    </div>
-                                                                    <div class="three wide field">
-                                                                        <label>階段目標</label>
-                                                                        <input type="text" name="pjTask">
-                                                                    </div>
-                                                                    <div class="two wide field">
-                                                                        <label>開始時間</label>
-                                                                        <input type="date" name="pjTaskStartDate">
-                                                                    </div>
-                                                                    <div class="two wide field">
-                                                                        <label>結束時間</label>
-                                                                        <input type="date" name="pjTaskEndDate">
-                                                                    </div>
-                                                                    <div class="one wide field">
-                                                                        <label>工作天數</label>
-                                                                        <input type="text" name="pjFixedDuration">
-                                                                    </div>
-                                                                    <div class="three wide field">
-                                                                        <input type="text" class="pjTeamId" value="${item.pjTeamId}" hidden name="pjTeamId">
-                                                                    </div>
+                                                        <form class="ui form pj規劃表單" id="pj規劃form${i}">
+                                                            <div class="fields" id="appendMemberJobInfo">
+                                                                <div class="two wide field">
+                                                                    <label>成員姓名</label>
+                                                                    <input type="text" class="pjMemberName規劃" id="pjMemberName規劃${i}" value="${item.pjMemberName}" name="pjMemberName">
                                                                 </div>
-                                                             </form>
-                                                        `)
+                                                                <div class="one wide field">
+                                                                    <label>部門</label>
+                                                                    <input type="text" value="${item.pjMember部門}" name="pjMember部門">
+                                                                </div>
+                                                                <div class="two wide field">
+                                                                    <label>專案項目</label>
+                                                                    <input type="text" value="${item.pjTarget}" name="pjTarget">
+                                                                </div>
+                                                                <div class="three wide field">
+                                                                    <label>階段目標</label>
+                                                                    <input type="text" name="pjTask" id="pjTask${i}">
+                                                                </div>
+                                                                <div class="two wide field">
+                                                                    <label>開始時間</label>
+                                                                    <input type="date" name="pjTaskStartDate" class="pjTaskStartDate" id="pjTaskStartDate${i}">
+                                                                </div>
+                                                                <div class="two wide field">
+                                                                    <label>結束時間</label>
+                                                                    <input type="date" name="pjTaskEndDate" class="pjTaskEndDate" id="pjTaskEndDate${i}">
+                                                                </div>
+                                                                <div class="one wide field">
+                                                                    <label>工作天數</label>
+                                                                    <input type="text" name="pjFixedDuration" class="pjFixedDuration" id="pjFixedDuration${i}">
+                                                                </div>
+                                                                <div class="three wide field">
+                                                                    <input type="text" class="pjTeamId" value="${item.pjTeamId}" hidden name="pjTeamId">
+                                                                </div>
+                                                            </div>
+                                                            </form>
+                                                    `)
                                                 //var formdata = new FormData(document.querySelector(`#pj規劃form${i}`));
                                                 //a.push(formdata);
-                                                console.log(i);
+                                                //console.log(i);
                                                 i = i + 1;
                                             })
+                                            $('#pj專案規劃Demo').click(function () {
+                                                console.log('12345678');
+                                                $('#pjTask0').val('會員系統');
+                                                $('#pjTaskStartDate0').val('2021-04-08');
+                                                $('#pjTaskEndDate0').val('2021-04-20');
+                                                $('#pjFixedDuration0').val('13天');
+
+                                                $('#pjTask1').val('首頁設計');
+                                                $('#pjTaskStartDate1').val('2021-04-19');
+                                                $('#pjTaskEndDate1').val('2021-04-20');
+                                                $('#pjFixedDuration1').val('2天');
+
+                                                $('#pjTask2').val('首頁設計');
+                                                $('#pjTaskStartDate2').val('2021-04-19');
+                                                $('#pjTaskEndDate2').val('2021-04-20');
+                                                $('#pjFixedDuration2').val('2天');
+
+                                                $('#pjTask3').val('首頁設計');
+                                                $('#pjTaskStartDate3').val('2021-04-19');
+                                                $('#pjTaskEndDate3').val('2021-04-20');
+                                                $('#pjFixedDuration3').val('2天');
+
+                                                $('#pjTask4').val('首頁設計');
+                                                $('#pjTaskStartDate4').val('2021-04-19');
+                                                $('#pjTaskEndDate4').val('2021-04-20');
+                                                $('#pjFixedDuration4').val('2天');
+                                            })
+
+                                            //日期驗證();
+                                            function 日期驗證() {
+                                                var ntime = $('.appendPjMemberJob').children($("form")).length;
+                                                console.log('vghbjkoihuyftgvkhj');
+                                                console.log(ntime);
+                                                for (var i = 0; i < ntime; i++) {
+                                                    console.log($(`#pjTaskStartDate${i}`));
+                                                    console.log($(`#pjTaskEndDate${i}`));
+                                                    console.log('1234');
+                                                    $(`#pjTaskStartDate${i},#pjTaskEndDate${i}`).blur(function () {
+                                                        if ($(`#pjTaskStartDate${i}`).val() != '' && $(`#pjTaskEndDate${i}`).val() != '') {
+                                                            days規劃 = new Date($(`#pjTaskStartDate${i}`).val()).getTime() - new Date($(`#pjTaskEndDate${i}`).val()).getTime();
+                                                            var dateDiff規劃 = Math.floor(days規劃 / 1000 / 60 / 60 / 24 - 1); //floor,ceil
+                                                            if (dateDiff規劃 < 0) {
+                                                                $(`#pjFixedDuration${i}`).val(`${Math.abs(dateDiff規劃)}天`);
+                                                            }
+                                                            else {
+                                                                $(`#pjFixedDuration${i}`).val('');
+                                                                window.alert('請選擇正確的日期');
+                                                            }
+                                                        }
+                                                    });
+                                                }
+                                            }
+
+
+
                                             //console.log($(".pjTeamId"));
                                             //$(".pjTeamId").each(function (index, dataId) {
                                             //    console.log($(dataId).val());
                                             //})
                                             //console.log($('.pj規劃表單'));
                                             $('#pj專案規劃確認').click(function (index, data) {
-                                                var n = $('.addPlan').children($("form")).length;
-                                                for (var i = 0; i < n - 1; i++) {
+                                                var n = $('.appendPjMemberJob').children($("form")).length;
+                                                //console.log('------------------');
+                                                //console.log(n);
+                                                //console.log('------------------');
+                                                for (var i = 0; i < n; i++) {
                                                     console.log(document.querySelector(`#pj規劃form${i}`))
                                                     var formdata = new FormData(document.querySelector(`#pj規劃form${i}`));
                                                     $.ajax({
@@ -1161,6 +1506,7 @@
                                                         contentType: false,
                                                         success: function () {
                                                             window.alert('OK');
+                                                            //規劃紀錄
                                                         }
                                                     })
                                                 }
@@ -1172,15 +1518,15 @@
                         }
                         show專案細項 = function () {
                             $('.append專案詳細Form').html(`
-                                        <div class="ui small modal centermodal" id="pjDetailaaa">
-                                            <div class="actions d-flex justify-content-center">
-                                                <div class="ui primary button" id="pj專案規劃">規劃</div>
-                                                <div class="ui grey button ml-3" id="pj專案進度">進度</div>
-                                                <div class="ui red deny button">取消</div>
-                                                <div class="ui positive right labeled icon button" style="width:135px">確認<i class="checkmark icon"></i></div>
+                                            <div class="ui small modal centermodal" id="pjDetailaaa">
+                                                <div class="actions d-flex justify-content-center">
+                                                    <div class="ui primary button" id="pj專案規劃">規劃</div>
+                                                    <div class="ui grey button ml-3" id="pj專案進度">進度</div>
+                                                    <div class="ui red deny button">取消</div>
+                                                    <div class="ui positive right labeled icon button" style="width:135px">確認<i class="checkmark icon"></i></div>
+                                                </div>
                                             </div>
-                                        </div>
-                                    `)
+                                        `)
                             $('#pjDetailaaa').modal('show');
                             $('#pj專案規劃').click(function () {
                                 console.log('123');
@@ -1202,74 +1548,74 @@
         $('#tab建立初審').click(function () {
             $('#content建立初審').html("");
             $('#content建立初審').append(`
-                               <form class="ui form content建立初審Form">
-                            <div class="fields">
-                                <div class="five wide field">
-                                    <label>專案名稱</label>
-                                    <input type="text" placeholder="專案名稱" class="cr8專案名稱">
+                                   <form class="ui form content建立初審Form">
+                                <div class="fields">
+                                    <div class="five wide field">
+                                        <label>專案名稱</label>
+                                        <input type="text" placeholder="專案名稱" class="cr8專案名稱">
+                                    </div>
+                                    <div class="one wide field"></div>
+                                    <div class="five wide field">
+                                        <label>專案預算</label>
+                                        <input type="text" placeholder="專案預算" class="cr8專案預算">
+                                    </div>
+                                    <div class="five wide field"></div>
                                 </div>
-                                <div class="one wide field"></div>
-                                <div class="five wide field">
-                                    <label>專案預算</label>
-                                    <input type="text" placeholder="專案預算" class="cr8專案預算">
+                                <div class="fields">
+                                    <div class="five wide field">
+                                        <label>專案簡介</label>
+                                        <input type="text" placeholder="專案簡介" class="cr8專案簡介">
+                                    </div>
+                                    <div class="one wide field"></div>
+                                    <div class="five wide field">
+                                        <label>專案成員數</label>
+                                        <input type="text" placeholder="專案成員數" class="cr8專案成員數">
+                                    </div>
+                                    <div class="five wide field"></div>
                                 </div>
-                                <div class="five wide field"></div>
-                            </div>
-                            <div class="fields">
-                                <div class="five wide field">
-                                    <label>專案簡介</label>
-                                    <input type="text" placeholder="專案簡介" class="cr8專案簡介">
+                                <div class="fields">
+                                    <div class="five wide field">
+                                        <label>專案經理</label>
+                                        <input type="text" placeholder="" class="cr8專案經理" value="${decodeURI(document.cookie.split('Name=')[1].split('&')[0])}">
+                                    </div>
+                                    <div class="one wide field"></div>
+                                    <div class="two wide field">
+                                        <label>開始日期</label>
+                                        <input type="date" placeholder="" class="cr8開始日期" id="pj初審Cr8startDate">
+                                    </div>
+                                    <div class="two wide field">
+                                        <label>結束日期</label>
+                                        <input type="date" placeholder="" class="cr8結束日期" id="pj初審Cr8endDate">
+                                    </div>
+                                    <div class="one wide field">
+                                        <label>預估時間</label>
+                                        <input type="text" placeholder="" class="cr8預估時間" readonly>
+                                    </div>
+                                    <div class="five wide field"></div>
                                 </div>
-                                <div class="one wide field"></div>
-                                <div class="five wide field">
-                                    <label>專案成員數</label>
-                                    <input type="text" placeholder="專案成員數" class="cr8專案成員數">
+                                <div class="fields">
+                                    <div class="five wide field">
+                                        <label>專案客戶</label>
+                                        <input type="text" placeholder="" class="cr8專案客戶">
+                                    </div>
+                                    <div class="one wide field">
+                                        <input type="text" hidden class="cr8pjManagerId" value="${decodeURI(document.cookie.split('id=')[1].split('&')[0])}">
+                                        <input type="text" hidden class="cr8pj初審結果" value="待審核">
+                                        <input type="text" hidden class="cr8pj審核階段" value="初審">
+                                    </div>
+                                    <div class="five wide field"></div>
+                                    <div class="five wide field"></div>
                                 </div>
-                                <div class="five wide field"></div>
-                            </div>
-                            <div class="fields">
-                                <div class="five wide field">
-                                    <label>專案經理</label>
-                                    <input type="text" placeholder="" class="cr8專案經理" value="${decodeURI(document.cookie.split('Name=')[1].split('&')[0])}">
+                                <div class="fields mt-3">
+                                    <div class="eleven wide field d-flex justify-content-end">
+                                        <button class="ui inverted red button" onclick="resetform()">重置</button>
+                                        <button class="ui inverted primary button cr8pjSubmit">確認</button>
+                                        <button type="reset" hidden id="theReset"></button>
+                                    </div>
+                                    <div class="five wide field d-flex"></div>
                                 </div>
-                                <div class="one wide field"></div>
-                                <div class="two wide field">
-                                    <label>開始日期</label>
-                                    <input type="date" placeholder="" class="cr8開始日期" id="pj初審Cr8startDate">
-                                </div>
-                                <div class="two wide field">
-                                    <label>結束日期</label>
-                                    <input type="date" placeholder="" class="cr8結束日期" id="pj初審Cr8endDate">
-                                </div>
-                                <div class="one wide field">
-                                    <label>預估時間</label>
-                                    <input type="text" placeholder="" class="cr8預估時間" readonly>
-                                </div>
-                                <div class="five wide field"></div>
-                            </div>
-                            <div class="fields">
-                                <div class="five wide field">
-                                    <label>專案客戶</label>
-                                    <input type="text" placeholder="" class="cr8專案客戶">
-                                </div>
-                                <div class="one wide field">
-                                    <input type="text" hidden class="cr8pjManagerId" value="${decodeURI(document.cookie.split('id=')[1].split('&')[0])}">
-                                    <input type="text" hidden class="cr8pj初審結果" value="待審核">
-                                    <input type="text" hidden class="cr8pj審核階段" value="初審">
-                                </div>
-                                <div class="five wide field"></div>
-                                <div class="five wide field"></div>
-                            </div>
-                            <div class="fields mt-3">
-                                <div class="eleven wide field d-flex justify-content-end">
-                                    <button class="ui inverted red button" onclick="resetform()">重置</button>
-                                    <button class="ui inverted primary button cr8pjSubmit">確認</button>
-                                    <button type="reset" hidden id="theReset"></button>
-                                </div>
-                                <div class="five wide field d-flex"></div>
-                            </div>
-                        </form>
-                            `);
+                            </form>
+                                `);
             $('#pj初審Cr8startDate,#pj初審Cr8endDate').blur(function () {
                 if ($('#pj初審Cr8startDate').val() != '' && $('#pj初審Cr8endDate').val() != '') {
                     //sDate = new Date($('#pj初審Cr8startDate').val());
@@ -1603,10 +1949,10 @@
                     if (data.length == 0) {
                         console.log('123');
                         $('.pj專案建立審核沒有建立中專案').html(`
-                                        <div class="d-flex justify-content-center mt-5 mb-5">
-                                            <p>目前沒有建立中的專案</p>
-                                        </div>
-                                    `);
+                                            <div class="d-flex justify-content-center mt-5 mb-5">
+                                                <p>目前沒有建立中的專案</p>
+                                            </div>
+                                        `);
                     } else {
 
                         $.ajax({//總表
@@ -1614,28 +1960,28 @@
                             method: "get",
                             success: function (data) {
                                 $('.appendPjDataFromSql-th').html(`
-                                            <tr>
-                                                <th>專案名稱</th>
-                                                <th>專案負責人</th>
+                                                <tr>
+                                                    <th>專案名稱</th>
+                                                    <th>專案負責人</th>
 
-                                                <th>審核階段</th>
-                                                <th>審核結果</th>
-                                                <th>詳細資訊</th>
+                                                    <th>審核階段</th>
+                                                    <th>審核結果</th>
+                                                    <th>詳細資訊</th>
 
 
-                                            </tr>
-                                        `);
+                                                </tr>
+                                            `);
                                 $('.appendPjDataFromSql-tb').html("");
                                 $(data).each(function (index, item) {
                                     $('.appendPjDataFromSql-tb').append(`
-                                                <tr>
-                                                    <td>${item.pjName}</td>
-                                                    <td>${item.pjManager}</td>
-                                                    <td>${item.pj審核階段}</td>
-                                                    <td>${item.pj初審結果}</td>
-                               <td class="selectable"><a href="#" onclick="pj初審詳細()" data-id="${item.pjId}">初審詳細</a></td>
+                                                    <tr>
+                                                        <td>${item.pjName}</td>
+                                                        <td>${item.pjManager}</td>
+                                                        <td>${item.pj審核階段}</td>
+                                                        <td>${item.pj初審結果}</td>
+                                   <td class="selectable"><a href="#" onclick="pj初審詳細()" data-id="${item.pjId}">初審詳細</a></td>
 
-                                                </tr>`
+                                                    </tr>`
                                     )
                                 })
 
@@ -1648,28 +1994,28 @@
                             method: "get",
                             success: function (data) {
                                 $('.appendPjDataFromSql-th2').html(`
-                                            <tr>
-                                                <th>專案名稱</th>
-             <th>專案負責人</th>
-                                                <th>審核階段</th>
-                                                <th>審核結果</th>
+                                                <tr>
+                                                    <th>專案名稱</th>
+                 <th>專案負責人</th>
+                                                    <th>審核階段</th>
+                                                    <th>審核結果</th>
 
 
-                                                <th>複審審核</th>
-                                            </tr>
-                                        `);
+                                                    <th>複審審核</th>
+                                                </tr>
+                                            `);
                                 $('.appendPjDataFromSql-tb2').html("");
                                 $(data).each(function (index, item) {
                                     $('.appendPjDataFromSql-tb2').append(`
-                                                <tr>
-                                                    <td>${item.pjName}</td>
-            <td>${item.pjManager}</td>
-                                                    <td>${item.pj審核階段}</td>
-                                                    <td>${item.pj初審結果}</td>
+                                                    <tr>
+                                                        <td>${item.pjName}</td>
+                <td>${item.pjManager}</td>
+                                                        <td>${item.pj審核階段}</td>
+                                                        <td>${item.pj初審結果}</td>
 
 
-                                                    <td class="selectable"><a href="#" onclick="pj複審審核()" data-id="${item.pjId}">複審審核</a></td>
-                                                </tr>`
+                                                        <td class="selectable"><a href="#" onclick="pj複審審核()" data-id="${item.pjId}">複審審核</a></td>
+                                                    </tr>`
                                     )
                                 })
                             }
@@ -1682,28 +2028,28 @@
 
 
                                 $('.appendPjDataFromSql-th3').html(`
-                                            <tr>
-                                                <th>專案名稱</th>
-             <th>專案負責人</th>
-                                                <th>審核階段</th>
-                                                <th>審核結果</th>
-                                                <th>重新送審</th>
-                                                <th>初審審核</th>
+                                                <tr>
+                                                    <th>專案名稱</th>
+                 <th>專案負責人</th>
+                                                    <th>審核階段</th>
+                                                    <th>審核結果</th>
+                                                    <th>重新送審</th>
+                                                    <th>初審審核</th>
 
-                                            </tr>
-                                        `);
+                                                </tr>
+                                            `);
                                 $('.appendPjDataFromSql-tb3').html("");
                                 $(data).each(function (index, item) {
                                     $('.appendPjDataFromSql-tb3').append(`
-                                                <tr>
-                                                    <td>${item.pjName}</td>
-            <td>${item.pjManager}</td>
-                                                    <td>${item.pj審核階段}</td>
-                                                    <td>${item.pj初審結果}</td>
-                                              <td class="selectable"><a href="#" onclick="pj重新送審()" data-id="${item.pjId}">重新送審</a></td>
-                                                      <td class="selectable"><a href="#" onclick="pj初審審核()" data-id="${item.pjId}">查看更多</a></td>
+                                                    <tr>
+                                                        <td>${item.pjName}</td>
+                <td>${item.pjManager}</td>
+                                                        <td>${item.pj審核階段}</td>
+                                                        <td>${item.pj初審結果}</td>
+                                                  <td class="selectable"><a href="#" onclick="pj重新送審()" data-id="${item.pjId}">重新送審</a></td>
+                                                          <td class="selectable"><a href="#" onclick="pj初審審核()" data-id="${item.pjId}">查看更多</a></td>
 
-                                                </tr>`
+                                                    </tr>`
                                     )
                                 })
 
@@ -1717,28 +2063,28 @@
                             success: function (data) {
 
                                 $('.appendPjDataFromSql-th4').html(`
-                                            <tr>
-                                                <th>專案名稱</th>
-             <th>專案負責人</th>
-                                                <th>審核階段</th>
-                                                <th>審核結果</th>
+                                                <tr>
+                                                    <th>專案名稱</th>
+                 <th>專案負責人</th>
+                                                    <th>審核階段</th>
+                                                    <th>審核結果</th>
 
-                                                <th>建立複審</th>
+                                                    <th>建立複審</th>
 
-                                            </tr>
-                                        `);
+                                                </tr>
+                                            `);
                                 $('.appendPjDataFromSql-tb4').html("");
                                 $(data).each(function (index, item) {
                                     $('.appendPjDataFromSql-tb4').append(`
-                                                <tr>
-                                                    <td>${item.pjName}</td>
-            <td>${item.pjManager}</td>
-                                                    <td>${item.pj審核階段}</td>
-                                                    <td>${item.pj初審結果}</td>
+                                                    <tr>
+                                                        <td>${item.pjName}</td>
+                <td>${item.pjManager}</td>
+                                                        <td>${item.pj審核階段}</td>
+                                                        <td>${item.pj初審結果}</td>
 
-                                                    <td class="selectable"><a href="#" class="pj建立複審" data-id="${item.pjId}">建立複審</a></td>
+                                                        <td class="selectable"><a href="#" class="pj建立複審" data-id="${item.pjId}">建立複審</a></td>
 
-                                                </tr>`
+                                                    </tr>`
                                     )
                                 })
 
@@ -1762,50 +2108,50 @@
 
                                             for (var i = 1; i <= membersCount; i++) {
                                                 $('#content建立複審').append(`
-                                                            <form class="ui form" id="cr8form${i}">
-                                                                <div class="fields">
-                                                                    <div class="two wide field">
-                                                                        <label>部門</label>
-                                                                        <select class="ui search dropdown" id="pjCr8複審部門${i}" name="pjMember部門">
-                                                                            <option value="">部門</option>
-                                                                            <option value="資訊部">資訊部</option>
-                                                                            <option value="人事部">人事部</option>
-                                                                            <option value="總務部">總務部</option>
-                                                                            <option value="財務部">財務部</option>
-                                                                            <option value="業務部">業務部</option>
-                                                                        </select>
+                                                                <form class="ui form" id="cr8form${i}">
+                                                                    <div class="fields">
+                                                                        <div class="two wide field">
+                                                                            <label>部門</label>
+                                                                            <select class="ui search dropdown" id="pjCr8複審部門${i}" name="pjMember部門">
+                                                                                <option value="">部門</option>
+                                                                                <option value="資訊部">資訊部</option>
+                                                                                <option value="人事部">人事部</option>
+                                                                                <option value="總務部">總務部</option>
+                                                                                <option value="財務部">財務部</option>
+                                                                                <option value="業務部">業務部</option>
+                                                                            </select>
+                                                                        </div>
+                                                                        <div class="four wide field">
+                                                                            <label>成員姓名</label>
+                                                                            <input type="text" placeholder="成員姓名" name="pjMemberName">
+                                                                        </div>
+                                                                        <div class="five wide field">
+                                                                            <label>專案項目</label>
+                                                                            <input type="text" placeholder="專案項目" name="pjTarget">
+                                                                        </div>
+                                                                        <div class="one wide field">
+                                                                            <input type="text" hidden id="審核階段" value="複審">
+                                                                        </div>
+                                                                        <div class="one wide field">
+                                                                            <input type="text" hidden name="pjId" value="${data.pjId}">
+                                                                        </div>
+                                                                        <div class="four wide field"></div>
                                                                     </div>
-                                                                    <div class="four wide field">
-                                                                        <label>成員姓名</label>
-                                                                        <input type="text" placeholder="成員姓名" name="pjMemberName">
-                                                                    </div>
-                                                                    <div class="five wide field">
-                                                                        <label>專案項目</label>
-                                                                        <input type="text" placeholder="專案項目" name="pjTarget">
-                                                                    </div>
-                                                                    <div class="one wide field">
-                                                                        <input type="text" hidden id="審核階段" value="複審">
-                                                                    </div>
-                                                                    <div class="one wide field">
-                                                                        <input type="text" hidden name="pjId" value="${data.pjId}">
-                                                                    </div>
-                                                                    <div class="four wide field"></div>
-                                                                </div>
-                                                            </form>
-                                                        `)
+                                                                </form>
+                                                            `)
                                             }
                                             $('.change審核階段').click(function () {
 
                                             })
                                             $('#content建立複審').append(`
-                                                        <div class="ui form">
-                                                            <div class="eleven wide field d-flex justify-content-end">
-                                                                <button class="ui inverted red button">取消</button>
-                                                                <button class="ui inverted primary button" id="submitCr8preview2">確認</button>
+                                                            <div class="ui form">
+                                                                <div class="eleven wide field d-flex justify-content-end">
+                                                                    <button class="ui inverted red button">取消</button>
+                                                                    <button class="ui inverted primary button" id="submitCr8preview2">確認</button>
+                                                                </div>
+                                                                <div class="five wide field"></div>
                                                             </div>
-                                                            <div class="five wide field"></div>
-                                                        </div>
-                                                    `)
+                                                        `)
                                             $('#submitCr8preview2').click(function () {
                                                 $.ajax({
                                                     url: "/projectControl/getPjProjectDataFromIdto2",
@@ -1893,71 +2239,71 @@
                                     var return結束日期 = `${retuenEndDate.getFullYear()}/${retuenEndDate.getMonth() + 1}/${retuenEndDate.getDate()}`;
                                     $('.pj初審單header').html(`${data.pjName}`);
                                     $('.pj初審單資料').html(`
-                                                <div class="ui form">
-                                                    <div class="two fields">
-                                                        <div class="field">
-                                                            <label>專案經理</label>
-                                                            <input value="${data.pjManager}" readonly type="text"id="pjManager">
+                                                    <div class="ui form">
+                                                        <div class="two fields">
+                                                            <div class="field">
+                                                                <label>專案經理</label>
+                                                                <input value="${data.pjManager}" readonly type="text"id="pjManager">
+                                                            </div>
+                                                            <div class="field">
+                                                                <label>專案簡介</label>
+                                                                <input value="${data.pjIntroduction}" readonly type="text" id="pjIntroduction">
+                                                            </div>
                                                         </div>
-                                                        <div class="field">
-                                                            <label>專案簡介</label>
-                                                            <input value="${data.pjIntroduction}" readonly type="text" id="pjIntroduction">
+                                                        <div class="two fields">
+                                                            <div class="field">
+                                                                <label>專案客戶</label>
+                                                                <input value="${data.pjClient}" readonly type="text"id="pjClient">
+                                                            </div>
+                                                            <div class="field">
+                                                                <label>專案預算</label>
+                                                                <input value="${data.pjBudget}" readonly type="text"id="pjBudget">
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="two fields">
-                                                        <div class="field">
-                                                            <label>專案客戶</label>
-                                                            <input value="${data.pjClient}" readonly type="text"id="pjClient">
-                                                        </div>
-                                                        <div class="field">
-                                                            <label>專案預算</label>
-                                                            <input value="${data.pjBudget}" readonly type="text"id="pjBudget">
-                                                        </div>
-                                                    </div>
-                                                    <div class="three fields">
-                                                        <div class="field">
-                                                            <label>開始日期</label>
-                                                            <input value="${return開始日期.getFullYear()}/${return開始日期.getMonth() + 1}/${return開始日期.getDate()}" readonly type="text"id="開始日期">
-                                                        </div>
-                                                        <div class="field">
-                                                            <label>結束日期</label>
-                                                            <input value="${return結束日期}" readonly type="text"id="結束日期">
-                                                        </div>
-                                                        <div class="field">
-                                                            <label>預估時間</label>
-                                                            <input value="${data.pj預估時間}" readonly type="text"id="pj預估時間">
-                                                        </div>
-                                                        <div class="field">
-                                                            <label>專案成員數</label>
-                                                            <input value="${data.pjMemberCount}" readonly type="text"id="pjMemberCount">
-                                                        </div>
-                                                        <div class="field" hidden>
-                                                            <label></label>
-                                                            <input value="${data.pjManagerId}" readonly type="text"id="pjManagerId">
-                                                        </div>
-                                                         <div class="field" hidden>
-                                                            <label></label>
-                                                            <input value="${data.pj審核階段}" readonly type="text"id="pj審核階段">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="ui form">
-
-                                                    <div class="three fields mb-5">
-
-
-                                                        <div class="field"></div>
-                                                    </div>
-
-                                                    <div class="d-flex justify-content-end">
-                                                        <div>
-
-
-                                                            <button class="ui inverted primary button mt-1 " data-id="${data.pjId}">確認</button>
+                                                        <div class="three fields">
+                                                            <div class="field">
+                                                                <label>開始日期</label>
+                                                                <input value="${return開始日期.getFullYear()}/${return開始日期.getMonth() + 1}/${return開始日期.getDate()}" readonly type="text"id="開始日期">
+                                                            </div>
+                                                            <div class="field">
+                                                                <label>結束日期</label>
+                                                                <input value="${return結束日期}" readonly type="text"id="結束日期">
+                                                            </div>
+                                                            <div class="field">
+                                                                <label>預估時間</label>
+                                                                <input value="${data.pj預估時間}" readonly type="text"id="pj預估時間">
+                                                            </div>
+                                                            <div class="field">
+                                                                <label>專案成員數</label>
+                                                                <input value="${data.pjMemberCount}" readonly type="text"id="pjMemberCount">
+                                                            </div>
+                                                            <div class="field" hidden>
+                                                                <label></label>
+                                                                <input value="${data.pjManagerId}" readonly type="text"id="pjManagerId">
+                                                            </div>
+                                                             <div class="field" hidden>
+                                                                <label></label>
+                                                                <input value="${data.pj審核階段}" readonly type="text"id="pj審核階段">
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            `);
+                                                    <div class="ui form">
+
+                                                        <div class="three fields mb-5">
+
+
+                                                            <div class="field"></div>
+                                                        </div>
+
+                                                        <div class="d-flex justify-content-end">
+                                                            <div>
+
+
+                                                                <button class="ui inverted primary button mt-1 " data-id="${data.pjId}">確認</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                `);
                                     $('#pj初審單').modal('show');
 
 
@@ -1988,84 +2334,84 @@
                                     var return結束日期 = `${retuenEndDate.getFullYear()}/${retuenEndDate.getMonth() + 1}/${retuenEndDate.getDate()}`;
                                     $('.pj初審單header').html(`${data.pjName}`);
                                     $('.pj初審單資料').html(`
-                                                <div class="ui form">
-                                                    <div class="two fields">
-                                                        <div class="field">
-                                                            <label>專案經理</label>
-                                                            <input value="${data.pjManager}" readonly type="text"id="pjManager">
+                                                    <div class="ui form">
+                                                        <div class="two fields">
+                                                            <div class="field">
+                                                                <label>專案經理</label>
+                                                                <input value="${data.pjManager}" readonly type="text"id="pjManager">
+                                                            </div>
+                                                            <div class="field">
+                                                                <label>專案簡介</label>
+                                                                <input value="${data.pjIntroduction}" readonly type="text" id="pjIntroduction">
+                                                            </div>
                                                         </div>
-                                                        <div class="field">
-                                                            <label>專案簡介</label>
-                                                            <input value="${data.pjIntroduction}" readonly type="text" id="pjIntroduction">
+                                                        <div class="two fields">
+                                                            <div class="field">
+                                                                <label>專案客戶</label>
+                                                                <input value="${data.pjClient}" readonly type="text"id="pjClient">
+                                                            </div>
+                                                            <div class="field">
+                                                                <label>專案預算</label>
+                                                                <input value="${data.pjBudget}" readonly type="text"id="pjBudget">
+                                                            </div>
+                                                        </div>
+                                                        <div class="three fields">
+                                                            <div class="field">
+                                                                <label>開始日期</label>
+                                                                <input value="${return開始日期.getFullYear()}/${return開始日期.getMonth() + 1}/${return開始日期.getDate()}" readonly type="text"id="開始日期">
+                                                            </div>
+                                                            <div class="field">
+                                                                <label>結束日期</label>
+                                                                <input value="${return結束日期}" readonly type="text"id="結束日期">
+                                                            </div>
+                                                            <div class="field">
+                                                                <label>預估時間</label>
+                                                                <input value="${data.pj預估時間}" readonly type="text"id="pj預估時間">
+                                                            </div>
+                                                            <div class="field">
+                                                                <label>專案成員數</label>
+                                                                <input value="${data.pjMemberCount}" readonly type="text"id="pjMemberCount">
+                                                            </div>
+                                                            <div class="field" hidden>
+                                                                <label></label>
+                                                                <input value="${data.pjManagerId}" readonly type="text"id="pjManagerId">
+                                                            </div>
+                                                             <div class="field" hidden>
+                                                                <label></label>
+                                                                <input value="${data.pj審核階段}" readonly type="text"id="pj審核階段">
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                    <div class="two fields">
+                                                    <div class="ui form">
                                                         <div class="field">
-                                                            <label>專案客戶</label>
-                                                            <input value="${data.pjClient}" readonly type="text"id="pjClient">
+                                                            <label>意見內容</label>
+                                                            <textarea type="text" placeholder="First Name" id="pj意見內容"></textarea>
                                                         </div>
-                                                        <div class="field">
-                                                            <label>專案預算</label>
-                                                            <input value="${data.pjBudget}" readonly type="text"id="pjBudget">
+                                                        <div class="three fields mb-5">
+                                                            <div class="field">
+                                                                <label>審核結果</label>
+                                                                <select class="ui dropdown" name="pj初審結果" id="pj初審結果">
+                                                                    <option value="" hidden>待審核</option>
+                                                                    <option value="通過">通過</option>
+                                                                    <option value="不通過">不通過</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="field">
+                                                                <label>審核人員</label>
+                                                                <input type="text"/>
+                                                            </div>
+                                                            <div class="field"></div>
                                                         </div>
-                                                    </div>
-                                                    <div class="three fields">
-                                                        <div class="field">
-                                                            <label>開始日期</label>
-                                                            <input value="${return開始日期.getFullYear()}/${return開始日期.getMonth() + 1}/${return開始日期.getDate()}" readonly type="text"id="開始日期">
-                                                        </div>
-                                                        <div class="field">
-                                                            <label>結束日期</label>
-                                                            <input value="${return結束日期}" readonly type="text"id="結束日期">
-                                                        </div>
-                                                        <div class="field">
-                                                            <label>預估時間</label>
-                                                            <input value="${data.pj預估時間}" readonly type="text"id="pj預估時間">
-                                                        </div>
-                                                        <div class="field">
-                                                            <label>專案成員數</label>
-                                                            <input value="${data.pjMemberCount}" readonly type="text"id="pjMemberCount">
-                                                        </div>
-                                                        <div class="field" hidden>
-                                                            <label></label>
-                                                            <input value="${data.pjManagerId}" readonly type="text"id="pjManagerId">
-                                                        </div>
-                                                         <div class="field" hidden>
-                                                            <label></label>
-                                                            <input value="${data.pj審核階段}" readonly type="text"id="pj審核階段">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="ui form">
-                                                    <div class="field">
-                                                        <label>意見內容</label>
-                                                        <textarea type="text" placeholder="First Name" id="pj意見內容"></textarea>
-                                                    </div>
-                                                    <div class="three fields mb-5">
-                                                        <div class="field">
-                                                            <label>審核結果</label>
-                                                            <select class="ui dropdown" name="pj初審結果" id="pj初審結果">
-                                                                <option value="" hidden>待審核</option>
-                                                                <option value="通過">通過</option>
-                                                                <option value="不通過">不通過</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="field">
-                                                            <label>審核人員</label>
-                                                            <input type="text"/>
-                                                        </div>
-                                                        <div class="field"></div>
-                                                    </div>
 
-                                                    <div class="d-flex justify-content-end">
-                                                        <div>
-                                                            <button class="ui inverted red button">取消</button>
+                                                        <div class="d-flex justify-content-end">
+                                                            <div>
+                                                                <button class="ui inverted red button">取消</button>
 
-                                                            <button class="ui inverted primary button mt-1 pj初審結果 初審審核" data-id="${data.pjId}">確認</button>
+                                                                <button class="ui inverted primary button mt-1 pj初審結果 初審審核" data-id="${data.pjId}">確認</button>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            `);
+                                                `);
                                     $('#pj初審單').modal('show');
                                     $('.pj初審結果').click(function () {
                                         var id = $(event.currentTarget).data('id');
@@ -2151,72 +2497,72 @@
                                     var return結束日期 = `${retuenEndDate.getFullYear()}/${retuenEndDate.getMonth() + 1}/${retuenEndDate.getDate()}`;
                                     $('.pj初審單header').html(`${data.pjName}`);
                                     $('.pj初審單資料').html(`
-                                                <div class="ui form">
-                                                    <div class="two fields">
-                                                        <div class="field">
-                                                            <label>專案經理</label>
-                                                            <input value="${data.pjManager}"  type="text"id="pjManager">
+                                                    <div class="ui form">
+                                                        <div class="two fields">
+                                                            <div class="field">
+                                                                <label>專案經理</label>
+                                                                <input value="${data.pjManager}"  type="text"id="pjManager">
+                                                            </div>
+                                                            <div class="field">
+                                                                <label>專案簡介</label>
+                                                                <input value="${data.pjIntroduction}"  type="text" id="pjIntroduction">
+                                                            </div>
                                                         </div>
-                                                        <div class="field">
-                                                            <label>專案簡介</label>
-                                                            <input value="${data.pjIntroduction}"  type="text" id="pjIntroduction">
+                                                        <div class="two fields">
+                                                            <div class="field">
+                                                                <label>專案客戶</label>
+                                                                <input value="${data.pjClient}"  type="text"id="pjClient">
+                                                            </div>
+                                                            <div class="field">
+                                                                <label>專案預算</label>
+                                                                <input value="${data.pjBudget}"  type="text"id="pjBudget">
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="two fields">
-                                                        <div class="field">
-                                                            <label>專案客戶</label>
-                                                            <input value="${data.pjClient}"  type="text"id="pjClient">
-                                                        </div>
-                                                        <div class="field">
-                                                            <label>專案預算</label>
-                                                            <input value="${data.pjBudget}"  type="text"id="pjBudget">
-                                                        </div>
-                                                    </div>
-                                                    <div class="three fields">
-                                                        <div class="field">
-                                                            <label>開始日期</label>
-                                                            <input value="${return開始日期.getFullYear()}/${return開始日期.getMonth() + 1}/${return開始日期.getDate()}"  type="date" id=" pj初審Cr8startDate" class="開始日期">
-                                                        </div>
-                                                        <div class="field">
-                                                            <label>結束日期</label>
-                                                            <input value="${return結束日期}"  type="text"id="結束日期">
-                                                        </div>
-                                                        <div class="field">
-                                                            <label>預估時間</label>
-                                                            <input value="${data.pj預估時間}"  type="text"id="pj預估時間">
-                                                        </div>
-                                                        <div class="field">
-                                                            <label>專案成員數</label>
-                                                            <input value="${data.pjMemberCount}"  type="text"id="pjMemberCount">
-                                                        </div>
-                                                        <div class="field" hidden>
-                                                            <label></label>
-                                                            <input value="${data.pjManagerId}"  type="text"id="pjManagerId">
-                                                        </div>
-                                                         <div class="field" hidden>
-                                                            <label></label>
-                                                            <input value="${data.pj審核階段}"  type="text"id="pj審核階段">
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-
-
-
-
-
-
-
-
-                                                    <div class="d-flex justify-content-end">
-                                                        <div>
-                                                            <button class="ui inverted red button">取消</button>
-
-                                                            <button class="ui inverted primary button mt-1 pj重新送審 " data-id="${data.pjId}">確認</button>
+                                                        <div class="three fields">
+                                                            <div class="field">
+                                                                <label>開始日期</label>
+                                                                <input value="${return開始日期.getFullYear()}/${return開始日期.getMonth() + 1}/${return開始日期.getDate()}"  type="date" id=" pj初審Cr8startDate" class="開始日期">
+                                                            </div>
+                                                            <div class="field">
+                                                                <label>結束日期</label>
+                                                                <input value="${return結束日期}"  type="text"id="結束日期">
+                                                            </div>
+                                                            <div class="field">
+                                                                <label>預估時間</label>
+                                                                <input value="${data.pj預估時間}"  type="text"id="pj預估時間">
+                                                            </div>
+                                                            <div class="field">
+                                                                <label>專案成員數</label>
+                                                                <input value="${data.pjMemberCount}"  type="text"id="pjMemberCount">
+                                                            </div>
+                                                            <div class="field" hidden>
+                                                                <label></label>
+                                                                <input value="${data.pjManagerId}"  type="text"id="pjManagerId">
+                                                            </div>
+                                                             <div class="field" hidden>
+                                                                <label></label>
+                                                                <input value="${data.pj審核階段}"  type="text"id="pj審核階段">
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            `);
+
+
+
+
+
+
+
+
+
+                                                        <div class="d-flex justify-content-end">
+                                                            <div>
+                                                                <button class="ui inverted red button">取消</button>
+
+                                                                <button class="ui inverted primary button mt-1 pj重新送審 " data-id="${data.pjId}">確認</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                `);
                                     $('#pj初審單').modal('show');
                                     $('.pj重新送審').click(function () {
                                         var id = $(event.currentTarget).data('id');
@@ -2316,48 +2662,48 @@
                                     $('#content建立複審').html("");
                                     for (var i = 1; i <= membersCount; i++) {
                                         $('#content建立複審').append(`
-                                                            <form class="ui form" id="cr8form${i}">
-                                                                <div class="fields">
-                                                                    <div class="two wide field">
-                                                                        <label>部門</label>
-                                                                        <select class="ui search dropdown" id="pjCr8複審部門${i}" name="pjMember部門">
-                                                                            <option value="">部門</option>
-                                                                            <option value="資訊部">資訊部</option>
-                                                                            <option value="人事部">人事部</option>
-                                                                            <option value="總務部">總務部</option>
-                                                                            <option value="財務部">財務部</option>
-                                                                            <option value="業務部">業務部</option>
-                                                                        </select>
+                                                                <form class="ui form" id="cr8form${i}">
+                                                                    <div class="fields">
+                                                                        <div class="two wide field">
+                                                                            <label>部門</label>
+                                                                            <select class="ui search dropdown" id="pjCr8複審部門${i}" name="pjMember部門">
+                                                                                <option value="">部門</option>
+                                                                                <option value="資訊部">資訊部</option>
+                                                                                <option value="人事部">人事部</option>
+                                                                                <option value="總務部">總務部</option>
+                                                                                <option value="財務部">財務部</option>
+                                                                                <option value="業務部">業務部</option>
+                                                                            </select>
+                                                                        </div>
+                                                                        <div class="four wide field">
+                                                                            <label>成員姓名</label>
+                                                                            <input type="text" placeholder="成員姓名" name="pjMemberName">
+                                                                        </div>
+                                                                        <div class="five wide field">
+                                                                            <label>專案項目</label>
+                                                                            <input type="text" placeholder="專案項目" name="pjTarget">
+                                                                        </div>
+                                                                           <div class="four wide field" hidden>
+                                                                            <label>成員姓名</label>
+                                                                            <input type="text" placeholder="審核階段" name="pjMemberName" id="pj審核階段">
+                                                                        </div>
+                                                                        <div class="one wide field">
+                                                                            <input type="text" hidden name="pjId" value="${data.pjId}">
+                                                                        </div>
+                                                                        <div class="four wide field"></div>
                                                                     </div>
-                                                                    <div class="four wide field">
-                                                                        <label>成員姓名</label>
-                                                                        <input type="text" placeholder="成員姓名" name="pjMemberName">
-                                                                    </div>
-                                                                    <div class="five wide field">
-                                                                        <label>專案項目</label>
-                                                                        <input type="text" placeholder="專案項目" name="pjTarget">
-                                                                    </div>
-                                                                       <div class="four wide field" hidden>
-                                                                        <label>成員姓名</label>
-                                                                        <input type="text" placeholder="審核階段" name="pjMemberName" id="pj審核階段">
-                                                                    </div>
-                                                                    <div class="one wide field">
-                                                                        <input type="text" hidden name="pjId" value="${data.pjId}">
-                                                                    </div>
-                                                                    <div class="four wide field"></div>
-                                                                </div>
-                                                            </form>
-                                                        `)
+                                                                </form>
+                                                            `)
                                     }
                                     $('#content建立複審').append(`
-                                                        <div class="ui form">
-                                                            <div class="eleven wide field d-flex justify-content-end">
-                                                                <button class="ui inverted red button">取消</button>
-                                                                <button class="ui inverted primary button" id="submitCr8preview2">確認</button>
+                                                            <div class="ui form">
+                                                                <div class="eleven wide field d-flex justify-content-end">
+                                                                    <button class="ui inverted red button">取消</button>
+                                                                    <button class="ui inverted primary button" id="submitCr8preview2">確認</button>
+                                                                </div>
+                                                                <div class="five wide field"></div>
                                                             </div>
-                                                            <div class="five wide field"></div>
-                                                        </div>
-                                                    `)
+                                                        `)
                                     $('#submitCr8preview2').click(function () {
                                         for (var i = 1; i <= membersCount; i++) {
                                             console.log($(`#pjCr8複審部門${i} option:selected`).val());
