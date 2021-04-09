@@ -1127,7 +1127,4 @@ D:\GitHubEIP\EIP\EIP\bin\roslyn\vbc.exe
 D:\GitHubEIP\EIP\EIP\bin\roslyn\vbc.exe.config
 D:\GitHubEIP\EIP\EIP\bin\roslyn\vbc.rsp
 D:\GitHubEIP\EIP\EIP\bin\roslyn\VBCSCompiler.exe.config
-D:\MyEipFuck\EIP GITHUB\EIP\EIP\bin\roslyn\System.Memory.dll
-D:\MyEipFuck\EIP GITHUB\EIP\EIP\bin\roslyn\System.Numerics.Vectors.dll
-D:\MyEipFuck\EIP GITHUB\EIP\EIP\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 D:\MyEipFuck\EIP GITHUB\EIP\EIP\obj\Debug\EIP.csprojAssemblyReference.cache

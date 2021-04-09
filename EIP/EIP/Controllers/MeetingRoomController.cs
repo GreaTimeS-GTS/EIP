@@ -19,20 +19,12 @@ namespace EIP.Controllers
             return View();
         }
 
-        public ActionResult BookingView()
-        {
-
-            return View();
-
-        }
-
         public JsonResult GetBooking()
         {
-
             var events = db.MeetingRoomBooking.ToList();
-            Console.WriteLine(events);
+            //Console.WriteLine(events);
             return Json(events, JsonRequestBehavior.AllowGet);
-        }
+        }  
 
         public JsonResult checkBoxStatus(string Room)
         {
@@ -49,18 +41,7 @@ namespace EIP.Controllers
                 中文姓名 = editevent.中文姓名,
                 MeetingAttentee = editevent.MeetingAttentee,            
             });
-            //var getByRoomName = new
-            //{
-            //    emId=editevent.EmployeeID,
-            //    emName=editevent.中文姓名,
-            //    MeetingRoomName=editevent.MeetingRoomName,
-            //    MeetingSubject=editevent.MeetingSubject,
-            //    startTime=editevent.BookingStartTime,
-            //    endTime=editevent.BookingEndTime,
-            //    attendee=editevent.MeetingAttentee,
-            //    Description=editevent.MeetingRemark,
-            //    isAllday=editevent.IsAllDay,       
-            //};
+           
             return Json(bb, JsonRequestBehavior.AllowGet);
         }
 
@@ -94,12 +75,6 @@ namespace EIP.Controllers
         [HttpPost]
         public JsonResult DeleteEvent(int eventID)
         {
-            //MeetingRoomBooking v = db.MeetingRoomBooking.Find(bockingId);
-            //db.MeetingRoomBooking.Remove(v);
-            //db.SaveChanges();
-
-            //return Json(v, JsonRequestBehavior.AllowGet);
-
             var status = false;
             var v = db.MeetingRoomBooking.Where(a => a.BookingId == eventID).FirstOrDefault();
             if (v != null)
