@@ -624,8 +624,6 @@
     <Content Include="Views\MeetingRoom\MeetingRoomBookingSearch.cshtml" />
     <Content Include="Views\pjTest\Index.cshtml" />
     <Content Include="Views\pjTest\show.cshtml" />
-    <Content Include="Views\projectControl\dailyReport.cshtml" />
-    <Content Include="Views\projectControl\showProjectList.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\projectControl\pjView.cshtml" />
     <Content Include="Views\Project\EmpIndex.cshtml" />

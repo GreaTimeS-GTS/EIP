@@ -523,6 +523,7 @@
                                         $('.pj此專案的會議紀錄').html('');
                                         var pjMeetingDate = new Date(parseInt(item.pjMeetingDate.replace(/[^0-9]/ig, "")));
                                         var getReturnDate = `${pjMeetingDate.getFullYear()}/${pjMeetingDate.getMonth() + 1}/${pjMeetingDate.getDate()}`;
+                                        $('.pj會議記錄內容').html('');
                                         $('.pj會議記錄內容').append(`
                                                         <tr>
                                                             <td>${getReturnDate}</td>
@@ -1026,6 +1027,7 @@
                 $.ajax({
                     url: '/projectControl/pjGetAll會議記錄',
                     success: function (data) {
+                        $('.pj此專案的會議紀錄').html('');
                         $('.pj會議記錄總表').html(`
                                     <table class="ui selectable celled table">
                                         <thead>
@@ -2649,7 +2651,7 @@
                                             method: 'post',
                                             data: {
                                                 'pjId': id,
-                                                'pj初審結果': "未審核",
+                                                'pj初審結果': "待審核",
                                                 'pjManager': $(`#pjManager`).val(),
                                                 'pjIntroduction': $(`#pjIntroduction`).val(),
                                                 'pjClient': $(`#pjClient`).val(),
