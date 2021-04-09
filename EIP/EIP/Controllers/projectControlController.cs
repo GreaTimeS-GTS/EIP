@@ -292,6 +292,23 @@ namespace EIP.Controllers
             x.pjFixedDuration = formdata.pjFixedDuration;
             db.SaveChanges();
         }
+        public JsonResult pj所有規劃內容()
+        {
+            var pj所有規劃內容 = db.pjTeam.Select(m => new
+            {
+                pjTeamId = m.pjTeamId,
+                pjId = m.pjId,
+                pjMemberName = m.pjMemberName,
+                pjTarget = m.pjTarget,
+                pjMember部門 = m.pjMember部門,
+                pjTask = m.pjTask,
+                pjFixedDuration = m.pjFixedDuration,
+                pjTaskStartDate = m.pjTaskStartDate,
+                pjTaskEndDate = m.pjTaskEndDate,
+                pjName = m.pjProject.pjName,
+            });
+            return Json(pj所有規劃內容, JsonRequestBehavior.AllowGet);
+        }
         public void pj進度回報單(pjReport data)
         {
             var x = new pjReport
@@ -473,6 +490,23 @@ namespace EIP.Controllers
                                   pjName = m.pjProject.pjName
                               };
             return Json(pj找此專案的會議紀錄, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult pjSearch進度回報紀錄FrormVal(string val)
+        {
+            var pjSearch進度回報紀錄FrormVal = db.pjReport.Where(m => m.pjMemberName.Contains(val) || m.pjReportDate.Contains(val) || m.pjProject.pjName.Contains(val))
+                .Select(n => new
+                {
+                    pjMemberId = n.pjMemberId,
+                    pjDayReportId = n.pjDayReportId,
+                    pjId = n.pjId,
+                    pjIssuelog = n.pjIssuelog,
+                    pjMemberName = n.pjMemberName,
+                    pjReportContent = n.pjReportContent,
+                    pjTask = n.pjTask,
+                    pjReportDate = n.pjReportDate,
+                    pjName = n.pjProject.pjName,
+                });
+            return Json(pjSearch進度回報紀錄FrormVal, JsonRequestBehavior.AllowGet);
         }
     }
 }
