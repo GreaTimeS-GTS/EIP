@@ -210,7 +210,7 @@ namespace EIP.Controllers
                 加班類別 = m.加班別.加班類別,
                 審核狀態 = m.審核狀態
             };
-            return Json(test, JsonRequestBehavior.AllowGet);
+            return Json(test.ToList().Take(10), JsonRequestBehavior.AllowGet);
         }
 
         //=============================刪除=============================//
@@ -398,7 +398,8 @@ namespace EIP.Controllers
                 加班時數 = n.加班時數,
                 加班ID = n.加班ID,
                 事由說明 = n.事由說明,
-                審核狀態 = n.審核狀態
+                審核狀態 = n.審核狀態,
+                加班類別 = n.加班別.加班類別
             }).OrderBy(g => g.EmployeeID).ToList();
             return Json(mlvm.Take(10), JsonRequestBehavior.AllowGet);
         }
