@@ -1083,9 +1083,6 @@ D:\2021-03-25\EIP\EIP\obj\Debug\EIP.csproj.CopyComplete
 D:\2021-03-25\EIP\EIP\obj\Debug\EIP.dll
 D:\2021-03-25\EIP\EIP\obj\Debug\EIP.pdb
 D:\myEIPClone\EIP\EIP\obj\Debug\EIP.csprojAssemblyReference.cache
-D:\GitHubEIP\EIP\EIP\bin\roslyn\System.Memory.dll
-D:\GitHubEIP\EIP\EIP\bin\roslyn\System.Numerics.Vectors.dll
-D:\GitHubEIP\EIP\EIP\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 D:\GitHubEIP\EIP\EIP\bin\roslyn\csc.exe
 D:\GitHubEIP\EIP\EIP\bin\roslyn\csc.exe.config
 D:\GitHubEIP\EIP\EIP\bin\roslyn\csc.rsp

@@ -4,15 +4,16 @@
 }
 
 
-<button class="ui black button mt-2 ml-2 demo4 disapear">
-    <i class="icon sign-in"></i>
-    隱藏Demo鍵
-</button>
-<button class="ui black button mt-2 ml-2 demo5 disapear">
-    <i class="icon sign-in"></i>
-    顯示Demo鍵
-</button>
-
+<div class="d-flex">
+    <button class="ui black button mt-2 ml-2 demo4 disapear w-50">
+        <i class="icon sign-in"></i>
+        隱藏Demo鍵
+    </button>
+    <button class="ui black button mt-2 ml-2 demo5 disapear w-50">
+        <i class="icon sign-in"></i>
+        顯示Demo鍵
+    </button>
+</div>
 <div class="ui mini modal forgetpwmodal centermodal">
     <i class="close icon"></i>
     <div class="header">
@@ -45,15 +46,19 @@
             <img class="w-100 h-100" src="~/images/Logo.png" />
         </div>
         <div class="Block2">
-            <button class="ui black button w-25  mt-2 demo1">
+            <button class="ui black button w-25  mt-2 demo1" hidden>
                 <i class="icon sign-in"></i>
                 主管
             </button>
-            <button class="ui black button w-25 mt-2 demo2">
+            <button class="ui black button w-25 demo6"hidden>
+                <i class="icon sign-in"></i>
+                主管
+            </button>
+            <button class="ui black button w-50 mt-2 demo2"hidden>
                 <i class="icon sign-in"></i>
                 人事
             </button>
-            <button class="ui black button w-25 mt-2 demo3">
+            <button class="ui black button w-25 mt-2 demo3"hidden>
                 <i class="icon sign-in"></i>
                 員工
             </button>
@@ -82,7 +87,7 @@
                         <div class="ui inverted secondary button w-50 ml-5 mb-2" onclick="showforgetpwmodal()">
                             <span class="mr-2">忘記密碼</span><i class="blue icon question"></i>
                         </div>
-                    </div>   
+                    </div>
                     <div class="form-group mt-2">
                         <button class="ui black button w-100 btnSend mt-2">
                             <i class="icon sign-in"></i>
@@ -92,7 +97,7 @@
                     </div>
                 </div>
             </form>
-           
+
         </div>
     </div>
     <div class="bottomblock w-100 border-top"></div>
@@ -105,23 +110,29 @@
             $(".ACCtext").val('boss@gmail.com');
             $(".PWtext").val('123456');
         });
+        $(".demo6").click(function () {
+            $(".ACCtext").val('SanchezTan@yahoo.com.tw');
+            $(".PWtext").val('123456');
+        });
         $(".demo2").click(function () {
-            $(".ACCtext").val('abc@gmail.com');
+            $(".ACCtext").val('tanguwei@gmail.com');
             $(".PWtext").val('123456');
         });
         $(".demo3").click(function () {
-            $(".ACCtext").val('abcd@gmail.com');
+            $(".ACCtext").val('brettHo@gmail.com');
             $(".PWtext").val('123456');
         });
         $(".demo4").click(function () {
-            $(".demo1").attr('hidden', true);
-            $(".demo2").attr('hidden', true);
-            $(".demo3").attr('hidden', true);
-        });
-        $(".demo5").click(function () {
             $(".demo1").attr('hidden', false);
             $(".demo2").attr('hidden', false);
             $(".demo3").attr('hidden', false);
+            $(".demo6").attr('hidden', false);
+        });
+        $(".demo5").click(function () {      
+            $(".demo1").attr('hidden', true);
+            $(".demo2").attr('hidden', true);
+            $(".demo3").attr('hidden', true);
+            $(".demo6").attr('hidden', true);
          });
         $(".btnSend").click(function () {
             event.preventDefault();
