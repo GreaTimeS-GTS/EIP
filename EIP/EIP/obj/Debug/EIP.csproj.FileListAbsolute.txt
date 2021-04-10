@@ -1127,3 +1127,5 @@ D:\GitHubEIP\EIP\EIP\bin\roslyn\vbc.exe
 D:\GitHubEIP\EIP\EIP\bin\roslyn\vbc.exe.config
 D:\GitHubEIP\EIP\EIP\bin\roslyn\vbc.rsp
 D:\GitHubEIP\EIP\EIP\bin\roslyn\VBCSCompiler.exe.config
+D:\2021-03-25\EIP\EIP\bin\roslyn\System.Memory.dll
+D:\2021-03-25\EIP\EIP\bin\roslyn\System.Numerics.Vectors.dll
