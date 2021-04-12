@@ -5,14 +5,15 @@
 
 
 <div class="d-flex">
-    <button class="ui black button mt-2 ml-2 demo4 disapear w-50">
-        <i class="icon sign-in"></i>
-        隱藏Demo鍵
-    </button>
     <button class="ui black button mt-2 ml-2 demo5 disapear w-50">
         <i class="icon sign-in"></i>
         顯示Demo鍵
     </button>
+    <button class="ui black button mt-2 ml-2 demo4 disapear w-50">
+        <i class="icon sign-in"></i>
+        隱藏Demo鍵
+    </button>
+
 </div>
 <div class="ui mini modal forgetpwmodal centermodal">
     <i class="close icon"></i>
@@ -47,23 +48,27 @@
         </div>
         <div class="Block2">
             <div>
-                <button class="ui black button w-25  mt-2 demo1" hidden>
+                <button class="ui black button w-25  mt-2 demo1">
                     <i class="icon sign-in"></i>
                     主管
                 </button>
-                <button class="ui black button w-25 demo6" hidden>
+                <button class="ui black button w-25 demo6">
                     <i class="icon sign-in"></i>
                     主管
                 </button>
             </div>
-          
-            <button class="ui black button w-25 mt-2 demo2"hidden>
+
+            <button class="ui black button w-25 mt-2 demo2">
                 <i class="icon sign-in"></i>
                 人事
             </button>
-            <button class="ui black button w-25 mt-2 demo3"hidden>
+            <button class="ui black button w-25 mt-2 demo3">
                 <i class="icon sign-in"></i>
                 員工
+            </button>
+            <button class="ui black button w-50 mt-2 demonew">
+                <i class="icon sign-in"></i>
+                新員工
             </button>
             <form class="FormLogin px-4 py-4 formbord ui form mt-5">
                 <div>
@@ -118,24 +123,30 @@
             $(".PWtext").val('123456');
         });
         $(".demo2").click(function () {
-            $(".ACCtext").val('tanguwei@gmail.com');
+            $(".ACCtext").val('hu999123000@gmail.com');
             $(".PWtext").val('123456');
         });
         $(".demo3").click(function () {
             $(".ACCtext").val('brettHo@gmail.com');
             $(".PWtext").val('123456');
         });
+        $(".demonew").click(function () {
+            $(".ACCtext").val('chichi77@gmail.com');
+            $(".PWtext").val('Aa0245!');
+        });
         $(".demo4").click(function () {
             $(".demo1").attr('hidden', false);
             $(".demo2").attr('hidden', false);
             $(".demo3").attr('hidden', false);
             $(".demo6").attr('hidden', false);
+            $(".demonew").attr('hidden', false);
         });
         $(".demo5").click(function () {      
             $(".demo1").attr('hidden', true);
             $(".demo2").attr('hidden', true);
             $(".demo3").attr('hidden', true);
             $(".demo6").attr('hidden', true);
+            $(".demonew").attr('hidden', true);
          });
         $(".btnSend").click(function () {
             event.preventDefault();

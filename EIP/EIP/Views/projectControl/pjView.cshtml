@@ -1001,11 +1001,11 @@
                                                         processData: false,
                                                         contentType: false,
                                                         success: function () {
-                                                            window.alert('OK');
                                                         }
                                                     })
                                                 }
                                             })
+                                            window.alert('成功');
                                         }
                                     })
                                 }
@@ -1564,12 +1564,13 @@
                                                         processData: false,
                                                         contentType: false,
                                                         success: function () {
-                                                            window.alert('OK');
                                                             //規劃紀錄
                                                             所有規劃內容();
                                                         }
                                                     })
                                                 }
+
+                                                window.alert('OK');
                                             })
                                         }
                                     })
@@ -2132,7 +2133,7 @@
                                                     $("#pjname1").val("秦敬堯")
                                                     $("#pjname2").val("鄭孝慈")
                                                     $("#pjname3").val("李祥軒")
-                                                    $("#pjname4").val("朱立制")
+                                                    $("#pjname4").val("胡旅星")
 
                                                     $("#pjCr8複審部門1").val("資訊部")
                                                     $("#pjCr8複審部門2").val("資訊部")
@@ -2143,8 +2144,8 @@
 
                                                     $("#pjTarget1").val("前端設計")
                                                     $("#pjTarget2").val("資料庫處理")
-                                                    $("#pjTarget3").val("資料庫處理")
-                                                    $("#pjTarget4").val("美編")
+                                                    $("#pjTarget3").val("美編")
+                                                    $("#pjTarget4").val("後端處理")
 
 
                                                 })
@@ -2573,7 +2574,7 @@
             </div>
            <div class="field">
                                                             <button class="ui inverted primary button  pj複審結果 複審審核" id="" onclick="close詳細2()">確認</button>
-                                                            <button class="ui inverted primary button  pj2ndDemoad" id="" >DEMO</button>
+                                              
                                                         </div>
                                                         <div class="five wide field"></div>
                                                     </div>
@@ -2614,7 +2615,7 @@
                                                                 'pj預估時間': `${data.pj預估時間}`,
                                                                 'pjName': `${data.pjName}`,
                                                                 'pjManagerId': `${data.pjManagerId}`,
-
+                                                                'pj結案': '待審核',
                                                                 'pjMemberCount': `${data.pjMemberCount}`,
                                                                 'pj審核階段': `${data.pj審核階段}`,
 
@@ -2788,7 +2789,7 @@
                                                 'pj預估時間': $(`#pj預估時間`).val(),
                                                 'pjName': `${data.pjName}`,
                                                 'pjManagerId': $(`#pjManagerId`).val(),
-
+                                                'pj結案': '待審核',
                                                 'pjMemberCount': $(`#pjMemberCount`).val(),
                                                 'pj審核階段': "初審",
 
@@ -2820,6 +2821,7 @@
                                                 'pj預估時間': $(`#pj預估時間`).val(),
                                                 'pjName': `${data.pjName}`,
                                                 'pjManagerId': $(`#pjManagerId`).val(),
+                                                'pj結案': '待審核',
 
                                                 'pjMemberCount': $(`#pjMemberCount`).val(),
                                                 'pj審核階段': $(`#pj審核階段`).val(),
@@ -2994,7 +2996,7 @@
                                                                 'pj預估時間': `${data.pj預估時間}`,
                                                                 'pjName': `${data.pjName}`,
                                                                 'pjManagerId': `${data.pjManagerId}`,
-
+                                                                'pj結案': '待審核',
                                                                 'pjMemberCount': `${data.pjMemberCount}`,
                                                                 'pj審核階段': `${data.pj審核階段}`,
 

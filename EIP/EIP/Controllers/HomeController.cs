@@ -318,7 +318,7 @@ namespace EIP.Controllers
                 MySmtp.Port = 25;
                 MySmtp.EnableSsl = true;
                 //您在gmail的帳號密碼
-                MySmtp.Credentials = new System.Net.NetworkCredential("hu999123000@gmail.com", "ruvqfsrxlhebqxrz");
+                MySmtp.Credentials = new System.Net.NetworkCredential("hu999123000@gmail.com", "dokhyabobchypozc");
                 //999123000hu
                 //開啟ssl
                 //MySmtp.EnableSsl = true;
