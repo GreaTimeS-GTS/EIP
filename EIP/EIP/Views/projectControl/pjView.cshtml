@@ -208,6 +208,14 @@
     </div>
 </div>
 
+<div class="ui large modal centermodal" id="pj主管搜尋進度">
+    <i class="close icon"></i>
+    <div class="header">
+    </div>
+    <div class="content" id="pj主管搜尋進度內容">
+    </div>
+</div>
+
 
 
     @section script{
@@ -354,11 +362,9 @@
                         if (returnSearch進度回報紀錄.length == 0) {
                             //alert('查無資料,請重新輸入');
                             swal("提示", "建立專查無資料,請重新輸入案", "error");
-                            pj顯示全部未分類Report();
+                            return;
                         } else {
-                            $('#content專案進度').html('');
-                            $('#content專案進度').html(`
-                                                <div class="mx-2 my-2" onclick="pj顯示全部未分類Report()"><div class="ui red button">返回</div><div>
+                            $('#pj主管搜尋進度內容').html(`
                                                 <table class="ui selectable celled table">
                                                     <thead>
                                                         <tr>
@@ -384,11 +390,12 @@
                                                 `);
                             })
                         }
+                        $('#pj主管搜尋進度').modal('show');
+                        $('#search進度回報紀錄val').val('');
                     }
                 })
             }
             function pj顯示全部未分類Report() {
-
                 $('#pages').pagination({
                     dataSource: function (done) {
                         $.ajax({
