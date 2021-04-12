@@ -24,7 +24,7 @@
         <form class="ui form">
             <div class="field">
                 <label>員工編號：</label>
-                <input type="text" class="EmpID" name="EmpID" placeholder="員工編號..."onkeyup="return ValidateNumber($(this),value)" maxlength="5">
+                <input type="text" class="EmpID" name="EmpID" placeholder="員工編號..." onkeyup="return ValidateNumber($(this),value)" maxlength="5">
                 <div class="valiempid"></div>
             </div>
             <div class="field">
@@ -34,9 +34,11 @@
             <div class="actions">
                 <div class="ui inverted red button cancel">取消</div>
                 <div class="ui inverted primary button reqsendpw" onclick="sendchpwreq()">確認發送</div>
+                <div class="ui inverted green button demoforget">DEMO</div>
                 @*<button class="ui inverted primary loading button reqsendpwloading" hidden>確認發送</button>*@
             </div>
         </form>
+
     </div>
    
 </div>
@@ -114,6 +116,10 @@
 
 @section script{
     <script>
+        $(".demoforget").click(() => {
+            $(".EmpID").val('14');
+            $(".EmpEmail").val('hu999123000@gmail.com');
+        })
         $(".demo1").click(function () {
             $(".ACCtext").val('boss@gmail.com');
             $(".PWtext").val('123456');
@@ -123,7 +129,8 @@
             $(".PWtext").val('123456');
         });
         $(".demo2").click(function () {
-            $(".ACCtext").val('hu999123000@gmail.com');
+        /* $(".ACCtext").val('hu999123000@gmail.com');*/
+            $(".ACCtext").val('PaulHan@rhyta.com');           
             $(".PWtext").val('123456');
         });
         $(".demo3").click(function () {
