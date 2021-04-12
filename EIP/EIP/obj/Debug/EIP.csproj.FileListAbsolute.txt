@@ -1024,7 +1024,6 @@ C:\Users\李明岳\Desktop\2021-03-25\EIP\EIP\bin\roslyn\csc.exe
 C:\Users\李明岳\Desktop\2021-03-25\EIP\EIP\bin\roslyn\csi.exe
 C:\Users\李明岳\Desktop\2021-03-25\EIP\EIP\bin\roslyn\vbc.exe
 C:\Users\李明岳\Desktop\2021-03-25\EIP\EIP\bin\roslyn\VBCSCompiler.exe
-C:\Users\李明岳\Desktop\2021-03-25\EIP\EIP\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 D:\2021-03-25\EIP\EIP\bin\EIP.dll.config
 D:\2021-03-25\EIP\EIP\bin\EIP.dll
 D:\2021-03-25\EIP\EIP\bin\EIP.pdb
@@ -1076,7 +1075,6 @@ D:\2021-03-25\EIP\EIP\bin\roslyn\vbc.exe.config
 D:\2021-03-25\EIP\EIP\bin\roslyn\vbc.rsp
 D:\2021-03-25\EIP\EIP\bin\roslyn\VBCSCompiler.exe
 D:\2021-03-25\EIP\EIP\bin\roslyn\VBCSCompiler.exe.config
-D:\2021-03-25\EIP\EIP\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 D:\2021-03-25\EIP\EIP\obj\Debug\EIP.csprojAssemblyReference.cache
 D:\2021-03-25\EIP\EIP\obj\Debug\EIP.csproj.CoreCompileInputs.cache
 D:\2021-03-25\EIP\EIP\obj\Debug\EIP.csproj.CopyComplete

@@ -253,9 +253,9 @@ namespace EIP.Controllers
         {
             var 員工編號 = Convert.ToInt32(Request.Cookies["AutoLg"]["id"]);
             var 中文姓名 = Server.UrlDecode(Request.Cookies["AutoLg"]["Name"]);
-            var 現在日期 = new DateTime(2021, 3, 27);
-            var 模擬上班打卡時間 = new DateTime(2021, 3, 27, 8, 30, 0);
-            var 模擬下班打卡時間 = new DateTime(2021, 3, 27, 18, 30, 0);
+            var 現在日期 = new DateTime(2021, 4, 14);
+            var 模擬上班打卡時間 = new DateTime(2021, 4, 14, 8, 30, 0);
+            var 模擬下班打卡時間 = new DateTime(2021, 4, 14, 18, 30, 0);
             using (dbEIPEntities db = new dbEIPEntities())
             {
                 打卡系統 v = new 打卡系統();
@@ -264,7 +264,7 @@ namespace EIP.Controllers
                 {
                     v.員工編號 = 員工編號;
                     v.上班打卡時間 = 模擬上班打卡時間;
-                    v.打卡日期 = new DateTime(2021, 3, 27);
+                    v.打卡日期 = new DateTime(2021, 4, 14);
                     v.中文姓名 = 中文姓名;
                     v.ThemeColor = "gray";
                     sr.Create(v);
@@ -272,7 +272,7 @@ namespace EIP.Controllers
                 else
                 {
                     v1.員工編號 = 員工編號;
-                    v1.打卡日期 = new DateTime(2021, 3, 27);
+                    v1.打卡日期 = new DateTime(2021, 4, 14);
                     v1.中文姓名 = 中文姓名;
                     v1.下班打卡時間 = 模擬下班打卡時間;
                     v1.ThemeColor = "green";

@@ -84,6 +84,7 @@
 
     .外框 {
         overflow-x: scroll;
+        margin-top:30px;
     }
 
     .updateContent {
@@ -188,9 +189,8 @@
     }
 
     .時鐘 {
-        padding-top: 30px;
-        padding-left: 180px;
-        font-size: 30px;
+        margin-left:40px;
+        font-size: 25px;
         font-weight: 900;
     }
 
@@ -216,14 +216,17 @@
         <a class="nav-item nav-link text-dark" id="nav-profile-tab" data-toggle="tab" href="#nav-2">行事曆</a>
         <a class="nav-item nav-link text-dark" id="nav-profile1-tab" data-toggle="tab" href="#nav-3">打卡系統</a>
         @*------------------------------搜尋框起始------------------------------*@
-        <div class="ml-5 d-flex justify-content-center align-items-center">
-            <div>
-                <input type="search" name="searchbox" class="searchbox rounded-pill border-info pl-3 搜尋框" placeholder="搜尋發佈人姓名" />
-            </div>
-            <div class="ml-3">
-                <button class="btn btn-primary rounded-pill searchbtn 搜尋按鈕"><i class="fa fa-search mr-2"></i>搜尋</button>
-            </div>
+    <div class="d-flex justify-content-center align-items-center">
+        <div>
+            <input type="search" name="searchbox" class="searchbox rounded-pill border-info pl-3 搜尋框" placeholder="搜尋發佈人姓名" />
         </div>
+        <div class="ml-3">
+            <button class="btn btn-primary rounded-pill searchbtn 搜尋按鈕"><i class="fa fa-search mr-2"></i>搜尋</button>
+        </div>
+        <div class="">
+            <p id='clock' class="時鐘"></p>
+        </div>
+    </div>
         @*------------------------------搜尋框結束------------------------------*@
     </div>
 </nav>
@@ -235,9 +238,6 @@
             <div class="col-12 d-flex justify-content-between">
                 <div class="col-6">
                     <a class="btn btn-primary empedit 新增按鈕" data-id="" data-toggle="modal" data-target="#CreateBulletinBoardList">新增</a>
-                </div>
-                <div class="col-6">
-                    <p id='clock' class="時鐘"></p>
                 </div>
             </div>
             @*------------------------------佈告欄起始------------------------------*@
@@ -462,7 +462,6 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
 
     <script>
-        console.log(document.cookie.split('Auth=')[1].split('&')[0]);
 
         if (decodeURI(document.cookie.split('Auth=')[1].split('&')[0])!='主管') { $(".新增按鈕").attr('hidden',true)}
         // 刷新
@@ -637,17 +636,17 @@
 
         // 佈告欄Demo( 訊息強度高 )
         function BulletinBoardDemoAddOne() {
-            $(".addTitle").val("放假通知"),
-                $(".addContent").val("因氣象預報播報明日天氣達到可放颱風價標準，故明日放假一天。請各位同仁注意自身安全。"),
-                $(".addDate").val("2021-03-30T22:00:00"),
+            $(".addTitle").val("開會通知"),
+                $(".addContent").val("請李啟凡、馬秀倩、鄭孝慈、李柏翰、秦敬堯於2021/04/14早上10點到602會議室開會。"),
+                $(".addDate").val("2021-04-14T10:00:00"),
                 $(".訊息重要度").val("1")
         }
 
         // 佈告欄Demo( 訊息強度低 )
         function BulletinBoardDemoAddTwo() {
             $(".addTitle").val("聚餐通知"),
-                $(".addContent").val("於2021-04-02晚上7點在圓山飯店聚餐，想參加的同僚請於櫃台作登記，謝謝!"),
-                $(".addDate").val("2021-03-30T09:12:00"),
+                $(".addContent").val("於2021-04-16晚上7點在圓山飯店聚餐(老闆請客)，想參加的同僚請於櫃台作登記，謝謝!"),
+                $(".addDate").val("2021-04-14T09:12:00"),
                 $(".訊息重要度").val("2")
         }
 
@@ -1207,10 +1206,10 @@
         //-----------FullcalenderDemo--------------
         function FullcalenderDemoAdd() {
             $('#txtSubject').val("開會");
-            $('#txtStart').val("2021/03/29 09:00 AM");
+            $('#txtStart').val("2021/04/14 09:00 AM");
             $('#chkIsFullDay').val("");
-            $('#txtEnd').val("2021/03/29 11:00 AM");
-            $('#txtDescription').val("開會");
+            $('#txtEnd').val("2021/04/14 11:00 AM");
+            $('#txtDescription').val("於2021/04/14 09:00 AM在603會議室開會。");
             $('#ddThemeColor').val("red");
         };
 
