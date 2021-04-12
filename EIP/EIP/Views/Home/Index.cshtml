@@ -664,6 +664,10 @@
                             url: '/projectControl/getPjProjectDataFromId',
                             data: { 'id': $(event.currentTarget).data('id'), },
                             success: function (data) {
+                                var retuenStartDate = new Date(parseInt(data.pj開始日期.replace(/[^0-9]/ig, "")));
+                                var return開始日期 = `${retuenStartDate.getFullYear()}/${retuenStartDate.getMonth() + 1}/${retuenStartDate.getDate()}`;
+                                var retuenEndDate = new Date(parseInt(data.pj結束日期.replace(/[^0-9]/ig, "")));
+                                var return結束日期 = `${retuenEndDate.getFullYear()}/${retuenEndDate.getMonth() + 1}/${retuenEndDate.getDate()}`;
                                 $('.show專案詳細').html(`
               <i class="close icon"></i>
             <div class="header">
@@ -674,35 +678,35 @@
             <div class="two fields">
                         <div class="field">
                             <label>專案經理</label>
-                            <input  type="text" value="${data.pjName}">
+                            <input  type="text" value="${data.pjManager}">
                         </div>
                         <div class="field">
                             <label>專案簡介</label>
-                            <input  readonly  value="${data.pjName}" type="text">
+                            <input  readonly  value="${data.pjIntroduction}" type="text">
                         </div>
                     </div>
                     <div class="two fields">
                         <div class="field">
                             <label>專案客戶</label>
-                            <input  value="${data.pjName}" readonly type="text">
+                            <input  value="${data.pjClient}" readonly type="text">
                         </div>
                         <div class="field">
                             <label>專案預算</label>
-                            <input  value="${data.pjName}" readonly type="text">
+                            <input  value="${data.pjBudget}" readonly type="text">
                         </div>
                     </div>
                     <div class="three fields">
                         <div class="field">
                             <label>開始日期</label>
-                            <input  value="${data.pjName}" readonly type="text">
+                            <input  value="${return開始日期}" readonly type="text">
                         </div>
                         <div class="field">
                             <label>結束日期</label>
-                            <input  value="${data.pjName}" readonly type="text">
+                            <input  value="${return結束日期}" readonly type="text">
                         </div>
                         <div class="field">
                             <label>預估時間</label>
-                            <input  value="${data.pjName}" readonly type="text">
+                            <input  value="${data.pj預估時間}" readonly type="text">
                         </div>
                     </div>
             <div class="actions d-flex justify-content-center mt-4">
