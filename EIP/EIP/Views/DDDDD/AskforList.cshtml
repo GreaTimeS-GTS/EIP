@@ -893,8 +893,10 @@
                             //window.location.href = "/DDDDD/AskforList";
                             $("[data-tab='first/b']").not(".tab").click();
                             ReFresh();
-                            ReFresh請假總表()
-                        }, 2000);
+                            ReFresh請假總表();
+                            ReFresh請假未審核總表();
+                            ReFresh請假通過總表();
+                        }, 1000);
                         swal("成功", "新增成功", "success");
                         var 權限陣列 = [];
                         if (decodeURI(document.cookie.split('Auth=')[1].split('&')[0]) == "主管" || decodeURI(document.cookie.split('Auth=')[1].split('&')[0]) == "人事" || decodeURI(document.cookie.split('Auth=')[1].split('&')[0]) == "員工") {
@@ -919,13 +921,13 @@
             $("#請假EmployeeID").val(`${document.cookie.split('id=')[1].split('&')[0]}`),
                 $("#請假中文姓名").val(`${decodeURI(document.cookie.split('Name=')[1].split('&')[0])}`),
                 $("#請假jobtitle").val(`${decodeURI(document.cookie.split('Auth=')[1].split('&')[0])}`),
-                $("#請假Email").val("abc@gmail.com"),
+                $("#請假Email").val("brettHo@gmail.com"),
                 $("#請假department").val("資訊部"),
                 $("#請假班別2").val('早班'),
                 $("#請假startday").val("2021-03-23T09:00:00"),
                 $("#請假endday").val("2021-03-23T17:00:00"),
                 $("#請假applicationday").val("2021-03-23T09:00:00"),
-                $("#請假agent").val("Yuan"),
+                $("#請假agent").val("莊若凡"),
                 $("#請假askfortime").val("8"),
                 $("#審核狀態").val("未審核"),
                 $("#請假select1").val(1),
@@ -1033,6 +1035,7 @@
                         $(".searchbox").val('');
                     },
                 });
+                $('#Page請假').attr('hidden', true);
             }
             else {
                 $.ajax({
@@ -1100,6 +1103,7 @@
                     },
                 });
             }
+            $('#Page請假').attr('hidden', true);
         };
 
 
@@ -1497,6 +1501,8 @@
                             swal("成功", "修改成功", "success");
                             ReFresh();
                             ReFresh請假總表();
+                            ReFresh請假未審核總表();
+                            ReFresh請假通過總表();
                             //$('#按鈕消失').attr('hidden', true);
                         }
                     }
@@ -1646,7 +1652,9 @@
                             if (confirm) {
                                 swal('刪除', '刪除成功！...', 'success');
                                 ReFresh();
-                                ReFresh請假總表()
+                                ReFresh請假總表();
+                                ReFresh請假未審核總表();
+                                ReFresh請假通過總表();
                             } else {
                                 swal('刪除', '刪除失敗!...', 'error');
                             }
@@ -1856,6 +1864,7 @@
                     }
 
                 })
+                $('#Page請假').attr('hidden', false);
             }
             else {
                 $('#Page請假').pagination({
@@ -1922,6 +1931,7 @@
                 })
 
             }
+            $('#Page請假').attr('hidden', false);
         }
 
 
@@ -2275,11 +2285,11 @@
             $("#加班EmployeeID").val(`${document.cookie.split('id=')[1].split('&')[0]}`),
                 $("#加班中文姓名").val(`${decodeURI(document.cookie.split('Name=')[1].split('&')[0])}`),
                 $("#加班department").val("資訊部"),
-                $("#加班startday").val("2021-03-23T09:00:00"),
-                $("#加班endday").val("2021-03-23T17:00:00"),
-                $("#加班時數2").val("2"),
-                $("#加班ID2").children(":checked").val("2"),
-                $("#加班事由說明").val("工作太多做不完"),
+                $("#加班startday").val("2021-03-23T18:00:00"),
+                $("#加班endday").val("2021-03-23T21:00:00"),
+                $("#加班時數2").val("3"),
+                $("#加班ID2").children(":checked").val("1"),
+                $("#加班事由說明").val("完成主管交辦事宜"),
                 $("#加班審核狀態").val("未審核"),
                 test給radio值();
         }
@@ -2417,6 +2427,7 @@
                         }
                     },
                 });
+                $('#Page加班').attr('hidden', true);
             }
             else {
                 $.ajax({
@@ -2486,6 +2497,7 @@
                     },
                 });
             }
+            $('#Page加班').attr('hidden', true);
         };
 
 
@@ -2908,8 +2920,10 @@
                         }).then((confirm) => {
                             if (confirm) {
                                 swal('刪除', '刪除成功！...', 'success');
-                                ReFresh加班總表();
                                 ReFresh加班();
+                                ReFresh加班總表();
+                                ReFresh加班未審核總表();
+                                ReFresh加班通過總表();
                             } else {
                                 swal('刪除', '刪除失敗!...', 'error');
                             }
@@ -2944,7 +2958,9 @@
                             swal("成功", "修改成功", "success");
                             $('#加班彈出').modal('toggle');
                             ReFresh加班();
-                            ReFresh加班總表()
+                            ReFresh加班總表();
+                            ReFresh加班未審核總表();
+                            ReFresh加班通過總表();
                         }
                     }
                 })
@@ -3257,7 +3273,7 @@
                     }
 
                 })
-
+                $('#Page加班').attr('hidden', false);
             }
             else {
                 $('#Page加班').pagination({
@@ -3329,6 +3345,7 @@
                 })
 
             }
+            $('#Page加班').attr('hidden', false);
         }
 
 
@@ -3685,9 +3702,11 @@
                         setTimeout(function () {
                             //window.location.href = "/DDDDD/BusinessTripList";
                             $("[data-tab='third/b']").not(".tab").click();
-                        }, 2000);
+                        }, 1000);
                         ReFresh出差();
                         ReFresh出差總表();
+                        ReFresh出差未審核總表();
+                        ReFresh出差通過總表();
                         swal("成功", "新增成功", "success");
                         出差清空();
                         var 權限陣列 = [];
@@ -3712,11 +3731,11 @@
             $("#出差出差類型").dropdown('set selected', '國內');
             $("#出差出差地點").val("Taipei");
             $("#出差開始日期").val("2021-03-23T09:00:00");
-            $("#出差結束日期").val("2021-03-23T17:00:00");
+            $("#出差結束日期").val("2021-03-25T17:00:00");
             $("#出差交通需求").dropdown('set selected', '高鐵票');
             $("#出差預支費用").val("5000");
             $("#出差住宿需求").dropdown('set selected', '國內住宿');
-            $("#出差備註").val("出差好辛苦");
+            $("#出差備註").val("協助三代系統上線");
             $("#出差審核狀態").val("未審核")
         };
 
@@ -3823,6 +3842,7 @@
 
                     }
                 })
+                $('#Page出差').attr('hidden', true);
             }
             else {
                 $.ajax({
@@ -3893,6 +3913,7 @@
                     }
                 })
             }
+            $('#Page出差').attr('hidden', true);
         }
 
 
@@ -4310,6 +4331,8 @@
                             swal('刪除', '刪除成功！...', 'success');
                             ReFresh出差();
                             ReFresh出差總表();
+                            ReFresh出差未審核總表();
+                            ReFresh出差通過總表();
                         } else {
                             swal('刪除', '刪除失敗!...', 'error');
                         }
@@ -4347,6 +4370,8 @@
                         $('#出差彈出').modal('toggle');
                         ReFresh出差();
                         ReFresh出差總表();
+                        ReFresh出差未審核總表();
+                        ReFresh出差通過總表();
                     }
 
                 }
@@ -4450,6 +4475,7 @@
         }
 
         //======================================= 刷新 =======================================
+        ReFresh出差();
         ReFresh出差總表();
         ReFresh出差未審核總表();
         ReFresh出差通過總表();
@@ -4645,6 +4671,7 @@
                     }
 
                 })
+                $('#Page出差').attr('hidden', false);
             }
             else {
                 $('#Page出差').pagination({
@@ -4710,6 +4737,7 @@
                 })
 
             }
+            $('#Page出差').attr('hidden', false);
         }
 
 

@@ -29,37 +29,6 @@ namespace EIP.Controllers
         }
 
 
-        //找所有專案資料from總表
-        public JsonResult getMainData()
-        {
-            var pjMainData = db.pj總表.Select(m => new
-            {
-                pjId = m.pjId,
-                pjName = m.pjName,
-                pjManager = m.pjManager,
-                pj簡介 = m.pj建立.pj簡介,
-                pj成員數 = m.pj建立.pj成員數,
-            });
-            return Json(pjMainData, JsonRequestBehavior.AllowGet);
-        }
-   
-
-
-        //總表 有View
-    public ActionResult showProjectList()
-        {
-            return View();
-        }
-
-
-
-        //成員回報日誌 有View
-        public ActionResult dailyReport()
-        {
-            return View();
-        }
-
-
 
       
         //----------------------YOOOOOOO--------
@@ -105,23 +74,58 @@ namespace EIP.Controllers
         }
         public JsonResult getPjProjectData()
         {
-            var data = db.pjProject.Select(m => new
-            {
-                pjManager = m.pjManager,
-                pjId = m.pjId,
-                pjName = m.pjName,
-                pj審核階段 = m.pj審核階段,
-                pj初審結果 = m.pj初審結果,
-                pjMemberCount = m.pjMemberCount,
-                pjIntroduction = m.pjIntroduction,
-                pj結案 = m.pj結案
-            });
+            var data = from m in db.pjProject
+                       orderby m.pjId descending
+                       select new
+
+                       {
+                           pjManager = m.pjManager,
+                           pjId = m.pjId,
+                           pjName = m.pjName,
+                           pj審核階段 = m.pj審核階段,
+                           pj初審結果 = m.pj初審結果,
+                           pj複審結果 = m.pj複審結果,
+                           pjMemberCount = m.pjMemberCount,
+                           pjIntroduction = m.pjIntroduction,
+                           pj結案 = m.pj結案
+                       };
             return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
+    
+    public JsonResult getPjProjectData最新三筆()
+        {
+            var data = from m in db.pjProject
+                       orderby m.pjId descending
+                       select new
+                       {
+                           pjManager = m.pjManager,
+                           pjId = m.pjId,
+                           pjName = m.pjName,
+                           pj審核階段 = m.pj審核階段,
+                           pj初審結果 = m.pj初審結果,
+                           pjMemberCount = m.pjMemberCount,
+                           pjIntroduction = m.pjIntroduction,
+                           pj結案 = m.pj結案
+                       };
+            //var data = db.pjProject.Select(m => new
+            //{
+            //    pjManager = m.pjManager,
+            //    pjId = m.pjId,
+            //    pjName = m.pjName,
+            //    pj審核階段 = m.pj審核階段,
+            //    pj初審結果 = m.pj初審結果,
+            //    pjMemberCount = m.pjMemberCount,
+            //    pjIntroduction = m.pjIntroduction,
+            //    pj結案 = m.pj結案
+            //});
+            return Json(data.Take(3), JsonRequestBehavior.AllowGet);
         }
         public JsonResult getPjTeamDataFromId(int id)
         {
             var teamData = from cc in db.pjTeam
                     where cc.pjId == id
+                    orderby cc.pjId descending
                     select cc;
             //var team = t.Where(s => s.pjId == d.pjId);
             return Json(teamData, JsonRequestBehavior.AllowGet);
@@ -131,6 +135,8 @@ namespace EIP.Controllers
             var teamData = from cc in db.pjTeam
                            where cc.pjMemberName == name && cc.pjId == id
                            || cc.pjProject.pjManager == name && cc.pjId == id
+
+                           orderby cc.pjId descending
                            select new
                            {
                                pjTeamId = cc.pjTeamId,
@@ -185,6 +191,7 @@ namespace EIP.Controllers
         {
             var pj專案列表Data = from x in db.pjProject
                              where x.pj初審結果 == "通過" && x.pj複審結果 == "通過"
+                             orderby x.pjId descending
                              //select new {
                              //    pjId = x.pjId,
                              //    pjName = x.pjName,
@@ -264,6 +271,7 @@ namespace EIP.Controllers
         {
             var reportData = from m in db.pjReport
                              where m.pjId == id
+                             orderby m.pjDayReportId descending
                              select new
             {
                 pjId = m.pjId,
@@ -297,6 +305,7 @@ namespace EIP.Controllers
         {
             var data = from m in db.pjProject
                     where m.pj初審結果=="通過"&& m.pj複審結果 == "通過" && m.pjName.Contains(searchVal) || m.pj初審結果 == "通過" && m.pj複審結果 == "通過" && m.pjManager.Contains(searchVal) || m.pj初審結果 == "通過" && m.pj複審結果 == "通過" && m.pjIntroduction.Contains(searchVal)
+                    orderby m.pjId
                        select m;
             return Json(data, JsonRequestBehavior.AllowGet);
         }
@@ -361,6 +370,7 @@ namespace EIP.Controllers
         {
             var data = from d in db.pjMeeting
                        where d.pjId == id
+                       orderby d.pjId descending
                        select new
                        {
                            pjId = d.pjId,
@@ -377,6 +387,7 @@ namespace EIP.Controllers
         {
             var pj搜尋單筆會議 = from x in db.pjMeeting
                            where x.pjId == id
+                           orderby x.pjId descending
                            select new
                            {
                                pjId = x.pjId,
@@ -483,20 +494,19 @@ namespace EIP.Controllers
 
 
         //---------- T E S T -----------------
-       
 
 
-        //總表
-     
 
         //總表
 
-        //複審審核
+
+        //總表
+
         public JsonResult getPjProjectDatat2()
         {
             var pjm = from m in db.pjProject
                       where m.pj複審結果 == "不通過" || m.pj複審結果 == "待審核" && m.pj審核階段 == "複審"
-
+                      orderby m.pjId descending
                       select new
                       {
                           pjId = m.pjId,
@@ -517,6 +527,7 @@ namespace EIP.Controllers
         {
             var pjm = from m in db.pjProject
                       where m.pj初審結果 == "不通過" || m.pj初審結果 == "待審核" && m.pj審核階段 == "初審"
+                      orderby m.pjId descending
                       select new
                       {
                           pjId = m.pjId,
@@ -535,6 +546,7 @@ namespace EIP.Controllers
         {
             var pjm = from m in db.pjProject
                       where m.pj初審結果 == "通過" && m.pj審核階段 == "初審"
+                      orderby m.pjId descending
                       select new
                       {
                           pjId = m.pjId,
@@ -551,7 +563,7 @@ namespace EIP.Controllers
 
 
 
-  
+
 
         public void getPjProjectDataFromIdto2(int id)
         {
@@ -587,6 +599,84 @@ namespace EIP.Controllers
             db.pjAdvice.Add(a);
             db.SaveChanges();
         }
+
+
+        public JsonResult getPjProjectDataFromId初審意見(int id)
+        {
+            var d = db.pjProject.FirstOrDefault(m => m.pjId == id);
+            var k = db.pjAdvice.FirstOrDefault(n => n.pjId == id);
+            var getPjProjectDataFromId = new
+            {
+                pjId = d.pjId,
+                pjName = d.pjName,
+                pjManager = d.pjManager,
+                pjBudget = d.pjBudget,
+                pjIntroduction = d.pjIntroduction,
+                pjMemberCount = d.pjMemberCount,
+                pjClient = d.pjClient,
+                pj初審結果 = d.pj初審結果,
+                pj複審結果 = d.pj複審結果,
+                pj開始日期 = d.pj開始日期,
+                pj結束日期 = d.pj結束日期,
+                pjManagerId = d.pjManagerId,
+                pj預估時間 = d.pj預估時間,
+                pj審核階段 = d.pj審核階段,
+                pj意見內容 = k.pj意見內容,
+            };
+            return Json(getPjProjectDataFromId, JsonRequestBehavior.AllowGet);
+        }
+
+
+        public JsonResult getPjProjectDataFromId複審意見(int id)
+        {
+            var d = db.pjProject.FirstOrDefault(m => m.pjId == id);
+            var k = db.pjAdvice.FirstOrDefault(n => n.pj審核階段 == "複審" && n.pjId == id);
+            var getPjProjectDataFromId = new
+            {
+                pjId = d.pjId,
+                pjName = d.pjName,
+                pjManager = d.pjManager,
+                pjBudget = d.pjBudget,
+                pjIntroduction = d.pjIntroduction,
+                pjMemberCount = d.pjMemberCount,
+                pjClient = d.pjClient,
+                pj初審結果 = d.pj初審結果,
+                pj複審結果 = d.pj複審結果,
+                pj開始日期 = d.pj開始日期,
+                pj結束日期 = d.pj結束日期,
+                pjManagerId = d.pjManagerId,
+                pj預估時間 = d.pj預估時間,
+                pj審核階段 = d.pj審核階段,
+                pj意見內容 = k.pj意見內容,
+            };
+            return Json(getPjProjectDataFromId, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult getPjProjectDataFromId列表詳細(int id)
+        {
+            var d = db.pjProject.FirstOrDefault(m => m.pjId == id);
+
+            var getPjProjectDataFromId = new
+            {
+                pjId = d.pjId,
+                pjName = d.pjName,
+                pjManager = d.pjManager,
+                pjBudget = d.pjBudget,
+                pjIntroduction = d.pjIntroduction,
+                pjMemberCount = d.pjMemberCount,
+                pjClient = d.pjClient,
+                pj初審結果 = d.pj初審結果,
+                pj複審結果 = d.pj複審結果,
+                pj開始日期 = d.pj開始日期,
+                pj結束日期 = d.pj結束日期,
+                pjManagerId = d.pjManagerId,
+                pj預估時間 = d.pj預估時間,
+                pj審核階段 = d.pj審核階段,
+
+            };
+            return Json(getPjProjectDataFromId, JsonRequestBehavior.AllowGet);
+        }
+
 
     }
 }

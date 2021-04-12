@@ -109,7 +109,7 @@
 <div class="下方快捷選項 d-flex justify-content-between">
 
     @*-----------第一個快捷選項-----------*@
-    <div class="mt-5 w-100">
+    <div class="mt-5 mr-3 w-75">
         <div class="d-flex bottomdiv">
             <div class="外框">
                 <table class="table-hover w-100 table table-striped text-nowrap 佈告欄列表">
@@ -129,19 +129,19 @@
         <div class="d-flex bottomdiv">
             <div class="外框">
                 <table class="table-hover w-100 table table-striped text-nowrap 佈告欄列表">
-                    <thead class="THeadAdd 文字">
+                    <thead class="專案標題 文字">
                     </thead>
-                    <tbody class="TBodyAdd 文字">
+                    <tbody class="專案內容 文字">
                     </tbody>
                 </table>
                 <div class="更多公告">
-                    <a type="button" class="ui inverted secondary massive button text-nowrap w-100" href="@Url.Action("BulletinBoard","BulletinBoard")">更多公告</a>
+                    <a type="button" class="ui inverted secondary massive button text-nowrap w-100" href="@Url.Action("pjView","projectControl")">專案詳細</a>
                 </div>
             </div>
         </div>
     </div>
     @*-----------第三個快捷選項-----------*@
-    <div class="mt-5 w-100">
+    @*<div class="mt-5 w-100">
         <div class="d-flex bottomdiv">
             <div class="外框">
                 <table class="table-hover w-100 table table-striped text-nowrap 佈告欄列表">
@@ -155,9 +155,9 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>*@
     @*-----------第四個快捷選項-----------*@
-    <div class="mt-5 w-100">
+    <div class="mt-5 w-50">
         <div class="d-flex bottomdiv">
             <div class="ui card shadow ">
                 <div class="content">
@@ -179,6 +179,7 @@
                     <div class="ui  basic button 按鈕寬度 m-0 text-center px-0 font-weight-bold" onclick="modelshow()">請假申請</div>
                     <div class="ui  basic button 按鈕寬度 m-0 text-center px-0 font-weight-bold" onclick="加班法規彈出()">加班申請</div>
                     <div class="ui  basic button 按鈕寬度 m-0 text-center px-0 font-weight-bold" onclick="modelshow出差()">出差申請</div>
+                    @*<div class="ui  basic button 按鈕寬度 m-0 text-center px-0 font-weight-bold" onclick="Resourse()">資源預約</div>*@
                 </div>
             </div>
 
@@ -301,7 +302,7 @@
                     <input type="file" name="圖片" id="upload" multiple />
                     <input type="reset" class="resetform" hidden />
                 </div>
-                <div>
+                <div hidden>
                     <label>審核狀態</label><br />
                     <select class="w-100" name="審核狀態" id="approvalStatus" readonly>
                         <option value="未審核">未審核</option>
@@ -375,7 +376,7 @@
                     <label>事由說明:</label><br />
                     <textarea id="加班總表事由說明" style="resize:none" class="w-100"></textarea>
                 </div>
-                <div>
+                <div hidden>
                     <label>審核狀態</label><br />
                     <select id="加班approvalStatus" readonly>
                         <option value="未審核">未審核</option>
@@ -464,7 +465,7 @@
                     <label>備註:</label><br />
                     <textarea id="出差總表備註" class="w-100"></textarea>
                 </div>
-                <div>
+                <div hidden>
                     <label>審核狀態</label><br />
                     <select id="出差approvalStatus" class="w-100">
                         <option value="未審核">未審核</option>
@@ -627,532 +628,620 @@
         <div class="ui cancel button" onclick="modelshow加班()">我同意</div>
     </div>
 </div>
+<div class="ui small modal centermodal" id="pjShow彈出詳細">
+    <div class="show專案詳細 mx-4 my-4"></div>
+</div>
+    @section script{
+        <script>
+            let start;
+            let end;
 
-@section script{
-    <script>
-        let start;
-        let end;
 
-        $("#endday, #startday").blur(function () {
-            if ($("#startday").val() != '' && $("#endday").val() != '') {
-                start = new Date($("#startday").val());
-                end = new Date($("#endday").val());
-                var offset = new Date($("#endday").val()).getTime() - new Date($("#startday").val()).getTime();
-                var swag = Math.floor(Math.abs(offset / 1000 / 60 / 60 / 24 - 1));
-                console.log(swag);
-                let x = Math.floor(swag);
-                let 開始小時數 = 17 - start.getHours();
-                let 結束小時數 = end.getHours() - 9;
-                if (x + 1 < 0) {
-                    window.alert("請輸入正確日期");
-                }
-                else if (start.getDate() === end.getDate()) {
-                    $("#askfortime").val(`${end.getHours() - start.getHours()} `)
-                }
-                else {
-                    $("#askfortime").val(`${開始小時數 + swag * 9 + 結束小時數} `)
-                }
-            }
-        });
-        //請假modal
-        function modelshow() {
-            $('.tiny#請假彈出').modal('toggle');
-        }
-
-        $("#EmployeeID").val(`${document.cookie.split('id=')[1].split('&')[0]}`);
-        $("#中文姓名").val(`${decodeURI(document.cookie.split('Name=')[1].split('&')[0])}`);
-        $("#jobtitle").val(`${decodeURI(document.cookie.split('Auth=')[1].split('&')[0])}`);
-
-        function AddEmp() {
-            var formData = new FormData(document.form1);
-            formData.append('upPhoto', $("#upload").get(0).files[0]);
+            $('.專案標題').html(`
+            <tr>
+            <th>專案名稱</th>
+            <th>專案概要</th>
+            <th>專案詳細</th>
+            </tr>
+            `)
             $.ajax({
-                url: "/DDDDD/AskForAjax1",
-                type: "POST",
-                contentType: false,
-                processData: false,
-                data: formData,
-                success: function (result) {
-                    if (result == "ok") {
-                        //setTimeout(function () {
-                        //window.location.href = "/DDDDD/AskforList";
-                        //    $("[data-tab='first/b']").not(".tab").click();
-                        //}, 1000);
-                        swal("成功", "新增成功", "success");
-                        var 權限陣列 = [];
-                        if (decodeURI(document.cookie.split('Auth=')[1].split('&')[0]) == "主管" || decodeURI(document.cookie.split('Auth=')[1].split('&')[0]) == "人事" || decodeURI(document.cookie.split('Auth=')[1].split('&')[0]) == "員工") {
-                            權限陣列.push('總經理');
-                            權限陣列.push('主管');
-                        }
-                        $.connection.hub.start()
-                            .done(function () {
-                                bell.server.sendGroup(`${1}`, `${decodeURI(document.cookie.split('Auth=')[1].split('&')[0])}`, `有新的請假申請,請前往審核！`, 權限陣列);   //傳值到hub
-                            });
-                        $(".resetform").click();
-                        $("#EmployeeID").val(`${document.cookie.split('id=')[1].split('&')[0]}`);
-                        $("#中文姓名").val(`${decodeURI(document.cookie.split('Name=')[1].split('&')[0])}`);
-                        $("#jobtitle").val(`${decodeURI(document.cookie.split('Auth=')[1].split('&')[0])}`);
-                    }
-                }
-            })
-        }
-
-        function Demo() {
-            $("#EmployeeID").val(`${document.cookie.split('id=')[1].split('&')[0]}`),
-                $("#中文姓名").val(`${decodeURI(document.cookie.split('Name=')[1].split('&')[0])}`),
-                $("#jobtitle").val(`${decodeURI(document.cookie.split('Auth=')[1].split('&')[0])}`),
-                $("#Email").val("abc@gmail.com"),
-                $("#department").val("資訊部"),
-                $("#請假班別2").val('早班'),
-                $("#startday").val("2021-03-23T09:00:00"),
-                $("#endday").val("2021-03-23T17:00:00"),
-                $("#applicationday").val("2021-03-23T09:00:00"),
-                $("#agent").val("Yuan"),
-                $("#askfortime").val("8"),
-                $("#審核狀態").val("未審核"),
-                $("#select1").val(1),
-                $("#已用可用").val("10")
-        };
-        //加班modal
-        function modelshow加班() {
-            $('.tiny#加班彈出').modal('toggle');
-        }
-
-        function 加班法規彈出() {
-            $('#加班法規彈出modal').modal('toggle');
-        }
-        $("#加班總表EmployeeID").val(`${document.cookie.split('id=')[1].split('&')[0]}`);
-        $("#加班總表中文姓名").val(`${decodeURI(document.cookie.split('Name=')[1].split('&')[0])}`);
-        function AddOverTime() {
-            console.log(123);
-            console.log($("#加班ID2").children(":checked").val());
-            $.ajax({
-                url: "/DDDDD/OverTimeAjax",
-                type: "POST",
-                data: {
-                    "EmployeeID": $("#加班總表EmployeeID").val(),
-                    "中文姓名": $("#加班總表中文姓名").val(),
-                    "部門": $("#加班總表department").val(),
-                    "開始日期": $("#加班總表startday").val(),
-                    "結束日期": $("#加班總表endday").val(),
-                    "請假時數": $("#加班總表askfortime").val(),
-                    "加班時數": $("#加班總表加班時數").val(),
-                    "加班ID": $("#加班總表加班ID").children(":checked").val(),
-                    "事由說明": $("#加班總表事由說明").val(),
-                    "審核狀態": $("#加班approvalStatus").val(),
-                },
-                success: function (result) {
-                    var 權限陣列 = [];
-                    if (decodeURI(document.cookie.split('Auth=')[1].split('&')[0]) == "主管" || decodeURI(document.cookie.split('Auth=')[1].split('&')[0]) == "人事" || decodeURI(document.cookie.split('Auth=')[1].split('&')[0]) == "員工") {
-                        權限陣列.push('總經理');
-                        權限陣列.push('主管');
-                    }
-                    $.connection.hub.start()
-                        .done(function () {
-                            bell.server.sendGroup(`${1}`, `${decodeURI(document.cookie.split('Auth=')[1].split('&')[0])}`, `有新的加班申請,請前往審核！`, 權限陣列);   //傳值到hub
-                        });
-                    if (result != null) {
-                        //setTimeout(function () {
-                        //    //window.location.href = "/DDDDD/OverTimeList";
-                        //    $("[data-tab='second/b']").not(".tab").click();
-                        //}, 1000);
-                        swal("成功", "新增成功", "success");
-                        加班清空();
-                        test清空radio();
-                    }
-                }
-            })
-        }
-
-        function 加班Demo() {
-            $("#加班總表EmployeeID").val(`${document.cookie.split('id=')[1].split('&')[0]}`),
-                $("#加班總表中文姓名").val(`${decodeURI(document.cookie.split('Name=')[1].split('&')[0])}`),
-                $("#加班總表department").val("資訊部"),
-                $("#加班總表startday").val("2021-03-23T09:00:00"),
-                $("#加班總表endday").val("2021-03-23T17:00:00"),
-                $("#加班總表加班時數").val("2"),
-                $("#加班總表加班ID").children(":checked").val("2"),
-                $("#加班總表事由說明").val("工作太多做不完"),
-                $("#加班approvalStatus").val("未審核"),
-                test給radio值();
-        }
-
-
-
-        function 加班清空() {
-            $("#加班總表department").val(""),
-                $("#加班總表startday").val(""),
-                $("#加班總表endday").val(""),
-                $("#加班總表加班時數").val(""),
-                $("#加班總表事由說明").val(""),
-                $("#加班總表審核狀態").val("")
-        }
-
-
-        function test給radio值() {
-            var optobj = document.getElementsByName("加班類別");
-            for (i = 0; i < optobj.length; i++) {
-                optobj.item(1).checked = true;
-            }
-        }
-
-
-
-
-
-        function test清空radio() {
-            var optobj = document.getElementsByName("加班類別");
-            for (i = 0; i < optobj.length; i++) {
-                optobj.item(i).checked = false;
-            }
-        }
-
-        //出差modal
-        function modelshow出差() {
-            $('.tiny#出差彈出').modal('toggle');
-        }
-        $("#出差總表EmployeeID").val(`${document.cookie.split('id=')[1].split('&')[0]}`);
-        $("#出差總表中文姓名").val(`${decodeURI(document.cookie.split('Name=')[1].split('&')[0])}`);
-
-        function AddBusinessTripAjax() {
-            $.ajax({
-                url: "/DDDDD/BusinessTripAjax",
-                type: "POST",
-                data: {
-                    "EmployeeID": $("#出差總表EmployeeID").val(),
-                    "中文姓名": $("#出差總表中文姓名").val(),
-                    "部門": $("#出差總表部門").val(),
-                    "出差類型": $("#出差總表出差類型").val(),
-                    "出差地點": $("#出差總表出差地點").val(),
-                    "開始日期": $("#出差總表開始日期").val(),
-                    "結束日期": $("#出差總表結束日期").val(),
-                    "交通需求": $("#出差總表交通需求").val(),
-                    "住宿需求": $("#出差總表住宿需求").val(),
-                    "預支費用": $("#出差總表預支費用").val(),
-                    "備註": $("#出差總表備註").val(),
-                    "審核狀態": $("#出差approvalStatus").val(),
-                },
-                success: function (result) {
-                    if (result != null) {
-                        //setTimeout(function () {
-                        //    //window.location.href = "/DDDDD/BusinessTripList";
-                        //    $("[data-tab='third/b']").not(".tab").click();
-                        //}, 1000);
-                        swal("成功", "新增成功", "success");
-                        出差清空();
-                        var 權限陣列 = [];
-                        if (decodeURI(document.cookie.split('Auth=')[1].split('&')[0]) == "主管" || decodeURI(document.cookie.split('Auth=')[1].split('&')[0]) == "人事" || decodeURI(document.cookie.split('Auth=')[1].split('&')[0]) == "員工") {
-                            權限陣列.push('總經理');
-                            權限陣列.push('主管');
-                        }
-                        $.connection.hub.start()
-                            .done(function () {
-                                bell.server.sendGroup(`${1}`, `${decodeURI(document.cookie.split('Auth=')[1].split('&')[0])}`, `有新的出差申請,請前往審核！`, 權限陣列);   //傳值到hub
-                            });
-                    }
-                }
-            })
-        }
-
-        function 出差Demo() {
-            $("#出差總表EmployeeID").val(`${document.cookie.split('id=')[1].split('&')[0]}`);
-            $("#出差總表中文姓名").val(`${decodeURI(document.cookie.split('Name=')[1].split('&')[0])}`);
-            $("#出差總表部門").val("資訊部");
-            $("#出差總表出差類型").dropdown('set selected', '國內');
-            $("#出差總表出差地點").val("Taipei");
-            $("#出差總表開始日期").val("2021-03-23T09:00:00");
-            $("#出差總表結束日期").val("2021-03-23T17:00:00");
-            $("#出差總表交通需求").dropdown('set selected', '高鐵票');
-            $("#出差總表預支費用").val("5000");
-            $("#出差總表住宿需求").dropdown('set selected', '國內住宿');
-            $("#出差總表備註").val("出差好辛苦");
-            $("#出差總表審核狀態").val("未審核")
-        };
-
-
-
-        function 出差清空() {
-            $("#出差總表部門").val("");
-            $("#出差總表出差類型").dropdown('set selected', '請選擇');
-            $("#出差總表出差地點").val("");
-            $("#出差總表開始日期").val("");
-            $("#出差總表結束日期").val("");
-            $("#出差總表交通需求").dropdown('set selected', '請選擇');
-            $("#出差總表預支費用").val("");
-            $("#出差總表住宿需求").dropdown('set selected', '請選擇');
-            $("#出差總表備註").val("");
-            $("#出差審核狀態").val("")
-        }
-
-        //------出差modal結尾
-        $(".個人姓名卡片").html(`個人姓名：${decodeURI(document.cookie.split('Name=')[1].split('&')[0])}`);
-        $(".受雇日期卡片").html(`受雇日期：${document.cookie.split('Hire=')[1].split('&')[0]}`)
-        $(".NameClick").click(function () {
-            $.ajax({
-                url: "/Home/MyProfile",
-                method: "Get",
+                url: '/projectControl/getPjProjectData最新三筆',
                 success: function (data) {
-                    $(".addprofile").html(`
-                                                                                                                                                  <div>
-                                                                                        <input type="hidden" name="EmployeePW" value="${data.EmployeePW}" />
-                                                                                        <input type="hidden" name="信箱" value="${data.信箱}" />
-                                                                                    </div>
-
-                                                                                        <div class="field">
-                                                                                        <label class="formlbl">員工編號：</label>
-                                                                                        <input name="EmployeeID" type="text" class="w-100" value="${data.EmployeeID}" disabled />
-                                                                                        </div>
-
-                                                                                    <div class="field">
-                                                                                        <div class="two fields">
-                                                                                            <div class="eight wide field">
-                                                                                                <label class="formlbl">中文姓名：</label>
-                                                                                                <input name="中文姓名" type="text" class="w-100" value="${data.中文姓名}" disabled />
-                                                                                            </div>
-                                                                                            <div class="eight wide field">
-                                                                                                <label class="formlbl">英文姓名：</label>
-                                                                                                <input name="英文姓名" type="text" class="w-100" value="${data.英文姓名}" disabled />
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="field">
-                                                                                        <div class="two fields">
-                                                                                            <div class="five wide field">
-                                                                                                <label class="formlbl">性別：</label>
-                                                                                                <input type="text" name="性別" value="${data.性別}" hidden />
-                                                                                                <select disabled class="ml-2 mt-2">
-                                                                                                    <option value="性別" selected>${data.性別}</option>
-                                                                                                </select>
-                                                                                            </div>
-                                                                                            <div class="thirteen wide field">
-                                                                                                <label class="formlbl">出生年月日：</label>
-                                                                                                <input type="text" name="出生年月日" class="w-100" value="${data.出生年月日}" hidden />
-                                                                                                <input type="text" class="w-100" value="${data.出生年月日}" disabled />
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="field">
-                                                                                        <label class="formlbl">居住地:</label>
-                                                                                        <input name="居住地" value="${data.居住地}" disabled />
-                                                                                    </div>
-
-                                                                                    <div class="field">
-                                                                                        <div class="two fields">
-                                                                                            <div class="twelve wide field">
-                                                                                                <label class="formlbl">電話：</label>
-                                                                                                <input type="text" name="電話" class="w-100" value="${data.電話}" disabled />
-                                                                                            </div>
-                                                                                            <div class="six wide field">
-                                                                                                <label class="formlbl">婚姻狀況：</label>
-                                                                                                <select name="婚姻狀況" disabled>
-                                                                                                    <option hidden>${data.婚姻狀況}</option>
-                                                                                                    <option value="已婚">已婚</option>
-                                                                                                    <option value="未婚">未婚</option>
-                                                                                                </select>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="field">
-                                                                                        <div class="two fields">
-                                                                                            <div class="nine wide field">
-                                                                                                <label class="formlbl">部門：</label>
-                                                                                                <select name="部門" disabled>
-                                                                                                    <option hidden>${data.部門}</option>
-                                                                                                    <option value="財部部">財部部</option>
-                                                                                                    <option value="總務部">總務部</option>
-                                                                                                    <option value="人事部">人事部</option>
-                                                                                                    <option value="業務部">業務部</option>
-                                                                                                </select>
-                                                                                            </div>
-                                                                                            <div class="nine wide field">
-                                                                                                <label class="formlbl">職稱：</label>
-                                                                                                <select name="職稱" disabled>
-                                                                                                    <option hidden>${data.職稱}</option>
-                                                                                                    <option value="主管">主管</option>
-                                                                                                    <option value="員工">員工</option>
-                                                                                                    <option value="人事">人事</option>
-                                                                                                </select>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="field">
-                                                                                        <div class="two fields">
-                                                                                            <div class="nine wide field">
-                                                                                                <label class="formlbl">受雇日期：</label>
-                                                                                                <input type="text" name="受雇日期" class="w-100" value="${data.受雇日期}" hidden />
-                                                                                                <input type="text" class="w-100" value="${data.受雇日期}" disabled />
-                                                                                            </div>
-                                                                                            <div class="nine wide field">
-                                                                                                <label class="formlbl">在職狀態：</label>
-                                                                                                <select name="狀態" disabled>
-                                                                                                    <option hidden>${data.狀態}</option>
-                                                                                                    <option value="在職">在職</option>
-                                                                                                    <option value="離職">離職</option>
-                                                                                                    <option value="未到職">未到職</option>
-                                                                                                    <option value="留職停薪">留職停薪</option>
-                                                                                                </select>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="field">
-                                                                                        <div class="two fields">
-                                                                                            <div class="field">
-                                                                                                <label class="formlbl">薪資：</label>
-                                                                                                <input name="薪資" class="Regular shadow" value="${data.薪資}" disabled />
-                                                                                            </div>
-                                                                                            <div class="field">
-                                                                                                <label class="formlbl">特休：</label>
-                                                                                                <input name="特休" class="Regular shadow" value="${data.特休}" disabled />
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>`);
-                }
-            });
-
-
-        });
-
-
-
-
-
-        $.ajax({
-            url: "/BulletinBoard/MessegeHighBulletinBoardList",
-            method: "get",
-            success: function (data) {
-                $(".THeadAdd").html(`
-                                                                                                                                                                        <tr>
-                                                                                                                                                                        <th>標題</th>
-                                                                                                                                                                        <th>發佈日期</th>
-                                                                                                                                                                        <th>詳細</th>
-                                                                                                                                                                        </tr>
-                                                                                                                                                                        `)
-                var a = "";  // 使用一個空字串
-                $(data).each(function (index, item) {
-                    var datetime = parseInt(item.發布日期.replace(/\D/igm, ""));
-                    var datetime1 = new Date(datetime);
-
-                    if (datetime1.getHours() < 10) {
-                        x = "0" + datetime1.getHours();
-                    }
-                    else {
-                        x = datetime1.getHours();
-                    }
-
-                    if (datetime1.getMinutes() < 10) {
-                        y = "0" + datetime1.getMinutes();
-                    }
-                    else {
-                        y = datetime1.getMinutes();
-                    }
-                    a += ` <tr>
-                                                                                                                                                            <td>${item.佈告欄標題}</td>
-                                                                                                                                                            <td>${datetime1.getFullYear() + "/" + (datetime1.getMonth() + 1) + "/" + datetime1.getDate() + " " + x + ":" + y}</td>
-                                                                                                                                                            <td><a class="ui inverted teal big button text-dark empedit 詳細按鈕" data-id="${item.佈告欄ID}" data-toggle="modal" data-target="#ShowBulletinBoard" onclick="SearchThis()">詳細</a></td>
-                                                                                                                                                        </tr>`;
-                })
-                $(".TBodyAdd").html(a); // 取代原本內容
-            },
-        })
-
-
-        // 指定單筆資料(詳細)
-
-        function SearchThis() {
-            $("#ShowBulletinBoard").modal('toggle');
-            $.ajax({
-                url: "/BulletinBoard/SearchOneBulletinBoard",
-                method: "Get",
-                data: { "id": $(event.currentTarget).data("id") },
-                success: function (data) {
-                    var datetime = parseInt(data.發布日期.replace(/\D/igm, ""));
-                    var datetime1 = new Date(datetime);
-
-                    // 月
-                    if ((datetime1.getMonth() + 1) < 10) {
-                        m = "0" + (datetime1.getMonth() + 1);
-                    }
-                    else {
-                        m = datetime1.getDate();
-                    }
-
-                    // 日
-                    if (datetime1.getDate() < 10) {
-                        d = "0" + datetime1.getDate();
-                    }
-                    else {
-                        d = datetime1.getDate();
-                    }
-
-                    // 時
-                    if (datetime1.getHours() < 10) {
-                        h = "0" + datetime1.getHours();
-                    }
-                    else {
-                        h = datetime1.getHours();
-                    }
-
-                    // 分
-                    if (datetime1.getMinutes() < 10) {
-                        min = "0" + datetime1.getMinutes();
-                    }
-                    else {
-                        min = datetime1.getMinutes();
-                    }
-                    $(".ShowUserProfile").html(`
-                                                                                                                                    <div class="d-flex justify-content-center">
-                                                                                                                                        <div class="mr-1">
-                                                                                                                                            <div class="文字2">佈告欄編號：</div>
-                                                                                                                                            <input name="BulletinBoardID" type="text" class="updateBBID txt樣式 行事曆事項名稱輸入框" disabled value="${data.佈告欄ID}"/>
-                                                                                                                                                <br>
-                                                                                                                                                <br>
-                                                                                                                                            <input name="EmployeeID" type="hidden" class="updateEPID txt樣式 行事曆事項名稱輸入框" disabled value="${data.EmployeeID}"/>
-                                                                                                                                            <div class="文字2">發佈人：</div>
-                                                                                                                                            <input name="發佈人姓名" type="text" class="updateBBName txt樣式 行事曆事項名稱輸入框" disabled value="${data.中文姓名}" disabled/>
-                                                                                                                                            <br>
-                                                                                                                                            <br>
-                                                                                                                                            <div class="文字2">標題：</div>
-                                                                                                                                            <input name="Title" type="text" class="updateTitle txt樣式 行事曆事項名稱輸入框" disabled value="${data.佈告欄標題}"/>
-                                                                                                                                            <br>
-                                                                                                                                            <br>
-                                                                                                                                            <div class="文字2">內容:   </div>
-                                                                                                                                            <textarea name="Content" class="updateContent 行事曆描述輸入框" disabled>${data.佈告欄內容}</textarea>
-                                                                                                                                            <br>
-                                                                                                                                            <br>
-                                                                                                                                            <div class="文字2">發佈日期:  </div>
-                                                                                                                                            <input name="Date" type="text" class="updateTime txt樣式 行事曆事項名稱輸入框" disabled value="${datetime1.getFullYear() + " / " + m + " / " + d + "   " + h + ":" + min + ":00"}"/>
-                                                                                                                                            <br>
-                                                                                                                                            <br>
-                                                                                                                                        </div>
-                                                                                                                                    </div>`);
-                }
-            });
-        };
-
-        function IndexSignInSave(data) {
-            swal({
-                title: "確定要打卡嗎?",
-                icon: "warning",
-                buttons: true,
-                dangerMode: true,
-            })
-                .then((willDelete) => {
-                    if (willDelete) {
+                    $(data).each(function (index, d) {
+                        console.log('oooooooooooooooooooooooooooo');
+                        console.log(d.pjId);
+                        $('.專案內容').append(`
+                            <tr>
+                                <td>${d.pjName}</td>
+                                <td>${d.pjIntroduction}</td>
+                                <td><a class="ui inverted teal big button text-dark" data-id="${d.pjId}" onclick="專案詳細()">詳細</a></td>
+                            </tr>
+                        `);
+                    });
+                    專案詳細 = function () {
+                        console.log($(event.currentTarget).data('id'));
                         $.ajax({
-                            type: "POST",
-                            url: '/BulletinBoard/SignInSave',
-                            data: data,
-                            success: function () {
-                                swal("打卡成功!", "", "success");
-                                ShowCalendar();
+                            url: '/projectControl/getPjProjectDataFromId',
+                            data: { 'id': $(event.currentTarget).data('id'), },
+                            success: function (data) {
+                                $('.show專案詳細').html(`
+              <i class="close icon"></i>
+            <div class="header">
+                <h4>${data.pjName}</h4>
+            </div>
+            <div class="content mt-5">
+            <div class="ui form">
+            <div class="two fields">
+                        <div class="field">
+                            <label>專案經理</label>
+                            <input  type="text" value="${data.pjName}">
+                        </div>
+                        <div class="field">
+                            <label>專案簡介</label>
+                            <input  readonly  value="${data.pjName}" type="text">
+                        </div>
+                    </div>
+                    <div class="two fields">
+                        <div class="field">
+                            <label>專案客戶</label>
+                            <input  value="${data.pjName}" readonly type="text">
+                        </div>
+                        <div class="field">
+                            <label>專案預算</label>
+                            <input  value="${data.pjName}" readonly type="text">
+                        </div>
+                    </div>
+                    <div class="three fields">
+                        <div class="field">
+                            <label>開始日期</label>
+                            <input  value="${data.pjName}" readonly type="text">
+                        </div>
+                        <div class="field">
+                            <label>結束日期</label>
+                            <input  value="${data.pjName}" readonly type="text">
+                        </div>
+                        <div class="field">
+                            <label>預估時間</label>
+                            <input  value="${data.pjName}" readonly type="text">
+                        </div>
+                    </div>
+            <div class="actions d-flex justify-content-center mt-4">
+            <div class="ui deny grey button">關閉</div>
+            <div>
+            </div>
+            </div>
+            `)
+                                $('#pjShow彈出詳細').modal('show');
                             }
                         })
                     }
+                }
+            })
+
+
+
+
+
+            $("#endday, #startday").blur(function () {
+                if ($("#startday").val() != '' && $("#endday").val() != '') {
+                    start = new Date($("#startday").val());
+                    end = new Date($("#endday").val());
+                    var offset = new Date($("#endday").val()).getTime() - new Date($("#startday").val()).getTime();
+                    var swag = Math.floor(Math.abs(offset / 1000 / 60 / 60 / 24 - 1));
+                    console.log(swag);
+                    let x = Math.floor(swag);
+                    let 開始小時數 = 17 - start.getHours();
+                    let 結束小時數 = end.getHours() - 9;
+                    if (x + 1 < 0) {
+                        window.alert("請輸入正確日期");
+                    }
+                    else if (start.getDate() === end.getDate()) {
+                        $("#askfortime").val(`${end.getHours() - start.getHours()} `)
+                    }
                     else {
-                        swal("打卡動作已取消!", "", "success");
+                        $("#askfortime").val(`${開始小時數 + swag * 9 + 結束小時數} `)
+                    }
+                }
+            });
+            //請假modal
+            function modelshow() {
+                $('.tiny#請假彈出').modal('toggle');
+            }
+
+            $("#EmployeeID").val(`${document.cookie.split('id=')[1].split('&')[0]}`);
+            $("#中文姓名").val(`${decodeURI(document.cookie.split('Name=')[1].split('&')[0])}`);
+            $("#jobtitle").val(`${decodeURI(document.cookie.split('Auth=')[1].split('&')[0])}`);
+
+            function AddEmp() {
+                var formData = new FormData(document.form1);
+                formData.append('upPhoto', $("#upload").get(0).files[0]);
+                $.ajax({
+                    url: "/DDDDD/AskForAjax1",
+                    type: "POST",
+                    contentType: false,
+                    processData: false,
+                    data: formData,
+                    success: function (result) {
+                        if (result == "ok") {
+                            //setTimeout(function () {
+                            //window.location.href = "/DDDDD/AskforList";
+                            //    $("[data-tab='first/b']").not(".tab").click();
+                            //}, 1000);
+                            swal("成功", "新增成功", "success");
+                            var 權限陣列 = [];
+                            if (decodeURI(document.cookie.split('Auth=')[1].split('&')[0]) == "主管" || decodeURI(document.cookie.split('Auth=')[1].split('&')[0]) == "人事" || decodeURI(document.cookie.split('Auth=')[1].split('&')[0]) == "員工") {
+                                權限陣列.push('總經理');
+                                權限陣列.push('主管');
+                            }
+                            $.connection.hub.start()
+                                .done(function () {
+                                    bell.server.sendGroup(`${1}`, `${decodeURI(document.cookie.split('Auth=')[1].split('&')[0])}`, `有新的請假申請,請前往審核！`, 權限陣列);   //傳值到hub
+                                });
+                            $(".resetform").click();
+                            $("#EmployeeID").val(`${document.cookie.split('id=')[1].split('&')[0]}`);
+                            $("#中文姓名").val(`${decodeURI(document.cookie.split('Name=')[1].split('&')[0])}`);
+                            $("#jobtitle").val(`${decodeURI(document.cookie.split('Auth=')[1].split('&')[0])}`);
+                        }
+                    }
+                })
+            }
+
+            function Demo() {
+                $("#EmployeeID").val(`${document.cookie.split('id=')[1].split('&')[0]}`),
+                    $("#中文姓名").val(`${decodeURI(document.cookie.split('Name=')[1].split('&')[0])}`),
+                    $("#jobtitle").val(`${decodeURI(document.cookie.split('Auth=')[1].split('&')[0])}`),
+                    $("#Email").val("brettHo@gmail.com"),
+                    $("#department").val("資訊部"),
+                    $("#請假班別").val('早班'),
+                    $("#startday").val("2021-03-23T09:00:00"),
+                    $("#endday").val("2021-03-23T17:00:00"),
+                    $("#applicationday").val("2021-03-23T09:00:00"),
+                    $("#agent").val("莊若凡"),
+                    $("#askfortime").val("8"),
+                    $("#審核狀態").val("未審核"),
+                    $("#select1").val(1),
+                    $("#已用可用").val("10")
+            };
+            //加班modal
+            function modelshow加班() {
+                $('.tiny#加班彈出').modal('toggle');
+            }
+
+            function 加班法規彈出() {
+                $('#加班法規彈出modal').modal('toggle');
+            }
+            $("#加班總表EmployeeID").val(`${document.cookie.split('id=')[1].split('&')[0]}`);
+            $("#加班總表中文姓名").val(`${decodeURI(document.cookie.split('Name=')[1].split('&')[0])}`);
+            function AddOverTime() {
+                console.log(123);
+                console.log($("#加班ID2").children(":checked").val());
+                $.ajax({
+                    url: "/DDDDD/OverTimeAjax",
+                    type: "POST",
+                    data: {
+                        "EmployeeID": $("#加班總表EmployeeID").val(),
+                        "中文姓名": $("#加班總表中文姓名").val(),
+                        "部門": $("#加班總表department").val(),
+                        "開始日期": $("#加班總表startday").val(),
+                        "結束日期": $("#加班總表endday").val(),
+                        "請假時數": $("#加班總表askfortime").val(),
+                        "加班時數": $("#加班總表加班時數").val(),
+                        "加班ID": $("#加班總表加班ID").children(":checked").val(),
+                        "事由說明": $("#加班總表事由說明").val(),
+                        "審核狀態": $("#加班approvalStatus").val(),
+                    },
+                    success: function (result) {
+                        var 權限陣列 = [];
+                        if (decodeURI(document.cookie.split('Auth=')[1].split('&')[0]) == "主管" || decodeURI(document.cookie.split('Auth=')[1].split('&')[0]) == "人事" || decodeURI(document.cookie.split('Auth=')[1].split('&')[0]) == "員工") {
+                            權限陣列.push('總經理');
+                            權限陣列.push('主管');
+                        }
+                        $.connection.hub.start()
+                            .done(function () {
+                                bell.server.sendGroup(`${1}`, `${decodeURI(document.cookie.split('Auth=')[1].split('&')[0])}`, `有新的加班申請,請前往審核！`, 權限陣列);   //傳值到hub
+                            });
+                        if (result != null) {
+                            //setTimeout(function () {
+                            //    //window.location.href = "/DDDDD/OverTimeList";
+                            //    $("[data-tab='second/b']").not(".tab").click();
+                            //}, 1000);
+                            swal("成功", "新增成功", "success");
+                            加班清空();
+                            test清空radio();
+                        }
+                    }
+                })
+            }
+
+            function 加班Demo() {
+                $("#加班總表EmployeeID").val(`${document.cookie.split('id=')[1].split('&')[0]}`),
+                    $("#加班總表中文姓名").val(`${decodeURI(document.cookie.split('Name=')[1].split('&')[0])}`),
+                    $("#加班總表department").val("資訊部"),
+                    $("#加班總表startday").val("2021-03-23T18:00:00"),
+                    $("#加班總表endday").val("2021-03-23T21:00:00"),
+                    $("#加班總表加班時數").val("3"),
+                    $("#加班總表加班ID").children(":checked").val("1"),
+                    $("#加班總表事由說明").val("新增修改功能"),
+                    $("#加班approvalStatus").val("未審核"),
+                    test給radio值();
+            }
+
+
+
+            function 加班清空() {
+                $("#加班總表department").val(""),
+                    $("#加班總表startday").val(""),
+                    $("#加班總表endday").val(""),
+                    $("#加班總表加班時數").val(""),
+                    $("#加班總表事由說明").val(""),
+                    $("#加班總表審核狀態").val("")
+            }
+
+
+            function test給radio值() {
+                var optobj = document.getElementsByName("加班類別");
+                for (i = 0; i < optobj.length; i++) {
+                    optobj.item(1).checked = true;
+                }
+            }
+
+
+
+
+
+            function test清空radio() {
+                var optobj = document.getElementsByName("加班類別");
+                for (i = 0; i < optobj.length; i++) {
+                    optobj.item(i).checked = false;
+                }
+            }
+
+            //出差modal
+            function modelshow出差() {
+                $('.tiny#出差彈出').modal('toggle');
+            }
+            $("#出差總表EmployeeID").val(`${document.cookie.split('id=')[1].split('&')[0]}`);
+            $("#出差總表中文姓名").val(`${decodeURI(document.cookie.split('Name=')[1].split('&')[0])}`);
+
+            function AddBusinessTripAjax() {
+                $.ajax({
+                    url: "/DDDDD/BusinessTripAjax",
+                    type: "POST",
+                    data: {
+                        "EmployeeID": $("#出差總表EmployeeID").val(),
+                        "中文姓名": $("#出差總表中文姓名").val(),
+                        "部門": $("#出差總表部門").val(),
+                        "出差類型": $("#出差總表出差類型").val(),
+                        "出差地點": $("#出差總表出差地點").val(),
+                        "開始日期": $("#出差總表開始日期").val(),
+                        "結束日期": $("#出差總表結束日期").val(),
+                        "交通需求": $("#出差總表交通需求").val(),
+                        "住宿需求": $("#出差總表住宿需求").val(),
+                        "預支費用": $("#出差總表預支費用").val(),
+                        "備註": $("#出差總表備註").val(),
+                        "審核狀態": $("#出差approvalStatus").val(),
+                    },
+                    success: function (result) {
+                        if (result != null) {
+                            //setTimeout(function () {
+                            //    //window.location.href = "/DDDDD/BusinessTripList";
+                            //    $("[data-tab='third/b']").not(".tab").click();
+                            //}, 1000);
+                            swal("成功", "新增成功", "success");
+                            出差清空();
+                            var 權限陣列 = [];
+                            if (decodeURI(document.cookie.split('Auth=')[1].split('&')[0]) == "主管" || decodeURI(document.cookie.split('Auth=')[1].split('&')[0]) == "人事" || decodeURI(document.cookie.split('Auth=')[1].split('&')[0]) == "員工") {
+                                權限陣列.push('總經理');
+                                權限陣列.push('主管');
+                            }
+                            $.connection.hub.start()
+                                .done(function () {
+                                    bell.server.sendGroup(`${1}`, `${decodeURI(document.cookie.split('Auth=')[1].split('&')[0])}`, `有新的出差申請,請前往審核！`, 權限陣列);   //傳值到hub
+                                });
+                        }
+                    }
+                })
+            }
+
+            function 出差Demo() {
+                $("#出差總表EmployeeID").val(`${document.cookie.split('id=')[1].split('&')[0]}`);
+                $("#出差總表中文姓名").val(`${decodeURI(document.cookie.split('Name=')[1].split('&')[0])}`);
+                $("#出差總表部門").val("資訊部");
+                $("#出差總表出差類型").dropdown('set selected', '國內');
+                $("#出差總表出差地點").val("Taipei");
+                $("#出差總表開始日期").val("2021-03-23T09:00:00");
+                $("#出差總表結束日期").val("2021-03-25T17:00:00");
+                $("#出差總表交通需求").dropdown('set selected', '高鐵票');
+                $("#出差總表預支費用").val("5000");
+                $("#出差總表住宿需求").dropdown('set selected', '國內住宿');
+                $("#出差總表備註").val("協助系統上線");
+                $("#出差總表審核狀態").val("未審核")
+            };
+
+
+
+            function 出差清空() {
+                $("#出差總表部門").val("");
+                $("#出差總表出差類型").dropdown('set selected', '請選擇');
+                $("#出差總表出差地點").val("");
+                $("#出差總表開始日期").val("");
+                $("#出差總表結束日期").val("");
+                $("#出差總表交通需求").dropdown('set selected', '請選擇');
+                $("#出差總表預支費用").val("");
+                $("#出差總表住宿需求").dropdown('set selected', '請選擇');
+                $("#出差總表備註").val("");
+                $("#出差審核狀態").val("")
+            }
+
+            //------出差modal結尾
+            $(".個人姓名卡片").html(`個人姓名：${decodeURI(document.cookie.split('Name=')[1].split('&')[0])}`);
+            $(".受雇日期卡片").html(`受雇日期：${document.cookie.split('Hire=')[1].split('&')[0]}`)
+            $(".NameClick").click(function () {
+                $.ajax({
+                    url: "/Home/MyProfile",
+                    method: "Get",
+                    success: function (data) {
+                        $(".addprofile").html(`
+                                                                                                                                                          <div>
+                                                                                                <input type="hidden" name="EmployeePW" value="${data.EmployeePW}" />
+                                                                                                <input type="hidden" name="信箱" value="${data.信箱}" />
+                                                                                            </div>
+
+                                                                                                <div class="field">
+                                                                                                <label class="formlbl">員工編號：</label>
+                                                                                                <input name="EmployeeID" type="text" class="w-100" value="${data.EmployeeID}" disabled />
+                                                                                                </div>
+
+                                                                                            <div class="field">
+                                                                                                <div class="two fields">
+                                                                                                    <div class="eight wide field">
+                                                                                                        <label class="formlbl">中文姓名：</label>
+                                                                                                        <input name="中文姓名" type="text" class="w-100" value="${data.中文姓名}" disabled />
+                                                                                                    </div>
+                                                                                                    <div class="eight wide field">
+                                                                                                        <label class="formlbl">英文姓名：</label>
+                                                                                                        <input name="英文姓名" type="text" class="w-100" value="${data.英文姓名}" disabled />
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="field">
+                                                                                                <div class="two fields">
+                                                                                                    <div class="five wide field">
+                                                                                                        <label class="formlbl">性別：</label>
+                                                                                                        <input type="text" name="性別" value="${data.性別}" hidden />
+                                                                                                        <select disabled class="ml-2 mt-2">
+                                                                                                            <option value="性別" selected>${data.性別}</option>
+                                                                                                        </select>
+                                                                                                    </div>
+                                                                                                    <div class="thirteen wide field">
+                                                                                                        <label class="formlbl">出生年月日：</label>
+                                                                                                        <input type="text" name="出生年月日" class="w-100" value="${data.出生年月日}" hidden />
+                                                                                                        <input type="text" class="w-100" value="${data.出生年月日}" disabled />
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="field">
+                                                                                                <label class="formlbl">居住地:</label>
+                                                                                                <input name="居住地" value="${data.居住地}" disabled />
+                                                                                            </div>
+
+                                                                                            <div class="field">
+                                                                                                <div class="two fields">
+                                                                                                    <div class="twelve wide field">
+                                                                                                        <label class="formlbl">電話：</label>
+                                                                                                        <input type="text" name="電話" class="w-100" value="${data.電話}" disabled />
+                                                                                                    </div>
+                                                                                                    <div class="six wide field">
+                                                                                                        <label class="formlbl">婚姻狀況：</label>
+                                                                                                        <select name="婚姻狀況" disabled>
+                                                                                                            <option hidden>${data.婚姻狀況}</option>
+                                                                                                            <option value="已婚">已婚</option>
+                                                                                                            <option value="未婚">未婚</option>
+                                                                                                        </select>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="field">
+                                                                                                <div class="two fields">
+                                                                                                    <div class="nine wide field">
+                                                                                                        <label class="formlbl">部門：</label>
+                                                                                                        <select name="部門" disabled>
+                                                                                                            <option hidden>${data.部門}</option>
+                                                                                                            <option value="財部部">財部部</option>
+                                                                                                            <option value="總務部">總務部</option>
+                                                                                                            <option value="人事部">人事部</option>
+                                                                                                            <option value="業務部">業務部</option>
+                                                                                                        </select>
+                                                                                                    </div>
+                                                                                                    <div class="nine wide field">
+                                                                                                        <label class="formlbl">職稱：</label>
+                                                                                                        <select name="職稱" disabled>
+                                                                                                            <option hidden>${data.職稱}</option>
+                                                                                                            <option value="主管">主管</option>
+                                                                                                            <option value="員工">員工</option>
+                                                                                                            <option value="人事">人事</option>
+                                                                                                        </select>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="field">
+                                                                                                <div class="two fields">
+                                                                                                    <div class="nine wide field">
+                                                                                                        <label class="formlbl">受雇日期：</label>
+                                                                                                        <input type="text" name="受雇日期" class="w-100" value="${data.受雇日期}" hidden />
+                                                                                                        <input type="text" class="w-100" value="${data.受雇日期}" disabled />
+                                                                                                    </div>
+                                                                                                    <div class="nine wide field">
+                                                                                                        <label class="formlbl">在職狀態：</label>
+                                                                                                        <select name="狀態" disabled>
+                                                                                                            <option hidden>${data.狀態}</option>
+                                                                                                            <option value="在職">在職</option>
+                                                                                                            <option value="離職">離職</option>
+                                                                                                            <option value="未到職">未到職</option>
+                                                                                                            <option value="留職停薪">留職停薪</option>
+                                                                                                        </select>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="field">
+                                                                                                <div class="two fields">
+                                                                                                    <div class="field">
+                                                                                                        <label class="formlbl">薪資：</label>
+                                                                                                        <input name="薪資" class="Regular shadow" value="${data.薪資}" disabled />
+                                                                                                    </div>
+                                                                                                    <div class="field">
+                                                                                                        <label class="formlbl">特休：</label>
+                                                                                                        <input name="特休" class="Regular shadow" value="${data.特休}" disabled />
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>`);
                     }
                 });
-        }
 
-    </script>
-}
+
+            });
+
+
+
+
+
+            $.ajax({
+                url: "/BulletinBoard/MessegeHighBulletinBoardList",
+                method: "get",
+                success: function (data) {
+                    $(".THeadAdd").html(`
+                                                                                                                                                                                <tr>
+                                                                                                                                                                                <th>標題</th>
+                                                                                                                                                                                <th>發佈日期</th>
+                                                                                                                                                                                <th>詳細</th>
+                                                                                                                                                                                </tr>
+                                                                                                                                                                                `)
+                    var a = "";  // 使用一個空字串
+                    $(data).each(function (index, item) {
+                        var datetime = parseInt(item.發布日期.replace(/\D/igm, ""));
+                        var datetime1 = new Date(datetime);
+
+                        if (datetime1.getHours() < 10) {
+                            x = "0" + datetime1.getHours();
+                        }
+                        else {
+                            x = datetime1.getHours();
+                        }
+
+                        if (datetime1.getMinutes() < 10) {
+                            y = "0" + datetime1.getMinutes();
+                        }
+                        else {
+                            y = datetime1.getMinutes();
+                        }
+                        a += ` <tr>
+                                                                                                                                                                    <td>${item.佈告欄標題}</td>
+                                                                                                                                                                    <td>${datetime1.getFullYear() + "/" + (datetime1.getMonth() + 1) + "/" + datetime1.getDate() + " " + x + ":" + y}</td>
+                                                                                                                                                                    <td><a class="ui inverted teal big button text-dark empedit 詳細按鈕" data-id="${item.佈告欄ID}" data-toggle="modal" data-target="#ShowBulletinBoard" onclick="SearchThis()">詳細</a></td>
+                                                                                                                                                                </tr>`;
+                    })
+                    $(".TBodyAdd").html(a); // 取代原本內容
+                },
+            })
+
+
+            // 指定單筆資料(詳細)
+
+            function SearchThis() {
+                $("#ShowBulletinBoard").modal('toggle');
+                $.ajax({
+                    url: "/BulletinBoard/SearchOneBulletinBoard",
+                    method: "Get",
+                    data: { "id": $(event.currentTarget).data("id") },
+                    success: function (data) {
+                        var datetime = parseInt(data.發布日期.replace(/\D/igm, ""));
+                        var datetime1 = new Date(datetime);
+
+                        // 月
+                        if ((datetime1.getMonth() + 1) < 10) {
+                            m = "0" + (datetime1.getMonth() + 1);
+                        }
+                        else {
+                            m = datetime1.getDate();
+                        }
+
+                        // 日
+                        if (datetime1.getDate() < 10) {
+                            d = "0" + datetime1.getDate();
+                        }
+                        else {
+                            d = datetime1.getDate();
+                        }
+
+                        // 時
+                        if (datetime1.getHours() < 10) {
+                            h = "0" + datetime1.getHours();
+                        }
+                        else {
+                            h = datetime1.getHours();
+                        }
+
+                        // 分
+                        if (datetime1.getMinutes() < 10) {
+                            min = "0" + datetime1.getMinutes();
+                        }
+                        else {
+                            min = datetime1.getMinutes();
+                        }
+                        $(".ShowUserProfile").html(`
+                                                                                                                                            <div class="d-flex justify-content-center">
+                                                                                                                                                <div class="mr-1">
+                                                                                                                                                    <div class="文字2">佈告欄編號：</div>
+                                                                                                                                                    <input name="BulletinBoardID" type="text" class="updateBBID txt樣式 行事曆事項名稱輸入框" disabled value="${data.佈告欄ID}"/>
+                                                                                                                                                        <br>
+                                                                                                                                                        <br>
+                                                                                                                                                    <input name="EmployeeID" type="hidden" class="updateEPID txt樣式 行事曆事項名稱輸入框" disabled value="${data.EmployeeID}"/>
+                                                                                                                                                    <div class="文字2">發佈人：</div>
+                                                                                                                                                    <input name="發佈人姓名" type="text" class="updateBBName txt樣式 行事曆事項名稱輸入框" disabled value="${data.中文姓名}" disabled/>
+                                                                                                                                                    <br>
+                                                                                                                                                    <br>
+                                                                                                                                                    <div class="文字2">標題：</div>
+                                                                                                                                                    <input name="Title" type="text" class="updateTitle txt樣式 行事曆事項名稱輸入框" disabled value="${data.佈告欄標題}"/>
+                                                                                                                                                    <br>
+                                                                                                                                                    <br>
+                                                                                                                                                    <div class="文字2">內容:   </div>
+                                                                                                                                                    <textarea name="Content" class="updateContent 行事曆描述輸入框" disabled>${data.佈告欄內容}</textarea>
+                                                                                                                                                    <br>
+                                                                                                                                                    <br>
+                                                                                                                                                    <div class="文字2">發佈日期:  </div>
+                                                                                                                                                    <input name="Date" type="text" class="updateTime txt樣式 行事曆事項名稱輸入框" disabled value="${datetime1.getFullYear() + " / " + m + " / " + d + "   " + h + ":" + min + ":00"}"/>
+                                                                                                                                                    <br>
+                                                                                                                                                    <br>
+                                                                                                                                                </div>
+                                                                                                                                            </div>`);
+                    }
+                });
+            };
+
+            function IndexSignInSave(data) {
+                swal({
+                    title: "確定要打卡嗎?",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            $.ajax({
+                                type: "POST",
+                                url: '/BulletinBoard/SignInSave',
+                                data: data,
+                                success: function () {
+                                    swal("打卡成功!", "", "success");
+                                    ShowCalendar();
+                                }
+                            })
+                        }
+                        else {
+                            swal("打卡動作已取消!", "", "success");
+                        }
+                    });
+            }
+
+        </script>
+    }
