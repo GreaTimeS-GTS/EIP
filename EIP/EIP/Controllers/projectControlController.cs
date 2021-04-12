@@ -30,27 +30,6 @@ namespace EIP.Controllers
 
 
 
-      
-        //----------------------YOOOOOOO--------
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         //---------- T E S T -----------------
         public void getCr8formVal(pjProject val)
         {
@@ -91,9 +70,28 @@ namespace EIP.Controllers
                        };
             return Json(data, JsonRequestBehavior.AllowGet);
         }
+        public JsonResult getPjProjectData結案排序()
+        {
+            var data = from m in db.pjProject
+                       orderby m.pj結案=="是"
+                       select new
 
-    
-    public JsonResult getPjProjectData最新三筆()
+                       {
+                           pjManager = m.pjManager,
+                           pjId = m.pjId,
+                           pjName = m.pjName,
+                           pj審核階段 = m.pj審核階段,
+                           pj初審結果 = m.pj初審結果,
+                           pj複審結果 = m.pj複審結果,
+                           pjMemberCount = m.pjMemberCount,
+                           pjIntroduction = m.pjIntroduction,
+                           pj結案 = m.pj結案
+                       };
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
+
+        public JsonResult getPjProjectData最新三筆()
         {
             var data = from m in db.pjProject
                        orderby m.pjId descending
@@ -216,19 +214,36 @@ namespace EIP.Controllers
         }
         public JsonResult pj所有規劃內容()
         {
-            var pj所有規劃內容 = db.pjTeam.Select(m => new
-            {
-                pjTeamId = m.pjTeamId,
-                pjId = m.pjId,
-                pjMemberName = m.pjMemberName,
-                pjTarget = m.pjTarget,
-                pjMember部門 = m.pjMember部門,
-                pjTask = m.pjTask,
-                pjFixedDuration = m.pjFixedDuration,
-                pjTaskStartDate = m.pjTaskStartDate,
-                pjTaskEndDate = m.pjTaskEndDate,
-                pjName = m.pjProject.pjName,
-            });
+            //var pj所有規劃內容1 = db.pjTeam.Select(m => new
+            //{
+            //    pjTeamId = m.pjTeamId,
+            //    pjId = m.pjId,
+            //    pjMemberName = m.pjMemberName,
+            //    pjTarget = m.pjTarget,
+            //    pjMember部門 = m.pjMember部門,
+            //    pjTask = m.pjTask,
+            //    pjFixedDuration = m.pjFixedDuration,
+            //    pjTaskStartDate = m.pjTaskStartDate,
+            //    pjTaskEndDate = m.pjTaskEndDate,
+            //    pjName = m.pjProject.pjName,
+            //});
+
+            var pj所有規劃內容 = from m in db.pjTeam
+                           orderby m.pjTeamId descending
+                           select new
+                           {
+                               pjTeamId = m.pjTeamId,
+                               pjId = m.pjId,
+                               pjMemberName = m.pjMemberName,
+                               pjTarget = m.pjTarget,
+                               pjMember部門 = m.pjMember部門,
+                               pjTask = m.pjTask,
+                               pjFixedDuration = m.pjFixedDuration,
+                               pjTaskStartDate = m.pjTaskStartDate,
+                               pjTaskEndDate = m.pjTaskEndDate,
+                               pjName = m.pjProject.pjName,
+                           };
+
             return Json(pj所有規劃內容, JsonRequestBehavior.AllowGet);
         }
         public void pj進度回報單(pjReport data)
@@ -264,6 +279,7 @@ namespace EIP.Controllers
                     pjName = n.pjProject.pjName,
                     pjManager = n.pjProject.pjManager,
                     pjIntroduction = n.pjProject.pjIntroduction,
+                    pj結案 = n.pjProject.pj結案,
                 }).Distinct(); //刪除重複的相同資料
             return Json(pjTeamData, JsonRequestBehavior.AllowGet);
         }
@@ -282,6 +298,40 @@ namespace EIP.Controllers
                 pjReportContent = m.pjReportContent,
                 pjIssuelog = m.pjIssuelog,
             };
+            return Json(reportData, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult pj主管讀取進度回報單take10(int id)
+        {
+            var reportData = from m in db.pjReport
+                             where m.pjId == id
+                             orderby m.pjDayReportId descending
+                             select new
+                             {
+                                 pjId = m.pjId,
+                                 pjName = m.pjProject.pjName,
+                                 pjMemberId = m.pjMemberId,
+                                 pjMemberName = m.pjMemberName,
+                                 pjReportDate = m.pjReportDate,
+                                 pjReportContent = m.pjReportContent,
+                                 pjIssuelog = m.pjIssuelog,
+                             };
+            return Json(reportData.Take(10), JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult pj成員讀取包含自己的進度回報單(int id,string name)
+        {
+            var reportData = from m in db.pjReport
+                             where m.pjMemberName==name && m.pjProject.pjId==id
+                             orderby m.pjDayReportId descending
+                             select new
+                             {
+                                 pjId = m.pjId,
+                                 pjName = m.pjProject.pjName,
+                                 pjMemberId = m.pjMemberId,
+                                 pjMemberName = m.pjMemberName,
+                                 pjReportDate = m.pjReportDate,
+                                 pjReportContent = m.pjReportContent,
+                                 pjIssuelog = m.pjIssuelog,
+                             };
             return Json(reportData, JsonRequestBehavior.AllowGet);
         }
         public JsonResult pj主管讀取未分類進度回報單()
@@ -346,15 +396,28 @@ namespace EIP.Controllers
         {
             //var pjGetAll會議記錄 = from a in db.pjMeeting
             //                   select a;
-            var pjGetAll會議記錄 = db.pjMeeting.Select(m => new {
-                pjId = m.pjId,
-                pjMeetingDate = m.pjMeetingDate,
-                pjContent = m.pjContent,
-                pjMemo = m.pjMemo,
-                pjName = m.pjProject.pjName,
-                pjManager = m.pjProject.pjManager,
-                pjMeetingId = m.pjMeetingId,
-            });            
+            //var pjGetAll會議記錄1 = db.pjMeeting.Select(m => new {
+            //    pjId = m.pjId,
+            //    pjMeetingDate = m.pjMeetingDate,
+            //    pjContent = m.pjContent,
+            //    pjMemo = m.pjMemo,
+            //    pjName = m.pjProject.pjName,
+            //    pjManager = m.pjProject.pjManager,
+            //    pjMeetingId = m.pjMeetingId,
+            //});
+
+            var pjGetAll會議記錄 = from m in db.pjMeeting
+                               orderby m.pjMeetingDate descending
+                               select new
+                               {
+                                   pjId = m.pjId,
+                                   pjMeetingDate = m.pjMeetingDate,
+                                   pjContent = m.pjContent,
+                                   pjMemo = m.pjMemo,
+                                   pjName = m.pjProject.pjName,
+                                   pjManager = m.pjProject.pjManager,
+                                   pjMeetingId = m.pjMeetingId,
+                               };
             return Json(pjGetAll會議記錄, JsonRequestBehavior.AllowGet);
         }
         public JsonResult pj找單筆會議資料(int id)
@@ -370,7 +433,7 @@ namespace EIP.Controllers
         {
             var data = from d in db.pjMeeting
                        where d.pjId == id
-                       orderby d.pjId descending
+                       orderby d.pjMeetingId descending
                        select new
                        {
                            pjId = d.pjId,
@@ -383,11 +446,12 @@ namespace EIP.Controllers
 
             return Json(data, JsonRequestBehavior.AllowGet);
         }
+
         public JsonResult pj搜尋單筆會議(int id)
         {
             var pj搜尋單筆會議 = from x in db.pjMeeting
                            where x.pjId == id
-                           orderby x.pjId descending
+                           orderby x.pjMeetingId descending
                            select new
                            {
                                pjId = x.pjId,
@@ -399,6 +463,23 @@ namespace EIP.Controllers
                                pjManager = x.pjProject.pjManager,                               
                            };
             return Json(pj搜尋單筆會議, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult pj搜尋單筆會議take10(int id)
+        {
+            var pj搜尋單筆會議 = from x in db.pjMeeting
+                           where x.pjId == id
+                           orderby x.pjMeetingId descending
+                           select new
+                           {
+                               pjId = x.pjId,
+                               pjMeetingDate = x.pjMeetingDate,
+                               pjMeetingId = x.pjMeetingId,
+                               pjContent = x.pjContent,
+                               pjMemo = x.pjMemo,
+                               pjName = x.pjProject.pjName,
+                               pjManager = x.pjProject.pjManager,
+                           };
+            return Json(pj搜尋單筆會議.Take(10), JsonRequestBehavior.AllowGet);
         }
         public JsonResult pj找此專案的會議紀錄(int id)
         {
@@ -571,7 +652,7 @@ namespace EIP.Controllers
             {
                 d.pj審核階段 = "複審";
                 d.pj複審結果 = "待審核";
-                d.pj結案 = "待審核";
+                d.pj結案 = "否";
             }
             db.SaveChanges();
         }
