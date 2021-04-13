@@ -31,11 +31,11 @@
 
 <div class="ui modal centermodal" id="Calendar-modal">
     <i class="ui-icon cancel"></i>
-    <h1 class="ui header modelHeader">Booking Resource</h1>
+    <h1 class="ui header modelHeader">預約搜尋</h1>
     <div class="content">
         @*<form class="ui form segment">*@
         <input type="hidden" id="hdeventID" value="0" />
-        <div class="two fields" hidden>
+        <div class="two fields" hidden >
             <div class="field">
                 <label for="name">中文姓名</label>
                 <input type="text" id="emNname" name="name" placeholder="Name" readonly="" value="">
@@ -52,7 +52,7 @@
                     <input type="text" name="MeetingSubject" id="MeetingSubject" placeholder="主旨">
                 </div>
                 <div class="field">
-                    <label for="MeetingRoomName">Resource</label>
+                    <label for="MeetingRoomName">資源</label>
                     @*<input type="text" name="MeetingRoomName" id="MeetingRoomName" >*@
                     <select class="ui search dropdown" name="MeetingRoomName" id="MeetingRoomName">
                         <option value="">資源名稱</option>
@@ -70,13 +70,13 @@
             <div class="field">
                 <div class="ui checkbox">
                     <input type="checkbox" id="chboxisAllday">
-                    <label for="isAllday"><i class="tasks icon"></i>All day</label>
+                    <label for="isAllday"><i class="tasks icon"></i>全日預約</label>
                 </div>
             </div>
             <div class="ui form">
                 <div class="two fields">
                     <div class="field">
-                        <label>Start date</label>
+                        <label>開始時間</label>
                         <div class="ui calendar" id="example13">
                             <div class="ui input left icon">
                                 <i class="calendar icon"></i>
@@ -86,77 +86,77 @@
                     </div>
                     <div class="field" id="divEndDate">
                         @*style="display:none"*@
-                    <label>End date</label>
-                    <div class="ui  calendar" id="example14">
-                        <div class="ui input left icon">
-                            <i class="calendar icon"></i>
-                            <input type="text" placeholder="EndDate" id="endTime" data-position="left center" data-variation="mini">
+                        <label>結束時間</label>
+                        <div class="ui  calendar" id="example14">
+                            <div class="ui input left icon">
+                                <i class="calendar icon"></i>
+                                <input type="text" placeholder="EndDate" id="endTime" data-position="left center" data-variation="mini">
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        @*<h4 class="ui dividing header">參與人員</h4>*@
-        <div class="field">
-            @*<label>E-Mail To</label>*@
-            <div class="ui fluid multiple search selection dropdown" id="dropdownmenu" hidden>
-                <input type="hidden" name="MeetingAttentee" id="attendee" hidden>
-                <i class="dropdown icon"></i>
-                <div class="default text">Saved Contacts</div>
-                <div class="menu">
-                    <div class="item" data-value="jenny" data-text="Jenny">
-                        @*<img class="ui mini avatar image" src="~/images/iconfinder_letter_J_red_1553101.png" />*@
-                        Jenny Hess
-                    </div>
-                    <div class="item" data-value="elliot" data-text="Elliot">
-                        @*<img class="ui mini avatar image" src="~/images/iconfinder_letter_E_blue_1553095.png" />*@
-                        Elliot Fu
-                    </div>
-                    <div class="item" data-value="stevie" data-text="Stevie">
-                        @*<img class="ui mini avatar image" src="~/images/iconfinder_letter_S_blue_1553065.png" />*@
-                        Stevie Feliciano
-                    </div>
-                    <div class="item" data-value="christian" data-text="Christian">
-                        @*<img class="ui mini avatar image" src="~/images/iconfinder_letter_C_red_1553060.png" />*@
-                        Christian
-                    </div>
-                    <div class="item" data-value="matt" data-text="Matt">
-                        @*<img class="ui mini avatar image" src="~/images/iconfinder_letter_M_blue_1553077.png" />*@
-                        Matt
-                    </div>
-                    <div class="item" data-value="justen" data-text="Justen">
-                        @*<img class="ui mini avatar image" src="~/images/iconfinder_letter_J_blue_1553054.png" />*@
-                        Justen Kitsune
+            @*<h4 class="ui dividing header">參與人員</h4>*@
+            <div class="field">
+                @*<label>E-Mail To</label>*@
+                <div class="ui fluid multiple search selection dropdown" id="dropdownmenu" hidden>
+                    <input type="hidden" name="MeetingAttentee" id="attendee" hidden>
+                    <i class="dropdown icon"></i>
+                    <div class="default text">Saved Contacts</div>
+                    <div class="menu">
+                        <div class="item" data-value="jenny" data-text="Jenny">
+                            @*<img class="ui mini avatar image" src="~/images/iconfinder_letter_J_red_1553101.png" />*@
+                            Jenny Hess
+                        </div>
+                        <div class="item" data-value="elliot" data-text="Elliot">
+                            @*<img class="ui mini avatar image" src="~/images/iconfinder_letter_E_blue_1553095.png" />*@
+                            Elliot Fu
+                        </div>
+                        <div class="item" data-value="stevie" data-text="Stevie">
+                            @*<img class="ui mini avatar image" src="~/images/iconfinder_letter_S_blue_1553065.png" />*@
+                            Stevie Feliciano
+                        </div>
+                        <div class="item" data-value="christian" data-text="Christian">
+                            @*<img class="ui mini avatar image" src="~/images/iconfinder_letter_C_red_1553060.png" />*@
+                            Christian
+                        </div>
+                        <div class="item" data-value="matt" data-text="Matt">
+                            @*<img class="ui mini avatar image" src="~/images/iconfinder_letter_M_blue_1553077.png" />*@
+                            Matt
+                        </div>
+                        <div class="item" data-value="justen" data-text="Justen">
+                            @*<img class="ui mini avatar image" src="~/images/iconfinder_letter_J_blue_1553054.png" />*@
+                            Justen Kitsune
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="field">
-            <label for="Description">Description</label>
-            <textarea rows="2" id="Description" placeholder="描述"></textarea>
-        </div>
-        <div class="field">
-            <div class="ui primary submit button" id="txtSend">
-                <i class="save icon"></i>Send
+            <div class="field">
+                <label for="Description">描述</label>
+                <textarea rows="2" id="Description" placeholder="描述"></textarea>
             </div>
-            <button class="ui negative button" id="txtCancel">Cancel</button>
-            <div class="ui grey button" id="txtDemo">Demo</div>
-            @*<input type="reset" class="ui clear button" id="resetForm" hidden />*@
-            <div class="ui clear button" id="clearForm" hidden>Clear</div>
-        </div>
-    </form>
-</div>
-<!--<div class="actions">
-    <button class="ui grey button" id="txtDemo">Demo</button>
-    <button class="ui primary button" id="txtSend">
-        <i class="save icon"></i>Send
-    </button>
-    <button class="ui negative button" id="txtCancel">Cancel</button>
-    <div class="ui clear button">Clear</div>
-    <div class="ui reset button">Reset</div>-->
-@*<button class="ui reset pink  button" id="resetform" >Reset</button>*@
-@*<input type="reset" class="resetform" id="resetform" />*@
-<!--</div>-->
+            <div class="field">
+                <div class="ui primary submit button" id="txtSend">
+                    <i class="save icon"></i>Send
+                </div>
+                <button class="ui negative button" id="txtCancel">Cancel</button>
+                <div class="ui grey button" id="txtDemo">Demo</div>
+                @*<input type="reset" class="ui clear button" id="resetForm" hidden />*@
+                <div class="ui clear button" id="clearForm" hidden>Clear</div>
+            </div>
+        </form>
+    </div>
+    <!--<div class="actions">
+        <button class="ui grey button" id="txtDemo">Demo</button>
+        <button class="ui primary button" id="txtSend">
+            <i class="save icon"></i>Send
+        </button>
+        <button class="ui negative button" id="txtCancel">Cancel</button>
+        <div class="ui clear button">Clear</div>
+        <div class="ui reset button">Reset</div>-->
+    @*<button class="ui reset pink  button" id="resetform" >Reset</button>*@
+    @*<input type="reset" class="resetform" id="resetform" />*@
+    <!--</div>-->
 </div>
 @*End +Add modal*@
 
@@ -175,10 +175,28 @@
         <div class="ui  olive  button" id="btnEdit">
             <i class="edit icon"></i>Edit
         </div>
-        <div class="ui  negative  button" id="btnDelete">Delete</div>
+        <div class="ui  negative  button" id="btnDelete"> Delete</div>
     </div>
 </div>
 @*checkbox*@
+
+@*modal - delete alert*@
+
+<div class="ui small modal" id="deletemodal">
+    <div class="header"><h1>通知</h1></div>
+    <div class="content">
+        <p><h1>您確定要刪除此筆預約?</h1></p>
+    </div>
+    <div class="actions">
+        <div class="ui deny button">
+           取消
+        </div>
+        <div class="ui negative button" id="deletedmodal">
+            <i class="trash alternate icon"></i> 確定
+        </div>
+    </div>
+</div>
+@*modal - delete alert*@
 
 <div class="ui celled grid">
     <div class="row">
@@ -276,13 +294,24 @@
 
     <script>
 
-$(document).ready(() => {
+        $(document).ready(() => {
 
             var nowUserId = document.cookie.split('id=')[1].split('&')[0];
             var nowUserName = decodeURI(document.cookie.split('Name=')[1].split('&')[0]);
+            //alert("nowUserId" + nowUserId)
+            //alert("nowUserName"+nowUserName)
+        
 
-            var userId = $('#emId').attr('value', document.cookie.split('id=')[1].split('&')[0]);
-            var userName = $('#emNname').attr('value', decodeURI(document.cookie.split('Name=')[1].split('&')[0]));
+            //var userId = $('#emId').attr('value', document.cookie.split('id=')[1].split('&')[0]);
+            //var userName = $('#emNname').attr('value', decodeURI(document.cookie.split('Name=')[1].split('&')[0]));
+
+            var userId = $('#emId').val(`${document.cookie.split('id=')[1].split('&')[0]}`);
+            var userName = $('#emNname').val(`${decodeURI(document.cookie.split('Name=')[1].split('&')[0])}`);
+            //$("#EmployeeID").val(`${document.cookie.split('id=')[1].split('&')[0]}`),
+            //    $("#中文姓名").val(`${decodeURI(document.cookie.split('Name=')[1].split('&')[0])}`),
+            //alert("userId" + userId)
+            //alert("userName" + userName)
+
 
             var events = [];
             var selectedEvent = null;
@@ -295,7 +324,7 @@ $(document).ready(() => {
                 var checked = $('[name=example2]:checked');
                 var x = checked.val();
                 if (x == 1) {
-                   /* console.log('All', x)*/
+                    /* console.log('All', x)*/
                     EventRefresh();
                 } else {
                     checkboxstatus(x);
@@ -385,31 +414,49 @@ $(document).ready(() => {
                     timeFormat: 'HH:mm a',
                     editable: true,
                     eventDrop: function (event) {
-                        var data = {
-                            BookingId: event.eventID,
-                            MeetingRoomName: event.title,
-                            BookingStartTime: event.start.format('YYYY-MM-DD HH:mm a'),
-                            BookingEndTime: event.end != null ? event.end.format('YYYY-MM-DD HH:mm a') : null,
-                            MeetingRemark: event.description,
-                            IsAllDay: event.allDay,
-                            EmployeeID: event.bookingEmID,
-                            中文姓名: event.bookingEmName,
-                            MeetingAttentee: event.attendee,
-                            MeetingSubject: event.subject,
-                        };
-                        /*  alert(event.bookingEmID + "use" + nowUserId)*/
-
-                        if (event.bookingEmID == nowUserId) {
-                            SaveEvent(data);
-                        } else {
+                       /* alert('event.start.toDate' + event.start.toDate)*/
+                        if (event.bookingEmID != nowUserId) {
                             EventRefresh();
-                            alert("您無法修改非本人預約")
-                        }
+                            swal("您無法修改非本人預約", "請重新操作", "error")                            
+                                    } else {                           
+                            $.ajax({
+                                type: "GET",
+                                url: "/MeetingRoom/CheckBooking",
+                                data: {
+                                    "MeetingRoomName": event.title,
+                                    "BookingStartTime": event.start.format('YYYY-MM-DD HH:mm a'),
+                                        /*event.start.format('YYYY-MM-DD HH:mm a'),*/
+                                    "BookingEndTime": event.end.format('YYYY-MM-DD HH:mm a'),
+                                },
+                                success: function (data) {
+                                    /* console.log('checkeventboockingdata', data);*/
+                                    if (data == false) {
+                                        var data = {
+                                            BookingId: event.eventID,
+                                            MeetingRoomName: event.title,
+                                            BookingStartTime: event.start.format('YYYY-MM-DD HH:mm a'),
+                                            BookingEndTime: event.end != null ? event.end.format('YYYY-MM-DD HH:mm a') : null,
+                                            MeetingRemark: event.description,
+                                            IsAllDay: event.allDay,
+                                            EmployeeID: event.bookingEmID,
+                                            中文姓名: event.bookingEmName,
+                                            MeetingAttentee: event.attendee,
+                                            MeetingSubject: event.subject,
+                                        };
+                                        /*  alert(event.bookingEmID + "use" + nowUserId)*/
+                                        SaveEvent(data);
+                                    } else {
+                                        EventRefresh();
+                                        swal("您所選的資源及時段目前己被預訂", "請重新操作", "error")      
+                                    }
+                                },
+                            })
+                        }        
                     },
                     selectable: true,
                     selectHelper: true,
                     select: function (start, end) {
-                        /*        alert(selectedEvent + 'selectedEvent')*/
+                        /*  alert(selectedEvent + 'selectedEvent')*/
                         selectedEvent = {
                             eventID: 0,
                             title: '',
@@ -419,6 +466,7 @@ $(document).ready(() => {
                             allDay: false,
                             subject: '',
                             attendee: '',
+                            name: '',
                         };
                         oopenAddEditForm();
                         $('#calender').fullCalendar('unselect');
@@ -446,10 +494,13 @@ $(document).ready(() => {
                     },
                     events: events,
                     eventClick: function (calEvent, jsEvent, view) {
+
                         selectedEvent = calEvent;
                         $('#dataEdit #editTitle').text(calEvent.title);
                         var $description = $('<div/>');
+                        $description.append($('<p/>').html('<b  class="ui header">預約者 : </b>' + "    " + calEvent.bookingEmName));
                         $description.append($('<p/>').html('<b  class="ui header">開始時間 :</b>' + "    " + calEvent.start.format("YYYY-MM-DD HH:mm a")));
+
                         if (calEvent.end != null) {
                             $description.append($('<p/>').html('<b  class="ui header">結束時間 :</b>' + "    " + calEvent.end.format("YYYY-MM-DD HH:mm a")));
                         } else { $description.append($('<p/>').html('<b  class="ui header">資源為全日預約</b>')); }
@@ -510,32 +561,34 @@ $(document).ready(() => {
                     $('#dataEdit').modal('hide');
                     $('#Calendar-modal').modal('show');
                 } else {
-                    alert("您無法修改非本人預約")
+                    swal("您無法修改非本人預約", "請重新操作", "error")
                 }
             })
 
             //edit delete
-            $('#btnDelete').click(function () {
+            $('#btnDelete').click(function () {        
+                if (selectedEvent.bookingEmID == nowUserId) { 
+                $('#dataEdit').modal('hide'); //toDo F12 calendarList
+                 $('#deletemodal').modal('setting', 'closable', false).modal('show');
 
-                if (selectedEvent.bookingEmID == nowUserId) {
-                    if (selectedEvent != null && confirm('Are you sure?')) {
-                        /* alert(selectedEvent.eventID)*/
-
-                        $.ajax({
-                            url: "/MeetingRoom/DeleteEvent",
-                            data: { 'eventID': selectedEvent.eventID },
-                            method: "POST",
-                            success: function (data) {
-                                if (data.status) {
-                                    //refresh the calendar
-                                    EventRefresh();
-                                    $('#dataEdit').modal('hide'); //toDo F12 calendarList
-                                }
-                            },
-                            error: function () { alert('failed'); },
-                        })
-                    }
-                } else { alert("您無法刪除非本人預約") }
+                    $('#deletedmodal').click(function () {
+                        alert('selsectid' + selectedEvent.eventID)
+                        if (selectedEvent != null) {
+                            $.ajax({
+                                url: "/MeetingRoom/DeleteEvent",
+                                data: { 'eventID': selectedEvent.eventID },
+                                method: "POST",
+                                success: function (data) {
+                                    if (data.status) {
+                                        //refresh the calendar
+                                        EventRefresh();
+                                    }
+                                },
+                                error: function () { alert('failed'); },
+                            })  
+                        }
+                    })                 
+                } else { swal("您無法修改非本人預約", "請重新操作", "error") }
             })
 
             //check allday event change
@@ -562,6 +615,9 @@ $(document).ready(() => {
                     $('#Description').val(selectedEvent.description);
                     /*  var eventattendee = selectedEvent.attendee;*/
                     $('#dropdownmenu').dropdown('set selected', selectedEvent.attendee);
+              /*      $('#emNname').val(selectedEvent.name);*/
+                    $('#emId').val(`${document.cookie.split('id=')[1].split('&')[0]}`);
+                    $('#emNname').val(`${decodeURI(document.cookie.split('Name=')[1].split('&')[0])}`);   
                 }
 
                 /*alert(selectedEvent.allDay)*/
@@ -571,49 +627,88 @@ $(document).ready(() => {
 
             //Send//
             $('#txtSend').click(function () {
-                        
+
 
                 if ($('#MeetingRoomName').val().trim() == "") {
-                    alert('請選擇要預約的項目');
+                    swal("請選擇要預約的項目", "請重新操作", "error")
                     return;
                 }
                 if ($('#startTime').val().trim() == "") {
-                    alert('請選擇開始時間');
+                    swal("請選擇開始時間", "請重新操作", "error")
                     return;
                 }
                 if ($('#chboxisAllday').is(':checked') == false && $('#endTime').val().trim() == "") {
-                    alert('請選擇結束時間');
+                    swal("請選擇結束時間", "請重新操作", "error")
+                    return;
+                }
+                var startDate = moment($('#startTime').val(), 'YYYY-MM-DD HH:mm a').toDate();
+                var endDate = moment($('#endTime').val(), 'YYYY-MM-DD HH:mm a').toDate();
+                if (startDate > endDate) {
+                    swal("開始時間晚於結束時間", "請重新操作", "error")
                     return;
                 }
 
                 else {
-                    var startDate = moment($('#startTime').val(), 'YYYY-MM-DD HH:mm a').toDate();
-                    var endDate = moment($('#endTime').val(), 'YYYY-MM-DD HH:mm a').toDate();
+                    $.ajax({
+                        type: "GET",
+                        url: "/MeetingRoom/CheckBooking",
+                        data: {
+                            "MeetingRoomName": $('#MeetingRoomName').val(),
+                            "BookingStartTime": $('#startTime').val().trim(),
+                            "BookingEndTime": $('#chboxisAllday').is(':checked') ? null : $('#endTime').val().trim(),
+                        },
+                        success: function (data) {
+                           /* console.log('checkeventboockingdata', data);*/
+                            if (data == false) {
+                                var data = {
+                                    MeetingRoomName: $('#MeetingRoomName').val(),
+                                    MeetingRemark: $('#Description').val(),
+                                    BookingStartTime: $('#startTime').val().trim(),
+                                    BookingEndTime: $('#chboxisAllday').is(':checked') ? null : $('#endTime').val().trim(),
+                                    MeetingSubject: $('#MeetingSubject').val().trim(),
+                                    MeetingAttentee: $('#attendee').val().trim(),
+                                    EmployeeID: $('#emId').val(),
+                                    中文姓名: $('#emNname').val(),
+                                    IsAllDay: $('#chboxisAllday').is(':checked'),
+                                    BookingId: $('#hdeventID').val(),
+                                    // status: v.Status,
+                                    //eventID: v.BookingId,
+                                }
+                                SaveEvent(data);
+                               /* console.log('savedata', data)*/
+                                clearAlltxt();
+                            } else {
+                                swal("您所選的資源及時段目前己被預訂", "請重新操作", "error")
+                                $('#Calendar-modal').modal('hide');
+                                EventRefresh();
+                            }
+                        },
+                        error: function (error) {
+                            alert("Reading failed")
+                        },
+                    })
 
-                    if (startDate > endDate) {
-                        alert('開始時間晚於結束時間, 請重新預訂');
-                        return;
-                    }                   
+
                     //end of expression of double booking
                 } // end of SaveEvent
 
-                var data = {
-                    MeetingRoomName: $('#MeetingRoomName').val(),
-                    MeetingRemark: $('#Description').val(),
-                    BookingStartTime: $('#startTime').val().trim(),
-                    BookingEndTime: $('#chboxisAllday').is(':checked') ? null : $('#endTime').val().trim(),
-                    MeetingSubject: $('#MeetingSubject').val().trim(),
-                    MeetingAttentee: $('#attendee').val().trim(),
-                    EmployeeID: $('#emId').val(),
-                    中文姓名: $('#emNname').val(),
-                    IsAllDay: $('#chboxisAllday').is(':checked'),
-                    BookingId: $('#hdeventID').val(),
-                    // status: v.Status,
-                    //eventID: v.BookingId,
-                }
-                SaveEvent(data);
-            /*    console.log(data)*/
-                clearAlltxt();
+                //    var data = {
+                //        MeetingRoomName: $('#MeetingRoomName').val(),
+                //        MeetingRemark: $('#Description').val(),
+                //        BookingStartTime: $('#startTime').val().trim(),
+                //        BookingEndTime: $('#chboxisAllday').is(':checked') ? null : $('#endTime').val().trim(),
+                //        MeetingSubject: $('#MeetingSubject').val().trim(),
+                //        MeetingAttentee: $('#attendee').val().trim(),
+                //        EmployeeID: $('#emId').val(),
+                //        中文姓名: $('#emNname').val(),
+                //        IsAllDay: $('#chboxisAllday').is(':checked'),
+                //        BookingId: $('#hdeventID').val(),
+                //        // status: v.Status,
+                //        //eventID: v.BookingId,
+                //    }
+                //    SaveEvent(data);
+                ///*    console.log(data)*/
+                //    clearAlltxt();
             })
 
             function SaveEvent(data) {
@@ -636,6 +731,8 @@ $(document).ready(() => {
 
             //Demo//
             $('#txtDemo').click(function () {
+                $('#emId').val(`${document.cookie.split('id=')[1].split('&')[0]}`);
+                $('#emNname').val(`${decodeURI(document.cookie.split('Name=')[1].split('&')[0])}`);   
                 $('#MeetingRoomName').dropdown('set selected', '605會議室');
                 $('#Description').val('例行會議');
                 $('#startTime').val('2021-4-25 1:30 AM');

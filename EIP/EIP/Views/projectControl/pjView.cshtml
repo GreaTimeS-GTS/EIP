@@ -163,25 +163,29 @@
     <div class="header">
         複審詳細內容
     </div>
-    <div class="content">
-        <p>詳細內容</p>
-        <div class="ui form">
-            <div class="fields">
-                <div class="four wide field">
-                    <label>專案成員</label>
-                    <input placeholder="Read Only" readonly="" type="text">
-                </div>
-                <div class="four wide field">
-                    <label>部門</label>
-                    <input placeholder="Read Only" readonly="" type="text">
-                </div>
-                <div class="eight wide field">
-                    <label>項目名稱</label>
-                    <input placeholder="Read Only" readonly="" type="text">
+    <div class="content" id="pj複審單body">
+    </div>
+    <div class="" id="pj複審單btn">
+    </div>
+    @*<div class="content">
+            <p>詳細內容</p>
+            <div class="ui form">
+                <div class="fields">
+                    <div class="four wide field">
+                        <label>專案成員</label>
+                        <input placeholder="Read Only" readonly="" type="text">
+                    </div>
+                    <div class="four wide field">
+                        <label>部門</label>
+                        <input placeholder="Read Only" readonly="" type="text">
+                    </div>
+                    <div class="eight wide field">
+                        <label>項目名稱</label>
+                        <input placeholder="Read Only" readonly="" type="text">
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
+        </div>*@
 </div>
 
 
@@ -266,7 +270,7 @@
                         })
                     }
                 })
-            }
+            } 
             function pj結案審核紐() {
                 var id = $(event.currentTarget).data('id');
                 console.log(id);
@@ -1606,7 +1610,7 @@
                 $('#content建立初審').html("");
                 $('#content建立初審').append(`
                                        <form class="ui form content建立初審Form">
-                                    <div class="fields">
+                                    <div class="fields ml-3">
                                         <div class="five wide field">
                                             <label>專案名稱</label>
                                             <input type="text" placeholder="專案名稱" class="cr8專案名稱">
@@ -1618,7 +1622,7 @@
                                         </div>
                                         <div class="five wide field"></div>
                                     </div>
-                                    <div class="fields">
+                                    <div class="fields ml-3">
                                         <div class="five wide field">
                                             <label>專案簡介</label>
                                             <input type="text" placeholder="專案簡介" class="cr8專案簡介">
@@ -1630,7 +1634,7 @@
                                         </div>
                                         <div class="five wide field"></div>
                                     </div>
-                                    <div class="fields">
+                                    <div class="fields ml-3">
                                         <div class="five wide field">
                                             <label>專案經理</label>
                                             <input type="text" placeholder="" class="cr8專案經理" value="${decodeURI(document.cookie.split('Name=')[1].split('&')[0])}">
@@ -1650,7 +1654,7 @@
                                         </div>
                                         <div class="five wide field"></div>
                                     </div>
-                                    <div class="fields">
+                                    <div class="fields ml-3">
                                         <div class="five wide field">
                                             <label>專案客戶</label>
                                             <input type="text" placeholder="" class="cr8專案客戶">
@@ -2518,17 +2522,17 @@
                                                     success: function (data2) {
                                                         console.log(data2);
                                                         $('.pj初審單header').html(`${data.pjName}`);
-                                                        $('#pj複審單').html('')
+                                                        $('#pj複審單body').html('')
                                                         $('.pj初審單header').html(`${data.pjName}`);
                                                         //for (var i = 1; i <= data.pjMemberCount; i++) {
                                                         $(data2).each(function (index, item) {
                                                             console.log(item);
                                                             $('.pj初審單header').html(`${data.pjName}`);
 
-                                                            $('#pj複審單').append(`
+                                                            $('#pj複審單body').append(`
 
                                                                     <form class="ui form" id="cr8form">
-                                                                        <div class="fields">
+                                                                        <div class="fields ml-3">
 
                                                                             <div class="two wide field">
                                                                                 <label>部門</label>
@@ -2559,14 +2563,14 @@
                                                         }
                                                         )
                                                         //}
-                                                        $('#pj複審單').append(`
-                                                                      <div class="ui form">
+                                                        $('#pj複審單btn').html(`
+                                                                      <div class="ui form ml-5">
 
                      <label>意見內容</label>
                                                                 <textarea type="text" placeholder="First Name" id="pj意見內容"></textarea>
                                                             </div>
 
-                    <div class="ui form">
+                    <div class="ui form ml-5">
                                                                     <div class="eleven wide field d-flex justify-content-end">
                                                               <select class="ui dropdown" name="pj複審結果" id="pj複審結果">
                                                                         <option value="" hidden>待審核</option>
@@ -2574,14 +2578,14 @@
                                                                         <option value="不通過">不通過</option>
                                                                     </select>
 
-                    <div class="field">
+                    <div class="ml-3 ten wide field d-flex justify-content-end">
 
 
 
                                                                         <button class="ui inverted red button"onclick="close詳細2()">取消</button>
+                                                                        <button class="ui inverted primary button  pj複審結果 複審審核" id="" onclick="close詳細2()">確認</button>
                         </div>
                        <div class="field">
-                                                                        <button class="ui inverted primary button  pj複審結果 複審審核" id="" onclick="close詳細2()">確認</button>
 
                                                                     </div>
                                                                     <div class="five wide field"></div>
@@ -2904,17 +2908,18 @@
                                                     method: "post",
                                                     data: { "id": id },
                                                     success: function (data2) {
+                                                        $('#pj複審單body').html('')
                                                         console.log(data2);
-                                                        $('#pj複審單').html('')
+                                                        //$('#pj複審單').html('')
                                                         $('.pj初審單header').html(`${data.pjName}`);
                                                         //for (var i = 1; i <= data.pjMemberCount; i++) {
                                                         $(data2).each(function (index, item) {
                                                             console.log(item);
                                                             $('.pj初審單header').html(`${data.pjName}`);
-                                                            $('#pj複審單').append(`
+                                                            $('#pj複審單body').append(`
 
                                                                     <form class="ui form" id="cr8form">
-                                                                        <div class="fields">
+                                                                        <div class="fields ml-3">
 
                                                                             <div class="two wide field">
                                                                                 <label>部門</label>
@@ -2945,28 +2950,20 @@
                                                         }
                                                         )
                                                         //}
-                                                        $('#pj複審單').append(`
-                                                                      <div class="ui form">
-
+                                                        $('#pj複審單btn').html(`
+                                                                      <div class="ui form ml-5">
+        <div class="ten wide field">
                      <label>意見內容</label>
                                                                 <input type="text" placeholder="First Name" id="pj意見內容"  value="${data.pj意見內容}">
                                                             </div>
 
-                    <div class="ui form">
-
-
-                    <div class="field">
-
-
-
-                                                                        <button class="ui inverted red button"onclick="close詳細2()">取消</button>
-                        </div>
-                       <div class="field">
+            <button class="ui inverted red button"onclick="close詳細2()">取消</button>
                                                                         <button class="ui inverted primary button  pj複審結果 複審審核" id="" onclick="close詳細2()">確認</button>
 
-                                                                    </div>
-                                                                    <div class="five wide field"></div>
-                                                                </div>
+                                                            </div>
+
+
+
 
                     <div class="field" hidden>
                                                                     <label>開始日期</label>

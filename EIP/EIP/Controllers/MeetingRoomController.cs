@@ -24,8 +24,36 @@ namespace EIP.Controllers
             var events = db.MeetingRoomBooking.ToList();
             //Console.WriteLine(events);
             return Json(events, JsonRequestBehavior.AllowGet);
-        }  
+        }
 
+        public ActionResult CheckBooking(string MeetingRoomName, DateTime BookingStartTime, DateTime BookingEndTime)
+        {
+            //var checkdouble = $"{MeetingRoomName} \r\n {BookingStartTime} \r\n {BookingEndTime}";
+            //var startDay = BookingStartTime.Date;
+            //var startHour = BookingStartTime.ToString("HH");
+            //var startMinute = BookingStartTime.ToString("mm");
+
+            //var endDay = BookingEndTime.Date;
+            //public ActionResult CheckBooking()
+            var status = false;
+
+            var step1 = db.MeetingRoomBooking.Where(b => b.MeetingRoomName == MeetingRoomName && b.BookingStartTime <= BookingStartTime && b.BookingEndTime >= BookingStartTime).Select(b => new { id = b.BookingId, });
+            var step2 = db.MeetingRoomBooking.Where(b => b.MeetingRoomName == MeetingRoomName && b.BookingEndTime >= BookingEndTime && b.BookingStartTime <= BookingEndTime).Select(b => new { id = b.BookingId, });
+            var step3 = db.MeetingRoomBooking.Where(b => b.MeetingRoomName == MeetingRoomName && b.BookingStartTime <= BookingStartTime && b.BookingStartTime >= BookingEndTime).Select(b => new { id = b.BookingId, });
+            var step4 = db.MeetingRoomBooking.Where(b => b.MeetingRoomName == MeetingRoomName && b.BookingEndTime >= BookingStartTime && b.BookingEndTime <= BookingEndTime).Select(b => new { id = b.BookingId, });
+            //var checkdouble = $"{step1} \r\n {step2} \r\n {step3} \r\n {step4}";
+            if (step1.Count() > 0 || step2.Count() > 0 || step3.Count() > 0 || step4.Count() > 0)
+            {
+                status = true;
+                return Json(status, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                status = false;
+                return Json(status, JsonRequestBehavior.AllowGet);
+            }
+            //return Json(checkdouble, JsonRequestBehavior.AllowGet);
+        }
         public JsonResult checkBoxStatus(string Room)
         {
             var bb = db.MeetingRoomBooking.Where(a => a.MeetingRoomName == Room).Select(editevent => new
