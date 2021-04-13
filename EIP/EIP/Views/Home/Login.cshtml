@@ -58,8 +58,11 @@
                     <i class="icon sign-in"></i>
                     主管
                 </button>
+                <button class="ui black button w-25 mt-2 demoforgetemail text-nowrap">
+                    <i class="icon sign-in"></i>
+                    忘記密碼
+                </button>
             </div>
-
             <button class="ui black button w-25 mt-2 demo2">
                 <i class="icon sign-in"></i>
                 人事
@@ -68,7 +71,7 @@
                 <i class="icon sign-in"></i>
                 員工
             </button>
-            <button class="ui black button w-50 mt-2 demonew">
+            <button class="ui black button w-25 mt-2 demonew">
                 <i class="icon sign-in"></i>
                 新員工
             </button>
@@ -124,6 +127,9 @@
 
 @section script{
     <script>
+        $(".demoforgetemail").click(function () {
+            $(".ACCtext").val('hu999123000@gmail.com');
+        });
         $(".demoforget").click(() => {
             $(".EmpID").val('14');
             $(".EmpEmail").val('hu999123000@gmail.com');
@@ -156,7 +162,8 @@
             $(".demo6").attr('hidden', false);
             $(".demonew").attr('hidden', false);     
             $(".demo資訊員工").attr('hidden', false);
-            $(".demo資訊主管").attr('hidden', false);
+            $(".demo資訊主管").attr('hidden', false);           
+            $(".demoforgetemail").attr('hidden', false);
         });
         $(".demo5").click(function () {      
             $(".demo1").attr('hidden', true);
@@ -166,6 +173,7 @@
             $(".demonew").attr('hidden', true);
             $(".demo資訊員工").attr('hidden', true);
             $(".demo資訊主管").attr('hidden', true);
+            $(".demoforgetemail").attr('hidden', true);
         });
         $(".demo資訊主管").click(function () {
             $(".ACCtext").val('kennethfu@gmail.com');
