@@ -280,6 +280,7 @@ namespace EIP.Controllers
                     pjManager = n.pjProject.pjManager,
                     pjIntroduction = n.pjProject.pjIntroduction,
                     pj結案 = n.pjProject.pj結案,
+                    pjTarget = n.pjTarget,
                 }).Distinct(); //刪除重複的相同資料
             return Json(pjTeamData, JsonRequestBehavior.AllowGet);
         }
